@@ -1,9 +1,13 @@
 package zqx.rj.com.playandroid.net
 
+import com.youth.banner.Banner
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 import rx.Observable
-import zqx.rj.com.playandroid.account.data.bean.AccountData
+import zqx.rj.com.mvvm.http.response.BaseResponse
+import zqx.rj.com.playandroid.account.data.bean.response.LoginRsp
+import zqx.rj.com.playandroid.home.data.bean.BannerRsp
 
 /**
  * author：  HyZhan
@@ -14,5 +18,8 @@ interface ApiService {
 
     @POST("/user/login")
     fun getLogin(@Query("username") username: String,
-                 @Query("password") password: String): Observable<AccountData>
+                 @Query("password") password: String): Observable<BaseResponse<LoginRsp>>
+
+    @GET("/banner/json")
+    fun getBanner(): Observable<BaseResponse<List<BannerRsp>>>
 }

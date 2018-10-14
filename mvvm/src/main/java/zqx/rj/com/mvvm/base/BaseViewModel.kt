@@ -18,12 +18,13 @@ abstract class BaseViewModel<T : BaseRepository>(application: Application)
         MutableLiveData<State>()
     }
 
+    // 通过反射注入 mRepository
     val mRepository: T by lazy {
         // 获取 对应 Repository 实例 (有参构造函数)
          (Util.getClass<T>(this))
                  //获取构造函数的构造器, 传入参数 Class
                  .getDeclaredConstructor(MutableLiveData::class.java)
-                 // 传入参数
+                 // 传入参数 (后面子类 repository 会用到 )
                  .newInstance(loadState)
     }
 

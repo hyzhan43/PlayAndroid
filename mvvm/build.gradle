@@ -68,4 +68,10 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:${okhttp_version}"
     compile "com.squareup.retrofit2:converter-gson:${retrofit_version}"
     compile "com.squareup.retrofit2:adapter-rxjava:${retrofit_version}"
+
+    // banner
+    compile "com.youth.banner:banner:$banner_version"
+
+    // Glide
+    compile "com.github.bumptech.glide:glide:$glide_version"
 }

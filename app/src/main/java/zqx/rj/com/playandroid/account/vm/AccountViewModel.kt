@@ -5,8 +5,9 @@ import android.arch.lifecycle.MutableLiveData
 import zqx.rj.com.mvvm.base.BaseViewModel
 import zqx.rj.com.mvvm.common.constant.StateType
 import zqx.rj.com.mvvm.common.State
+import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.account.data.bean.AccountData
+import zqx.rj.com.playandroid.account.data.bean.response.LoginRsp
 import zqx.rj.com.playandroid.account.data.repository.AccountRepository
 
 /**
@@ -16,15 +17,15 @@ import zqx.rj.com.playandroid.account.data.repository.AccountRepository
  */
 class AccountViewModel(application: Application) : BaseViewModel<AccountRepository>(application) {
 
-    private val mLoginData: MutableLiveData<AccountData> by lazy {
-        MutableLiveData<AccountData>()
+    private val mLoginData: MutableLiveData<BaseResponse<LoginRsp>> by lazy {
+        MutableLiveData<BaseResponse<LoginRsp>>()
     }
 
-    fun requestLogin(): MutableLiveData<AccountData> {
+    fun getLoginData(): MutableLiveData<BaseResponse<LoginRsp>> {
         return mLoginData
     }
 
-    fun requestLogin(username: String, password: String) {
+    fun getLoginData(username: String, password: String) {
         if (checkNotNull(username, password)) {
             mRepository.login(username, password, mLoginData)
         } else {

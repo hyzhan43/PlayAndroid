@@ -29,7 +29,7 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
 
         when (v?.id) {
             R.id.mBtnLogin -> {
-                mViewModel.requestLogin(mTieAccount.str(), mTiePassword.str())
+                mViewModel.getLoginData(mTieAccount.str(), mTiePassword.str())
             }
             R.id.mTvRegister -> {
                 toast(getString(R.string.register))
@@ -37,8 +37,11 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
         }
     }
 
+    // 监听数据变化
     override fun dataObserver() {
-        mViewModel.requestLogin().observe(this, Observer {
+
+        // 处理 repository 回调的数据
+        mViewModel.getLoginData().observe(this, Observer {
             it?.data?.let {
                 loadService.showCallback(SuccessCallback::class.java)
                 startActivity<MainActivity>()
