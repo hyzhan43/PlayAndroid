@@ -1,0 +1,71 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 27
+
+
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:design:$support_version"
+    compile "com.android.support:cardview-v7:$support_version"
+    compile "com.android.support:recyclerview-v7:$support_version"
+
+    compile "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+
+    compile "com.ashokvarma.android:bottom-navigation-bar:$bottom_bar_version"
+
+    // LiveData、ViewModel
+    compile "android.arch.lifecycle:extensions:$lifecycle_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+
+    // circle view
+    compile "de.hdodenhof:circleimageview:$circleimageview_version"
+
+    // anko
+    compile "org.jetbrains.anko:anko-commons:$anko_version"
+    // Appcompat-v7 (only Anko Commons)
+    compile "org.jetbrains.anko:anko-appcompat-v7-commons:$anko_version"
+    // Support-v4 (only Anko Commons)
+    compile "org.jetbrains.anko:anko-support-v4-commons:$anko_version"
+
+    // LoadSir
+     compile "com.kingja.loadsir:loadsir:$loadsir_version"
+
+    // RxKotlin and RxAndroid
+    compile "io.reactivex:rxkotlin:$rx_kotlin_version"
+    compile "io.reactivex:rxandroid:$rx_android_version"
+
+    // Retrofit
+    compile "com.squareup.okhttp3:okhttp:${okhttp_version}"
+    compile "com.squareup.retrofit2:retrofit:${retrofit_version}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okhttp_version}"
+    compile "com.squareup.retrofit2:converter-gson:${retrofit_version}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${retrofit_version}"
+}
