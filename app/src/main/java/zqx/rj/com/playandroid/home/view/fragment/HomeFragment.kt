@@ -6,7 +6,6 @@ import android.view.View
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
-import com.youth.banner.listener.OnBannerListener
 import kotlinx.android.synthetic.main.commom_bar.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.home_article_item.*
@@ -14,11 +13,9 @@ import kotlinx.android.synthetic.main.home_article_item.view.*
 import kotlinx.android.synthetic.main.home_banner_item.view.*
 import kotlinx.android.synthetic.main.home_special_item.view.*
 import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.mvvm.common.GlideImageLoader
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.R.id.mBanner
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.home.data.adapter.HomeArticleAdapter
 import zqx.rj.com.playandroid.home.data.bean.Article
@@ -110,22 +107,21 @@ class HomeFragment : LifecycleFragment<HomeViewModel>() {
         mViewModel.getBanner()
     }
 
-    // 监听数据变化
+    // 处理 repository 回调的数据
     override fun dataObserver() {
 
-        // 处理 repository 回调的数据
         mViewModel.mBannerData.observe(this, Observer {
-            it?.data?.let {
-                setBannerData(it)
-            }
+            it?.let { setBannerData(it.data) }
         })
 
-
         mViewModel.mHomeArticleData.observe(this, Observer {
-            if (it?.data?.datas?.size != 0)
-                setArticleData(it?.data?.datas)
-            else
-                mAdapter.loadMoreEnd()
+            it?.let {
+                // 如果没有更多数据 则 adapter 加载完毕
+                if (it.data.datas.isEmpty())
+                    mAdapter.loadMoreEnd()
+                else
+                    setArticleData(it.data.datas) // 否则 添加数据
+            }
         })
     }
 
