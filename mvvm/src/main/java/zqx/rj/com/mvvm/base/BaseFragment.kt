@@ -1,7 +1,6 @@
 package zqx.rj.com.mvvm.base
 
 import android.os.Bundle
-import android.support.annotation.IntegerRes
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,12 +22,14 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(getLayoutId(), null)
+        return inflater.inflate(getLayoutId(), null)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         initView()
         initData()
-
-        return view
     }
 
     open fun initView() {}

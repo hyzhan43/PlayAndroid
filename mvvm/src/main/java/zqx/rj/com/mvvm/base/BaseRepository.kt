@@ -8,21 +8,15 @@ import rx.subscriptions.CompositeSubscription
  * created： 2018/10/11 13:49
  * desc：    TODO
  */
-abstract class BaseRepository{
+abstract class BaseRepository {
 
-    private var mCompositeSubscription: CompositeSubscription? = null
+    private val mCompositeSubscription by lazy { CompositeSubscription() }
 
     protected fun addSubscribe(subscription: Subscription) {
-        if (mCompositeSubscription == null) {
-            mCompositeSubscription = CompositeSubscription()
-        }
-
-        mCompositeSubscription!!.add(subscription)
+        mCompositeSubscription.add(subscription)
     }
 
     fun unSubscribe() {
-        if (mCompositeSubscription != null && mCompositeSubscription!!.hasSubscriptions()) {
-            mCompositeSubscription!!.clear()
-        }
+        mCompositeSubscription.hasSubscriptions().let { mCompositeSubscription.clear() }
     }
 }

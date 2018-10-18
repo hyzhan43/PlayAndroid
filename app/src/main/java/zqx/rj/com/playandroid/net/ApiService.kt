@@ -1,13 +1,12 @@
 package zqx.rj.com.playandroid.net
 
 import com.youth.banner.Banner
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 import rx.Observable
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.playandroid.account.data.bean.response.LoginRsp
 import zqx.rj.com.playandroid.home.data.bean.BannerRsp
+import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
 
 /**
  * author：  HyZhan
@@ -22,4 +21,7 @@ interface ApiService {
 
     @GET("/banner/json")
     fun getBanner(): Observable<BaseResponse<List<BannerRsp>>>
+
+    @GET("/article/list/{page}/json")
+    fun getHomeArticle(@Path("page") page: Int): Observable<BaseResponse<HomeArticleRsp>>
 }

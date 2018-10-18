@@ -3,6 +3,7 @@
     package="zqx.rj.com.playandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name="zqx.rj.com.mvvm.base.BaseApplication"
@@ -12,7 +13,7 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".account.view.LoginActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +22,9 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".account.view.RegisterActivity" />
+        <activity android:name=".account.view.LoginActivity"/>
+        <activity android:name=".home.view.activity.SearchActivity"/>
+        <activity android:name=".home.view.activity.WebViewActivtiy"/>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import zqx.rj.com.mvvm.base.BaseViewModel
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.playandroid.home.data.bean.BannerRsp
+import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
 import zqx.rj.com.playandroid.home.data.repository.HomeRepository
 
 /**
@@ -14,16 +15,14 @@ import zqx.rj.com.playandroid.home.data.repository.HomeRepository
  */
 class HomeViewModel(application: Application) : BaseViewModel<HomeRepository>(application) {
 
-    private val mBannerData: MutableLiveData<BaseResponse<List<BannerRsp>>> by lazy {
-        MutableLiveData<BaseResponse<List<BannerRsp>>>()
-    }
-
-    fun getBannerData(): MutableLiveData<BaseResponse<List<BannerRsp>>> {
-        return mBannerData
-    }
-
+    var mBannerData: MutableLiveData<BaseResponse<List<BannerRsp>>> = MutableLiveData()
+    var mHomeArticleData: MutableLiveData<BaseResponse<HomeArticleRsp>> = MutableLiveData()
 
     fun getBanner() {
         mRepository.getBanner(mBannerData)
+    }
+
+    fun getArticle(page: Int) {
+        mRepository.getArticle(page, mHomeArticleData)
     }
 }

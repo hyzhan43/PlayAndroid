@@ -64,7 +64,6 @@
             android:inputType="textPassword"/>
     </android.support.design.widget.TextInputLayout>
 
-
     <Button
         android:id="@+id/mBtnLogin"
         android:layout_width="match_parent"
@@ -75,7 +74,7 @@
         android:background="@drawable/btn_bg"
         android:text="@string/login"
         android:textColor="@color/white"
-        android:textSize="@dimen/x18"
+        android:textSize="@dimen/s18"
         app:layout_constraintTop_toBottomOf="@+id/ti_password" />
 
     <TextView

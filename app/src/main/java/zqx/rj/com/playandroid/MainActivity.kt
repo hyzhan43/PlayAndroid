@@ -3,6 +3,7 @@ package zqx.rj.com.playandroid
 import android.support.v4.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
+import com.kingja.loadsir.callback.SuccessCallback
 import kotlinx.android.synthetic.main.activity_main.*
 import zqx.rj.com.mvvm.base.BaseActivity
 import zqx.rj.com.playandroid.home.view.fragment.HomeFragment
@@ -22,9 +23,7 @@ class MainActivity : BaseActivity() {
     private lateinit var mCurrent: Fragment
     private val mFragmentManager by lazy { supportFragmentManager }
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_main
-    }
+    override fun getLayoutId(): Int = R.layout.activity_main
 
 
     override fun initView() {
@@ -61,6 +60,8 @@ class MainActivity : BaseActivity() {
         mCurrent = mHomeFragment
         val transaction = mFragmentManager.beginTransaction()
         transaction.add(R.id.content, mHomeFragment).commit()
+
+        loadService.showCallback(SuccessCallback::class.java)
     }
 
     private fun switchFragment(position: Int) {
