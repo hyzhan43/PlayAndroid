@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/mIvBack"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/app_name"
+        android:rotation="180"
+        android:src="@drawable/ic_back" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/mEtInput"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/r_white_bg"
+            android:hint="@string/input_tips"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingStart="12dp"
+            android:textSize="@dimen/s14"
+            tools:ignore="RtlSymmetry" />
+
+        <ImageView
+            android:id="@+id/mIvClose"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_close" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/mBtnSearch"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:text="@string/search"
+        android:textColor="@color/white" />
+</LinearLayout>

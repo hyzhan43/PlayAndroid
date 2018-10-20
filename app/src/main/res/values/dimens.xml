@@ -3,10 +3,14 @@
     <dimen name="s20">20sp</dimen>
     <dimen name="s18">18sp</dimen>
     <dimen name="s16">16sp</dimen>
+    <dimen name="s14">14sp</dimen>
     <dimen name="s12">12sp</dimen>
     <dimen name="s10">10sp</dimen>
+    <dimen name="s8">8sp</dimen>
 
     <dimen name="d16">16dp</dimen>
     <dimen name="d18">18dp</dimen>
     <dimen name="d20">20dp</dimen>
+
+
 </resources>

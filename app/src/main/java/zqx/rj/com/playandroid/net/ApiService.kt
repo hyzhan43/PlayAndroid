@@ -7,6 +7,8 @@ import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.playandroid.account.data.bean.response.LoginRsp
 import zqx.rj.com.playandroid.home.data.bean.BannerRsp
 import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
+import zqx.rj.com.playandroid.home.data.bean.HomeHotKeyRsp
+import zqx.rj.com.playandroid.home.data.bean.HomeSearchRsp
 
 /**
  * author：  HyZhan
@@ -24,4 +26,11 @@ interface ApiService {
 
     @GET("/article/list/{page}/json")
     fun getHomeArticle(@Path("page") page: Int): Observable<BaseResponse<HomeArticleRsp>>
+
+    @GET("/hotkey/json")
+    fun getHotKey(): Observable<BaseResponse<List<HomeHotKeyRsp>>>
+
+    @POST("/article/query/{page}/json")
+    fun search(@Path("page") page: Int, @Query("k") key: String)
+            : Observable<BaseResponse<HomeSearchRsp>>
 }

@@ -20,4 +20,7 @@
     <string name="common_title">常用专区</string>
     <string name="news_article">最新博文</string>
     <string name="search">搜索</string>
+    <string name="input_tips">请输入搜索关键词</string>
+    <string name="hot_key">热门搜索</string>
+    <string name="history">最近搜索</string>
 </resources>

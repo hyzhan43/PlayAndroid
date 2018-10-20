@@ -7,12 +7,14 @@ import zqx.rj.com.mvvm.http.rx.BaseObserver
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
 import zqx.rj.com.playandroid.home.data.bean.BannerRsp
 import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
+import zqx.rj.com.playandroid.home.data.bean.HomeHotKeyRsp
+import zqx.rj.com.playandroid.home.data.bean.HomeSearchRsp
 import zqx.rj.com.playandroid.net.ApiRepository
 
 /**
  * author：  HyZhan
  * created： 2018/10/14 19:09
- * desc：    TODO
+ * desc：    首页仓库
  */
 class HomeRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
 
@@ -27,5 +29,17 @@ class HomeRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
         addSubscribe(apiService.getHomeArticle(page)
                 .compose(RxSchedulers.ioToMain())
                 .subscribe(object : BaseObserver<BaseResponse<HomeArticleRsp>>(liveData, loadState) {}))
+    }
+
+    fun getHotKey(liveData: MutableLiveData<BaseResponse<List<HomeHotKeyRsp>>>) {
+        addSubscribe(apiService.getHotKey()
+                .compose(RxSchedulers.ioToMain())
+                .subscribe(object : BaseObserver<BaseResponse<List<HomeHotKeyRsp>>>(liveData, loadState) {}))
+    }
+
+    fun search(page: Int, str: String, liveData: MutableLiveData<BaseResponse<HomeSearchRsp>>) {
+        addSubscribe(apiService.search(page, str)
+                .compose(RxSchedulers.ioToMain())
+                .subscribe(object : BaseObserver<BaseResponse<HomeSearchRsp>>(liveData, loadState) {}))
     }
 }

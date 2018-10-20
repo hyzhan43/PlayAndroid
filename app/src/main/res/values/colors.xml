@@ -8,7 +8,9 @@
     <!--主色调-->
     <color name="colorPrimaryDark">#01ABF9</color>
     <color name="colorAccent">#01ABF9</color>
+
     <color name="colorDark">#FF0158F9</color>
+    <color name="colorLightDark">#029ae1</color>
 
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#CECECE</color>

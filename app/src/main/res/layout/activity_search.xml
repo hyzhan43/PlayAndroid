@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/mLlContent">
 
     <include
-        android:id="@+id/mIcCommonBar"
-        layout="@layout/commom_bar" />
+        android:id="@+id/mIcSearch"
+        layout="@layout/common_search" />
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        android:id="@+id/mIcHotKey"
+        layout="@layout/common_icon_title" />
+
+    <com.zhy.view.flowlayout.TagFlowLayout
+        android:id="@+id/mTagFlowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <include
+        android:id="@+id/mIcHistory"
+        layout="@layout/common_icon_title" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRvHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRvResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>

@@ -14,7 +14,6 @@ import zqx.rj.com.mvvm.http.response.BaseResponse
  */
 abstract class BaseObserver<T : BaseResponse<*>>(val liveData: MutableLiveData<T>,
                                                  val loadState: MutableLiveData<State>) : Observer<T> {
-
     private val LOGIN_SUC = 0
 
     override fun onNext(response: T) {

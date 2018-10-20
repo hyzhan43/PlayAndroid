@@ -80,4 +80,7 @@ dependencies {
 
     // webView 库
     compile "com.just.agentweb:agentweb:$agentweb_version"
+
+    // 流式布局库
+    compile "com.hyman:flowlayout-lib:$flowlayout_version"
 }

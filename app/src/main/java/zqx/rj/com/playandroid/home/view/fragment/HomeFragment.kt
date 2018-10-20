@@ -55,20 +55,7 @@ class HomeFragment : LifecycleFragment<HomeViewModel>() {
         mRvArticle.layoutManager = LinearLayoutManager(context)
         mRvArticle.adapter = mAdapter
 
-        val headView = View.inflate(activity, R.layout.home_banner_item, null)
-        // 设置标题
-        initTitle(headView)
-
-        mBanner = headView.mBanner
-        mBanner.setOnBannerListener { startActivity<WebViewActivtiy>("link" to urls[it]) }
-
-        // 添加 Banner
-        mAdapter.addHeaderView(headView)
-
-        mBanner.setImageLoader(GlideImageLoader())
-        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
-        mBanner.setDelayTime(3000)
-        mBanner.setBannerAnimation(Transformer.DepthPage)
+        initHeadView()
 
         // ♥ 型按钮
         mAdapter.setOnItemChildClickListener { _, _, position ->
@@ -83,10 +70,24 @@ class HomeFragment : LifecycleFragment<HomeViewModel>() {
 
         mAdapter.setEnableLoadMore(true)
         // 上拉加载更多
-        mAdapter.setOnLoadMoreListener({
-            mViewModel.getArticle(page++)
-        }, mRvArticle)
+        mAdapter.setOnLoadMoreListener({ mViewModel.getArticle(page++) }, mRvArticle)
+    }
 
+    private fun initHeadView() {
+        val headView = View.inflate(activity, R.layout.home_banner_item, null)
+        // 设置标题
+        initTitle(headView)
+
+        mBanner = headView.mBanner
+        mBanner.setOnBannerListener { startActivity<WebViewActivtiy>("link" to urls[it]) }
+
+        // 添加 Banner
+        mAdapter.addHeaderView(headView)
+
+        mBanner.setImageLoader(GlideImageLoader())
+        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
+        mBanner.setDelayTime(3000)
+        mBanner.setBannerAnimation(Transformer.DepthPage)
     }
 
     private fun initTitle(headView: View?) {

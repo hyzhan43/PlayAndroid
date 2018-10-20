@@ -18,6 +18,7 @@ buildscript {
     ext.glide_version = '4.8.0'
     ext.adapter_helper_version = '2.9.30'
     ext.agentweb_version = '4.0.2'
+    ext.flowlayout_version = '1.1.2'
 
     repositories {
         google()
