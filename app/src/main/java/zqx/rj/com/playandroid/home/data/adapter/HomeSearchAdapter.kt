@@ -1,5 +1,6 @@
 package zqx.rj.com.playandroid.home.data.adapter
 
+import android.graphics.Color
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.text.Html
@@ -7,6 +8,7 @@ import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.text.Html.fromHtml
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import zqx.rj.com.mvvm.common.Util
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.home.data.bean.SearchResult
 

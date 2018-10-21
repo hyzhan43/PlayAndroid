@@ -7,13 +7,13 @@
     <string name="register">注册</string>
     <string name="accountOrPassword_empty">请输入账号/密码~</string>
     <string name="home">首页</string>
-    <string name="navigation">分类</string>
+    <string name="navigation">导航</string>
     <string name="mine">我的</string>
     <string name="app_desc">一款每日推荐优质文章的app</string>
     <string name="author">作者</string>
     <string name="category">分类</string>
     <string name="test_time">5小时前</string>
-    <string name="test">啊就死都啊就哦i啊囧阿三加大家送阿斯顿啊四</string>
+    <string name="test">啊就死都啊就哦i啊囧阿三加大家送阿斯顿啊四啊就死都啊就哦i啊囧阿三加大家送阿斯顿啊四</string>
     <string name="horizontal_bar">——</string>
     <string name="common_tools">常用工具</string>
     <string name="common_websites">常用网站</string>

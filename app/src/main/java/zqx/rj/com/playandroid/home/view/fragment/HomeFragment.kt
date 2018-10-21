@@ -20,6 +20,7 @@ import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.home.data.adapter.HomeArticleAdapter
 import zqx.rj.com.playandroid.home.data.bean.Article
 import zqx.rj.com.playandroid.home.data.bean.BannerRsp
+import zqx.rj.com.playandroid.home.view.activity.CommonWebActivity
 import zqx.rj.com.playandroid.home.view.activity.SearchActivity
 import zqx.rj.com.playandroid.home.view.activity.WebViewActivtiy
 import zqx.rj.com.playandroid.home.vm.HomeViewModel
@@ -93,10 +94,9 @@ class HomeFragment : LifecycleFragment<HomeViewModel>() {
     private fun initTitle(headView: View?) {
         headView?.let {
             it.mIcCommonTitle.mTvTitle.text = getString(R.string.common_title)
-            it.mBtnTools.setOnClickListener { startActivity<SearchActivity>() }
-
             it.mIcNewsArticle.mTvTitle.text = getString(R.string.news_article)
-            it.mBtnWebsites.setOnClickListener { startActivity<SearchActivity>() }
+            it.mBtnTools.setOnClickListener { startActivity<SearchActivity>() }
+            it.mBtnWebsites.setOnClickListener { startActivity<CommonWebActivity>() }
         }
     }
 

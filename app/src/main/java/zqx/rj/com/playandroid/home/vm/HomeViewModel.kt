@@ -7,10 +7,7 @@ import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.common.constant.StateType
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.home.data.bean.BannerRsp
-import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
-import zqx.rj.com.playandroid.home.data.bean.HomeHotKeyRsp
-import zqx.rj.com.playandroid.home.data.bean.HomeSearchRsp
+import zqx.rj.com.playandroid.home.data.bean.*
 import zqx.rj.com.playandroid.home.data.repository.HomeRepository
 
 /**
@@ -24,6 +21,7 @@ class HomeViewModel(application: Application) : BaseViewModel<HomeRepository>(ap
     var mHomeArticleData: MutableLiveData<BaseResponse<HomeArticleRsp>> = MutableLiveData()
     var mHotKeyData: MutableLiveData<BaseResponse<List<HomeHotKeyRsp>>> = MutableLiveData()
     var mSearchResultData: MutableLiveData<BaseResponse<HomeSearchRsp>> = MutableLiveData()
+    var mCommonWebData: MutableLiveData<BaseResponse<List<CommonWebRsp>>> = MutableLiveData()
 
     fun getBanner() {
         mRepository.getBanner(mBannerData)
@@ -43,5 +41,9 @@ class HomeViewModel(application: Application) : BaseViewModel<HomeRepository>(ap
         } else {
             loadState.postValue(State(StateType.TIPS, tip = R.string.input_tips))
         }
+    }
+
+    fun getCommonWeb(){
+        mRepository.getCommonWeb(mCommonWebData)
     }
 }

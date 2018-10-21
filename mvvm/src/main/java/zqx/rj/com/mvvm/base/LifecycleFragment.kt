@@ -56,10 +56,10 @@ abstract class LifecycleFragment<T : BaseViewModel<*>> : BaseFragment() {
             state?.let {
                 when (it.code) {
                     StateType.SUCCESS -> showSuccess()
-                    StateType.ERROR -> showError(state.msg)
+                    StateType.ERROR -> showError(it.msg)
                     StateType.LOADING -> showLoading()
                     StateType.NETWORK -> showNetWork()
-                    StateType.TIPS -> showTips(state.tip)
+                    StateType.TIPS -> showTips(it.tip)
                 }
             }
         }

@@ -25,6 +25,7 @@
         <activity android:name=".account.view.LoginActivity"/>
         <activity android:name=".home.view.activity.SearchActivity"/>
         <activity android:name=".home.view.activity.WebViewActivtiy"/>
+        <activity android:name=".home.view.activity.CommonWebActivity"/>
     </application>
 
 </manifest>

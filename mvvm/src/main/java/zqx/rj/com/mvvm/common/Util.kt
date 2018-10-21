@@ -1,9 +1,15 @@
 package zqx.rj.com.mvvm.common
 
 import android.content.Context
+import android.text.SpannableString
+import android.text.Spanned
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import java.lang.reflect.ParameterizedType
+import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+import android.text.style.ForegroundColorSpan
+import java.util.regex.Pattern
+
 
 /**
  * author：  HyZhan
@@ -29,4 +35,5 @@ object Util {
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
+
 }

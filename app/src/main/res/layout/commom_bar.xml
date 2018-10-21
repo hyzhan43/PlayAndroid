@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:maxWidth="250dp"
+        android:maxWidth="270dp"
         android:text="@string/test"
         android:textColor="@color/white"
         android:textSize="@dimen/s16"

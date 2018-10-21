@@ -5,10 +5,8 @@ import retrofit2.http.*
 import rx.Observable
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.playandroid.account.data.bean.response.LoginRsp
-import zqx.rj.com.playandroid.home.data.bean.BannerRsp
-import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
-import zqx.rj.com.playandroid.home.data.bean.HomeHotKeyRsp
-import zqx.rj.com.playandroid.home.data.bean.HomeSearchRsp
+import zqx.rj.com.playandroid.home.data.bean.*
+import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
 
 /**
  * author：  HyZhan
@@ -31,6 +29,11 @@ interface ApiService {
     fun getHotKey(): Observable<BaseResponse<List<HomeHotKeyRsp>>>
 
     @POST("/article/query/{page}/json")
-    fun search(@Path("page") page: Int, @Query("k") key: String)
-            : Observable<BaseResponse<HomeSearchRsp>>
+    fun search(@Path("page") page: Int, @Query("k") key: String): Observable<BaseResponse<HomeSearchRsp>>
+
+    @GET("/friend/json")
+    fun getCommonWeb(): Observable<BaseResponse<List<CommonWebRsp>>>
+
+    @GET("/navi/json")
+    fun getCategory(): Observable<BaseResponse<List<NaviCategoryRsp>>>
 }

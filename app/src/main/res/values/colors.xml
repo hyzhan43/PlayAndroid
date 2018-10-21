@@ -14,8 +14,7 @@
 
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#CECECE</color>
+    <color name="lightGray">#EEEEEE</color>
     <color name="black">#000000</color>
-    
-    <color name="yellow">#FFAB00</color>
-    <color name="orange">#FF735C</color>
+
 </resources>

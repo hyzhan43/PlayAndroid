@@ -99,6 +99,7 @@ class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher {
             searchList = resultList
             hideOtherView()
             mResultAdapter.setNewData(resultList)
+            mResultAdapter.loadMoreComplete()
         }
     }
 
