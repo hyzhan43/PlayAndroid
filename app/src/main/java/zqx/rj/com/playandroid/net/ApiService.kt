@@ -1,12 +1,13 @@
 package zqx.rj.com.playandroid.net
 
-import com.youth.banner.Banner
 import retrofit2.http.*
 import rx.Observable
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.playandroid.account.data.bean.response.LoginRsp
 import zqx.rj.com.playandroid.home.data.bean.*
 import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
+import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
+import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
 
 /**
  * author：  HyZhan
@@ -36,4 +37,10 @@ interface ApiService {
 
     @GET("/navi/json")
     fun getCategory(): Observable<BaseResponse<List<NaviCategoryRsp>>>
+
+    @GET("/tree/json")
+    fun getTree(): Observable<BaseResponse<List<TopTreeRsp>>>
+
+    @GET("/article/list/{page}/json")
+    fun getTreeArticle(@Path("page") page: Int, @Query("cid") id: Int): Observable<BaseResponse<TreeArticleRsp>>
 }

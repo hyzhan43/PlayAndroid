@@ -18,15 +18,11 @@
             android:layout_width="100dp"
             android:layout_height="match_parent" />
 
-        <!--<View-->
-            <!--android:layout_width="1dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@color/gray" />-->
-
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:paddingBottom="10dp">
 
             <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/mTflRepresent"

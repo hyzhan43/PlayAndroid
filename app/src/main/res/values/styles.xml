@@ -14,8 +14,8 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
-    <style name="Hint_Title">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">20sp</item>
+    <!--去掉 TabLayout 默认 英文全部大写-->
+    <style name="TextAppearance.Design.Tab" parent="TextAppearance.AppCompat.Button">
+        <item name="textAllCaps">false</item>
     </style>
 </resources>

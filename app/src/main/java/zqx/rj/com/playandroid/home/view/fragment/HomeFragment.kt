@@ -3,13 +3,14 @@ package zqx.rj.com.playandroid.home.view.fragment
 import android.arch.lifecycle.Observer
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.kingja.loadsir.callback.SuccessCallback
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.commom_bar.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.home_article_item.*
-import kotlinx.android.synthetic.main.home_article_item.view.*
+import kotlinx.android.synthetic.main.article_item.*
+import kotlinx.android.synthetic.main.article_item.view.*
 import kotlinx.android.synthetic.main.home_banner_item.view.*
 import kotlinx.android.synthetic.main.home_special_item.view.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -35,7 +36,7 @@ import java.util.*
 class HomeFragment : LifecycleFragment<HomeViewModel>() {
 
     private val mAdapter: HomeArticleAdapter by lazy {
-        HomeArticleAdapter(R.layout.home_article_item, null)
+        HomeArticleAdapter(R.layout.article_item, null)
     }
 
     private lateinit var mBanner: Banner
@@ -123,6 +124,9 @@ class HomeFragment : LifecycleFragment<HomeViewModel>() {
                 else
                     setArticleData(it.data.datas) // 否则 添加数据
             }
+
+            // 关闭 loading
+            loadService.showCallback(SuccessCallback::class.java)
         })
     }
 

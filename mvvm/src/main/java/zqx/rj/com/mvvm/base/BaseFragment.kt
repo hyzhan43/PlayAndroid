@@ -5,8 +5,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
+import zqx.rj.com.mvvm.common.callback.LoadingCallback
 
 /**
  * author：  HyZhan
@@ -15,14 +17,13 @@ import com.kingja.loadsir.core.LoadSir
  */
 abstract class BaseFragment : Fragment() {
 
-    protected val loadService: LoadService<*> by lazy {
-        LoadSir.getDefault().register(this) {
-            reLoad()
-        }
-    }
+    protected lateinit var loadService: LoadService<*>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(getLayoutId(), null)
+        val rootView =  inflater.inflate(getLayoutId(), null)
+
+        loadService = LoadSir.getDefault().register(rootView) { reLoad() }
+        return loadService.loadLayout
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
+import com.kingja.loadsir.callback.SuccessCallback
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import kotlinx.android.synthetic.main.commom_bar.view.*
@@ -73,6 +74,9 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
         switchRepresent(0)
         // 默认选中第一个 category
         switchCategory(0)
+
+        // 关闭 loading
+        loadService.showCallback(SuccessCallback::class.java)
     }
 
     private fun initTagLayout(titles: List<String>, links: List<String>) {

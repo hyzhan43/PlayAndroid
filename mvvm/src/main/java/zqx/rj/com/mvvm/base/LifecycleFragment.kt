@@ -20,6 +20,9 @@ abstract class LifecycleFragment<T : BaseViewModel<*>> : BaseFragment() {
     protected lateinit var mViewModel: T
 
     override fun initView() {
+
+        loadService.showCallback(LoadingCallback::class.java)
+
         mViewModel = ViewModelProviders.of(this).get(Util.getClass(this))
         // 设置 通用状态
         mViewModel.loadState.observe(this, observer)

@@ -4,21 +4,21 @@ import android.arch.lifecycle.Observer
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.common_icon_title.view.*
-import kotlinx.android.synthetic.main.common_search.*
 import kotlinx.android.synthetic.main.common_search.view.*
 import kotlinx.android.synthetic.main.common_tag.view.*
-import kotlinx.android.synthetic.main.home_article_item.*
+import kotlinx.android.synthetic.main.article_item.*
 import org.jetbrains.anko.startActivity
 import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.mvvm.common.Util
-import zqx.rj.com.mvvm.common.str
+import zqx.rj.com.mvvm.common.hideKeyboard
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.home.data.adapter.HomeSearchAdapter
@@ -48,6 +48,19 @@ class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher {
 
         mIcSearch.mIvBack.setOnClickListener { finish() }
         mIcSearch.mIvClose.setOnClickListener { mIcSearch.mEtInput.setText("") }
+        mIcSearch.mBtnSearch.setOnClickListener { Util.showKeyboard(this, mLlContent, false) }
+
+        mIcSearch.mEtInput.addTextChangedListener(this)
+        // 点击 键盘search按钮 隐藏软键盘
+        mIcSearch.mEtInput.setOnEditorActionListener(TextView.OnEditorActionListener {
+            view, actionId, _ ->
+
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                view.hideKeyboard()
+                return@OnEditorActionListener true
+            }
+            false
+        })
 
         mIcHotKey.mIvIcon.setImageResource(R.drawable.ic_hotkey)
         mIcHotKey.mTvTitle.text = getString(R.string.hot_key)
@@ -56,7 +69,7 @@ class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher {
         mIcHistory.mTvTitle.text = getString(R.string.history)
 
         mRvResult.layoutManager = LinearLayoutManager(this)
-        mResultAdapter = HomeSearchAdapter(R.layout.home_article_item, null)
+        mResultAdapter = HomeSearchAdapter(R.layout.article_item, null)
         mRvResult.adapter = mResultAdapter
 
         // item
@@ -69,11 +82,6 @@ class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher {
         mResultAdapter.setOnItemChildClickListener { _, _, position ->
             LoginContext.instance.collect(this, mIvLove)
         }
-
-
-        mIcSearch.mBtnSearch.setOnClickListener { mViewModel.search(page, mIcSearch.mEtInput.str()) }
-        // 监听 搜索输入回调
-        mIcSearch.mEtInput.addTextChangedListener(this)
     }
 
     override fun initData() {
@@ -95,7 +103,7 @@ class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher {
         // 如果数据为空直接不 显示搜索结果
         if (resultList.isEmpty()) {
             hideOtherView()
-        } else if (!isShow){     // 因为是异步回调，当快速按键盘删除键时候，多次回调 需要加这个判断是否显示数据
+        } else if (!isShow) {     // 因为是异步回调，当快速按键盘删除键时候，多次回调 需要加这个判断是否显示数据
             searchList = resultList
             hideOtherView()
             mResultAdapter.setNewData(resultList)
@@ -136,12 +144,12 @@ class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher {
             }
         }
 
-        mTagFlowLayout.setOnTagClickListener { _, position, _ ->
+        mTagFlowLayout.setOnTagClickListener { view, position, _ ->
             mIcSearch.mEtInput.setText(tags[position])
             // 设置光标位置
             mIcSearch.mEtInput.setSelection(tags[position].length)
             // 关闭软键盘
-            Util.showKeyboard(this, mLlContent,false)
+            view.hideKeyboard()
             true
         }
     }
