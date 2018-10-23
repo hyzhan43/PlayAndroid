@@ -1,8 +1,10 @@
 package zqx.rj.com.playandroid.account.data.context
 
+import android.app.Activity
 import android.content.Context
 import android.widget.ImageView
 import zqx.rj.com.mvvm.context.UserState
+import zqx.rj.com.playandroid.mine.view.fragment.MineFragment
 
 /**
  * author：  HyZhan
@@ -26,4 +28,9 @@ class LoginContext private constructor() {
     fun collect(context: Context?, image: ImageView) {
         mState.collect(context, image)
     }
+
+    fun login(context: Activity?) {
+        mState.login(context)
+    }
+
 }

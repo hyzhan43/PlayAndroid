@@ -20,7 +20,7 @@
         android:layout_marginBottom="20dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_logo"
-        android:elevation="8dp"
+        android:elevation="5dp"
         app:civ_border_color="@color/white"
         app:civ_border_width="1dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_login_bg"

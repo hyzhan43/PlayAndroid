@@ -1,5 +1,6 @@
 package zqx.rj.com.mvvm.context
 
+import android.app.Activity
 import android.content.Context
 import android.widget.ImageView
 
@@ -11,4 +12,6 @@ import android.widget.ImageView
 interface UserState {
 
     fun collect(context: Context?, image: ImageView)
+
+    fun login(context: Activity?)
 }

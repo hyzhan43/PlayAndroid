@@ -1,5 +1,6 @@
 package zqx.rj.com.playandroid.account.data.context
 
+import android.app.Activity
 import android.content.Context
 import android.widget.ImageView
 import org.jetbrains.anko.startActivity
@@ -12,9 +13,14 @@ import zqx.rj.com.playandroid.account.view.LoginActivity
  * created： 2018/10/18 10:00
  * desc：    未登录状态
  */
-class LogoutState: UserState {
+class LogoutState : UserState {
+
     override fun collect(context: Context?, image: ImageView) {
         context?.toast("请先登录")
 //        context?.startActivity<LoginActivity>()
+    }
+
+    override fun login(context: Activity?) {
+        context?.startActivity<LoginActivity>()
     }
 }

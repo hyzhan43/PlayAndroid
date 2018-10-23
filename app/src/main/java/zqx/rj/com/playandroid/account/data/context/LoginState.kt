@@ -1,5 +1,6 @@
 package zqx.rj.com.playandroid.account.data.context
 
+import android.app.Activity
 import android.content.Context
 import android.widget.ImageView
 import org.jetbrains.anko.toast
@@ -19,4 +20,7 @@ class LoginState: UserState {
         // 设置选中 图标
         image.setImageResource(R.drawable.ic_collected)
     }
+
+    // 已登录状态 无须登录 不做任何操作
+    override fun login(context: Activity?) {}
 }

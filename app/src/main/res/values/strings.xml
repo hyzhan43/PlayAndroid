@@ -24,4 +24,10 @@
     <string name="hot_key">热门搜索</string>
     <string name="history">最近搜索</string>
     <string name="system">体系</string>
+    <string name="mine_collect">我的收藏</string>
+    <string name="mine_setting">设置</string>
+    <string name="mine_about">关于我的</string>
+    <string name="logout">未登录</string>
+    <string name="login_suc">登录成功</string>
+    <string name="mine_logout">退出登录</string>
 </resources>

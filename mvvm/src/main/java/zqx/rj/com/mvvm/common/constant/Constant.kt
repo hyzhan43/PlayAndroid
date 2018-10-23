@@ -8,5 +8,7 @@ package zqx.rj.com.mvvm.common.constant
 class Constant {
     companion object {
         val SERVER_ADDRESS = "http://www.wanandroid.com"
+        val REQUEST_LOGIN = 1
+        val LOGIN_SUC = 2
     }
 }

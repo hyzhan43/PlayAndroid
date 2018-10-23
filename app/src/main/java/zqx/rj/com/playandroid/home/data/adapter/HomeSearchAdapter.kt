@@ -9,6 +9,7 @@ import android.text.Html.fromHtml
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import zqx.rj.com.mvvm.common.Util
+import zqx.rj.com.mvvm.common.toHtml
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.home.data.bean.SearchResult
 
@@ -25,7 +26,7 @@ class HomeSearchAdapter(layoutId: Int, list: List<SearchResult>?)
         holder?.let {
             it.setText(R.id.mTvAuthor, article?.author)
             it.setText(R.id.mTvCategory, "${article?.chapterName}/${article?.superChapterName}")
-            it.setText(R.id.mTvTitle, Util.strToHtml(article?.title))
+            it.setText(R.id.mTvTitle, article?.title?.toHtml())
             it.setText(R.id.mTvTime, article?.niceDate)
             it.addOnClickListener(R.id.mIvLove)
         }

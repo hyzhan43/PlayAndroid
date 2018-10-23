@@ -27,23 +27,5 @@ object Util {
                 as Class<T>
     }
 
-    // 显示/隐藏软键盘
-    fun showKeyboard(context: Context, view: View, isShow: Boolean) {
-        val imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if (isShow) {
-            view.requestFocus()
-            imm.showSoftInput(view, 0)
-        } else {
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
-        }
-    }
 
-    // Android N（API level 24.）废弃了Html.fromHtml(String)
-    fun strToHtml(title: String?): String {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            return Html.fromHtml(title, FROM_HTML_MODE_COMPACT).toString()
-        } else {
-            return Html.fromHtml(title).toString()
-        }
-    }
 }

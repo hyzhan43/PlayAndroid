@@ -10,6 +10,7 @@ import zqx.rj.com.mvvm.base.BaseActivity
 import zqx.rj.com.playandroid.R
 import com.just.agentweb.AgentWeb
 import zqx.rj.com.mvvm.common.Util
+import zqx.rj.com.mvvm.common.toHtml
 
 
 /**
@@ -28,7 +29,7 @@ class WebViewActivtiy : BaseActivity() {
         mIvBack.visibility = View.VISIBLE
         mIvBack.setOnClickListener { finish() }
         val link = intent.getStringExtra("link")
-        mTvBarTitle.text = Util.strToHtml(intent.getStringExtra("title"))
+        mTvBarTitle.text = intent.getStringExtra("title").toHtml()
 
         mAgentWeb = AgentWeb.with(this)
                 // 传入 AgentWeb 父容器  mLlContent,  第二个参数是对应的 LinearLayout

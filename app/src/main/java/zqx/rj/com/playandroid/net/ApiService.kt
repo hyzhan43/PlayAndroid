@@ -3,7 +3,7 @@ package zqx.rj.com.playandroid.net
 import retrofit2.http.*
 import rx.Observable
 import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.playandroid.account.data.bean.response.LoginRsp
+import zqx.rj.com.playandroid.account.data.bean.LoginRsp
 import zqx.rj.com.playandroid.home.data.bean.*
 import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
 import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
@@ -43,4 +43,7 @@ interface ApiService {
 
     @GET("/article/list/{page}/json")
     fun getTreeArticle(@Path("page") page: Int, @Query("cid") id: Int): Observable<BaseResponse<TreeArticleRsp>>
+
+    @GET("/user/logout/json")
+    fun getLogout(): Observable<BaseResponse<*>>
 }

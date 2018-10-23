@@ -7,7 +7,7 @@ import zqx.rj.com.mvvm.common.constant.StateType
 import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.account.data.bean.response.LoginRsp
+import zqx.rj.com.playandroid.account.data.bean.LoginRsp
 import zqx.rj.com.playandroid.account.data.repository.AccountRepository
 
 /**

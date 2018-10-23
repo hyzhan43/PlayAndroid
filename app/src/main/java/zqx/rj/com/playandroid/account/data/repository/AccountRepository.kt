@@ -2,11 +2,10 @@ package zqx.rj.com.playandroid.account.data.repository
 
 import android.arch.lifecycle.MutableLiveData
 import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.common.constant.StateType
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.rx.BaseObserver
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
-import zqx.rj.com.playandroid.account.data.bean.response.LoginRsp
+import zqx.rj.com.playandroid.account.data.bean.LoginRsp
 import zqx.rj.com.playandroid.net.ApiRepository
 
 

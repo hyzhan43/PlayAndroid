@@ -48,12 +48,11 @@ class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher {
 
         mIcSearch.mIvBack.setOnClickListener { finish() }
         mIcSearch.mIvClose.setOnClickListener { mIcSearch.mEtInput.setText("") }
-        mIcSearch.mBtnSearch.setOnClickListener { Util.showKeyboard(this, mLlContent, false) }
+        mIcSearch.mBtnSearch.setOnClickListener { view -> view.hideKeyboard() }
 
         mIcSearch.mEtInput.addTextChangedListener(this)
         // 点击 键盘search按钮 隐藏软键盘
-        mIcSearch.mEtInput.setOnEditorActionListener(TextView.OnEditorActionListener {
-            view, actionId, _ ->
+        mIcSearch.mEtInput.setOnEditorActionListener(TextView.OnEditorActionListener { view, actionId, _ ->
 
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 view.hideKeyboard()
