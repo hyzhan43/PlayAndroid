@@ -19,6 +19,8 @@ abstract class BaseObserver<T : BaseResponse<*>>(val liveData: MutableLiveData<T
     override fun onNext(response: T) {
         if (response.errorCode == LOGIN_SUC) {
             liveData.postValue(response)
+            // 隐藏 loading
+            loadState.postValue(State(StateType.SUCCESS))
         } else {
             loadState.postValue(State(StateType.ERROR, msg = response.errorMsg))
         }

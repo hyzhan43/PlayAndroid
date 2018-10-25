@@ -9,6 +9,7 @@ import zqx.rj.com.mvvm.common.Util
 import zqx.rj.com.mvvm.common.callback.LoadingCallback
 import zqx.rj.com.mvvm.common.constant.StateType
 import zqx.rj.com.mvvm.common.State
+import zqx.rj.com.mvvm.common.callback.ErrorCallback
 
 /**
  * author：  HyZhan
@@ -20,6 +21,9 @@ abstract class LifecycleActivity<T : BaseViewModel<*>> : BaseActivity() {
     protected lateinit var mViewModel: T
 
     override fun initView() {
+
+        showLoading()
+
         mViewModel = ViewModelProviders.of(this).get(Util.getClass(this))
         // 设置 通用状态
         mViewModel.loadState.observe(this, observer)
@@ -29,7 +33,7 @@ abstract class LifecycleActivity<T : BaseViewModel<*>> : BaseActivity() {
     }
 
     open fun showError(msg: String) {
-        toast(msg)
+        toast("error: $msg")
     }
 
     open fun showSuccess() {
@@ -38,6 +42,7 @@ abstract class LifecycleActivity<T : BaseViewModel<*>> : BaseActivity() {
 
     private fun showNetWork() {
         toast(getString(R.string.network_fail))
+        loadService.showCallback(ErrorCallback::class.java)
     }
 
     open fun showLoading() {

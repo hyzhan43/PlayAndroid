@@ -5,6 +5,7 @@ import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.rx.BaseObserver
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
+import zqx.rj.com.playandroid.mine.data.bean.CollectRsp
 import zqx.rj.com.playandroid.net.ApiRepository
 
 /**
@@ -14,9 +15,9 @@ import zqx.rj.com.playandroid.net.ApiRepository
  */
 class MineRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
 
-    fun logout(liveData: MutableLiveData<BaseResponse<*>>) {
-        addSubscribe(apiService.getLogout()
+    fun getCollectArticle(liveData: MutableLiveData<BaseResponse<CollectRsp>>) {
+        addSubscribe(apiService.getCollectAtricle()
                 .compose(RxSchedulers.ioToMain())
-                .subscribe(object : BaseObserver<BaseResponse<*>>(liveData, loadState) {}))
+                .subscribe(object : BaseObserver<BaseResponse<CollectRsp>>(liveData, loadState) {}))
     }
 }

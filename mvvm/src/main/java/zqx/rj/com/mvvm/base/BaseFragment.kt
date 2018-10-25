@@ -5,10 +5,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
-import zqx.rj.com.mvvm.common.callback.LoadingCallback
 
 /**
  * author：  HyZhan
@@ -38,7 +36,9 @@ abstract class BaseFragment : Fragment() {
     open fun initData() {}
 
     // 重新加载
-    open fun reLoad() {}
+    open fun reLoad() {
+        initData()
+    }
 
     abstract fun getLayoutId(): Int
 }

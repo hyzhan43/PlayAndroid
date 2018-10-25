@@ -1,15 +1,17 @@
 package zqx.rj.com.playandroid.mine.view.fragment
 
-import android.util.Log
 import android.view.View
 import com.kingja.loadsir.callback.SuccessCallback
 import kotlinx.android.synthetic.main.common_icon_bar.view.*
 import kotlinx.android.synthetic.main.fragment_mine.*
 import org.jetbrains.anko.support.v4.toast
 import zqx.rj.com.mvvm.base.LifecycleFragment
+import zqx.rj.com.mvvm.common.Preference
+import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.callback.LoginSucListener
 import zqx.rj.com.playandroid.account.data.context.LoginContext
+import zqx.rj.com.playandroid.account.data.context.LogoutState
 import zqx.rj.com.playandroid.account.view.LoginActivity
 import zqx.rj.com.playandroid.mine.vm.MineViewModel
 
@@ -21,10 +23,20 @@ import zqx.rj.com.playandroid.mine.vm.MineViewModel
 class MineFragment : LifecycleFragment<MineViewModel>(),
         View.OnClickListener, LoginSucListener {
 
+    private val mNotLogin: String = "未登录"
+
+    // 委托属性   将实现委托给了 -> Preference
+    private var mUsername: String by Preference(Constant.USERNAME_KEY, mNotLogin)
+
     override fun getLayoutId(): Int = R.layout.fragment_mine
 
     override fun initView() {
         super.initView()
+
+        // 设置 登录成功 监听
+        LoginActivity.listener = this
+
+        mTvName.text = mUsername
 
         mCollectBar.mIvIcon.setImageResource(R.drawable.ic_collect)
         mCollectBar.mTvName.text = getString(R.string.mine_collect)
@@ -53,12 +65,10 @@ class MineFragment : LifecycleFragment<MineViewModel>(),
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.mTvName, R.id.mCivIcon -> {
-                // 设置 登录成功 监听
-                LoginActivity.listener = this
                 LoginContext.instance.login(activity)
             }
             R.id.mCollectBar -> {
-                toast(getString(R.string.mine_collect))
+                LoginContext.instance.toCollectActivity(context)
             }
             R.id.mAboutAuthor -> {
                 toast(getString(R.string.mine_about))
@@ -67,13 +77,21 @@ class MineFragment : LifecycleFragment<MineViewModel>(),
                 toast(getString(R.string.mine_setting))
             }
 
+            // 退出登录
             R.id.mLogoutBar -> {
-                mViewModel.logout()
+                // 清除 cookie、登录缓存
+                Preference.clear()
+                mTvName.text = mNotLogin
+                // 设置 未登录状态
+                LoginContext.instance.mState = LogoutState()
             }
         }
     }
 
+    // 登录成功 回调
     override fun success(collectIds: List<Int>, username: String) {
+        // 进行 SharedPreference 存储
+        mUsername = username
         mTvName.text = username
     }
 }

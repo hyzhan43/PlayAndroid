@@ -13,5 +13,7 @@ interface UserState {
 
     fun collect(context: Context?, image: ImageView)
 
-    fun login(context: Activity?)
+    fun login(context: Context?)
+
+    fun toCollectActivity(context: Context?)
 }

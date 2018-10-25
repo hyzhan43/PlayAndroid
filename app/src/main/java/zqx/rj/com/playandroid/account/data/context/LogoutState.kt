@@ -6,6 +6,7 @@ import android.widget.ImageView
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.context.UserState
+import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.view.LoginActivity
 
 /**
@@ -16,11 +17,22 @@ import zqx.rj.com.playandroid.account.view.LoginActivity
 class LogoutState : UserState {
 
     override fun collect(context: Context?, image: ImageView) {
-        context?.toast("请先登录")
-//        context?.startActivity<LoginActivity>()
+        jumpToLoginActivity(context)
     }
 
-    override fun login(context: Activity?) {
-        context?.startActivity<LoginActivity>()
+    override fun login(context: Context?) {
+        jumpToLoginActivity(context)
+    }
+
+    override fun toCollectActivity(context: Context?) {
+        jumpToLoginActivity(context)
+    }
+
+    // 跳转到登录
+    private fun jumpToLoginActivity(context: Context?) {
+        context?.let {
+            it.toast(it.getString(R.string.please_login))
+            it.startActivity<LoginActivity>()
+        }
     }
 }

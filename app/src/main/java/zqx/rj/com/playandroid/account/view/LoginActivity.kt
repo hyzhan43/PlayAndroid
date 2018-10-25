@@ -5,7 +5,8 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.base.LifecycleActivity
-import zqx.rj.com.mvvm.common.callback.LoadingCallback
+import zqx.rj.com.mvvm.common.Preference
+import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.common.str
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.callback.LoginSucListener
@@ -15,6 +16,8 @@ import zqx.rj.com.playandroid.account.vm.AccountViewModel
 
 class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListener {
 
+    private var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
+
     companion object {
         var listener: LoginSucListener? = null
     }
@@ -23,8 +26,11 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
 
     override fun initView() {
         super.initView()
+
         mBtnLogin.setOnClickListener(this)
         mTvRegister.setOnClickListener(this)
+
+        showSuccess()
     }
 
     override fun onClick(v: View?) {
@@ -46,8 +52,9 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
         mViewModel.getLoginData().observe(this, Observer {
             it?.data?.let {
                 // 加载进度
-                loadService.showCallback(LoadingCallback::class.java)
+                showLoading()
                 // 标记 已登录状态
+                isLogin = true
                 LoginContext.instance.mState = LoginState()
                 listener?.success(it.collectIds, it.username)
                 toast(getString(R.string.login_suc))
@@ -55,6 +62,8 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
             }
         })
     }
+
+
 
     override fun onBackPressed() = finish()
 }

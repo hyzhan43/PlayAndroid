@@ -3,8 +3,9 @@ package zqx.rj.com.playandroid.account.data.context
 import android.app.Activity
 import android.content.Context
 import android.widget.ImageView
+import zqx.rj.com.mvvm.common.Preference
+import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.context.UserState
-import zqx.rj.com.playandroid.mine.view.fragment.MineFragment
 
 /**
  * author：  HyZhan
@@ -13,8 +14,10 @@ import zqx.rj.com.playandroid.mine.view.fragment.MineFragment
  */
 class LoginContext private constructor() {
 
-    // 默认 未登录状态  logout
-    var mState: UserState = LogoutState()
+    private val isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
+
+    // 设置默认状态
+    var mState: UserState = if (isLogin) LoginState() else LogoutState()
 
     companion object {
         val instance = Holder.INSTANCE
@@ -25,9 +28,16 @@ class LoginContext private constructor() {
         val INSTANCE = LoginContext()
     }
 
+    // 收藏
     fun collect(context: Context?, image: ImageView) {
         mState.collect(context, image)
     }
+
+
+    fun toCollectActivity(context: Context?) {
+        mState.toCollectActivity(context)
+    }
+
 
     fun login(context: Activity?) {
         mState.login(context)

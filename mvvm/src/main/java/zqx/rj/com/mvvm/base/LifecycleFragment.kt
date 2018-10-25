@@ -4,9 +4,11 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import com.kingja.loadsir.callback.SuccessCallback
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.R
 import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.common.Util
+import zqx.rj.com.mvvm.common.callback.ErrorCallback
 import zqx.rj.com.mvvm.common.callback.LoadingCallback
 import zqx.rj.com.mvvm.common.constant.StateType
 
@@ -21,7 +23,7 @@ abstract class LifecycleFragment<T : BaseViewModel<*>> : BaseFragment() {
 
     override fun initView() {
 
-        loadService.showCallback(LoadingCallback::class.java)
+        showLoading()
 
         mViewModel = ViewModelProviders.of(this).get(Util.getClass(this))
         // 设置 通用状态
@@ -32,7 +34,7 @@ abstract class LifecycleFragment<T : BaseViewModel<*>> : BaseFragment() {
     }
 
     open fun showError(msg: String) {
-        toast(msg)
+        toast("error: $msg")
     }
 
     open fun showSuccess() {
@@ -41,6 +43,7 @@ abstract class LifecycleFragment<T : BaseViewModel<*>> : BaseFragment() {
 
     private fun showNetWork() {
         toast(getString(R.string.network_fail))
+        loadService.showCallback(ErrorCallback::class.java)
     }
 
     open fun showLoading() {
@@ -49,6 +52,11 @@ abstract class LifecycleFragment<T : BaseViewModel<*>> : BaseFragment() {
 
     private fun showTips(tips: Int) {
         toast(getString(tips))
+    }
+
+    override fun reLoad() {
+        showLoading()
+        super.reLoad()
     }
 
     abstract fun dataObserver()

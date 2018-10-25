@@ -1,33 +1,48 @@
 <resources>
     <string name="app_name">玩Android</string>
+
+    <!--account-->
     <string name="account">账号</string>
     <string name="password">密码</string>
     <string name="login">登录</string>
     <string name="register_tips">没有账号？去注册</string>
     <string name="register">注册</string>
+    <string name="login_suc">登录成功</string>
+    <string name="mine_logout">退出登录</string>
+    <string name="please_login">请先登录</string>
+
+    <!--home-->
     <string name="accountOrPassword_empty">请输入账号/密码~</string>
     <string name="home">首页</string>
+    <string name="system">体系</string>
     <string name="navigation">导航</string>
     <string name="mine">我的</string>
+
+    <!--splash-->
     <string name="app_desc">一款每日推荐优质文章的app</string>
+
+    <!--article item-->
     <string name="author">作者</string>
     <string name="category">分类</string>
     <string name="test_time">5小时前</string>
     <string name="test">啊就死都啊就哦i啊囧阿三加大家送阿斯顿啊四啊就死都啊就哦i啊囧阿三加大家送阿斯顿啊四</string>
+
     <string name="horizontal_bar">——</string>
     <string name="common_tools">常用工具</string>
     <string name="common_websites">常用网站</string>
     <string name="common_title">常用专区</string>
     <string name="news_article">最新博文</string>
+
+    <!--search-->
     <string name="search">搜索</string>
     <string name="input_tips">请输入搜索关键词</string>
     <string name="hot_key">热门搜索</string>
     <string name="history">最近搜索</string>
-    <string name="system">体系</string>
+
+    <!--mine-->
     <string name="mine_collect">我的收藏</string>
     <string name="mine_setting">设置</string>
     <string name="mine_about">关于我的</string>
     <string name="logout">未登录</string>
-    <string name="login_suc">登录成功</string>
-    <string name="mine_logout">退出登录</string>
+
 </resources>
