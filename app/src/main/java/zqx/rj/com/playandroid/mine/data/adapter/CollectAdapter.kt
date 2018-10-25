@@ -19,6 +19,7 @@ class CollectAdapter(layoutId: Int, listData: List<Article>?)
             it.setText(R.id.mTvCategory, "${article?.chapterName}")
             it.setText(R.id.mTvTitle, article?.title)
             it.setText(R.id.mTvTime, article?.niceDate)
+            it.setImageResource(R.id.mIvLove, R.drawable.ic_collected)
             it.addOnClickListener(R.id.mIvLove)
         }
     }

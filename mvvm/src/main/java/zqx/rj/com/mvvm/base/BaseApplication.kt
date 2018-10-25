@@ -3,6 +3,7 @@ package zqx.rj.com.mvvm.base
 import android.app.Application
 import com.kingja.loadsir.core.LoadSir
 import zqx.rj.com.mvvm.common.Preference
+import zqx.rj.com.mvvm.common.callback.EmptyCallback
 import zqx.rj.com.mvvm.common.callback.ErrorCallback
 import zqx.rj.com.mvvm.common.callback.LoadingCallback
 
@@ -27,6 +28,7 @@ class BaseApplication : Application() {
         LoadSir.beginBuilder()
                 .addCallback(ErrorCallback())
                 .addCallback(LoadingCallback())
+                .addCallback(EmptyCallback())
                 .commit()
     }
 

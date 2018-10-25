@@ -1,8 +1,7 @@
-package zqx.rj.com.mvvm.context
+package zqx.rj.com.mvvm.state
 
-import android.app.Activity
 import android.content.Context
-import android.widget.ImageView
+import zqx.rj.com.mvvm.state.callback.CollectListener
 
 /**
  * author：  HyZhan
@@ -11,7 +10,7 @@ import android.widget.ImageView
  */
 interface UserState {
 
-    fun collect(context: Context?, image: ImageView)
+    fun collect(context: Context?, position: Int, listener: CollectListener)
 
     fun login(context: Context?)
 

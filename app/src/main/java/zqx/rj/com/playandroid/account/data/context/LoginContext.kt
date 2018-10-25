@@ -2,10 +2,10 @@ package zqx.rj.com.playandroid.account.data.context
 
 import android.app.Activity
 import android.content.Context
-import android.widget.ImageView
 import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
-import zqx.rj.com.mvvm.context.UserState
+import zqx.rj.com.mvvm.state.UserState
+import zqx.rj.com.mvvm.state.callback.CollectListener
 
 /**
  * author：  HyZhan
@@ -29,10 +29,9 @@ class LoginContext private constructor() {
     }
 
     // 收藏
-    fun collect(context: Context?, image: ImageView) {
-        mState.collect(context, image)
+    fun collect(context: Context?, position: Int, listener: CollectListener) {
+        mState.collect(context, position, listener)
     }
-
 
     fun toCollectActivity(context: Context?) {
         mState.toCollectActivity(context)

@@ -3,10 +3,12 @@ package zqx.rj.com.playandroid.home.data.repository
 import android.arch.lifecycle.MutableLiveData
 import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.http.response.BaseResponse
+import zqx.rj.com.mvvm.http.response.EmptyRsp
 import zqx.rj.com.mvvm.http.rx.BaseObserver
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
 import zqx.rj.com.playandroid.home.data.bean.*
 import zqx.rj.com.playandroid.net.ApiRepository
+import java.util.*
 
 /**
  * author：  HyZhan
@@ -40,9 +42,21 @@ class HomeRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
                 .subscribe(object : BaseObserver<BaseResponse<HomeSearchRsp>>(liveData, loadState) {}))
     }
 
-    fun getCommonWeb(liveData: MutableLiveData<BaseResponse<List<CommonWebRsp>>>){
+    fun getCommonWeb(liveData: MutableLiveData<BaseResponse<List<CommonWebRsp>>>) {
         addSubscribe(apiService.getCommonWeb()
                 .compose(RxSchedulers.ioToMain())
-                .subscribe(object : BaseObserver<BaseResponse<List<CommonWebRsp>>>(liveData, loadState){}))
+                .subscribe(object : BaseObserver<BaseResponse<List<CommonWebRsp>>>(liveData, loadState) {}))
+    }
+
+    fun collect(id: Int, liveData: MutableLiveData<BaseResponse<EmptyRsp>>) {
+        addSubscribe(apiService.collect(id)
+                .compose(RxSchedulers.ioToMain())
+                .subscribe(object : BaseObserver<BaseResponse<EmptyRsp>>(liveData, loadState) {}))
+    }
+
+    fun unCollect(id: Int, liveData: MutableLiveData<BaseResponse<EmptyRsp>>) {
+        addSubscribe(apiService.unCollect(id)
+                .compose(RxSchedulers.ioToMain())
+                .subscribe(object : BaseObserver<BaseResponse<EmptyRsp>>(liveData, loadState) {}))
     }
 }

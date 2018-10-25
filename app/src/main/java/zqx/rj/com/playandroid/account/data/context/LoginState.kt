@@ -1,12 +1,11 @@
 package zqx.rj.com.playandroid.account.data.context
 
-import android.app.Activity
 import android.content.Context
 import android.widget.ImageView
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import zqx.rj.com.mvvm.context.UserState
-import zqx.rj.com.playandroid.R
+import zqx.rj.com.mvvm.state.UserState
+import zqx.rj.com.mvvm.state.callback.CollectListener
 import zqx.rj.com.playandroid.mine.view.activity.CollectActivity
 
 /**
@@ -16,11 +15,8 @@ import zqx.rj.com.playandroid.mine.view.activity.CollectActivity
  */
 class LoginState : UserState {
 
-    override fun collect(context: Context?, image: ImageView) {
-        context?.toast("收藏")
-
-        // 设置选中 图标
-        // image.setImageResource(R.drawable.ic_collected)
+    override fun collect(context: Context?, position: Int, listener: CollectListener) {
+        listener.collect(position)
     }
 
     // 已登录状态 无须登录 不做任何操作

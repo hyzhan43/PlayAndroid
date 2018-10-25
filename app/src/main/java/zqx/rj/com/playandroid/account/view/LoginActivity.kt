@@ -9,7 +9,7 @@ import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.common.str
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.account.data.callback.LoginSucListener
+import zqx.rj.com.mvvm.state.callback.LoginSucListener
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.account.data.context.LoginState
 import zqx.rj.com.playandroid.account.vm.AccountViewModel

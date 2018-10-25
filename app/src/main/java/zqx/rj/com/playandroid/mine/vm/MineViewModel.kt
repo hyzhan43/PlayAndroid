@@ -4,6 +4,7 @@ import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import zqx.rj.com.mvvm.base.BaseViewModel
 import zqx.rj.com.mvvm.http.response.BaseResponse
+import zqx.rj.com.mvvm.http.response.EmptyRsp
 import zqx.rj.com.playandroid.mine.data.bean.CollectRsp
 import zqx.rj.com.playandroid.mine.data.repository.MineRepository
 
@@ -15,8 +16,13 @@ import zqx.rj.com.playandroid.mine.data.repository.MineRepository
 class MineViewModel(application: Application) : BaseViewModel<MineRepository>(application) {
 
     var mCollectData: MutableLiveData<BaseResponse<CollectRsp>> = MutableLiveData()
+    var mRequestCollectData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
 
     fun getCollectArticle() {
         mRepository.getCollectArticle(mCollectData)
+    }
+
+    fun unCollect(id: Int, originId: Int){
+        mRepository.unCollect(id, originId, mRequestCollectData)
     }
 }

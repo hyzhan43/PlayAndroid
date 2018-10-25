@@ -1,4 +1,4 @@
-package zqx.rj.com.playandroid.account.data.callback
+package zqx.rj.com.mvvm.state.callback
 
 /**
  * author：  HyZhan

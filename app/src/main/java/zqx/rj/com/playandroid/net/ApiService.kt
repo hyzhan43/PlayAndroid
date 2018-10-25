@@ -3,6 +3,7 @@ package zqx.rj.com.playandroid.net
 import retrofit2.http.*
 import rx.Observable
 import zqx.rj.com.mvvm.http.response.BaseResponse
+import zqx.rj.com.mvvm.http.response.EmptyRsp
 import zqx.rj.com.playandroid.account.data.bean.LoginRsp
 import zqx.rj.com.playandroid.home.data.bean.*
 import zqx.rj.com.playandroid.mine.data.bean.CollectRsp
@@ -47,4 +48,13 @@ interface ApiService {
 
     @GET("/lg/collect/list/0/json")
     fun getCollectAtricle(): Observable<BaseResponse<CollectRsp>>
+
+    @POST("/lg/collect/{id}/json")
+    fun collect(@Path("id") id: Int): Observable<BaseResponse<EmptyRsp>>
+
+    @POST("/lg/uncollect_originId/{id}/json")
+    fun unCollect(@Path("id") id: Int): Observable<BaseResponse<EmptyRsp>>
+
+    @POST("/lg/uncollect/{id}/json")
+    fun unMyCollect(@Path("id") id: Int, @Query("originId") originId: Int): Observable<BaseResponse<EmptyRsp>>
 }

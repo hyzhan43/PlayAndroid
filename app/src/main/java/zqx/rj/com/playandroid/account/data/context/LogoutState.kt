@@ -1,11 +1,11 @@
 package zqx.rj.com.playandroid.account.data.context
 
-import android.app.Activity
 import android.content.Context
 import android.widget.ImageView
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import zqx.rj.com.mvvm.context.UserState
+import zqx.rj.com.mvvm.state.UserState
+import zqx.rj.com.mvvm.state.callback.CollectListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.view.LoginActivity
 
@@ -16,7 +16,7 @@ import zqx.rj.com.playandroid.account.view.LoginActivity
  */
 class LogoutState : UserState {
 
-    override fun collect(context: Context?, image: ImageView) {
+    override fun collect(context: Context?, position: Int, listener: CollectListener) {
         jumpToLoginActivity(context)
     }
 

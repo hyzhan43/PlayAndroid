@@ -7,15 +7,17 @@ import com.kingja.loadsir.callback.SuccessCallback
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
+import kotlinx.android.synthetic.main.article_item.view.*
 import kotlinx.android.synthetic.main.commom_bar.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.article_item.*
-import kotlinx.android.synthetic.main.article_item.view.*
 import kotlinx.android.synthetic.main.home_banner_item.view.*
 import kotlinx.android.synthetic.main.home_special_item.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.mvvm.common.GlideImageLoader
+import zqx.rj.com.mvvm.state.callback.CollectListener
+import zqx.rj.com.mvvm.state.callback.CollectState
+import zqx.rj.com.mvvm.state.callback.CollectUpdateListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.home.data.adapter.HomeArticleAdapter
@@ -33,14 +35,15 @@ import java.util.*
  * created： 2018/10/13 13:51
  * desc：    首页
  */
-class HomeFragment : LifecycleFragment<HomeViewModel>() {
+class HomeFragment : LifecycleFragment<HomeViewModel>(), CollectListener, CollectUpdateListener {
 
     private val mAdapter: HomeArticleAdapter by lazy {
         HomeArticleAdapter(R.layout.article_item, null)
     }
 
     private lateinit var mBanner: Banner
-    private val urls = arrayListOf<String>()
+    private val urls by lazy { arrayListOf<String>() }
+    private val titles by lazy { arrayListOf<String>() }
     private val articleList by lazy { arrayListOf<Article>() }
     private var page = 0
 
@@ -61,7 +64,7 @@ class HomeFragment : LifecycleFragment<HomeViewModel>() {
 
         // ♥ 型按钮
         mAdapter.setOnItemChildClickListener { _, _, position ->
-            LoginContext.instance.collect(activity, mIvLove)
+            LoginContext.instance.collect(activity, position, this)
         }
 
         // item
@@ -73,6 +76,8 @@ class HomeFragment : LifecycleFragment<HomeViewModel>() {
         mAdapter.setEnableLoadMore(true)
         // 上拉加载更多
         mAdapter.setOnLoadMoreListener({ mViewModel.getArticle(page++) }, mRvArticle)
+
+        CollectState.addListener(this)
     }
 
     private fun initHeadView() {
@@ -81,7 +86,10 @@ class HomeFragment : LifecycleFragment<HomeViewModel>() {
         initTitle(headView)
 
         mBanner = headView.mBanner
-        mBanner.setOnBannerListener { startActivity<WebViewActivtiy>("link" to urls[it]) }
+        mBanner.setOnBannerListener { position ->
+            startActivity<WebViewActivtiy>("link" to urls[position],
+                    "title" to titles[position])
+        }
 
         // 添加 Banner
         mAdapter.addHeaderView(headView)
@@ -143,7 +151,9 @@ class HomeFragment : LifecycleFragment<HomeViewModel>() {
     private fun setBannerData(bannerList: List<BannerRsp>) {
 
         val images = ArrayList<String>()
-        val titles = ArrayList<String>()
+
+        urls.clear()
+        titles.clear()
 
         for (bannerItem in bannerList) {
             images.add(bannerItem.imagePath)
@@ -154,5 +164,38 @@ class HomeFragment : LifecycleFragment<HomeViewModel>() {
         mBanner.setImages(images)
         mBanner.setBannerTitles(titles)
         mBanner.start()
+    }
+
+    // 点击收藏 回调
+    override fun collect(position: Int) {
+
+        val isCollect = mAdapter.data[position].collect
+
+        // 同步 recyclerView
+        mAdapter.data[position].collect = !isCollect
+        mAdapter.notifyDataSetChanged()
+
+        // 文章 id
+        val id = articleList[position].id
+
+        if (isCollect) mViewModel.unCollect(id) else mViewModel.collect(id)
+    }
+
+    // 更新 主页面的  article 心型状态
+    // 例如 在 我的收藏点击了  取消收藏   这时候 就通知主页面 更新
+    override fun updateState(id: Int) {
+
+        var position = 0
+
+        for ((index, value) in mAdapter.data.withIndex()) {
+            if (value.id == id) {
+                position = index
+                break
+            }
+        }
+
+        val isCollect = mAdapter.data[position].collect
+        mAdapter.data[position].collect = !isCollect
+        mAdapter.notifyDataSetChanged()
     }
 }

@@ -28,6 +28,7 @@ class WebViewActivtiy : BaseActivity() {
 
         mIvBack.visibility = View.VISIBLE
         mIvBack.setOnClickListener { finish() }
+
         val link = intent.getStringExtra("link")
         mTvBarTitle.text = intent.getStringExtra("title").toHtml()
 

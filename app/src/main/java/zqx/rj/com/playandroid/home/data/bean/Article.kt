@@ -9,6 +9,8 @@ data class Article(
         var author: String,
         var chapterName: String,
         var link: String,
+        var id: Int,
+        var collect: Boolean,
         var niceDate: String,
         var title: String,
         var superChapterName: String

@@ -19,6 +19,8 @@ import org.jetbrains.anko.startActivity
 import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.mvvm.common.Util
 import zqx.rj.com.mvvm.common.hideKeyboard
+import zqx.rj.com.mvvm.state.callback.CollectListener
+import zqx.rj.com.mvvm.state.callback.CollectState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.home.data.adapter.HomeSearchAdapter
@@ -31,7 +33,7 @@ import zqx.rj.com.playandroid.home.vm.HomeViewModel
  * created： 2018/10/18 13:54
  * desc：    搜索页面
  */
-class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher {
+class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher, CollectListener {
 
     private val tags = arrayListOf<String>()
     private lateinit var searchList: List<SearchResult>
@@ -79,7 +81,7 @@ class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher {
 
         // ♥ 型按钮
         mResultAdapter.setOnItemChildClickListener { _, _, position ->
-            LoginContext.instance.collect(this, mIvLove)
+            LoginContext.instance.collect(this, position, this)
         }
     }
 
@@ -95,6 +97,10 @@ class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher {
 
         mViewModel.mSearchResultData.observe(this, Observer {
             it?.let { setSearchResult(it.data.datas) }
+        })
+
+        mViewModel.mCollectData.observe(this, Observer {
+            // TODO
         })
     }
 
@@ -165,6 +171,27 @@ class SearchActivity : LifecycleActivity<HomeViewModel>(), TextWatcher {
         } else {
             isShow = false
             mViewModel.search(page, s.toString())
+        }
+    }
+
+    override fun collect(position: Int) {
+        if (mResultAdapter.data.isNotEmpty()) {
+
+            val result = mResultAdapter.data[position]
+
+            val isCollect = result.collect
+
+            // 同步 recyclerView
+            result.collect = !isCollect
+            mResultAdapter.notifyDataSetChanged()
+
+            // 更新 主页面
+            CollectState.notifyCollectState(result.id)
+
+            // 文章 id
+            val id = searchList[position].id
+
+            if (isCollect) mViewModel.unCollect(id) else mViewModel.collect(id)
         }
     }
 

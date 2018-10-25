@@ -9,6 +9,8 @@ class SearchResult(
         var author: String,
         var chapterName: String,
         var desc: String,
+        var id: Int,
+        var collect: Boolean,
         var link: String,
         var niceDate: String,
         var superChapterName: String,

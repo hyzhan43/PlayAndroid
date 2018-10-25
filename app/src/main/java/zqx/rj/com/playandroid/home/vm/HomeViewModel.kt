@@ -6,6 +6,7 @@ import zqx.rj.com.mvvm.base.BaseViewModel
 import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.common.constant.StateType
 import zqx.rj.com.mvvm.http.response.BaseResponse
+import zqx.rj.com.mvvm.http.response.EmptyRsp
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.home.data.bean.*
 import zqx.rj.com.playandroid.home.data.repository.HomeRepository
@@ -22,6 +23,7 @@ class HomeViewModel(application: Application) : BaseViewModel<HomeRepository>(ap
     var mHotKeyData: MutableLiveData<BaseResponse<List<HomeHotKeyRsp>>> = MutableLiveData()
     var mSearchResultData: MutableLiveData<BaseResponse<HomeSearchRsp>> = MutableLiveData()
     var mCommonWebData: MutableLiveData<BaseResponse<List<CommonWebRsp>>> = MutableLiveData()
+    var mCollectData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
 
     fun getBanner() {
         mRepository.getBanner(mBannerData)
@@ -43,7 +45,15 @@ class HomeViewModel(application: Application) : BaseViewModel<HomeRepository>(ap
         }
     }
 
-    fun getCommonWeb(){
+    fun getCommonWeb() {
         mRepository.getCommonWeb(mCommonWebData)
+    }
+
+    fun collect(id: Int) {
+        mRepository.collect(id, mCollectData)
+    }
+
+    fun unCollect(id: Int){
+        mRepository.unCollect(id, mCollectData)
     }
 }
