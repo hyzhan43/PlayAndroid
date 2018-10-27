@@ -4,6 +4,7 @@
     android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/mSlRefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

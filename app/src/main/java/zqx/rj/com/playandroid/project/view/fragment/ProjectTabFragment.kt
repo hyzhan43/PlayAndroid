@@ -4,8 +4,6 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.util.Log
-import com.chad.library.adapter.base.BaseQuickAdapter
 import kotlinx.android.synthetic.main.fragment_project_tab.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
@@ -47,6 +45,8 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
         mRvProject.layoutManager = GridLayoutManager(activity, 2)
         mRvProject.adapter = mAdapter
 
+        mSlRefresh.setOnRefreshListener { refreshRvProject() }
+
         mAdapter.setOnItemClickListener { _, _, position ->
             val project = mProjectsData[position]
             startActivity<WebViewActivtiy>("link" to project.link,
@@ -58,6 +58,13 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
         mAdapter.setOnLoadMoreListener({
             getProjects(++mPage)
         }, mRvProject)
+    }
+
+    private fun refreshRvProject() {
+        mPage = 1
+        mProjectsData.clear()
+        mAdapter.data.clear()
+        getProjects(mPage)
     }
 
     override fun initData() {
@@ -89,5 +96,7 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
         mProjectsData.addAll(projects)
         mAdapter.addData(projects)
         mAdapter.loadMoreComplete()
+
+        if (mSlRefresh.isRefreshing) mSlRefresh.isRefreshing = false
     }
 }
