@@ -25,7 +25,7 @@
     <string name="author">作者</string>
     <string name="category">分类</string>
     <string name="test_time">5小时前</string>
-    <string name="test">啊就死都啊就哦i啊囧阿三加大家送阿斯顿啊四啊就死都啊就哦i啊囧阿三加大家送阿斯顿啊四</string>
+    <string name="test">哦i啊囧阿三加大家送阿斯顿啊四啊就死哦i啊囧阿三加大家送阿斯顿啊四啊就死都啊就哦i啊囧阿三加大家送阿斯顿啊四啊就死都啊就哦i啊囧阿三加大家送阿斯顿啊四都啊就哦i啊囧阿三加大家送阿斯顿啊四啊就死都啊就哦i啊囧阿三加大家送阿斯顿啊四</string>
 
     <string name="horizontal_bar">——</string>
     <string name="common_tools">常用工具</string>
@@ -44,5 +44,6 @@
     <string name="mine_setting">设置</string>
     <string name="mine_about">关于我的</string>
     <string name="logout">未登录</string>
+    <string name="project">项目</string>
 
 </resources>

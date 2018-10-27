@@ -75,7 +75,7 @@ class HomeFragment : LifecycleFragment<HomeViewModel>(), CollectListener, Collec
 
         mAdapter.setEnableLoadMore(true)
         // 上拉加载更多
-        mAdapter.setOnLoadMoreListener({ mViewModel.getArticle(page++) }, mRvArticle)
+        mAdapter.setOnLoadMoreListener({ mViewModel.getArticle(++page) }, mRvArticle)
 
         CollectState.addListener(this)
     }

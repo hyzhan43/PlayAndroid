@@ -38,6 +38,7 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
         super.initView()
 
         mIcBar.mTvBarTitle.text = getString(R.string.navigation)
+        mIcBar.mIvSearch.visibility = View.GONE
 
         mRvCategory.layoutManager = LinearLayoutManager(activity)
         mRvCategory.adapter = mCategoryAdapter

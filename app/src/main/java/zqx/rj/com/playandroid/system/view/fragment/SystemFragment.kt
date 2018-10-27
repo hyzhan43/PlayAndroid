@@ -37,7 +37,6 @@ class SystemFragment : LifecycleFragment<SystemViewModel>() {
     override fun dataObserver() {
         mViewModel.mTreeData.observe(this, Observer {
             it?.let { initSystemData(it.data) }
-            loadService.showCallback(SuccessCallback::class.java)
         })
 
     }

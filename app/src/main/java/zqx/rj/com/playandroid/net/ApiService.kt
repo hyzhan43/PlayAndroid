@@ -8,6 +8,8 @@ import zqx.rj.com.playandroid.account.data.bean.LoginRsp
 import zqx.rj.com.playandroid.home.data.bean.*
 import zqx.rj.com.playandroid.mine.data.bean.CollectRsp
 import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
+import zqx.rj.com.playandroid.project.data.bean.ProjectRsp
+import zqx.rj.com.playandroid.project.data.bean.ProjectTreeRsp
 import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
 import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
 
@@ -44,7 +46,7 @@ interface ApiService {
     fun getTree(): Observable<BaseResponse<List<TopTreeRsp>>>
 
     @GET("/article/list/{page}/json")
-    fun getTreeArticle(@Path("page") page: Int, @Query("cid") id: Int): Observable<BaseResponse<TreeArticleRsp>>
+    fun getArticleTree(@Path("page") page: Int, @Query("cid") id: Int): Observable<BaseResponse<TreeArticleRsp>>
 
     @GET("/lg/collect/list/0/json")
     fun getCollectAtricle(): Observable<BaseResponse<CollectRsp>>
@@ -57,4 +59,11 @@ interface ApiService {
 
     @POST("/lg/uncollect/{id}/json")
     fun unMyCollect(@Path("id") id: Int, @Query("originId") originId: Int): Observable<BaseResponse<EmptyRsp>>
+
+    @GET("/project/tree/json")
+    fun getProjectTree(): Observable<BaseResponse<List<ProjectTreeRsp>>>
+
+    @GET("/project/list/{page}/json")
+    fun getProjects(@Path("page") page: Int, @Query("cid") cid: Int): Observable<BaseResponse<ProjectRsp>>
+
 }

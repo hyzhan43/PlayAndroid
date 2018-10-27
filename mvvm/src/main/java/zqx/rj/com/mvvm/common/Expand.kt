@@ -5,7 +5,12 @@ import android.text.Html
 import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import zqx.rj.com.mvvm.R
 
 /**
  * author：  HyZhan
@@ -38,4 +43,18 @@ fun String.toHtml(): String {
     } else {
         Html.fromHtml(this).toString()
     }
+}
+
+fun ImageView.loadUrl(context: Context, url: String) {
+
+    val options = RequestOptions()
+            .placeholder(R.drawable.ic_logo)
+            .error(R.drawable.ic_logo)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .override(150, 200)
+
+    Glide.with(context)
+            .load(url)
+            .apply(options)
+            .into(this)
 }

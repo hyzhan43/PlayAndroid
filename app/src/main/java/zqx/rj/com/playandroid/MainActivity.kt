@@ -8,16 +8,19 @@ import zqx.rj.com.mvvm.base.BaseActivity
 import zqx.rj.com.playandroid.home.view.fragment.HomeFragment
 import zqx.rj.com.playandroid.mine.view.fragment.MineFragment
 import zqx.rj.com.playandroid.navigation.view.fragment.NavigationFragment
+import zqx.rj.com.playandroid.project.view.fragment.ProjectFragment
 import zqx.rj.com.playandroid.system.view.fragment.SystemFragment
 
 class MainActivity : BaseActivity() {
 
     private val HOME = 0
-    private val SYSTEM = 1
-    private val NAVIGATION = 2
-    private val MINE = 3
+    private val PROJECT = 1
+    private val SYSTEM = 2
+    private val NAVIGATION = 3
+    private val MINE = 4
 
     private val mHomeFragment by lazy { HomeFragment() }
+    private val mProjectFragment by lazy { ProjectFragment() }
     private val mSystemFragment by lazy { SystemFragment() }
     private val mNavigationFragment by lazy { NavigationFragment() }
     private val mMineFragment by lazy { MineFragment() }
@@ -36,7 +39,8 @@ class MainActivity : BaseActivity() {
         with(mNavigationBar) {
             setMode(BottomNavigationBar.MODE_FIXED)
 
-            addItem(BottomNavigationItem(R.mipmap.ic_home_active, getString(R.string.home)))
+            addItem(BottomNavigationItem(R.mipmap.ic_home, getString(R.string.home)))
+            addItem(BottomNavigationItem(R.mipmap.ic_project, getString(R.string.project)))
             addItem(BottomNavigationItem(R.mipmap.ic_system, getString(R.string.system)))
             addItem(BottomNavigationItem(R.mipmap.ic_navigation, getString(R.string.navigation)))
             addItem(BottomNavigationItem(R.mipmap.ic_mine, getString(R.string.mine)))
@@ -65,6 +69,7 @@ class MainActivity : BaseActivity() {
     private fun switchFragment(position: Int) {
         when (position) {
             HOME -> switch(mCurrent, mHomeFragment)
+            PROJECT -> switch(mCurrent, mProjectFragment)
             SYSTEM -> switch(mCurrent, mSystemFragment)
             NAVIGATION -> switch(mCurrent, mNavigationFragment)
             MINE -> switch(mCurrent, mMineFragment)

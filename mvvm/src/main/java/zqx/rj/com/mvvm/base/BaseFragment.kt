@@ -31,7 +31,7 @@ abstract class BaseFragment : Fragment() {
         initData()
     }
 
-    open fun initView() {}
+    abstract fun initView()
 
     open fun initData() {}
 

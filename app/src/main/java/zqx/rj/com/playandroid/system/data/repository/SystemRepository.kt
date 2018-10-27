@@ -23,7 +23,7 @@ class SystemRepository(val loadState: MutableLiveData<State>) : ApiRepository() 
     }
 
     fun getArticle(page: Int, cid: Int, liveData: MutableLiveData<BaseResponse<TreeArticleRsp>>) {
-        addSubscribe(apiService.getTreeArticle(page, cid)
+        addSubscribe(apiService.getArticleTree(page, cid)
                 .compose(RxSchedulers.ioToMain())
                 .subscribe(object : BaseObserver<BaseResponse<TreeArticleRsp>>(liveData, loadState) {}))
     }
