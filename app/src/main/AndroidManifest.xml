@@ -26,10 +26,14 @@
         <activity android:name=".account.view.LoginActivity"/>
 
         <activity android:name=".home.view.activity.SearchActivity"/>
+
         <activity android:name=".WebViewActivtiy"/>
+
         <activity android:name=".home.view.activity.CommonWebActivity"/>
 
         <activity android:name=".mine.view.activity.CollectActivity"/>
+
+        <activity android:name=".mine.view.activity.AboutActivity"/>
     </application>
 
 </manifest>

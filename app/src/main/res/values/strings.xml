@@ -47,4 +47,8 @@
     <string name="project">项目</string>
     <string name="clear_history">清除历史记录</string>
 
+    <string name="github">Github：https://github.com/hyzhan43</string>
+    <string name="csdn">Csdn：https://blog.csdn.net/weixin_40595516</string>
+    <string name="email">Email：1063523767@qq.com</string>
+
 </resources>

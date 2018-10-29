@@ -34,6 +34,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:hint="@string/account"
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintTop_toBottomOf="@+id/iv_login_bg">
 
@@ -41,8 +42,7 @@
             android:id="@+id/mTieAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/account"
-            android:text="1063523767"/>
+            />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -52,6 +52,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:hint="@string/password"
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintTop_toBottomOf="@+id/ti_account">
 
@@ -59,8 +60,6 @@
             android:id="@+id/mTiePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:text="music3368158Y"
             android:inputType="textPassword"/>
     </android.support.design.widget.TextInputLayout>
 

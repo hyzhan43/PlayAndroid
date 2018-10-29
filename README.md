@@ -66,8 +66,8 @@ Kotlin 版 玩Android
 欢迎大家交流学习。
 
 #  关于我
-[Github](https://github.com/hyzhan43)
-[CSDN](https://blog.csdn.net/weixin_40595516)
-Email：1063523767@qq.com
+- [Github](https://github.com/hyzhan43)
+- [CSDN](https://blog.csdn.net/weixin_40595516)
+- Email：1063523767@qq.com
 
 项目地址：[https://github.com/hyzhan43/PlayAndroid](https://github.com/hyzhan43/PlayAndroid)

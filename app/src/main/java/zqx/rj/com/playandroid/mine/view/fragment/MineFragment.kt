@@ -4,6 +4,7 @@ import android.view.View
 import com.kingja.loadsir.callback.SuccessCallback
 import kotlinx.android.synthetic.main.common_icon_bar.view.*
 import kotlinx.android.synthetic.main.fragment_mine.*
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.mvvm.common.Preference
@@ -13,6 +14,7 @@ import zqx.rj.com.mvvm.state.callback.LoginSucListener
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.account.data.context.LogoutState
 import zqx.rj.com.playandroid.account.view.LoginActivity
+import zqx.rj.com.playandroid.mine.view.activity.AboutActivity
 import zqx.rj.com.playandroid.mine.vm.MineViewModel
 
 /**
@@ -71,7 +73,7 @@ class MineFragment : LifecycleFragment<MineViewModel>(),
                 LoginContext.instance.toCollectActivity(context)
             }
             R.id.mAboutAuthor -> {
-                toast(getString(R.string.mine_about))
+                startActivity<AboutActivity>()
             }
             R.id.mSettingBar -> {
                 toast(getString(R.string.mine_setting))
