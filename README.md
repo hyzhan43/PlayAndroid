@@ -62,7 +62,8 @@ Kotlin 版 玩Android
 
 #  总结
 
-以上就是整个 玩 Android，后续会更新剩下的功能~
+以上就是整个 玩 Android，后续会更新剩下的功能，优化代码，添加相关注释~
+欢迎大家交流学习。
 
 #  关于我
 [Github](https://github.com/hyzhan43)
