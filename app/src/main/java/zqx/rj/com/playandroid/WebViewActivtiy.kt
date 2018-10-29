@@ -1,4 +1,4 @@
-package zqx.rj.com.playandroid.home.view.activity
+package zqx.rj.com.playandroid
 
 import android.text.Html
 import android.view.View
@@ -28,6 +28,8 @@ class WebViewActivtiy : BaseActivity() {
 
         mIvBack.visibility = View.VISIBLE
         mIvBack.setOnClickListener { finish() }
+
+        mIvSearch.visibility = View.GONE
 
         val link = intent.getStringExtra("link")
         mTvBarTitle.text = intent.getStringExtra("title").toHtml()

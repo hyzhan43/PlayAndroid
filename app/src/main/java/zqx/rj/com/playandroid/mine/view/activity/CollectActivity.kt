@@ -13,7 +13,7 @@ import zqx.rj.com.mvvm.state.callback.CollectListener
 import zqx.rj.com.mvvm.state.callback.CollectState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.context.LoginContext
-import zqx.rj.com.playandroid.home.view.activity.WebViewActivtiy
+import zqx.rj.com.playandroid.WebViewActivtiy
 import zqx.rj.com.playandroid.mine.data.adapter.CollectAdapter
 import zqx.rj.com.playandroid.mine.data.bean.Article
 import zqx.rj.com.playandroid.mine.vm.MineViewModel

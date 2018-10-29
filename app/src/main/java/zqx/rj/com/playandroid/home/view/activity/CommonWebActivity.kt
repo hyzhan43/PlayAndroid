@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.common_tag.view.*
 import org.jetbrains.anko.startActivity
 import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.WebViewActivtiy
 import zqx.rj.com.playandroid.home.data.bean.CommonWebRsp
 import zqx.rj.com.playandroid.home.vm.HomeViewModel
 

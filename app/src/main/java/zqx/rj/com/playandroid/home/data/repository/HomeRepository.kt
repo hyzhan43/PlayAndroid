@@ -1,12 +1,15 @@
 package zqx.rj.com.playandroid.home.data.repository
 
 import android.arch.lifecycle.MutableLiveData
+import org.litepal.LitePal
+import org.litepal.extension.findAll
 import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.response.EmptyRsp
 import zqx.rj.com.mvvm.http.rx.BaseObserver
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
 import zqx.rj.com.playandroid.home.data.bean.*
+import zqx.rj.com.playandroid.home.data.db.bean.Record
 import zqx.rj.com.playandroid.net.ApiRepository
 import java.util.*
 
@@ -29,6 +32,7 @@ class HomeRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
                 .compose(RxSchedulers.ioToMain())
                 .subscribe(object : BaseObserver<BaseResponse<HomeArticleRsp>>(liveData, loadState) {}))
     }
+
 
     fun getHotKey(liveData: MutableLiveData<BaseResponse<List<HomeHotKeyRsp>>>) {
         addSubscribe(apiService.getHotKey()

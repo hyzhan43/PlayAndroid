@@ -1,7 +1,10 @@
 package zqx.rj.com.mvvm.base
 
+import android.annotation.SuppressLint
 import android.app.Application
 import com.kingja.loadsir.core.LoadSir
+import org.litepal.LitePal
+import org.litepal.LitePalApplication
 import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.callback.EmptyCallback
 import zqx.rj.com.mvvm.common.callback.ErrorCallback
@@ -18,6 +21,9 @@ class BaseApplication : Application() {
         super.onCreate()
 
         configLoadSir()
+
+        // 初始化数据库
+        LitePal.initialize(this)
 
         // 初始化 SharedPreference
         Preference.setContext(applicationContext)

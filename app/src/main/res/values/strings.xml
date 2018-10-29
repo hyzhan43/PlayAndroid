@@ -45,5 +45,6 @@
     <string name="mine_about">关于我的</string>
     <string name="logout">未登录</string>
     <string name="project">项目</string>
+    <string name="clear_history">清除历史记录</string>
 
 </resources>

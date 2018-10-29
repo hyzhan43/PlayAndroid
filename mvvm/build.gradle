@@ -86,6 +86,9 @@ dependencies {
     compile "com.hyman:flowlayout-lib:$flowlayout_version"
 
     // glide
-    compile 'com.github.bumptech.glide:glide:4.8.0'
-    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+    compile "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    // 数据库
+    compile "org.litepal.android:kotlin:$litepal_version"
 }

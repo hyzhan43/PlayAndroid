@@ -25,7 +25,7 @@ import zqx.rj.com.playandroid.home.data.bean.Article
 import zqx.rj.com.playandroid.home.data.bean.BannerRsp
 import zqx.rj.com.playandroid.home.view.activity.CommonWebActivity
 import zqx.rj.com.playandroid.home.view.activity.SearchActivity
-import zqx.rj.com.playandroid.home.view.activity.WebViewActivtiy
+import zqx.rj.com.playandroid.WebViewActivtiy
 import zqx.rj.com.playandroid.home.vm.HomeViewModel
 import java.util.*
 

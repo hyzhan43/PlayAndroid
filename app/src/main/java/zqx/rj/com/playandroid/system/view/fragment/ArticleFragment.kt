@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import com.kingja.loadsir.callback.SuccessCallback
 import kotlinx.android.synthetic.main.fragment_system_article.*
 import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.home.view.activity.WebViewActivtiy
+import zqx.rj.com.playandroid.WebViewActivtiy
 import zqx.rj.com.playandroid.system.data.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.system.data.bean.Article
 import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp

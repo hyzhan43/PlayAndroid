@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_navigation.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.home.view.activity.WebViewActivtiy
+import zqx.rj.com.playandroid.WebViewActivtiy
 import zqx.rj.com.playandroid.navigation.data.adapter.CategoryAdapter
 import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
 import zqx.rj.com.playandroid.navigation.vm.NavigationViewModel

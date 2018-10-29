@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="play" />
+
+    <version value="1" />
+
+    <list>
+        <mapping class="zqx.rj.com.playandroid.home.data.db.bean.Record" />
+    </list>
+
+</litepal>
