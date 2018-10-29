@@ -13,7 +13,6 @@ object RxSchedulers {
     fun <T> ioToMain(): Observable.Transformer<T, T> {
         return Observable.Transformer {
             it.subscribeOn(Schedulers.io())
-                    .unsubscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
         }
     }

@@ -5,6 +5,7 @@ import android.text.Html
 import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -18,7 +19,7 @@ import zqx.rj.com.mvvm.R
  * desc：    扩展方法
  */
 
-fun TextView.str(): String {
+fun EditText.str(): String {
     return this.text.toString()
 }
 
