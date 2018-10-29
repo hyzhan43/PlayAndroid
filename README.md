@@ -14,17 +14,17 @@ Kotlin 版 玩Android
 
 #### 框架
 
-[anko](https://github.com/Kotlin/anko)
-[Loadsir](https://github.com/KingJA/LoadSir)
-[rxkotlin](https://github.com/ReactiveX/RxKotlin)
-[rxandroid](https://github.com/ReactiveX/RxAndroid)
-[retrofit](https://github.com/square/retrofit)
-[glide](https://github.com/bumptech/glide)
-[banner](https://github.com/youth5201314/banner)
-[BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
-[webView](https://github.com/Justson/AgentWeb)
-[flowlayout](https://github.com/hongyangAndroid/FlowLayout)
-[litepal](https://github.com/LitePalFramework/LitePal) 
+- [anko](https://github.com/Kotlin/anko)
+- [Loadsir](https://github.com/KingJA/LoadSir)
+- [rxkotlin](https://github.com/ReactiveX/RxKotlin)
+- [rxandroid](https://github.com/ReactiveX/RxAndroid)
+- [retrofit](https://github.com/square/retrofit)
+- [glide](https://github.com/bumptech/glide)
+- [banner](https://github.com/youth5201314/banner)
+- [BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
+- [webView](https://github.com/Justson/AgentWeb)
+- [flowlayout](https://github.com/hongyangAndroid/FlowLayout)
+- [litepal](https://github.com/LitePalFramework/LitePal) 
 
 ## 无图说 **  
 ![欢迎页面](https://img-blog.csdnimg.cn/20181029174425184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
@@ -46,19 +46,19 @@ Kotlin 版 玩Android
 版本：
 ## v 1.0
 
-[√] 登录、退出（自动登录）
-[√] 常用网站
-[√] 收藏
-[√] 主页
-[√] 项目
-[√] 体系
-[√] 导航
-[√] 搜索
-[√] 我的
+- [√] 登录、退出（自动登录）
+- [√] 常用网站
+- [√] 收藏
+- [√] 主页
+- [√] 项目
+- [√] 体系
+- [√] 导航
+- [√] 搜索
+- [√] 我的
 
-[x] 注册页面
-[x] 设置
-[x] 微信公众号
+- [x] 注册页面
+- [x] 设置
+- [x] 微信公众号
 
 #  总结
 
