@@ -3,6 +3,7 @@ package zqx.rj.com.playandroid.account.view
 import android.arch.lifecycle.Observer
 import android.view.View
 import kotlinx.android.synthetic.main.activity_login.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.mvvm.common.Preference
@@ -30,6 +31,7 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
         mBtnLogin.setOnClickListener(this)
         mTvRegister.setOnClickListener(this)
 
+
         showSuccess()
     }
 
@@ -40,7 +42,8 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
                 mViewModel.getLoginData(mTieAccount.str(), mTiePassword.str())
             }
             R.id.mTvRegister -> {
-                toast(getString(R.string.register))
+                startActivity<RegisterActivity>()
+                finish()
             }
         }
     }
@@ -49,14 +52,14 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
     override fun dataObserver() {
 
         // 处理 repository 回调的数据
-        mViewModel.getLoginData().observe(this, Observer {
+        mViewModel.mLoginData.observe(this, Observer {
             it?.data?.let {
                 // 加载进度
                 showLoading()
-                // 标记 已登录状态
+                // 标记 已登录状态  ( 改变 sharedPreferences   isLogin值)
                 isLogin = true
                 LoginContext.instance.mState = LoginState()
-                listener?.success(it.collectIds, it.username)
+                listener?.success(it.username)
                 toast(getString(R.string.login_suc))
                 finish()
             }

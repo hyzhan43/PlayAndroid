@@ -8,6 +8,7 @@ import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.bean.LoginRsp
+import zqx.rj.com.playandroid.account.data.bean.RegisterRsp
 import zqx.rj.com.playandroid.account.data.repository.AccountRepository
 
 /**
@@ -17,13 +18,8 @@ import zqx.rj.com.playandroid.account.data.repository.AccountRepository
  */
 class AccountViewModel(application: Application) : BaseViewModel<AccountRepository>(application) {
 
-    private val mLoginData: MutableLiveData<BaseResponse<LoginRsp>> by lazy {
-        MutableLiveData<BaseResponse<LoginRsp>>()
-    }
-
-    fun getLoginData(): MutableLiveData<BaseResponse<LoginRsp>> {
-        return mLoginData
-    }
+    var mLoginData: MutableLiveData<BaseResponse<LoginRsp>> = MutableLiveData()
+    var mRegisterData: MutableLiveData<BaseResponse<RegisterRsp>> = MutableLiveData()
 
     fun getLoginData(username: String, password: String) {
         if (checkNotNull(username, password)) {
@@ -33,8 +29,16 @@ class AccountViewModel(application: Application) : BaseViewModel<AccountReposito
         }
     }
 
+    fun getRegister(username: String, password: String, repassword: String) {
+        if (checkNotNull(username, password) && repassword == password) {
+            mRepository.register(username, password, repassword, mRegisterData)
+        } else {
+            loadState.postValue(State(StateType.TIPS, tip = R.string.accountOrPassword_empty))
+        }
+    }
+
     // 非空判断
-    fun checkNotNull(username: String, password: String): Boolean {
+    private fun checkNotNull(username: String, password: String): Boolean {
         return username.isNotEmpty() && password.isNotEmpty()
     }
 }

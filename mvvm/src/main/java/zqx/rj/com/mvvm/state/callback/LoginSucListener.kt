@@ -6,5 +6,5 @@ package zqx.rj.com.mvvm.state.callback
  * desc：    TODO
  */
 interface LoginSucListener {
-    fun success(collectIds: List<Int>, username: String)
+    fun success(username: String)
 }

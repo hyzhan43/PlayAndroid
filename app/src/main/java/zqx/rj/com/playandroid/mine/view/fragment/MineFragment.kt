@@ -91,7 +91,7 @@ class MineFragment : LifecycleFragment<MineViewModel>(),
     }
 
     // 登录成功 回调
-    override fun success(collectIds: List<Int>, username: String) {
+    override fun success(username: String) {
         // 进行 SharedPreference 存储
         mUsername = username
         mTvName.text = username

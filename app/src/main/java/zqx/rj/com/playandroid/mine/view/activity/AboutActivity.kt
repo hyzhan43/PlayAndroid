@@ -40,5 +40,5 @@ class AboutActivity: BaseActivity() {
         }
     }
 
-
+    override fun onBackPressed() = finish()
 }

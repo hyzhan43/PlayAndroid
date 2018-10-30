@@ -44,6 +44,10 @@ Kotlin 版 玩Android
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029194320601.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
 
 版本：
+## v 1.1
+- [√] 注册界面
+
+
 ## v 1.0
 
 - [√] 登录、退出（自动登录）

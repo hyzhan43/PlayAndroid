@@ -10,6 +10,8 @@
     <string name="login_suc">登录成功</string>
     <string name="mine_logout">退出登录</string>
     <string name="please_login">请先登录</string>
+    <string name="password_again">请输入确认密码</string>
+    <string name="register_suc">注册成功</string>
 
     <!--home-->
     <string name="accountOrPassword_empty">请输入账号/密码~</string>

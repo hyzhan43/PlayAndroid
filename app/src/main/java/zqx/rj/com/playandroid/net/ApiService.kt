@@ -5,6 +5,7 @@ import rx.Observable
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.response.EmptyRsp
 import zqx.rj.com.playandroid.account.data.bean.LoginRsp
+import zqx.rj.com.playandroid.account.data.bean.RegisterRsp
 import zqx.rj.com.playandroid.home.data.bean.*
 import zqx.rj.com.playandroid.mine.data.bean.CollectRsp
 import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
@@ -23,6 +24,10 @@ interface ApiService {
     @POST("/user/login")
     fun getLogin(@Query("username") username: String,
                  @Query("password") password: String): Observable<BaseResponse<LoginRsp>>
+
+    @POST("/user/register")
+    fun getRegister(@Query("username") username: String, @Query("password") password: String,
+                    @Query("repassword") repassword: String): Observable<BaseResponse<RegisterRsp>>
 
     @GET("/banner/json")
     fun getBanner(): Observable<BaseResponse<List<BannerRsp>>>
