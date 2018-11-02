@@ -5,6 +5,7 @@ import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.rx.BaseObserver
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
+import zqx.rj.com.playandroid.article.data.repository.ArticleRepository
 import zqx.rj.com.playandroid.net.ApiRepository
 import zqx.rj.com.playandroid.wechat.data.bean.WeChatNameRsp
 import zqx.rj.com.playandroid.wechat.data.bean.WxArticleRsp
@@ -14,7 +15,7 @@ import zqx.rj.com.playandroid.wechat.data.bean.WxArticleRsp
  * created： 2018/11/2 16:29
  * desc：    TODO
  */
-class WeChatRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
+class WeChatRepository(loadState: MutableLiveData<State>) : ArticleRepository(loadState) {
 
     fun getWeChatName(liveData: MutableLiveData<BaseResponse<List<WeChatNameRsp>>>) {
         addSubscribe(apiService.getWeChatName()

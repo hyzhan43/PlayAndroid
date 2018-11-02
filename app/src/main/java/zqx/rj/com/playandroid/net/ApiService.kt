@@ -77,5 +77,6 @@ interface ApiService {
     fun getWeChatName(): Observable<BaseResponse<List<WeChatNameRsp>>>
 
     @GET("/wxarticle/list/{id}/{page}/json")
-    fun getWxArticle(@Path("id") id: Int, @Path("page") page: Int): Observable<BaseResponse<WxArticleRsp>>
+    fun getWxArticle(@Path("id") id: Int, @Path("page") page: Int)
+            : Observable<BaseResponse<WxArticleRsp>>
 }
