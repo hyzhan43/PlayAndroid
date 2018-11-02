@@ -1,10 +1,13 @@
 package zqx.rj.com.playandroid.article.view
 
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import kotlinx.android.synthetic.main.fragment_article_list.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.mvvm.state.callback.CollectListener
+import zqx.rj.com.mvvm.state.callback.CollectState
+import zqx.rj.com.mvvm.state.callback.CollectUpdateListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.WebViewActivtiy
 import zqx.rj.com.playandroid.account.data.context.LoginContext
@@ -18,7 +21,7 @@ import zqx.rj.com.playandroid.article.vm.ArticleViewModel
  * desc：    文章列表 基类  (封装了 文章列表)
  */
 abstract class ArticleListFragment<T : ArticleViewModel<*>>
-    : LifecycleFragment<T>(), CollectListener {
+    : LifecycleFragment<T>(), CollectListener, CollectUpdateListener {
 
     protected lateinit var mArticleAdapter: ArticleAdapter
 
@@ -46,6 +49,9 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
         mArticleAdapter.setOnItemChildClickListener { _, _, position ->
             LoginContext.instance.collect(activity, position, this)
         }
+
+        // 监听 其他地方 点击收藏后 回调
+        CollectState.addListener(this)
     }
 
     // 获取文章数据
@@ -77,5 +83,24 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
         // 发起 收藏/取消收藏  请求
         if (state) mViewModel.unCollect(id) else mViewModel.collect(id)
+    }
+
+
+    // 更新 主页面的  article 心型状态
+    // 例如 在 我的收藏点击了  取消收藏   这时候 就通知主页面 更新
+    override fun updateState(id: Int) {
+
+        var position = 0
+
+        for ((index, value) in mArticleAdapter.data.withIndex()) {
+            if (value.id == id) {
+                position = index
+                break
+            }
+        }
+
+        val isCollect = mArticleAdapter.data[position].collect
+        mArticleAdapter.data[position].collect = !isCollect
+        mArticleAdapter.notifyDataSetChanged()
     }
 }

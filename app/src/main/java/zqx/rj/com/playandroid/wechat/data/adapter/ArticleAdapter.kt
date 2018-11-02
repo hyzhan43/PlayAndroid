@@ -3,7 +3,6 @@ package zqx.rj.com.playandroid.wechat.data.adapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.system.data.bean.Article
 import zqx.rj.com.playandroid.wechat.data.bean.WxArticle
 
 /**

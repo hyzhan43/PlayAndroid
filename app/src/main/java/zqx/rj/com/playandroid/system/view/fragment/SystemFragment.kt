@@ -2,7 +2,6 @@ package zqx.rj.com.playandroid.system.view.fragment
 
 import android.arch.lifecycle.Observer
 import android.support.v4.app.Fragment
-import com.kingja.loadsir.callback.SuccessCallback
 import kotlinx.android.synthetic.main.fragment_system.*
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
@@ -69,7 +68,7 @@ class SystemFragment : LifecycleFragment<SystemViewModel>() {
                 secondTreeTitles.add(child.name)
             }
 
-            fragments.add(ArticleFragment.getNewInstance(ids, secondTreeTitles))
+            fragments.add(SysArticleFragment.getNewInstance(ids, secondTreeTitles))
         }
         return fragments
     }

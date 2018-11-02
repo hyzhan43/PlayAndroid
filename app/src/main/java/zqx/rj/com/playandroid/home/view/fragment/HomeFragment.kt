@@ -2,6 +2,7 @@ package zqx.rj.com.playandroid.home.view.fragment
 
 import android.arch.lifecycle.Observer
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import com.kingja.loadsir.callback.SuccessCallback
 import com.youth.banner.Banner
@@ -73,6 +74,7 @@ class HomeFragment : LifecycleFragment<HomeViewModel>(), CollectListener, Collec
         // 上拉加载更多
         mAdapter.setOnLoadMoreListener({ mViewModel.getArticle(++page) }, mRvArticle)
 
+        // 监听 其他地方 收藏 回调
         CollectState.addListener(this)
     }
 

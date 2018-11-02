@@ -7,26 +7,22 @@
             <item
                 android:id="@+id/nav_menu_collect"
                 android:icon="@drawable/ic_collect"
-                android:title="@string/mine_collect"
-                android:checkable="true"/>
+                android:title="@string/mine_collect" />
 
             <item
                 android:id="@+id/nav_menu_about"
                 android:icon="@drawable/ic_about"
-                android:title="@string/mine_about"
-                android:checkable="true"/>
+                android:title="@string/mine_about" />
 
             <item
                 android:id="@+id/nav_menu_setting"
                 android:icon="@drawable/ic_setting"
-                android:title="@string/mine_setting"
-                android:checkable="true"/>
+                android:title="@string/mine_setting" />
 
             <item
                 android:id="@+id/nav_menu_logout"
                 android:icon="@drawable/ic_logout"
-                android:title="@string/mine_logout"
-                android:checkable="true"/>
+                android:title="@string/mine_logout" />
         </menu>
     </item>
 </menu>

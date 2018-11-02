@@ -45,4 +45,5 @@ class WxArticleFragment : ArticleListFragment<WeChatViewModel>() {
     }
 
     override fun getArticleData(): List<Article> = mArticleData
+
 }

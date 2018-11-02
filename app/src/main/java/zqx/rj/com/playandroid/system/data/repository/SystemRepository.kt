@@ -5,6 +5,7 @@ import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.rx.BaseObserver
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
+import zqx.rj.com.playandroid.article.data.repository.ArticleRepository
 import zqx.rj.com.playandroid.net.ApiRepository
 import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
 import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
@@ -14,7 +15,7 @@ import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
  * created： 2018/10/22 19:34
  * desc：    TODO
  */
-class SystemRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
+class SystemRepository(loadState: MutableLiveData<State>) : ArticleRepository(loadState) {
 
     fun getTree(liveData: MutableLiveData<BaseResponse<List<TopTreeRsp>>>) {
         addSubscribe(apiService.getTree()
