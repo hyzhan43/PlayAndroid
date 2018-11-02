@@ -59,6 +59,7 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
                 // 标记 已登录状态  ( 改变 sharedPreferences   isLogin值)
                 isLogin = true
                 LoginContext.instance.mState = LoginState()
+                // 登录成功 回调 -> DrawerLayout -> 更新状态
                 listener?.success(it.username)
                 toast(getString(R.string.login_suc))
                 finish()

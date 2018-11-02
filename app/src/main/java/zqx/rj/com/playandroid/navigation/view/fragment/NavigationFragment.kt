@@ -7,7 +7,6 @@ import android.view.View
 import com.kingja.loadsir.callback.SuccessCallback
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
-import kotlinx.android.synthetic.main.commom_bar.view.*
 import kotlinx.android.synthetic.main.common_tag.view.*
 import kotlinx.android.synthetic.main.fragment_navigation.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -36,9 +35,6 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
 
     override fun initView() {
         super.initView()
-
-        mIcBar.mTvBarTitle.text = getString(R.string.navigation)
-        mIcBar.mIvSearch.visibility = View.GONE
 
         mRvCategory.layoutManager = LinearLayoutManager(activity)
         mRvCategory.adapter = mCategoryAdapter

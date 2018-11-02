@@ -1,6 +1,7 @@
 package zqx.rj.com.mvvm.http.rx
 
 import android.arch.lifecycle.MutableLiveData
+import android.util.Log
 import rx.Observer
 import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.common.constant.StateType

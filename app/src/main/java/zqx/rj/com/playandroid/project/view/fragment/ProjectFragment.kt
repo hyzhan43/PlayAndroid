@@ -25,6 +25,7 @@ class ProjectFragment : LifecycleFragment<ProjectViewModel>() {
 
     override fun initView() {
         super.initView()
+
         mTlCategory.setupWithViewPager(mVpFragments)
     }
 

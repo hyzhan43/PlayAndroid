@@ -1,4 +1,4 @@
-package zqx.rj.com.playandroid.home.view.activity
+package zqx.rj.com.playandroid
 
 import android.arch.lifecycle.Observer
 import android.support.v7.widget.DividerItemDecoration
@@ -27,8 +27,6 @@ import zqx.rj.com.mvvm.common.hideKeyboard
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
 import zqx.rj.com.mvvm.state.callback.CollectListener
 import zqx.rj.com.mvvm.state.callback.CollectState
-import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivtiy
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.home.data.adapter.HistoryAdapter
 import zqx.rj.com.playandroid.home.data.adapter.HomeSearchAdapter

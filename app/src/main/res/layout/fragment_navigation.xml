@@ -2,33 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-    <include
-        android:id="@+id/mIcBar"
-        layout="@layout/commom_bar" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRvCategory"
+        android:layout_width="100dp"
+        android:layout_height="match_parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:paddingBottom="10dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/mRvCategory"
-            android:layout_width="100dp"
-            android:layout_height="match_parent" />
-
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingBottom="10dp">
-
-            <com.zhy.view.flowlayout.TagFlowLayout
-                android:id="@+id/mTflRepresent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp" />
-        </ScrollView>
-    </LinearLayout>
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/mTflRepresent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" />
+    </ScrollView>
 </LinearLayout>

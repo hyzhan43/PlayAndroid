@@ -1,8 +1,10 @@
 package zqx.rj.com.mvvm.base
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import org.jetbrains.anko.toast
@@ -53,6 +55,28 @@ abstract class BaseActivity : AppCompatActivity() {
         } else {
             AppManager.instance.exitApp(this)
         }
+    }
+
+    /**
+     *  设置 toolbar 标题
+     */
+    fun setToolBar(toolbar: Toolbar, title: String) {
+        toolbar.title = title
+        setSupportActionBar(toolbar)
+        val supportActionBar = supportActionBar
+
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // 设置 toolbar   search 图标
+        // search 图标大小 -> 通过 drawable-hdpi 文件夹  还有 原图片大小来设置这里 32dp
+        // 如果直接放入 drawable 会偏大
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onDestroy() {

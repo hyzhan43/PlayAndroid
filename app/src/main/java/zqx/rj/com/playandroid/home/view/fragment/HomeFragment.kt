@@ -24,7 +24,7 @@ import zqx.rj.com.playandroid.home.data.adapter.HomeArticleAdapter
 import zqx.rj.com.playandroid.home.data.bean.Article
 import zqx.rj.com.playandroid.home.data.bean.BannerRsp
 import zqx.rj.com.playandroid.home.view.activity.CommonWebActivity
-import zqx.rj.com.playandroid.home.view.activity.SearchActivity
+import zqx.rj.com.playandroid.SearchActivity
 import zqx.rj.com.playandroid.WebViewActivtiy
 import zqx.rj.com.playandroid.home.vm.HomeViewModel
 import java.util.*
@@ -52,10 +52,6 @@ class HomeFragment : LifecycleFragment<HomeViewModel>(), CollectListener, Collec
     override fun initView() {
         // 一定要 ！！ (注入 mViewModel)
         super.initView()
-
-        // 设置 back 和 search
-        mTvBarTitle.text = getString(R.string.app_name)
-        mIvSearch.setOnClickListener { startActivity<SearchActivity>() }
 
         mRvArticle.layoutManager = LinearLayoutManager(context)
         mRvArticle.adapter = mAdapter
@@ -169,16 +165,16 @@ class HomeFragment : LifecycleFragment<HomeViewModel>(), CollectListener, Collec
     // 点击收藏 回调
     override fun collect(position: Int) {
 
-        val isCollect = mAdapter.data[position].collect
+        val collect = mAdapter.data[position].collect
 
         // 同步 recyclerView
-        mAdapter.data[position].collect = !isCollect
+        mAdapter.data[position].collect = !collect
         mAdapter.notifyDataSetChanged()
 
         // 文章 id
         val id = articleList[position].id
 
-        if (isCollect) mViewModel.unCollect(id) else mViewModel.collect(id)
+        if (collect) mViewModel.unCollect(id) else mViewModel.collect(id)
     }
 
     // 更新 主页面的  article 心型状态

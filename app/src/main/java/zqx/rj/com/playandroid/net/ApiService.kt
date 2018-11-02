@@ -13,6 +13,8 @@ import zqx.rj.com.playandroid.project.data.bean.ProjectRsp
 import zqx.rj.com.playandroid.project.data.bean.ProjectTreeRsp
 import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
 import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
+import zqx.rj.com.playandroid.wechat.data.bean.WeChatNameRsp
+import zqx.rj.com.playandroid.wechat.data.bean.WxArticleRsp
 
 /**
  * author：  HyZhan
@@ -71,4 +73,9 @@ interface ApiService {
     @GET("/project/list/{page}/json")
     fun getProjects(@Path("page") page: Int, @Query("cid") cid: Int): Observable<BaseResponse<ProjectRsp>>
 
+    @GET("/wxarticle/chapters/json")
+    fun getWeChatName(): Observable<BaseResponse<List<WeChatNameRsp>>>
+
+    @GET("/wxarticle/list/{id}/{page}/json")
+    fun getWxArticle(@Path("id") id: Int, @Path("page") page: Int): Observable<BaseResponse<WxArticleRsp>>
 }
