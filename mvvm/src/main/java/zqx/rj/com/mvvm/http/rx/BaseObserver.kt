@@ -14,10 +14,10 @@ import zqx.rj.com.mvvm.http.response.BaseResponse
  */
 abstract class BaseObserver<T : BaseResponse<*>>(val liveData: MutableLiveData<T>,
                                                  val loadState: MutableLiveData<State>) : Observer<T> {
-    private val LOGIN_SUC = 0
+    private val SUCCESS = 0
 
     override fun onNext(response: T) {
-        if (response.errorCode == LOGIN_SUC) {
+        if (response.errorCode == SUCCESS) {
             liveData.postValue(response)
             // 隐藏 loading
             loadState.postValue(State(StateType.SUCCESS))

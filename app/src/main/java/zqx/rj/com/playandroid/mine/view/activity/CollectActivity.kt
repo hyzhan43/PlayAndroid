@@ -43,8 +43,10 @@ class CollectActivity : LifecycleActivity<MineViewModel>(), CollectListener {
         mRvCollect.adapter = mCollectAdapter
 
         mCollectAdapter.setOnItemClickListener { _, _, position ->
-            startActivity<WebViewActivtiy>("link" to mArticleData[position].link,
-                    "title" to mArticleData[position].title)
+            if (mArticleData.isNotEmpty()){
+                startActivity<WebViewActivtiy>("link" to mArticleData[position].link,
+                        "title" to mArticleData[position].title)
+            }
         }
 
         // ♥ 型按钮
@@ -80,7 +82,7 @@ class CollectActivity : LifecycleActivity<MineViewModel>(), CollectListener {
             mArticleData = articles
             mCollectAdapter.setNewData(articles)
         } else {
-            Log.d("LST", "111111")
+            // TODO 没有相关收藏数据
             loadService.showCallback(EmptyCallback::class.java)
         }
 
