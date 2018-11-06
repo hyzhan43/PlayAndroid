@@ -2,7 +2,9 @@ package zqx.rj.com.playandroid.mine.view.activity
 
 import android.arch.lifecycle.Observer
 import android.view.View
+import com.kingja.loadsir.core.LoadSir
 import kotlinx.android.synthetic.main.common_bar.view.*
+import kotlinx.android.synthetic.main.fragment_article_list.*
 import zqx.rj.com.mvvm.common.callback.EmptyCallback
 import zqx.rj.com.mvvm.state.callback.CollectListener
 import zqx.rj.com.mvvm.state.callback.CollectState
