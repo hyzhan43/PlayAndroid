@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/mIcBar"
-        layout="@layout/commom_bar" />
+        layout="@layout/common_bar" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="100dp"

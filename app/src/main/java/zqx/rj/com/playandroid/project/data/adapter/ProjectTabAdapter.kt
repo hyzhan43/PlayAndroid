@@ -1,11 +1,8 @@
 package zqx.rj.com.playandroid.project.data.adapter
 
 import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import kotlinx.android.synthetic.main.project_item.view.*
 import zqx.rj.com.mvvm.common.loadUrl
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.project.data.bean.Project

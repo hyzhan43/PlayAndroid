@@ -15,8 +15,8 @@ import zqx.rj.com.mvvm.state.callback.CollectUpdateListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.WebViewActivtiy
 import zqx.rj.com.playandroid.account.data.context.LoginContext
-import zqx.rj.com.playandroid.article.data.adapter.ArticleAdapter
-import zqx.rj.com.playandroid.article.data.bean.Article
+import zqx.rj.com.playandroid.common.article.data.adapter.ArticleAdapter
+import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
 import zqx.rj.com.playandroid.system.vm.SystemViewModel
 

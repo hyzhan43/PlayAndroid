@@ -19,9 +19,20 @@ abstract class BaseObserver<T : BaseResponse<*>>(val liveData: MutableLiveData<T
 
     override fun onNext(response: T) {
         if (response.errorCode == SUCCESS) {
-            liveData.postValue(response)
-            // 隐藏 loading
+
+            if (response.data is List<*>) {
+                // 处理 如果 T 返回的是 List<*> 且是 Empty, 显示空白页面
+                if ((response.data as List<*>).isEmpty()) {
+                    loadState.postValue(State(StateType.EMPTY))
+                    return
+                }
+            }
+
+            // 加载成功
             loadState.postValue(State(StateType.SUCCESS))
+
+            // 正常返回
+            liveData.postValue(response)
         } else {
             loadState.postValue(State(StateType.ERROR, msg = response.errorMsg))
         }

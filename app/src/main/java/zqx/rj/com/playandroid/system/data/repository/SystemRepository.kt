@@ -5,8 +5,7 @@ import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.rx.BaseObserver
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
-import zqx.rj.com.playandroid.article.data.repository.ArticleRepository
-import zqx.rj.com.playandroid.net.ApiRepository
+import zqx.rj.com.playandroid.common.article.data.repository.ArticleRepository
 import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
 import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
 

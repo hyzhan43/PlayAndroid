@@ -10,5 +10,6 @@ enum class StateType{
     ERROR,
     NETWORK,
     LOADING,
-    TIPS
+    TIPS,
+    EMPTY,
 }

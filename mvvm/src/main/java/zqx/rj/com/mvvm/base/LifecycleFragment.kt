@@ -35,6 +35,7 @@ abstract class LifecycleFragment<T : BaseViewModel<*>> : BaseFragment() {
 
     open fun showError(msg: String) {
         toast("error: $msg")
+        loadService.showCallback(SuccessCallback::class.java)
     }
 
     open fun showSuccess() {
@@ -52,6 +53,7 @@ abstract class LifecycleFragment<T : BaseViewModel<*>> : BaseFragment() {
 
     private fun showTips(tips: Int) {
         toast(getString(tips))
+        loadService.showCallback(SuccessCallback::class.java)
     }
 
     override fun reLoad() {

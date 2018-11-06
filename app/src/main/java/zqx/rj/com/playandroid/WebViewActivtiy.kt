@@ -1,15 +1,11 @@
 package zqx.rj.com.playandroid
 
-import android.text.Html
 import android.view.View
-import android.webkit.WebSettings
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.activity_webview.*
-import kotlinx.android.synthetic.main.commom_bar.*
 import zqx.rj.com.mvvm.base.BaseActivity
-import zqx.rj.com.playandroid.R
 import com.just.agentweb.AgentWeb
-import zqx.rj.com.mvvm.common.Util
+import kotlinx.android.synthetic.main.common_bar.*
 import zqx.rj.com.mvvm.common.toHtml
 
 

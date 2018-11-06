@@ -6,7 +6,7 @@
 
     <include
         android:id="@+id/mIcBar"
-        layout="@layout/commom_bar" />
+        layout="@layout/common_bar" />
 
     <ScrollView
         android:layout_width="match_parent"

@@ -1,6 +1,6 @@
 package zqx.rj.com.playandroid.system.data.bean
 
-import zqx.rj.com.playandroid.article.data.bean.Article
+import zqx.rj.com.playandroid.common.article.data.bean.Article
 
 /**
  * author：  HyZhan

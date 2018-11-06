@@ -6,7 +6,7 @@ import android.view.View
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import kotlinx.android.synthetic.main.activity_common_web.*
-import kotlinx.android.synthetic.main.commom_bar.view.*
+import kotlinx.android.synthetic.main.common_bar.view.*
 import kotlinx.android.synthetic.main.common_tag.view.*
 import org.jetbrains.anko.startActivity
 import zqx.rj.com.mvvm.base.LifecycleActivity
@@ -66,8 +66,7 @@ class CommonWebActivity : LifecycleActivity<HomeViewModel>() {
         }
 
         mTflCommonWeb.setOnTagClickListener { _, position, _ ->
-            startActivity<WebViewActivtiy>("link" to links[position],
-                    "title" to tags[position])
+            startActivity<WebViewActivtiy>("link" to links[position], "title" to tags[position])
             true
         }
     }

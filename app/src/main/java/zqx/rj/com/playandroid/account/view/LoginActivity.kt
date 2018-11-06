@@ -54,8 +54,6 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
         // 处理 repository 回调的数据
         mViewModel.mLoginData.observe(this, Observer {
             it?.data?.let {
-                // 加载进度
-                showLoading()
                 // 标记 已登录状态  ( 改变 sharedPreferences   isLogin值)
                 isLogin = true
                 LoginContext.instance.mState = LoginState()
@@ -66,7 +64,6 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
             }
         })
     }
-
 
 
     override fun onBackPressed() = finish()

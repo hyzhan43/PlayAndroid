@@ -3,7 +3,6 @@ package zqx.rj.com.playandroid.project.view.fragment
 import android.arch.lifecycle.Observer
 import android.support.v4.app.Fragment
 import kotlinx.android.synthetic.main.fragment_project.*
-import kotlinx.android.synthetic.main.fragment_system.*
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.project.data.adapter.ViewPagerAdapter

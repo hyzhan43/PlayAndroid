@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
-import android.view.MenuItem
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import org.jetbrains.anko.toast
@@ -21,7 +20,7 @@ abstract class BaseActivity : AppCompatActivity() {
     private var pressTime: Long = 0
 
     protected val loadService: LoadService<*> by lazy {
-        LoadSir.getDefault().register(this) {
+        LoadSir.getDefault().register(this){
             reLoad()
         }
     }

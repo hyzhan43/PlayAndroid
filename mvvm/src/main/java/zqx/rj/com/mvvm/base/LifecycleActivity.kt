@@ -9,6 +9,7 @@ import zqx.rj.com.mvvm.common.Util
 import zqx.rj.com.mvvm.common.callback.LoadingCallback
 import zqx.rj.com.mvvm.common.constant.StateType
 import zqx.rj.com.mvvm.common.State
+import zqx.rj.com.mvvm.common.callback.EmptyCallback
 import zqx.rj.com.mvvm.common.callback.ErrorCallback
 
 /**
@@ -34,6 +35,7 @@ abstract class LifecycleActivity<T : BaseViewModel<*>> : BaseActivity() {
 
     open fun showError(msg: String) {
         toast("error: $msg")
+        loadService.showCallback(SuccessCallback::class.java)
     }
 
     open fun showSuccess() {
@@ -51,6 +53,11 @@ abstract class LifecycleActivity<T : BaseViewModel<*>> : BaseActivity() {
 
     private fun showTips(tips: Int) {
         toast(getString(tips))
+        loadService.showCallback(SuccessCallback::class.java)
+    }
+
+    open fun showEmpty(){
+        loadService.showCallback(EmptyCallback::class.java)
     }
 
     abstract fun dataObserver()

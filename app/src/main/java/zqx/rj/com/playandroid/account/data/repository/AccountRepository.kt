@@ -7,7 +7,7 @@ import zqx.rj.com.mvvm.http.rx.BaseObserver
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
 import zqx.rj.com.playandroid.account.data.bean.LoginRsp
 import zqx.rj.com.playandroid.account.data.bean.RegisterRsp
-import zqx.rj.com.playandroid.net.ApiRepository
+import zqx.rj.com.playandroid.common.net.ApiRepository
 
 
 /**

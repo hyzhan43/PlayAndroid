@@ -3,7 +3,8 @@ package zqx.rj.com.playandroid.account.view
 import android.arch.lifecycle.Observer
 import android.view.View
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.commom_bar.view.*
+import kotlinx.android.synthetic.main.common_bar.*
+import kotlinx.android.synthetic.main.common_bar.view.*
 import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.mvvm.common.Preference
@@ -23,12 +24,11 @@ class RegisterActivity : LifecycleActivity<AccountViewModel>() {
     override fun initView() {
         super.initView()
 
-        mIcBar.mIvSearch.visibility = View.GONE
-        mIcBar.mIvBack.visibility = View.VISIBLE
-        mIcBar.mIvBack.setOnClickListener { finish() }
+        mIvSearch.visibility = View.GONE
+        mIvBack.visibility = View.VISIBLE
+        mIvBack.setOnClickListener { finish() }
 
         mIcBar.mTvBarTitle.text = getString(R.string.register)
-
 
         mBtnRegister.setOnClickListener {
             mViewModel.getRegister(mTieAccount.str(), mTiePassword.str(), mTiePasswordAg.str())

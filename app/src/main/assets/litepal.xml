@@ -5,7 +5,7 @@
     <version value="1" />
 
     <list>
-        <mapping class="zqx.rj.com.playandroid.home.data.db.bean.Record" />
+        <mapping class="zqx.rj.com.playandroid.common.search.data.db.bean.Record" />
     </list>
 
 </litepal>

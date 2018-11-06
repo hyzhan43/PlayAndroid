@@ -19,6 +19,7 @@ import zqx.rj.com.mvvm.state.callback.LoginSucListener
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.account.data.context.LogoutState
 import zqx.rj.com.playandroid.account.view.LoginActivity
+import zqx.rj.com.playandroid.common.search.view.SearchActivity
 import zqx.rj.com.playandroid.home.view.fragment.HomeFragment
 import zqx.rj.com.playandroid.mine.view.activity.AboutActivity
 import zqx.rj.com.playandroid.navigation.view.fragment.NavigationFragment

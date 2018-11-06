@@ -1,5 +1,7 @@
 package zqx.rj.com.playandroid.mine.data.bean
 
+import zqx.rj.com.playandroid.common.article.data.bean.Article
+
 /**
  * author：  HyZhan
  * created： 2018/10/24 16:56

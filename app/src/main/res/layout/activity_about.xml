@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <include layout="@layout/commom_bar" />
+    <include layout="@layout/common_bar" />
 
 
     <de.hdodenhof.circleimageview.CircleImageView
