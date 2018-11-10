@@ -14,7 +14,7 @@ import zqx.rj.com.mvvm.common.toHtml
  * created： 2018/10/18 14:29
  * desc：    TODO
  */
-class WebViewActivtiy : BaseActivity() {
+class WebViewActivity : BaseActivity() {
 
     private lateinit var mAgentWeb: AgentWeb
 

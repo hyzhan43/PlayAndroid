@@ -12,7 +12,7 @@ import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.common.GlideImageLoader
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.search.view.SearchActivity
-import zqx.rj.com.playandroid.WebViewActivtiy
+import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
 import zqx.rj.com.playandroid.home.data.bean.BannerRsp
 import zqx.rj.com.playandroid.home.view.activity.CommonWebActivity
@@ -46,7 +46,7 @@ class HomeFragment : ArticleListFragment<HomeViewModel>(){
 
         mBanner = headView.mBanner
         mBanner.setOnBannerListener { position ->
-            startActivity<WebViewActivtiy>("link" to urls[position],
+            startActivity<WebViewActivity>("link" to urls[position],
                     "title" to titles[position])
         }
 

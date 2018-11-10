@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.fragment_project_tab.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivtiy
+import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.project.data.adapter.ProjectTabAdapter
 import zqx.rj.com.playandroid.project.data.bean.Project
 import zqx.rj.com.playandroid.project.vm.ProjectViewModel
@@ -50,7 +50,7 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
         mAdapter.setOnItemClickListener { _, _, position ->
             if (mProjectsData.isNotEmpty()){
                 val project = mProjectsData[position]
-                startActivity<WebViewActivtiy>("link" to project.link,
+                startActivity<WebViewActivity>("link" to project.link,
                         "title" to project.title)
             }
         }

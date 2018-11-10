@@ -23,9 +23,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
-    compile project(':mvvm')
+    api project(':mvvm')
 
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 }

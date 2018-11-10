@@ -9,7 +9,7 @@ import zqx.rj.com.mvvm.state.callback.CollectListener
 import zqx.rj.com.mvvm.state.callback.CollectState
 import zqx.rj.com.mvvm.state.callback.CollectUpdateListener
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivtiy
+import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.common.article.data.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
@@ -47,7 +47,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
                 // 如果 获取不到 对应 article  就返回 null (不然会报 空指针异常)
                 val article = mArticleData.getOrNull(position)
                 article?.let {
-                    startActivity<WebViewActivtiy>("link" to it.link, "title" to it.title)
+                    startActivity<WebViewActivity>("link" to it.link, "title" to it.title)
                 }
             }
         }

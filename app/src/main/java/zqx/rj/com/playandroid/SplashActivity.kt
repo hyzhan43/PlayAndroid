@@ -23,9 +23,7 @@ class SplashActivity : BaseActivity() {
     override fun initView() {
         // 延迟 3s 进入 login
         subscription = Observable.timer(3, TimeUnit.SECONDS)
-                .subscribe({
-                    startActivity<MainActivity>()
-                })
+                .subscribe { startActivity<MainActivity>() }
     }
 
     override fun onDestroy() {

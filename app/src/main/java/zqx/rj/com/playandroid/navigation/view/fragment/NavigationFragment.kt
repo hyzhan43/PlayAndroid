@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_navigation.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivtiy
+import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.navigation.data.adapter.CategoryAdapter
 import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
 import zqx.rj.com.playandroid.navigation.vm.NavigationViewModel
@@ -84,7 +84,7 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
         }
 
         mTflRepresent.setOnTagClickListener { _, position, _ ->
-            startActivity<WebViewActivtiy>("link" to links[position],
+            startActivity<WebViewActivity>("link" to links[position],
                     "title" to titles[position])
             true
         }

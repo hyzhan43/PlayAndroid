@@ -13,7 +13,7 @@ import zqx.rj.com.mvvm.state.callback.CollectListener
 import zqx.rj.com.mvvm.state.callback.CollectState
 import zqx.rj.com.mvvm.state.callback.CollectUpdateListener
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivtiy
+import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.common.article.data.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
@@ -60,7 +60,7 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
 
         // item
         mArticleAdapter.setOnItemClickListener { _, _, position ->
-            startActivity<WebViewActivtiy>("link" to mArticleData[position].link,
+            startActivity<WebViewActivity>("link" to mArticleData[position].link,
                     "title" to mArticleData[position].title)
         }
 
