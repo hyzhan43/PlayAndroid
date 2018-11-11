@@ -9,9 +9,7 @@ import zqx.rj.com.mvvm.R
  * created： 2018/10/10 15:19
  * desc：    加载回调
  */
-class LoadingCallback: Callback() {
+class LoadingCallback : Callback() {
 
-    override fun onCreateView(): Int {
-        return R.layout.layout_loading
-    }
+    override fun onCreateView(): Int = R.layout.layout_loading
 }

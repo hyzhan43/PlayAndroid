@@ -36,8 +36,8 @@ class ProjectFragment : LifecycleFragment<ProjectViewModel>() {
     }
 
     override fun dataObserver() {
-        mViewModel.mProjectTreeData.observe(this, Observer {
-            it?.let {
+        mViewModel.mProjectTreeData.observe(this, Observer {response->
+            response?.let {
                 initTitles(it.data)
                 initFragment(it.data)
             }

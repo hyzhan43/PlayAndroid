@@ -83,8 +83,8 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
 
 
     override fun dataObserver() {
-        mViewModel.mProjectsData.observe(this, Observer {
-            it?.data?.let {
+        mViewModel.mProjectsData.observe(this, Observer {response->
+            response?.data?.let {
                 if (it.datas.isEmpty()) {
                     mAdapter.loadMoreEnd()
                 } else {

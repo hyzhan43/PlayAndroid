@@ -1,19 +1,15 @@
 package zqx.rj.com.mvvm.common
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
 import zqx.rj.com.mvvm.R
 
 /**

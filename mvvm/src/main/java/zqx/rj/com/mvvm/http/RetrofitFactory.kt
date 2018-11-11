@@ -19,10 +19,6 @@ class RetrofitFactory private constructor() {
 
     private val retrofit: Retrofit
 
-    private val mCookieItp: Interceptor by lazy { initCookieIntercept() }
-    private val mLoginItp: Interceptor by lazy { initLoginIntercept() }
-    private val mCommonItp: Interceptor by lazy { initCommonIntercept() }
-
     companion object {
         val instance by lazy { RetrofitFactory() }
     }
@@ -39,9 +35,9 @@ class RetrofitFactory private constructor() {
     // 初始化 okHttp
     private fun initOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-                .addInterceptor(mCookieItp)
-                .addInterceptor(mLoginItp)
-                .addInterceptor(mCommonItp)
+                .addInterceptor(initCookieIntercept())
+                .addInterceptor(initLoginIntercept())
+                .addInterceptor(initCommonIntercept())
                 .addInterceptor(initLogInterceptor())
                 .readTimeout(10, TimeUnit.SECONDS)
                 .connectTimeout(10, TimeUnit.SECONDS)
@@ -122,18 +118,13 @@ class RetrofitFactory private constructor() {
     private fun encodeCookie(cookies: List<String>): String {
 
         val sb = StringBuilder()
-        val set = HashSet<String>()
 
-        // dropLastWhile -> 返回从最后一项起，去掉满足条件的元素，直到不满足条件的一项为止
-        cookies.map {
-            it.split(";").dropLastWhile { it.isEmpty() }.toTypedArray()
-        }.forEach {
-            it.forEach { set.add(it) }
+        // 组装 cookie
+        cookies.forEach { cookie ->
+            sb.append(cookie).append(";")
         }
 
-        // 拼接 cookie ——> 如 JSESSIONID=1C42A0A65F4FFEB70023E5ED7BCA69; Path=/;
-        set.map { sb.append(it).append(";") }
-
+        // 去掉 最后的 “ ; ”
         return sb.deleteCharAt(sb.length - 1).toString()
     }
 

@@ -34,8 +34,8 @@ class SystemFragment : LifecycleFragment<SystemViewModel>() {
     }
 
     override fun dataObserver() {
-        mViewModel.mTreeData.observe(this, Observer {
-            it?.let { initSystemData(it.data) }
+        mViewModel.mTreeData.observe(this, Observer { response ->
+            response?.let { initSystemData(it.data) }
         })
 
     }

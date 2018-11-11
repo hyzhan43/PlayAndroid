@@ -91,4 +91,5 @@ dependencies {
 
     // 数据库
     api "org.litepal.android:kotlin:$litepal_version"
+
 }

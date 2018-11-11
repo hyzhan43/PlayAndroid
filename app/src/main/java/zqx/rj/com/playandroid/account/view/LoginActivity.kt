@@ -9,8 +9,8 @@ import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.common.str
+import zqx.rj.com.mvvm.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.mvvm.state.callback.LoginSucListener
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.account.data.context.LoginState
 import zqx.rj.com.playandroid.account.vm.AccountViewModel
@@ -19,10 +19,6 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
 
     private var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
 
-    companion object {
-        var listener: LoginSucListener? = null
-    }
-
     override fun getLayoutId(): Int = R.layout.activity_login
 
     override fun initView() {
@@ -30,7 +26,6 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
 
         mBtnLogin.setOnClickListener(this)
         mTvRegister.setOnClickListener(this)
-
 
         showSuccess()
     }
@@ -53,13 +48,16 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
 
         // 处理 repository 回调的数据
         mViewModel.mLoginData.observe(this, Observer {
-            it?.data?.let {
+            it?.data?.let { loginRsp ->
                 // 标记 已登录状态  ( 改变 sharedPreferences   isLogin值)
                 isLogin = true
                 LoginContext.instance.mState = LoginState()
-                // 登录成功 回调 -> DrawerLayout -> 更新状态
-                listener?.success(it.username)
+
+                // 登录成功 回调 -> DrawerLayout -> 个人信息更新状态
+                LoginSucState.notifyLoginState(loginRsp.username, loginRsp.collectIds)
+
                 toast(getString(R.string.login_suc))
+
                 finish()
             }
         })

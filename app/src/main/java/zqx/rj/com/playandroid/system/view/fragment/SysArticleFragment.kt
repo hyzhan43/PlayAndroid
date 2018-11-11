@@ -9,9 +9,9 @@ import com.kingja.loadsir.callback.SuccessCallback
 import kotlinx.android.synthetic.main.fragment_system_article.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
-import zqx.rj.com.mvvm.state.callback.CollectListener
-import zqx.rj.com.mvvm.state.callback.CollectState
-import zqx.rj.com.mvvm.state.callback.CollectUpdateListener
+import zqx.rj.com.mvvm.state.callback.collect.CollectListener
+import zqx.rj.com.mvvm.state.callback.collect.CollectState
+import zqx.rj.com.mvvm.state.callback.collect.CollectUpdateListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.account.data.context.LoginContext
@@ -83,8 +83,8 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
     }
 
     override fun dataObserver() {
-        mViewModel.mTreeArticleData.observe(this, Observer {
-            it?.let { setArticleData(it.data) }
+        mViewModel.mTreeArticleData.observe(this, Observer {response->
+            response?.let { setArticleData(it.data) }
 
             loadService.showCallback(SuccessCallback::class.java)
         })

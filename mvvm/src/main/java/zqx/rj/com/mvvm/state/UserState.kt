@@ -1,7 +1,7 @@
 package zqx.rj.com.mvvm.state
 
 import android.content.Context
-import zqx.rj.com.mvvm.state.callback.CollectListener
+import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 
 /**
  * author：  HyZhan

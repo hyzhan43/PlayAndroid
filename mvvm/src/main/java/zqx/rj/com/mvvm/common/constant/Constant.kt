@@ -15,4 +15,10 @@ object Constant {
     const val SAVE_USER_REGISTER_KEY = "user/register"
     const val SET_COOKIE_KEY = "set-cookie"
     const val COOKIE_NAME = "Cookie"
+
+    const val HOME = 0
+    const val WECHAT = 1
+    const val SYSTEM = 2
+    const val NAVIGATION = 3
+    const val PROJECT = 4
 }

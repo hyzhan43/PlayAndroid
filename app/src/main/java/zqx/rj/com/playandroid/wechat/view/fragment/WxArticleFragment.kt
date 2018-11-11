@@ -13,7 +13,8 @@ import zqx.rj.com.playandroid.wechat.vm.WeChatViewModel
  */
 class WxArticleFragment : ArticleListFragment<WeChatViewModel>() {
 
-    private val page: Int = 1
+    private var page: Int = 1
+    private val uid: Int by lazy { arguments?.getInt("id") ?: -1 }
 
     companion object {
         fun getNewInstance(id: Int): Fragment {
@@ -28,16 +29,18 @@ class WxArticleFragment : ArticleListFragment<WeChatViewModel>() {
 
     override fun initData() {
         super.initData()
+        mViewModel.getWxArticle(uid, page)
+    }
 
-        val id = arguments?.getInt("id") ?: -1
-        mViewModel.getWxArticle(id, page)
+    override fun onLoadMoreData() {
+        mViewModel.getWxArticle(uid, ++page)
     }
 
     override fun dataObserver() {
         super.dataObserver()
 
-        mViewModel.mWxArticleData.observe(this, Observer {
-            it?.let {
+        mViewModel.mWxArticleData.observe(this, Observer { response ->
+            response?.let {
                 mArticleData.addAll(it.data.datas)
                 loadDataSuc()
             }

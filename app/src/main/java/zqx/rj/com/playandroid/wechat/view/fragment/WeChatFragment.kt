@@ -33,8 +33,8 @@ class WeChatFragment : LifecycleFragment<WeChatViewModel>() {
 
 
     override fun dataObserver() {
-        mViewModel.mWeChatNameData.observe(this, Observer {
-            it?.let { initWxArticle(it.data) }
+        mViewModel.mWeChatNameData.observe(this, Observer { response ->
+            response?.let { initWxArticle(it.data) }
         })
     }
 

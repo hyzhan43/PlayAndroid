@@ -2,12 +2,10 @@ package zqx.rj.com.playandroid.mine.view.activity
 
 import android.arch.lifecycle.Observer
 import android.view.View
-import com.kingja.loadsir.core.LoadSir
 import kotlinx.android.synthetic.main.common_bar.view.*
-import kotlinx.android.synthetic.main.fragment_article_list.*
 import zqx.rj.com.mvvm.common.callback.EmptyCallback
-import zqx.rj.com.mvvm.state.callback.CollectListener
-import zqx.rj.com.mvvm.state.callback.CollectState
+import zqx.rj.com.mvvm.state.callback.collect.CollectListener
+import zqx.rj.com.mvvm.state.callback.collect.CollectState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.view.ArticleListActivity
@@ -51,8 +49,8 @@ class CollectActivity : ArticleListActivity<MineViewModel>(), CollectListener {
     override fun dataObserver() {
 
         // 获取 收藏数据
-        mViewModel.mCollectArticleData.observe(this, Observer {
-            it?.let { setCollectToData(it.data.datas) }
+        mViewModel.mCollectArticleData.observe(this, Observer { response ->
+            response?.let { setCollectToData(it.data.datas) }
         })
 
         // 发起收藏 或者 取消收藏

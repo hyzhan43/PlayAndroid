@@ -10,6 +10,7 @@ import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.common.str
+import zqx.rj.com.mvvm.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.account.data.context.LoginState
@@ -39,13 +40,13 @@ class RegisterActivity : LifecycleActivity<AccountViewModel>() {
 
 
     override fun dataObserver() {
-        mViewModel.mRegisterData.observe(this, Observer {
+        mViewModel.mRegisterData.observe(this, Observer { it ->
             toast(getString(R.string.register_suc))
             // 改变 sharedPreferences   isLogin值
             isLogin = true
             LoginContext.instance.mState = LoginState()
 
-            it?.let { LoginActivity.listener?.success(it.data.username) }
+            it?.data?.let { LoginSucState.notifyLoginState(it.username, it.collectIds) }
 
             finish()
         })

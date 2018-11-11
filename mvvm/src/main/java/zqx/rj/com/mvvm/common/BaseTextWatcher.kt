@@ -6,7 +6,7 @@ import android.text.TextWatcher
 /**
  * author：  HyZhan
  * created： 2018/10/29 14:50
- * desc：    TODO
+ * desc：    EditText 输入监听
  */
 open class BaseTextWatcher : TextWatcher {
     override fun afterTextChanged(s: Editable?) {}
@@ -15,5 +15,4 @@ open class BaseTextWatcher : TextWatcher {
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
     }
-
 }

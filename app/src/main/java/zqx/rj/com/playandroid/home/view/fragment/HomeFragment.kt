@@ -11,9 +11,9 @@ import kotlinx.android.synthetic.main.home_special_item.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.common.GlideImageLoader
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.common.search.view.SearchActivity
 import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
+import zqx.rj.com.playandroid.common.search.view.SearchActivity
 import zqx.rj.com.playandroid.home.data.bean.BannerRsp
 import zqx.rj.com.playandroid.home.view.activity.CommonWebActivity
 import zqx.rj.com.playandroid.home.vm.HomeViewModel
@@ -25,7 +25,7 @@ import java.util.*
  * created： 2018/10/13 13:51
  * desc：    首页
  */
-class HomeFragment : ArticleListFragment<HomeViewModel>(){
+class HomeFragment : ArticleListFragment<HomeViewModel>() {
 
     private lateinit var mBanner: Banner
     private val urls by lazy { arrayListOf<String>() }
@@ -60,11 +60,11 @@ class HomeFragment : ArticleListFragment<HomeViewModel>(){
     }
 
     private fun initTitle(headView: View?) {
-        headView?.let {
-            it.mIcCommonTitle.mTvTitle.text = getString(R.string.common_title)
-            it.mIcNewsArticle.mTvTitle.text = getString(R.string.news_article)
-            it.mBtnTools.setOnClickListener { startActivity<SearchActivity>() }
-            it.mBtnWebsites.setOnClickListener { startActivity<CommonWebActivity>() }
+        headView?.let { view ->
+            view.mIcCommonTitle.mTvTitle.text = getString(R.string.common_title)
+            view.mIcNewsArticle.mTvTitle.text = getString(R.string.news_article)
+            view.mBtnTools.setOnClickListener { startActivity<SearchActivity>() }
+            view.mBtnWebsites.setOnClickListener { startActivity<CommonWebActivity>() }
         }
     }
 
@@ -81,12 +81,12 @@ class HomeFragment : ArticleListFragment<HomeViewModel>(){
         // 调用父类 dataObserver
         super.dataObserver()
 
-        mViewModel.mBannerData.observe(this, Observer {
-            it?.let { setBannerData(it.data) }
+        mViewModel.mBannerData.observe(this, Observer { response ->
+            response?.let { setBannerData(it.data) }
         })
 
-        mViewModel.mHomeArticleData.observe(this, Observer {
-            it?.let {
+        mViewModel.mHomeArticleData.observe(this, Observer { response ->
+            response?.let {
                 mArticleData.addAll(it.data.datas)
                 loadDataSuc()
             }

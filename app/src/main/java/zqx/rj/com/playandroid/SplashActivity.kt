@@ -4,7 +4,6 @@ import org.jetbrains.anko.startActivity
 import rx.Observable
 import rx.Subscription
 import zqx.rj.com.mvvm.base.BaseActivity
-import zqx.rj.com.playandroid.account.view.LoginActivity
 import java.util.concurrent.TimeUnit
 
 /**

@@ -1,10 +1,8 @@
 package zqx.rj.com.mvvm.base
 
-import android.annotation.SuppressLint
 import android.app.Application
 import com.kingja.loadsir.core.LoadSir
 import org.litepal.LitePal
-import org.litepal.LitePalApplication
 import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.callback.EmptyCallback
 import zqx.rj.com.mvvm.common.callback.ErrorCallback

@@ -1,11 +1,9 @@
 package zqx.rj.com.playandroid.account.data.context
 
 import android.content.Context
-import android.widget.ImageView
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.state.UserState
-import zqx.rj.com.mvvm.state.callback.CollectListener
+import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 import zqx.rj.com.playandroid.mine.view.activity.CollectActivity
 
 /**

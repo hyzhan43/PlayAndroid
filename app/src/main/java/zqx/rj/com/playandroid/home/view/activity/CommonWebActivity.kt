@@ -40,8 +40,8 @@ class CommonWebActivity : LifecycleActivity<HomeViewModel>() {
     }
 
     override fun dataObserver() {
-        mViewModel.mCommonWebData.observe(this, Observer {
-            it?.let { initCommonWeb(it.data) }
+        mViewModel.mCommonWebData.observe(this, Observer { response ->
+            response?.let { initCommonWeb(it.data) }
         })
     }
 
@@ -54,7 +54,7 @@ class CommonWebActivity : LifecycleActivity<HomeViewModel>() {
             links.add(commonWebRsp.link)
         }
 
-        mTflCommonWeb.adapter = object : TagAdapter<String>(tags){
+        mTflCommonWeb.adapter = object : TagAdapter<String>(tags) {
             override fun getView(parent: FlowLayout?, position: Int, tag: String?): View {
 
                 val mTagLayout = LayoutInflater.from(this@CommonWebActivity)

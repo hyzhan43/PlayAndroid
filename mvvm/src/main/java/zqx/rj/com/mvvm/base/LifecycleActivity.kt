@@ -5,12 +5,12 @@ import android.arch.lifecycle.ViewModelProviders
 import com.kingja.loadsir.callback.SuccessCallback
 import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.R
-import zqx.rj.com.mvvm.common.Util
-import zqx.rj.com.mvvm.common.callback.LoadingCallback
-import zqx.rj.com.mvvm.common.constant.StateType
 import zqx.rj.com.mvvm.common.State
+import zqx.rj.com.mvvm.common.Util
 import zqx.rj.com.mvvm.common.callback.EmptyCallback
 import zqx.rj.com.mvvm.common.callback.ErrorCallback
+import zqx.rj.com.mvvm.common.callback.LoadingCallback
+import zqx.rj.com.mvvm.common.constant.StateType
 
 /**
  * author：  HyZhan
@@ -56,7 +56,7 @@ abstract class LifecycleActivity<T : BaseViewModel<*>> : BaseActivity() {
         loadService.showCallback(SuccessCallback::class.java)
     }
 
-    open fun showEmpty(){
+    open fun showEmpty() {
         loadService.showCallback(EmptyCallback::class.java)
     }
 
@@ -72,6 +72,7 @@ abstract class LifecycleActivity<T : BaseViewModel<*>> : BaseActivity() {
                     StateType.LOADING -> showLoading()
                     StateType.NETWORK -> showNetWork()
                     StateType.TIPS -> showTips(it.tip)
+                    StateType.EMPTY -> showEmpty()
                 }
             }
         }

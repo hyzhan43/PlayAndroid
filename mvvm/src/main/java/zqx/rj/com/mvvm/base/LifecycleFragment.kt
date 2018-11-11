@@ -4,10 +4,10 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import com.kingja.loadsir.callback.SuccessCallback
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.R
 import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.common.Util
+import zqx.rj.com.mvvm.common.callback.EmptyCallback
 import zqx.rj.com.mvvm.common.callback.ErrorCallback
 import zqx.rj.com.mvvm.common.callback.LoadingCallback
 import zqx.rj.com.mvvm.common.constant.StateType
@@ -39,7 +39,7 @@ abstract class LifecycleFragment<T : BaseViewModel<*>> : BaseFragment() {
     }
 
     open fun showSuccess() {
-         loadService.showCallback(SuccessCallback::class.java)
+        loadService.showCallback(SuccessCallback::class.java)
     }
 
     private fun showNetWork() {
@@ -48,12 +48,16 @@ abstract class LifecycleFragment<T : BaseViewModel<*>> : BaseFragment() {
     }
 
     open fun showLoading() {
-         loadService.showCallback(LoadingCallback::class.java)
+        loadService.showCallback(LoadingCallback::class.java)
     }
 
     private fun showTips(tips: Int) {
         toast(getString(tips))
         loadService.showCallback(SuccessCallback::class.java)
+    }
+
+    open fun showEmpty() {
+        loadService.showCallback(EmptyCallback::class.java)
     }
 
     override fun reLoad() {
@@ -73,6 +77,7 @@ abstract class LifecycleFragment<T : BaseViewModel<*>> : BaseFragment() {
                     StateType.LOADING -> showLoading()
                     StateType.NETWORK -> showNetWork()
                     StateType.TIPS -> showTips(it.tip)
+                    StateType.EMPTY -> showEmpty()
                 }
             }
         }

@@ -5,9 +5,11 @@ import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_article_list.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
-import zqx.rj.com.mvvm.state.callback.CollectListener
-import zqx.rj.com.mvvm.state.callback.CollectState
-import zqx.rj.com.mvvm.state.callback.CollectUpdateListener
+import zqx.rj.com.mvvm.state.callback.collect.CollectListener
+import zqx.rj.com.mvvm.state.callback.collect.CollectState
+import zqx.rj.com.mvvm.state.callback.collect.CollectUpdateListener
+import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
+import zqx.rj.com.mvvm.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.account.data.context.LoginContext
@@ -21,7 +23,7 @@ import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
  * desc：    文章列表 基类  (封装了 文章列表)
  */
 abstract class ArticleListFragment<T : ArticleViewModel<*>>
-    : LifecycleFragment<T>(), CollectListener, CollectUpdateListener {
+    : LifecycleFragment<T>(), CollectListener, CollectUpdateListener, LoginSucListener {
 
     // 文章是否 收藏 状态
     private var state: Boolean = false
@@ -63,6 +65,9 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
         // 监听 其他地方 点击收藏后 回调
         CollectState.addListener(this)
+
+        // 监听登录成功
+        LoginSucState.addListener(this)
     }
 
 
@@ -125,8 +130,28 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
         mArticleAdapter.notifyDataSetChanged()
     }
 
+    override fun success(username: String, collectIds: List<Int>) {
+
+        // 表示没有任何收藏文章
+        if (collectIds.isEmpty()) {
+            mArticleData.forEach { article -> article.collect = false }
+        } else {
+            collectIds.forEach { id ->
+                mArticleData.forEach { article ->
+                    // 更新文章收藏状态
+                    if (article.id == id) {
+                        article.collect = true
+                    }
+                }
+            }
+        }
+
+        mArticleAdapter.notifyDataSetChanged()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         CollectState.removeListener(this)
+        LoginSucState.removeListener(this)
     }
 }

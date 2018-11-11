@@ -20,11 +20,10 @@ abstract class BaseActivity : AppCompatActivity() {
     private var pressTime: Long = 0
 
     protected val loadService: LoadService<*> by lazy {
-        LoadSir.getDefault().register(this){
+        LoadSir.getDefault().register(this) {
             reLoad()
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +40,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     open fun initView() {}
     open fun initData() {}
+
     // 重新加载
     open fun reLoad() {}
 

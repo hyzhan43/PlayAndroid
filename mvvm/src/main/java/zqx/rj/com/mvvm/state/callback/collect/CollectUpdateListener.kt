@@ -1,4 +1,4 @@
-package zqx.rj.com.mvvm.state.callback
+package zqx.rj.com.mvvm.state.callback.collect
 
 /**
  * author：  HyZhan

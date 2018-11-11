@@ -5,7 +5,7 @@ import android.content.Context
 import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.state.UserState
-import zqx.rj.com.mvvm.state.callback.CollectListener
+import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 
 /**
  * author：  HyZhan

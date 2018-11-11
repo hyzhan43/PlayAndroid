@@ -138,15 +138,15 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
     }
 
     // 添加历史搜索记录
-    private fun addHistory(keyword: String?) {
-        keyword?.let {
+    private fun addHistory(keyword: String) {
+
+        keyword.let {
             saveDataToDb(it)
             updateList(it)
         }
 
         if (mHistoryData.isNotEmpty()) mFootView.visibility = View.VISIBLE
     }
-
 
     override fun initData() {
         getHistory()
@@ -179,13 +179,13 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
         super.dataObserver()
 
         // 热门搜索 回调
-        mViewModel.mHotKeyData.observe(this, Observer {
-            it?.let { initFlowLayout(it.data) }
+        mViewModel.mHotKeyData.observe(this, Observer { response ->
+            response?.let { initFlowLayout(it.data) }
         })
 
         // 搜索成功回调
-        mViewModel.mSearchResultData.observe(this, Observer {
-            it?.let { setSearchResult(it.data.datas) }
+        mViewModel.mSearchResultData.observe(this, Observer { response ->
+            response?.let { setSearchResult(it.data.datas) }
         })
 
     }

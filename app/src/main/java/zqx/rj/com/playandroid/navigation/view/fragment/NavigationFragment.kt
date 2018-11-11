@@ -49,8 +49,8 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
     }
 
     override fun dataObserver() {
-        mViewModel.mCategory.observe(this, Observer {
-            it?.let {
+        mViewModel.mCategory.observe(this, Observer { response ->
+            response?.let {
                 initNavigation(it.data)
             }
         })

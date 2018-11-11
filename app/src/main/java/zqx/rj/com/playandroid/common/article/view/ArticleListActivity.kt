@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_article_list.*
 import org.jetbrains.anko.startActivity
 import zqx.rj.com.mvvm.base.LifecycleActivity
-import zqx.rj.com.mvvm.state.callback.CollectListener
-import zqx.rj.com.mvvm.state.callback.CollectState
+import zqx.rj.com.mvvm.state.callback.collect.CollectListener
+import zqx.rj.com.mvvm.state.callback.collect.CollectState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.account.data.context.LoginContext

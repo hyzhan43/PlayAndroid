@@ -15,10 +15,10 @@ import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.base.BaseActivity
 import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
-import zqx.rj.com.mvvm.state.callback.LoginSucListener
+import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
+import zqx.rj.com.mvvm.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.account.data.context.LogoutState
-import zqx.rj.com.playandroid.account.view.LoginActivity
 import zqx.rj.com.playandroid.common.search.view.SearchActivity
 import zqx.rj.com.playandroid.home.view.fragment.HomeFragment
 import zqx.rj.com.playandroid.mine.view.activity.AboutActivity
@@ -28,12 +28,6 @@ import zqx.rj.com.playandroid.system.view.fragment.SystemFragment
 import zqx.rj.com.playandroid.wechat.view.fragment.WeChatFragment
 
 class MainActivity : BaseActivity(), LoginSucListener {
-
-    private val HOME = 0
-    private val WECHAT = 1
-    private val SYSTEM = 2
-    private val NAVIGATION = 3
-    private val PROJECT = 4
 
     private lateinit var headView: View
     private val mNotLogin: String = "未登录"
@@ -74,7 +68,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
     private fun initDrawerLayout() {
 
         // 设置 登录成功 监听
-        LoginActivity.listener = this
+        LoginSucState.addListener(this)
 
         // 直接获取报错   error -> mNavMain.mTvName
         headView = mNavMain.getHeaderView(0)
@@ -97,9 +91,11 @@ class MainActivity : BaseActivity(), LoginSucListener {
                 R.id.nav_menu_logout -> {
                     // 清除 cookie、登录缓存
                     Preference.clear()
-                    headView.mTvName.text = mNotLogin
+//                    headView.mTvName.text = mNotLogin
                     // 设置 未登录状态
                     LoginContext.instance.mState = LogoutState()
+
+                    LoginSucState.notifyLoginState(mNotLogin, arrayListOf())
                 }
             }
 
@@ -120,7 +116,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
             addItem(BottomNavigationItem(R.mipmap.ic_project, getString(R.string.project)))
 
             // 设置底部 BottomBar 默认选中 home
-            setFirstSelectedPosition(HOME)
+            setFirstSelectedPosition(Constant.HOME)
             // 初始化
             initialise()
 
@@ -142,24 +138,24 @@ class MainActivity : BaseActivity(), LoginSucListener {
 
     private fun switchFragment(position: Int) {
         when (position) {
-            HOME -> {
+            Constant.HOME -> {
                 setToolBar(toolbar, getString(R.string.home))
                 switch(mCurrent, mHomeFragment)
             }
-            WECHAT -> {
+            Constant.WECHAT -> {
                 setToolBar(toolbar, getString(R.string.wechat))
                 switch(mCurrent, mWeChatFragment)
             }
 
-            SYSTEM -> {
+            Constant.SYSTEM -> {
                 setToolBar(toolbar, getString(R.string.system))
                 switch(mCurrent, mSystemFragment)
             }
-            NAVIGATION -> {
+            Constant.NAVIGATION -> {
                 setToolBar(toolbar, getString(R.string.navigation))
                 switch(mCurrent, mNavigationFragment)
             }
-            PROJECT -> {
+            Constant.PROJECT -> {
                 setToolBar(toolbar, getString(R.string.project))
                 switch(mCurrent, mProjectFragment)
             }
@@ -181,9 +177,9 @@ class MainActivity : BaseActivity(), LoginSucListener {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-        //将滑动菜单显示出来
+            //将滑动菜单显示出来
             android.R.id.home -> mDrawerMain.openDrawer(Gravity.START)
-        // 跳转到 搜索
+            // 跳转到 搜索
             R.id.action_search -> {
                 startActivity<SearchActivity>()
             }
@@ -192,11 +188,14 @@ class MainActivity : BaseActivity(), LoginSucListener {
     }
 
     // 登录成功 回调
-    override fun success(username: String) {
-
+    override fun success(username: String, collectIds: List<Int>) {
         // 进行 SharedPreference 存储
         mUsername = username
         headView.mTvName.text = username
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        LoginSucState.removeListener(this)
+    }
 }

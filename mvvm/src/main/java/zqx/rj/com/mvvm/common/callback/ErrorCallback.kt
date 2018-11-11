@@ -8,8 +8,6 @@ import zqx.rj.com.mvvm.R
  * created： 2018/10/10 15:43
  * desc：    TODO
  */
-class ErrorCallback: Callback() {
-    override fun onCreateView(): Int {
-        return R.layout.layout_error
-    }
+class ErrorCallback : Callback() {
+    override fun onCreateView(): Int = R.layout.layout_error
 }
