@@ -26,7 +26,15 @@ class ArticleAdapter(layoutId: Int, listData: List<Article>?)
     }
 
     private fun category(article: Article?): String {
-        return article?.let { "${it.superChapterName}/${it.chapterName}" } ?: ""
+        return article?.let {
+            if (it.superChapterName == null){
+                it.chapterName
+            }else if (it.chapterName == null){
+                it.superChapterName
+            }else {
+                "${it.superChapterName}/${it.chapterName}"
+            }
+        } ?: ""
     }
 
     private fun isCollect(article: Article?): Int {

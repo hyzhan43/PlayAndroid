@@ -2,13 +2,13 @@ package zqx.rj.com.playandroid.home.data.repository
 
 import android.arch.lifecycle.MutableLiveData
 import zqx.rj.com.mvvm.common.State
+import zqx.rj.com.mvvm.common.execute
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.rx.BaseObserver
-import zqx.rj.com.mvvm.http.rx.RxSchedulers
 import zqx.rj.com.playandroid.common.article.data.repository.ArticleRepository
-import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
-import zqx.rj.com.playandroid.common.search.data.bean.SearchResultRsp
-import zqx.rj.com.playandroid.home.data.bean.*
+import zqx.rj.com.playandroid.home.data.bean.BannerRsp
+import zqx.rj.com.playandroid.home.data.bean.CommonWebRsp
+import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
 
 /**
  * author：  HyZhan
@@ -18,20 +18,17 @@ import zqx.rj.com.playandroid.home.data.bean.*
 class HomeRepository(loadState: MutableLiveData<State>) : ArticleRepository(loadState) {
 
     fun getBanner(liveData: MutableLiveData<BaseResponse<List<BannerRsp>>>) {
-        addSubscribe(apiService.getBanner()
-                .compose(RxSchedulers.ioToMain())
-                .subscribe(object : BaseObserver<BaseResponse<List<BannerRsp>>>(liveData, loadState) {}))
+        apiService.getBanner()
+                .execute(BaseObserver(liveData, loadState, this))
     }
 
     fun getArticle(page: Int, liveData: MutableLiveData<BaseResponse<HomeArticleRsp>>) {
-        addSubscribe(apiService.getHomeArticle(page)
-                .compose(RxSchedulers.ioToMain())
-                .subscribe(object : BaseObserver<BaseResponse<HomeArticleRsp>>(liveData, loadState) {}))
+        apiService.getHomeArticle(page)
+                .execute(BaseObserver(liveData, loadState, this))
     }
 
     fun getCommonWeb(liveData: MutableLiveData<BaseResponse<List<CommonWebRsp>>>) {
-        addSubscribe(apiService.getCommonWeb()
-                .compose(RxSchedulers.ioToMain())
-                .subscribe(object : BaseObserver<BaseResponse<List<CommonWebRsp>>>(liveData, loadState) {}))
+        apiService.getCommonWeb()
+                .execute(BaseObserver(liveData, loadState, this))
     }
 }

@@ -1,7 +1,7 @@
 package zqx.rj.com.playandroid.common.net
 
+import io.reactivex.Observable
 import retrofit2.http.*
-import rx.Observable
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.response.EmptyRsp
 import zqx.rj.com.playandroid.account.data.bean.LoginRsp

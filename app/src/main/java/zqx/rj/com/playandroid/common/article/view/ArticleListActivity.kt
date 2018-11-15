@@ -6,7 +6,6 @@ import kotlinx.android.synthetic.main.fragment_article_list.*
 import org.jetbrains.anko.startActivity
 import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
-import zqx.rj.com.mvvm.state.callback.collect.CollectState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.account.data.context.LoginContext
@@ -20,7 +19,8 @@ import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
  * desc：    TODO
  */
 abstract class ArticleListActivity<T : ArticleViewModel<*>>
-    : LifecycleActivity<T>(), CollectListener {
+    : LifecycleActivity<T>(),
+        CollectListener {
 
     // 文章是否 收藏 状态
     private var state: Boolean = false
@@ -30,8 +30,6 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
     protected var isLoadMore: Boolean = true
 
     protected lateinit var mArticleAdapter: ArticleAdapter
-
-    protected var mArticleData = arrayListOf<Article>()
 
     override fun getLayoutId(): Int = R.layout.fragment_article_list
 
@@ -44,13 +42,12 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
 
         // item 点击
         mArticleAdapter.setOnItemClickListener { _, _, position ->
-            if (mArticleData.isNotEmpty()) {
-                // 如果 获取不到 对应 article  就返回 null (不然会报 空指针异常)
-                val article = mArticleData.getOrNull(position)
-                article?.let {
-                    startActivity<WebViewActivity>("link" to it.link,
-                            "title" to it.title)
-                }
+
+            val article = mArticleAdapter.getItem(position)
+
+            article?.let {
+                startActivity<WebViewActivity>("link" to it.link,
+                        "title" to it.title)
             }
         }
 
@@ -68,14 +65,13 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
     // 加载更多数据
     open fun onLoadMoreData() {}
 
-    fun loadDataSuc() {
-
+    fun addData(articleList: List<Article>) {
         // 如果没有更多数据 则 adapter 加载完毕
-        if (mArticleData.isEmpty()) {
+        if (articleList.isEmpty()) {
             mArticleAdapter.loadMoreEnd()
         } else {
             // 否则 添加数据
-            mArticleAdapter.setNewData(mArticleData)
+            mArticleAdapter.addData(articleList)
             mArticleAdapter.loadMoreComplete()
         }
     }
@@ -84,26 +80,32 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
 
         // 收藏成功回调
         mViewModel.mCollectData.observe(this, Observer {
-            // 更新 RecyclerView  ♥ 型状态
-            mArticleData[current].collect = !state
-            mArticleAdapter.notifyDataSetChanged()
 
-            // 更新 主页面 心型状态
-            CollectState.notifyCollectState(mArticleData[current].id)
+            val article = mArticleAdapter.getItem(current)
+
+            article?.let {
+                // 更新 RecyclerView  ♥ 型状态
+                it.collect = !state
+                mArticleAdapter.notifyDataSetChanged()
+            }
+
+//            eventBus.post(CollectUpdateEvent(article.id))
         })
     }
 
-    // 点击收藏 回调
+    // 发起收藏
     override fun collect(position: Int) {
 
-        // 获取当前文章的 收藏状态
-        state = mArticleData[position].collect
-        current = position
+        val article = mArticleAdapter.getItem(position)
 
-        // 文章 id
-        val id = mArticleData[position].id
+        article?.let {
+            current = position
 
-        // 发起 收藏/取消收藏  请求
-        if (state) mViewModel.unCollect(id) else mViewModel.collect(id)
+            // 获取当前文章的 收藏状态
+            state = it.collect
+
+            // 发起 收藏/取消收藏  请求
+            if (state) mViewModel.unCollect(it.id) else mViewModel.collect(it.id)
+        }
     }
 }

@@ -10,6 +10,8 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
+import io.reactivex.Observable
+import io.reactivex.ObservableOnSubscribe
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.common_icon_title.view.*
 import kotlinx.android.synthetic.main.common_search.view.*
@@ -19,8 +21,6 @@ import org.litepal.LitePal
 import org.litepal.extension.delete
 import org.litepal.extension.deleteAll
 import org.litepal.extension.find
-import rx.Observable
-import rx.Subscription
 import zqx.rj.com.mvvm.common.BaseTextWatcher
 import zqx.rj.com.mvvm.common.hideKeyboard
 import zqx.rj.com.mvvm.common.str
@@ -50,7 +50,6 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
     // 标识符，判断是否显示 -> 热门搜索-tag-最近搜索
     private var isShow = true
 
-    private lateinit var mSubscription: Subscription
     private lateinit var mFootView: View
     private val mHistoryData by lazy { ArrayList<String>() }
     private val mHistoryAdapter by lazy { HistoryAdapter(R.layout.history_item, mHistoryData) }
@@ -102,14 +101,15 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
         mIcSearch.mIvClose.setOnClickListener { mIcSearch.mEtInput.setText("") }
         mIcSearch.mBtnSearch.setOnClickListener { view -> view.hideKeyboard() }
 
-        mSubscription = Observable.create(Observable.OnSubscribe<String> {
+        disposable = Observable.create(ObservableOnSubscribe<String> { emitter ->
             mIcSearch.mEtInput.addTextChangedListener(object : BaseTextWatcher() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    // 监听 输入回调
-                    it.onNext(s?.toString())
+                    super.onTextChanged(s, start, before, count)
+                    // 输入 的关键字
+                    s?.let { emitter.onNext(it.toString()) }
                 }
             })
-        }).debounce(500, TimeUnit.MILLISECONDS) // 延迟500毫秒 搜索 (防抖动)
+        }).debounce(500, TimeUnit.MILLISECONDS)
                 .compose(RxSchedulers.ioToMain())
                 .subscribe { searchKeyword(it) }
 
@@ -194,9 +194,9 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
         // 如果数据为空直接不 显示搜索结果
         if (resultList.isEmpty()) {
             hideOrShowView()
-        } else if (!isShow) {    // 因为是异步回调，当快速按键盘删除键时候，多次回调 需要加这个判断是否显示数据
-            mArticleData.addAll(resultList)
-            loadDataSuc()
+        } else if (!isShow) {
+            // 因为是异步回调，当快速按键盘删除键时候，多次回调 需要加这个判断是否显示数据
+            addData(resultList)
 
             hideOrShowView()
         }
@@ -277,11 +277,6 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
             }
         }
         mHistoryAdapter.addData(0, name)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mSubscription.unsubscribe()
     }
 
     override fun onBackPressed() = finish()

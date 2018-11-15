@@ -4,7 +4,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
@@ -27,7 +27,7 @@ class RetrofitFactory private constructor() {
         retrofit = Retrofit.Builder()
                 .baseUrl(Constant.SERVER_ADDRESS)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(initOkHttpClient())
                 .build()
     }
@@ -45,7 +45,7 @@ class RetrofitFactory private constructor() {
     }
 
     // 初始化日志
-    private fun initLogInterceptor(): Interceptor? {
+    private fun initLogInterceptor(): Interceptor {
 
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -60,24 +60,27 @@ class RetrofitFactory private constructor() {
 
     // cookie 拦截器 获取 cookie (自动登录时候需要用到)
     private fun initCookieIntercept(): Interceptor {
-        return Interceptor {
+        return Interceptor { chain ->
             // 获取 请求
-            val request = it.request()
-            val response = it.proceed(request)
+            val request = chain.request()
+            val response = chain.proceed(request)
             val requestUrl = request.url().toString()
             // 获取 域名  ( wanandroid.com )
             val domain = request.url().host()
 
             // 如果 是(登录请求 或者 注册请求) 并且 请求头包含 cookie
             if ((requestUrl.contains(Constant.SAVE_USER_LOGIN_KEY)
-                            || requestUrl.contains(Constant.SAVE_USER_REGISTER_KEY))
-                    && response.header(Constant.SET_COOKIE_KEY).isNotEmpty()) {
+                            || requestUrl.contains(Constant.SAVE_USER_REGISTER_KEY))) {
+
 
                 // 获取 全部 cookie
                 val cookies = response.headers(Constant.SET_COOKIE_KEY)
-                // 解析 cookie
-                val cookie = encodeCookie(cookies)
-                saveCookie(domain, cookie)
+
+                cookies?.let {
+                    // 解析 cookie
+                    val cookie = encodeCookie(it)
+                    saveCookie(domain, cookie)
+                }
             }
             response
         }

@@ -6,6 +6,8 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.R
 import zqx.rj.com.mvvm.common.AppManager
@@ -18,6 +20,8 @@ import zqx.rj.com.mvvm.common.AppManager
 abstract class BaseActivity : AppCompatActivity() {
 
     private var pressTime: Long = 0
+
+    protected var disposable: Disposable? = null
 
     protected val loadService: LoadService<*> by lazy {
         LoadSir.getDefault().register(this) {
@@ -81,5 +85,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         AppManager.instance.removeActivity(this)
+        // 取消订阅
+        disposable?.dispose()
     }
 }

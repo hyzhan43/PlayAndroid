@@ -13,5 +13,4 @@ abstract class ApiRepository : BaseRepository() {
     protected val apiService: ApiService by lazy {
         RetrofitFactory.instance.create(ApiService::class.java)
     }
-
 }

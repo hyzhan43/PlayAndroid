@@ -6,8 +6,6 @@ import kotlinx.android.synthetic.main.fragment_article_list.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
-import zqx.rj.com.mvvm.state.callback.collect.CollectState
-import zqx.rj.com.mvvm.state.callback.collect.CollectUpdateListener
 import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
 import zqx.rj.com.mvvm.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
@@ -23,7 +21,9 @@ import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
  * desc：    文章列表 基类  (封装了 文章列表)
  */
 abstract class ArticleListFragment<T : ArticleViewModel<*>>
-    : LifecycleFragment<T>(), CollectListener, CollectUpdateListener, LoginSucListener {
+    : LifecycleFragment<T>(),
+        LoginSucListener,
+        CollectListener {
 
     // 文章是否 收藏 状态
     private var state: Boolean = false
@@ -31,8 +31,6 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
     private var current: Int = -1
 
     protected lateinit var mArticleAdapter: ArticleAdapter
-
-    protected var mArticleData = arrayListOf<Article>()
 
     override fun getLayoutId(): Int = R.layout.fragment_article_list
 
@@ -45,12 +43,12 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
         // item 点击
         mArticleAdapter.setOnItemClickListener { _, _, position ->
-            if (mArticleData.isNotEmpty()) {
-                // 如果 获取不到 对应 article  就返回 null (不然会报 空指针异常)
-                val article = mArticleData.getOrNull(position)
-                article?.let {
-                    startActivity<WebViewActivity>("link" to it.link, "title" to it.title)
-                }
+
+            val article = mArticleAdapter.getItem(position)
+
+            article?.let {
+                startActivity<WebViewActivity>("link" to it.link,
+                        "title" to it.title)
             }
         }
 
@@ -63,9 +61,6 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
         // 上拉加载更多
         mArticleAdapter.setOnLoadMoreListener({ onLoadMoreData() }, mRvArticle)
 
-        // 监听 其他地方 点击收藏后 回调
-        CollectState.addListener(this)
-
         // 监听登录成功
         LoginSucState.addListener(this)
     }
@@ -74,70 +69,77 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
     // 加载更多数据
     open fun onLoadMoreData() {}
 
-    fun loadDataSuc() {
-
-        // 如果没有更多数据 则 adapter 加载完毕
-        if (mArticleData.isEmpty()) {
+    fun addData(articleList: List<Article>) {
+        if (articleList.isEmpty()) {
             mArticleAdapter.loadMoreEnd()
         } else {
-            // 否则 添加数据
-            mArticleAdapter.setNewData(mArticleData)
+            mArticleAdapter.addData(articleList)
             mArticleAdapter.loadMoreComplete()
         }
     }
 
     override fun dataObserver() {
-
         // 收藏成功回调
         mViewModel.mCollectData.observe(this, Observer {
 
-            // 更新 RecyclerView  ♥ 型状态
-            mArticleData[current].collect = !state
-            mArticleAdapter.notifyDataSetChanged()
+            val article = mArticleAdapter.getItem(current)
+
+            article?.let {
+                // 更新 RecyclerView  ♥ 型状态
+                it.collect = !state
+                mArticleAdapter.notifyDataSetChanged()
+            }
+
+//            通知所有界面更新 ♥型状态
+//            eventBus.post(CollectUpdateEvent(article.id))
         })
     }
 
-    // 点击收藏 回调
+    // 发起收藏
     override fun collect(position: Int) {
 
-        // 获取当前文章的 收藏状态
-        state = mArticleData[position].collect
-        current = position
+        val article = mArticleAdapter.getItem(position)
 
-        // 文章 id
-        val id = mArticleData[position].id
+        article?.let {
+            current = position
 
-        // 发起 收藏/取消收藏  请求
-        if (state) mViewModel.unCollect(id) else mViewModel.collect(id)
+            // 获取当前文章的 收藏状态
+            state = it.collect
+
+            // 发起 收藏/取消收藏  请求
+            if (state) mViewModel.unCollect(it.id) else mViewModel.collect(it.id)
+        }
     }
-
 
     // 更新 主页面的  article 心型状态
     // 例如 在 我的收藏点击了  取消收藏   这时候 就通知主页面 更新
-    override fun updateState(id: Int) {
-
-        var position = 0
-
-        for ((index, value) in mArticleAdapter.data.withIndex()) {
-            if (value.id == id) {
-                position = index
-                break
-            }
-        }
-
-        val isCollect = mArticleAdapter.data[position].collect
-        mArticleAdapter.data[position].collect = !isCollect
-        mArticleAdapter.notifyDataSetChanged()
+    fun onCollectUpdateEvent() {
+//        Log.d("LST", "ArticleListFragment 收到消息啦")
+//        var position = 0
+//
+//        for ((index, value) in mArticleAdapter.data.withIndex()) {
+//            if (value.id == event.id) {
+//                position = index
+//                break
+//            }
+//        }
+//
+//        val article = mArticleAdapter.data.getOrNull(position)
+//
+//        article?.let {
+//            Log.d("LST", "onClick")
+//            val isCollect = it.collect
+//            it.collect = !isCollect
+//            mArticleAdapter.notifyDataSetChanged()
+//        }
     }
 
-    override fun success(username: String, collectIds: List<Int>) {
 
+    override fun success(username: String, collectIds: List<Int>) {
         // 表示没有任何收藏文章
-        if (collectIds.isEmpty()) {
-            mArticleData.forEach { article -> article.collect = false }
-        } else {
+        if (collectIds.isNotEmpty()) {
             collectIds.forEach { id ->
-                mArticleData.forEach { article ->
+                mArticleAdapter.data.forEach { article ->
                     // 更新文章收藏状态
                     if (article.id == id) {
                         article.collect = true
@@ -151,7 +153,6 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
     override fun onDestroy() {
         super.onDestroy()
-        CollectState.removeListener(this)
         LoginSucState.removeListener(this)
     }
 }

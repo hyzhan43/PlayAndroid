@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="zqx.rj.com.playandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="zqx.rj.com.mvvm.base.BaseApplication"
@@ -12,7 +13,8 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,19 +23,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-
         <activity android:name=".account.view.RegisterActivity" />
-        <activity android:name=".account.view.LoginActivity"/>
+        <activity android:name=".account.view.LoginActivity" />
+        <activity android:name=".common.search.view.SearchActivity" />
+        <activity android:name=".WebViewActivity" />
+        <activity android:name=".home.view.activity.CommonWebActivity" />
+        <activity android:name=".mine.view.activity.CollectActivity" />
+        <activity android:name=".mine.view.activity.AboutActivity" />
 
-        <activity android:name=".common.search.view.SearchActivity"/>
 
-        <activity android:name=".WebViewActivity"/>
-
-        <activity android:name=".home.view.activity.CommonWebActivity"/>
-
-        <activity android:name=".mine.view.activity.CollectActivity"/>
-
-        <activity android:name=".mine.view.activity.AboutActivity"/>
     </application>
 
 </manifest>

@@ -6,8 +6,6 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 27
 
-
-
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 27
@@ -59,16 +57,16 @@ dependencies {
     // LoadSir
     api "com.kingja.loadsir:loadsir:$loadsir_version"
 
-    // RxKotlin and RxAndroid
-    api "io.reactivex:rxkotlin:$rx_kotlin_version"
-    api "io.reactivex:rxandroid:$rx_android_version"
+    // RxKotlin and RxAndroid 2.x
+    api "io.reactivex.rxjava2:rxkotlin:$rx_kotlin_version"
+    api "io.reactivex.rxjava2:rxandroid:$rx_android_version"
 
     // Retrofit
-    api "com.squareup.okhttp3:okhttp:${okhttp_version}"
     api "com.squareup.retrofit2:retrofit:${retrofit_version}"
-    api "com.squareup.okhttp3:logging-interceptor:${okhttp_version}"
     api "com.squareup.retrofit2:converter-gson:${retrofit_version}"
-    api "com.squareup.retrofit2:adapter-rxjava:${retrofit_version}"
+    api "com.squareup.retrofit2:adapter-rxjava2:${retrofit_version}"
+    api "com.squareup.okhttp3:okhttp:${okhttp_version}"
+    api "com.squareup.okhttp3:logging-interceptor:${okhttp_version}"
 
     // banner
     api "com.youth.banner:banner:$banner_version"

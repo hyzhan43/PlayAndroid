@@ -10,6 +10,10 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import zqx.rj.com.mvvm.R
 
 /**
@@ -58,4 +62,12 @@ fun ImageView.loadUrl(context: Context, url: String) {
             .apply(options)
             .into(this)
 }
+
+// 统一处理  (IO -> Main)
+fun <T> Observable<T>.execute(observer: Observer<T>) {
+    this.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(observer)
+}
+
 

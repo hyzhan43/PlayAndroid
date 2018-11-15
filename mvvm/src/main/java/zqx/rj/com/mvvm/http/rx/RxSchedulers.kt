@@ -1,8 +1,9 @@
 package zqx.rj.com.mvvm.http.rx
 
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import io.reactivex.ObservableTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+
 
 /**
  * author：  HyZhan
@@ -10,10 +11,12 @@ import rx.schedulers.Schedulers
  * desc：    封装 Schedulers.io()  -> AndroidSchedulers.mainThread()
  */
 object RxSchedulers {
-    fun <T> ioToMain(): Observable.Transformer<T, T> {
-        return Observable.Transformer {
-            it.subscribeOn(Schedulers.io())
+
+    fun <T> ioToMain(): ObservableTransformer<T, T> {
+        return ObservableTransformer { observable ->
+            observable.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
         }
     }
+
 }

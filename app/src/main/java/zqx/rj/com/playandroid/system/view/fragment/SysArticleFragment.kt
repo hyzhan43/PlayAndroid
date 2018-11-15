@@ -5,18 +5,14 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import com.kingja.loadsir.callback.SuccessCallback
 import kotlinx.android.synthetic.main.fragment_system_article.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
-import zqx.rj.com.mvvm.state.callback.collect.CollectState
-import zqx.rj.com.mvvm.state.callback.collect.CollectUpdateListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.account.data.context.LoginContext
 import zqx.rj.com.playandroid.common.article.data.adapter.ArticleAdapter
-import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
 import zqx.rj.com.playandroid.system.vm.SystemViewModel
 
@@ -25,18 +21,17 @@ import zqx.rj.com.playandroid.system.vm.SystemViewModel
  * created： 2018/10/22 19:58
  * desc：    体系 文章 fragment
  */
-class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener,
-        CollectUpdateListener {
+class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener {
 
     private var page: Int = 0
 
     private lateinit var mArticleAdapter: ArticleAdapter
 
+    private var current: Int = -1
+
     // 获取 初始化 传入的 ids、titles
     private val titles: ArrayList<String>? by lazy { arguments?.getStringArrayList("titles") }
     private val ids: ArrayList<Int>? by lazy { arguments?.getIntegerArrayList("ids") }
-
-    private lateinit var mArticleData: List<Article>
 
     override fun getLayoutId(): Int = R.layout.fragment_system_article
 
@@ -60,8 +55,11 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
 
         // item
         mArticleAdapter.setOnItemClickListener { _, _, position ->
-            startActivity<WebViewActivity>("link" to mArticleData[position].link,
-                    "title" to mArticleData[position].title)
+            val article = mArticleAdapter.getItem(position)
+            article?.let {
+                startActivity<WebViewActivity>("link" to it.link,
+                        "title" to it.title)
+            }
         }
 
         // ♥ 型按钮
@@ -70,9 +68,6 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
         }
 
         initSecondTreeTab()
-
-        // 监听 其他地方 点击收藏后 回调
-        CollectState.addListener(this)
     }
 
     override fun initData() {
@@ -83,16 +78,23 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
     }
 
     override fun dataObserver() {
-        mViewModel.mTreeArticleData.observe(this, Observer {response->
+        mViewModel.mTreeArticleData.observe(this, Observer { response ->
             response?.let { setArticleData(it.data) }
+        })
 
-            loadService.showCallback(SuccessCallback::class.java)
+        mViewModel.mCollectData.observe(this, Observer { response ->
+            val article = mArticleAdapter.getItem(current)
+
+            article?.let {
+                // 更新 RecyclerView  ♥ 型状态
+                it.collect = !it.collect
+                mArticleAdapter.notifyDataSetChanged()
+            }
         })
     }
 
     private fun setArticleData(data: TreeArticleRsp) {
         // 跳转 WebActivity 需要用到
-        mArticleData = data.datas
         mArticleAdapter.setNewData(data.datas)
     }
 
@@ -119,19 +121,20 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
         }
     }
 
+
     // 点击收藏 回调
     override fun collect(position: Int) {
 
-        // 更新 recyclerView  状态
-        val collect = notifyRecyclerViewCollectState(position)
+        val article = mArticleAdapter.getItem(position)
 
-        // 文章 id
-        val id = mArticleData[position].id
+        article?.let {
+            if (it.collect) mViewModel.unCollect(it.id) else mViewModel.collect(it.id)
 
-        if (collect) mViewModel.unCollect(id) else mViewModel.collect(id)
+            current = position
+        }
     }
 
-    override fun updateState(id: Int) {
+    fun updateState(id: Int) {
         var position = 0
 
         for ((index, value) in mArticleAdapter.data.withIndex()) {
@@ -140,18 +143,5 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
                 break
             }
         }
-
-        notifyRecyclerViewCollectState(position)
-    }
-
-    // 更新 RecyclerView  ♥ 状态
-    private fun notifyRecyclerViewCollectState(position: Int): Boolean {
-        val collect = mArticleAdapter.data[position].collect
-
-        // 同步 recyclerView
-        mArticleAdapter.data[position].collect = !collect
-        mArticleAdapter.notifyDataSetChanged()
-
-        return collect
     }
 }

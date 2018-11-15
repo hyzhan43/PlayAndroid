@@ -15,7 +15,7 @@ import zqx.rj.com.playandroid.account.view.LoginActivity
  */
 class LogoutState : UserState {
 
-    override fun collect(context: Context?, position: Int, listener: CollectListener) {
+    override fun collect(context: Context?, position: Int,listener: CollectListener) {
         jumpToLoginActivity(context)
     }
 

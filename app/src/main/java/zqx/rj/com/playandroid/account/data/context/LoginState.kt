@@ -14,6 +14,7 @@ import zqx.rj.com.playandroid.mine.view.activity.CollectActivity
 class LoginState : UserState {
 
     override fun collect(context: Context?, position: Int, listener: CollectListener) {
+        // 发起收藏
         listener.collect(position)
     }
 

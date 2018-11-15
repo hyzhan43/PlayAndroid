@@ -1,7 +1,8 @@
 package zqx.rj.com.mvvm.base
 
-import rx.Subscription
-import rx.subscriptions.CompositeSubscription
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+
 
 /**
  * author：  HyZhan
@@ -10,9 +11,9 @@ import rx.subscriptions.CompositeSubscription
  */
 abstract class BaseRepository {
 
-    private val mCompositeSubscription by lazy { CompositeSubscription() }
+    private val mCompositeDisposable by lazy { CompositeDisposable() }
 
-    fun addSubscribe(subscription: Subscription) = mCompositeSubscription.add(subscription)
+    fun addSubscribe(disposable: Disposable) = mCompositeDisposable.add(disposable)
 
-    fun unSubscribe() = mCompositeSubscription.hasSubscriptions().let { mCompositeSubscription.clear() }
+    fun unSubscribe() = mCompositeDisposable.dispose()
 }

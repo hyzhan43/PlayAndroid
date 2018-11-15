@@ -2,6 +2,7 @@ package zqx.rj.com.playandroid.wechat.data.repository
 
 import android.arch.lifecycle.MutableLiveData
 import zqx.rj.com.mvvm.common.State
+import zqx.rj.com.mvvm.common.execute
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.rx.BaseObserver
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
@@ -17,14 +18,12 @@ import zqx.rj.com.playandroid.wechat.data.bean.WxArticleRsp
 class WeChatRepository(loadState: MutableLiveData<State>) : ArticleRepository(loadState) {
 
     fun getWeChatName(liveData: MutableLiveData<BaseResponse<List<WeChatNameRsp>>>) {
-        addSubscribe(apiService.getWeChatName()
-                .compose(RxSchedulers.ioToMain())
-                .subscribe(object : BaseObserver<BaseResponse<List<WeChatNameRsp>>>(liveData, loadState) {}))
+        apiService.getWeChatName()
+                .execute(BaseObserver(liveData, loadState, this))
     }
 
     fun getWxArticle(id: Int, page: Int, liveData: MutableLiveData<BaseResponse<WxArticleRsp>>) {
-        addSubscribe(apiService.getWxArticle(id, page)
-                .compose(RxSchedulers.ioToMain())
-                .subscribe(object : BaseObserver<BaseResponse<WxArticleRsp>>(liveData, loadState) {}))
+        apiService.getWxArticle(id, page)
+                .execute(BaseObserver(liveData, loadState, this))
     }
 }

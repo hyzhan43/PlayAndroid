@@ -86,10 +86,7 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         })
 
         mViewModel.mHomeArticleData.observe(this, Observer { response ->
-            response?.let {
-                mArticleData.addAll(it.data.datas)
-                loadDataSuc()
-            }
+            response?.let { addData(it.data.datas) }
         })
     }
 
@@ -114,5 +111,4 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         mBanner.setBannerTitles(titles)
         mBanner.start()
     }
-
 }

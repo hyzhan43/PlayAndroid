@@ -1,8 +1,7 @@
 package zqx.rj.com.playandroid
 
+import io.reactivex.Observable
 import org.jetbrains.anko.startActivity
-import rx.Observable
-import rx.Subscription
 import zqx.rj.com.mvvm.base.BaseActivity
 import java.util.concurrent.TimeUnit
 
@@ -13,20 +12,13 @@ import java.util.concurrent.TimeUnit
  */
 class SplashActivity : BaseActivity() {
 
-    private lateinit var subscription: Subscription
-
     override fun getLayoutId(): Int {
         return R.layout.activity_splash
     }
 
     override fun initView() {
         // 延迟 3s 进入 login
-        subscription = Observable.timer(3, TimeUnit.SECONDS)
+        disposable = Observable.timer(3, TimeUnit.SECONDS)
                 .subscribe { startActivity<MainActivity>() }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        subscription.unsubscribe()
     }
 }

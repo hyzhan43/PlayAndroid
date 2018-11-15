@@ -2,6 +2,7 @@ package zqx.rj.com.playandroid.system.data.repository
 
 import android.arch.lifecycle.MutableLiveData
 import zqx.rj.com.mvvm.common.State
+import zqx.rj.com.mvvm.common.execute
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.rx.BaseObserver
 import zqx.rj.com.mvvm.http.rx.RxSchedulers
@@ -17,14 +18,12 @@ import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
 class SystemRepository(loadState: MutableLiveData<State>) : ArticleRepository(loadState) {
 
     fun getTree(liveData: MutableLiveData<BaseResponse<List<TopTreeRsp>>>) {
-        addSubscribe(apiService.getTree()
-                .compose(RxSchedulers.ioToMain())
-                .subscribe(object : BaseObserver<BaseResponse<List<TopTreeRsp>>>(liveData, loadState) {}))
+        apiService.getTree()
+                .execute(BaseObserver(liveData, loadState, this))
     }
 
     fun getArticle(page: Int, cid: Int, liveData: MutableLiveData<BaseResponse<TreeArticleRsp>>) {
-        addSubscribe(apiService.getArticleTree(page, cid)
-                .compose(RxSchedulers.ioToMain())
-                .subscribe(object : BaseObserver<BaseResponse<TreeArticleRsp>>(liveData, loadState) {}))
+        apiService.getArticleTree(page, cid)
+                .execute(BaseObserver(liveData, loadState, this))
     }
 }
