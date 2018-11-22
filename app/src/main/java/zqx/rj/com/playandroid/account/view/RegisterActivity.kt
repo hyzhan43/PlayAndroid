@@ -18,8 +18,6 @@ import zqx.rj.com.playandroid.account.vm.AccountViewModel
 
 class RegisterActivity : LifecycleActivity<AccountViewModel>() {
 
-    private var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
-
     override fun getLayoutId(): Int = R.layout.activity_register
 
     override fun initView() {
@@ -41,14 +39,12 @@ class RegisterActivity : LifecycleActivity<AccountViewModel>() {
 
     override fun dataObserver() {
         mViewModel.mRegisterData.observe(this, Observer { it ->
-            toast(getString(R.string.register_suc))
-            // 改变 sharedPreferences   isLogin值
-            isLogin = true
-            LoginContext.instance.mState = LoginState()
 
-            it?.data?.let { LoginSucState.notifyLoginState(it.username, it.collectIds) }
-
-            finish()
+            it?.data?.let {
+                toast(getString(R.string.register_suc))
+                LoginContext.instance.loginSuccess(it.username, it.collectIds)
+                finish()
+            }
         })
     }
 

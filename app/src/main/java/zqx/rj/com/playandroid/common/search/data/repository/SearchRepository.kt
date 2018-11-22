@@ -4,7 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.common.execute
 import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.mvvm.http.rx.BaseObserver
+import zqx.rj.com.playandroid.common.net.BaseObserver
 import zqx.rj.com.playandroid.common.article.data.repository.ArticleRepository
 import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
 import zqx.rj.com.playandroid.common.search.data.bean.SearchResultRsp

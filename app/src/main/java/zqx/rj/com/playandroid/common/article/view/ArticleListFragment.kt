@@ -135,15 +135,22 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
     }
 
 
-    override fun success(username: String, collectIds: List<Int>) {
-        // 表示没有任何收藏文章
-        if (collectIds.isNotEmpty()) {
-            collectIds.forEach { id ->
+    override fun success(username: String, collectIds: List<Int>?) {
+
+        collectIds?.let {
+            it.forEach { id ->
                 mArticleAdapter.data.forEach { article ->
                     // 更新文章收藏状态
                     if (article.id == id) {
                         article.collect = true
                     }
+                }
+            }
+        } ?: let {
+            mArticleAdapter.data.forEach { article ->
+                // 退出登录后  更新文章收藏状态
+                if (article.collect) {
+                    article.collect = false
                 }
             }
         }

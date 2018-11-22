@@ -89,13 +89,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
                     toast(getString(R.string.mine_setting))
                 }
                 R.id.nav_menu_logout -> {
-                    // 清除 cookie、登录缓存
-                    Preference.clear()
-//                    headView.mTvName.text = mNotLogin
-                    // 设置 未登录状态
-                    LoginContext.instance.mState = LogoutState()
-
-                    LoginSucState.notifyLoginState(mNotLogin, arrayListOf())
+                    LoginContext.instance.logoutSuccess()
                 }
             }
 
@@ -188,7 +182,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
     }
 
     // 登录成功 回调
-    override fun success(username: String, collectIds: List<Int>) {
+    override fun success(username: String, collectIds: List<Int>?) {
         // 进行 SharedPreference 存储
         mUsername = username
         headView.mTvName.text = username

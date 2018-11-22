@@ -15,31 +15,28 @@ class ArticleAdapter(layoutId: Int, listData: List<Article>?)
     : BaseQuickAdapter<Article, BaseViewHolder>(layoutId, listData) {
 
     override fun convert(viewHolder: BaseViewHolder?, article: Article?) {
-        viewHolder?.let {
-            it.setText(R.id.mTvAuthor, article?.author)
-            it.setText(R.id.mTvTitle, article?.title?.toHtml())
-            it.setText(R.id.mTvCategory, category(article))
-            it.setText(R.id.mTvTime, article?.niceDate)
-            it.setImageResource(R.id.mIvLove, isCollect(article))
-            it.addOnClickListener(R.id.mIvLove)
+        viewHolder?.let { holder ->
+            article?.let {
+                holder.setText(R.id.mTvAuthor, it.author)
+                holder.setText(R.id.mTvTitle, it.title.toHtml())
+                holder.setText(R.id.mTvCategory, category(it))
+                holder.setText(R.id.mTvTime, it.niceDate)
+                holder.setImageResource(R.id.mIvLove, isCollect(it))
+                holder.addOnClickListener(R.id.mIvLove)
+            }
         }
     }
 
-    private fun category(article: Article?): String {
-        return article?.let {
-            if (it.superChapterName == null){
-                it.chapterName
-            }else if (it.chapterName == null){
-                it.superChapterName
-            }else {
-                "${it.superChapterName}/${it.chapterName}"
+    private fun category(article: Article): String {
+        article.let {
+            return when {
+                it.superChapterName.isNullOrEmpty() and it.chapterName.isNullOrEmpty() -> ""
+                it.superChapterName.isNullOrEmpty() -> it.chapterName ?: ""
+                it.chapterName.isNullOrEmpty() -> it.superChapterName ?: ""
+                else -> "${it.superChapterName}/${it.chapterName}"
             }
-        } ?: ""
+        }
     }
 
-    private fun isCollect(article: Article?): Int {
-        return article?.let {
-            if (it.collect) R.drawable.ic_collected else R.drawable.ic_collect
-        } ?: R.drawable.ic_collect
-    }
+    private fun isCollect(article: Article): Int = if (article.collect) R.drawable.ic_collected else R.drawable.ic_collect
 }

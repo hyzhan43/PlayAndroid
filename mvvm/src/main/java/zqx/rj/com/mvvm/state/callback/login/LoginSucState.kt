@@ -12,7 +12,7 @@ object LoginSucState {
         listeners.remove(listener)
     }
 
-    fun notifyLoginState(name: String, collectIds: List<Int>) {
+    fun notifyLoginState(name: String, collectIds: List<Int>?) {
         for (listener in listeners) {
             listener.success(name, collectIds)
         }
