@@ -29,6 +29,8 @@ import zqx.rj.com.playandroid.wechat.view.fragment.WeChatFragment
 
 class MainActivity : BaseActivity(), LoginSucListener {
 
+    private var clickTime: Long = 0
+
     private lateinit var headView: View
     private val mNotLogin: String = "未登录"
     // 委托属性   将实现委托给了 -> Preference
@@ -63,6 +65,15 @@ class MainActivity : BaseActivity(), LoginSucListener {
                 this, mDrawerMain, toolbar, R.string.app_name, R.string.app_name)
         mDrawerMain.addDrawerListener(toggle)
         toggle.syncState()
+
+        toolbar.setOnClickListener {
+            val nowTime = System.currentTimeMillis()
+            if (nowTime - clickTime > 1000) {
+                clickTime = nowTime
+            } else {
+                mHomeFragment.moveToTop()
+            }
+        }
     }
 
     private fun initDrawerLayout() {

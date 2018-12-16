@@ -19,8 +19,7 @@ import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
  * desc：    TODO
  */
 abstract class ArticleListActivity<T : ArticleViewModel<*>>
-    : LifecycleActivity<T>(),
-        CollectListener {
+    : LifecycleActivity<T>(), CollectListener {
 
     // 文章是否 收藏 状态
     private var state: Boolean = false
@@ -36,6 +35,20 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
     override fun initView() {
         super.initView()
 
+        // 初始化 SwipeRefreshLayout
+        initRefresh()
+
+        // 初始化 article
+        initArticleRecyclerView()
+    }
+
+    private fun initRefresh() {
+        // 设置 下拉刷新 loading 颜色
+        mSrlRefresh.setColorSchemeResources(R.color.colorPrimary)
+        mSrlRefresh.setOnRefreshListener { onRefreshData() }
+    }
+
+    protected fun initArticleRecyclerView() {
         mRvArticle.layoutManager = LinearLayoutManager(this)
         mArticleAdapter = ArticleAdapter(R.layout.article_item, null)
         mRvArticle.adapter = mArticleAdapter
@@ -61,19 +74,35 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
         mArticleAdapter.setOnLoadMoreListener({ onLoadMoreData() }, mRvArticle)
     }
 
+    /**
+     *  上拉加载更多
+     */
+    abstract fun onLoadMoreData()
 
-    // 加载更多数据
-    open fun onLoadMoreData() {}
+    /**
+     *  下拉刷新
+     */
+    abstract fun onRefreshData()
 
     fun addData(articleList: List<Article>) {
-        // 如果没有更多数据 则 adapter 加载完毕
+
+        // 如果为空的话，就直接 显示加载完毕
         if (articleList.isEmpty()) {
             mArticleAdapter.loadMoreEnd()
-        } else {
-            // 否则 添加数据
-            mArticleAdapter.addData(articleList)
-            mArticleAdapter.loadMoreComplete()
+            return
         }
+
+        // 如果是 下拉刷新 直接设置数据
+        if (mSrlRefresh.isRefreshing) {
+            mSrlRefresh.isRefreshing = false
+            mArticleAdapter.setNewData(articleList)
+            mArticleAdapter.loadMoreComplete()
+            return
+        }
+
+        // 否则 添加新数据
+        mArticleAdapter.addData(articleList)
+        mArticleAdapter.loadMoreComplete()
     }
 
     override fun dataObserver() {
@@ -88,8 +117,6 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
                 it.collect = !state
                 mArticleAdapter.notifyDataSetChanged()
             }
-
-//            eventBus.post(CollectUpdateEvent(article.id))
         })
     }
 

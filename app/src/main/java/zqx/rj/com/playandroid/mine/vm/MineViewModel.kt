@@ -18,11 +18,11 @@ class MineViewModel(application: Application) : ArticleViewModel<MineRepository>
     var mCollectArticleData: MutableLiveData<BaseResponse<CollectRsp>> = MutableLiveData()
     var mRequestCollectData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
 
-    fun getCollectArticle() {
-        mRepository.getCollectArticle(mCollectArticleData)
+    fun getCollectArticle(page: Int) {
+        mRepository.getCollectArticle(page, mCollectArticleData)
     }
 
-    fun unMyCollect(id: Int, originId: Int){
+    fun unMyCollect(id: Int, originId: Int) {
         mRepository.unCollect(id, originId, mRequestCollectData)
     }
 }

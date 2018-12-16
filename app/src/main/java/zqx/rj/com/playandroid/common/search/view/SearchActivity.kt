@@ -109,7 +109,7 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
                     s?.let { emitter.onNext(it.toString()) }
                 }
             })
-        }).debounce(500, TimeUnit.MILLISECONDS)
+        }).debounce(500, TimeUnit.MILLISECONDS)     // 防抖动 500毫秒后才进行搜索
                 .compose(RxSchedulers.ioToMain())
                 .subscribe { searchKeyword(it) }
 
@@ -200,6 +200,10 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
 
             hideOrShowView()
         }
+    }
+
+    override fun onRefreshData() {
+        mViewModel.search(0, mIcSearch.mEtInput.str())
     }
 
     // 搜索结果  加载更多

@@ -18,6 +18,8 @@ class CollectActivity : ArticleListActivity<MineViewModel>() {
 
     private var current: Int = -1
 
+    private var page = 0
+
     override fun initView() {
         super.initView()
 
@@ -40,41 +42,39 @@ class CollectActivity : ArticleListActivity<MineViewModel>() {
         super.initData()
 
         // 获取收藏的文章
-        mViewModel.getCollectArticle()
+        mViewModel.getCollectArticle(0)
     }
 
     override fun dataObserver() {
 
         // 获取 收藏数据
         mViewModel.mCollectArticleData.observe(this, Observer { response ->
-            response?.let { setCollectToData(it.data.datas) }
+            response?.let { buildCollectData(it.data.datas) }
         })
 
         // 取消收藏
         mViewModel.mRequestCollectData.observe(this, Observer {
-
-            // 更新 主页面
-            // eventBus.post(mArticleData[current].originId)
-
             // 同步 recyclerView
             mArticleAdapter.remove(current)
         })
     }
 
-    override fun onLoadMoreData() {
-        super.onLoadMoreData()
-        mArticleAdapter.loadMoreEnd()
-    }
+    private fun buildCollectData(articles: List<Article>) {
 
-
-    private fun setCollectToData(articles: List<Article>) {
-
-        // 全部设置为 已收藏
+        // 全部设置为 已收藏 状态
         for (article in articles) {
             article.collect = true
         }
 
         addData(articles)
+    }
+
+    override fun onRefreshData() {
+        mViewModel.getCollectArticle(0)
+    }
+
+    override fun onLoadMoreData() {
+        mViewModel.getCollectArticle(++page)
     }
 
     // 覆盖父类！！因为调用接口不一样

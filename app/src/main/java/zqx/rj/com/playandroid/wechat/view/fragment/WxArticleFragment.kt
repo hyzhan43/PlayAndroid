@@ -33,6 +33,10 @@ class WxArticleFragment : ArticleListFragment<WeChatViewModel>() {
         mViewModel.getWxArticle(uid, 1)
     }
 
+    override fun onRefreshData() {
+        mViewModel.getWxArticle(uid, 1)
+    }
+
     override fun onLoadMoreData() {
         mViewModel.getWxArticle(uid, ++page)
     }

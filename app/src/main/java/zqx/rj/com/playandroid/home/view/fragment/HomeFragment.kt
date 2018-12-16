@@ -70,7 +70,7 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
 
     override fun initData() {
         // 获取 首页 article
-        mViewModel.getArticle(page)
+        mViewModel.getArticle(0)
 
         // 获取 Banner
         mViewModel.getBanner()
@@ -88,6 +88,14 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         mViewModel.mHomeArticleData.observe(this, Observer { response ->
             response?.let { addData(it.data.datas) }
         })
+    }
+
+    override fun onRefreshData() {
+        // 获取 首页 article
+        mViewModel.getArticle(0)
+
+        // 获取 Banner
+        mViewModel.getBanner()
     }
 
     override fun onLoadMoreData() {

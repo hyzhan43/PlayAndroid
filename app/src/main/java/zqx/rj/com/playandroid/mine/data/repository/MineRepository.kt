@@ -17,8 +17,8 @@ import zqx.rj.com.playandroid.mine.data.bean.CollectRsp
 class MineRepository(loadState: MutableLiveData<State>) : ArticleRepository(loadState) {
 
     // 获取我的收藏
-    fun getCollectArticle(liveData: MutableLiveData<BaseResponse<CollectRsp>>) {
-        apiService.getCollectAtricle()
+    fun getCollectArticle(page: Int, liveData: MutableLiveData<BaseResponse<CollectRsp>>) {
+        apiService.getCollectArticle(page)
                 .execute(BaseObserver(liveData, loadState, this))
     }
 

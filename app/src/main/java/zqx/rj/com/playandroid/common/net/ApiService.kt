@@ -57,8 +57,8 @@ interface ApiService {
     @GET("/article/list/{page}/json")
     fun getArticleTree(@Path("page") page: Int, @Query("cid") id: Int): Observable<BaseResponse<TreeArticleRsp>>
 
-    @GET("/lg/collect/list/0/json")
-    fun getCollectAtricle(): Observable<BaseResponse<CollectRsp>>
+    @GET("/lg/collect/list/{page}/json")
+    fun getCollectArticle(@Path("page") page: Int): Observable<BaseResponse<CollectRsp>>
 
     @POST("/lg/collect/{id}/json")
     fun collect(@Path("id") id: Int): Observable<BaseResponse<EmptyRsp>>

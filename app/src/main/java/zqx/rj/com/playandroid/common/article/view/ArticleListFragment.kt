@@ -1,10 +1,10 @@
 package zqx.rj.com.playandroid.common.article.view
 
 import android.arch.lifecycle.Observer
-import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_article_list.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
+import zqx.rj.com.mvvm.common.SpeedLayoutManager
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
 import zqx.rj.com.mvvm.state.callback.login.LoginSucState
@@ -21,9 +21,7 @@ import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
  * desc：    文章列表 基类  (封装了 文章列表)
  */
 abstract class ArticleListFragment<T : ArticleViewModel<*>>
-    : LifecycleFragment<T>(),
-        LoginSucListener,
-        CollectListener {
+    : LifecycleFragment<T>(), LoginSucListener, CollectListener {
 
     // 文章是否 收藏 状态
     private var state: Boolean = false
@@ -37,7 +35,11 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
     override fun initView() {
         super.initView()
 
-        mRvArticle.layoutManager = LinearLayoutManager(activity)
+        // 初始化 SwipeRefreshLayout
+        initRefresh()
+
+        // 第二个参数 设置滑动速度, 默认是 25.0 太慢所以加快
+        mRvArticle.layoutManager = SpeedLayoutManager(context, 10f)
         mArticleAdapter = ArticleAdapter(R.layout.article_item, null)
         mRvArticle.adapter = mArticleAdapter
 
@@ -65,17 +67,41 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
         LoginSucState.addListener(this)
     }
 
+    private fun initRefresh() {
+        // 设置 下拉刷新 loading 颜色
+        mSrlRefresh.setColorSchemeResources(R.color.colorPrimary)
+        mSrlRefresh.setOnRefreshListener { onRefreshData() }
+    }
 
-    // 加载更多数据
-    open fun onLoadMoreData() {}
+    /**
+     *  下拉刷新
+     */
+    abstract fun onRefreshData()
+
+    /**
+     *  加载更多数据
+     */
+    abstract fun onLoadMoreData()
 
     fun addData(articleList: List<Article>) {
+
+        // 如果为空的话，就直接 显示加载完毕
         if (articleList.isEmpty()) {
             mArticleAdapter.loadMoreEnd()
-        } else {
-            mArticleAdapter.addData(articleList)
-            mArticleAdapter.loadMoreComplete()
+            return
         }
+
+        // 如果是 下拉刷新 直接设置数据
+        if (mSrlRefresh.isRefreshing) {
+            mSrlRefresh.isRefreshing = false
+            mArticleAdapter.setNewData(articleList)
+            mArticleAdapter.loadMoreComplete()
+            return
+        }
+
+        // 否则 添加新数据
+        mArticleAdapter.addData(articleList)
+        mArticleAdapter.loadMoreComplete()
     }
 
     override fun dataObserver() {
@@ -89,9 +115,6 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
                 it.collect = !state
                 mArticleAdapter.notifyDataSetChanged()
             }
-
-//            通知所有界面更新 ♥型状态
-//            eventBus.post(CollectUpdateEvent(article.id))
         })
     }
 
@@ -110,30 +133,6 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
             if (state) mViewModel.unCollect(it.id) else mViewModel.collect(it.id)
         }
     }
-
-    // 更新 主页面的  article 心型状态
-    // 例如 在 我的收藏点击了  取消收藏   这时候 就通知主页面 更新
-    fun onCollectUpdateEvent() {
-//        Log.d("LST", "ArticleListFragment 收到消息啦")
-//        var position = 0
-//
-//        for ((index, value) in mArticleAdapter.data.withIndex()) {
-//            if (value.id == event.id) {
-//                position = index
-//                break
-//            }
-//        }
-//
-//        val article = mArticleAdapter.data.getOrNull(position)
-//
-//        article?.let {
-//            Log.d("LST", "onClick")
-//            val isCollect = it.collect
-//            it.collect = !isCollect
-//            mArticleAdapter.notifyDataSetChanged()
-//        }
-    }
-
 
     override fun success(username: String, collectIds: List<Int>?) {
 
@@ -156,6 +155,13 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
         }
 
         mArticleAdapter.notifyDataSetChanged()
+    }
+
+    /**
+     *  双击 toolbar  返回 顶部
+     */
+    fun moveToTop(){
+        mRvArticle.smoothScrollToPosition(0)
     }
 
     override fun onDestroy() {

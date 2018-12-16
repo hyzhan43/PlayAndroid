@@ -16,7 +16,7 @@ import zqx.rj.com.playandroid.project.vm.ProjectViewModel
 /**
  * author：  HyZhan
  * created： 2018/10/27 17:42
- * desc：    TODO
+ * desc：    项目模块
  */
 class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
 
@@ -45,7 +45,7 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
         mRvProject.layoutManager = GridLayoutManager(activity, 2)
         mRvProject.adapter = mAdapter
 
-        mSlRefresh.setOnRefreshListener { refreshRvProject() }
+        mSrlRefresh.setOnRefreshListener { refreshRvProject() }
 
         mAdapter.setOnItemClickListener { _, _, position ->
             if (mProjectsData.isNotEmpty()){
@@ -99,6 +99,6 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
         mAdapter.addData(projects)
         mAdapter.loadMoreComplete()
 
-        if (mSlRefresh.isRefreshing) mSlRefresh.isRefreshing = false
+        if (mSrlRefresh.isRefreshing) mSrlRefresh.isRefreshing = false
     }
 }

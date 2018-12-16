@@ -37,6 +37,10 @@ class WebViewActivity : BaseActivity() {
                 .createAgentWeb()
                 .ready()
                 .go(link)       // 加载 url
+
+        val setting = mAgentWeb.agentWebSettings.webSettings
+        // 设置 支持缩放
+        setting.builtInZoomControls = true
     }
 
     override fun onBackPressed() = finish()
