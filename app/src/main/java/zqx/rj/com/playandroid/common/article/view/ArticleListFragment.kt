@@ -1,6 +1,7 @@
 package zqx.rj.com.playandroid.common.article.view
 
 import android.arch.lifecycle.Observer
+import android.util.Log
 import kotlinx.android.synthetic.main.fragment_article_list.*
 import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
@@ -26,7 +27,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
     // 文章是否 收藏 状态
     private var state: Boolean = false
     // 点击后 当前文章的 位置
-    private var current: Int = -1
+    private var current: Int = 0
 
     protected lateinit var mArticleAdapter: ArticleAdapter
 
@@ -120,7 +121,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
     // 发起收藏
     override fun collect(position: Int) {
-
+        Log.d("LST", "position=$position")
         val article = mArticleAdapter.getItem(position)
 
         article?.let {
@@ -160,7 +161,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
     /**
      *  双击 toolbar  返回 顶部
      */
-    fun moveToTop(){
+    fun moveToTop() {
         mRvArticle.smoothScrollToPosition(0)
     }
 

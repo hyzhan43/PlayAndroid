@@ -4,16 +4,10 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_system_article.*
-import org.jetbrains.anko.support.v4.startActivity
-import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivity
-import zqx.rj.com.playandroid.account.data.context.LoginContext
-import zqx.rj.com.playandroid.common.article.data.adapter.ArticleAdapter
-import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
+import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
 import zqx.rj.com.playandroid.system.vm.SystemViewModel
 
 /**
@@ -21,13 +15,22 @@ import zqx.rj.com.playandroid.system.vm.SystemViewModel
  * created： 2018/10/22 19:58
  * desc：    体系 文章 fragment
  */
-class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener {
+class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListener {
 
     private var page: Int = 0
 
-    private lateinit var mArticleAdapter: ArticleAdapter
-
+    // 当前 收藏 article 索引
     private var current: Int = -1
+
+    // 当前选中的 tab  索引  默认是 0 选中第一个
+    private var tabIndex: Int = 0
+
+    /**
+     *  标志位, 用于判断是否切换了 tab
+     *  如果是切换了 tab  就重新设置 新的数据
+     *  否则  就 添加数据
+     */
+    private var flag: Boolean = false
 
     // 获取 初始化 传入的 ids、titles
     private val titles: ArrayList<String>? by lazy { arguments?.getStringArrayList("titles") }
@@ -49,24 +52,6 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
     override fun initView() {
         super.initView()
 
-        mRvArticle.layoutManager = LinearLayoutManager(context)
-        mArticleAdapter = ArticleAdapter(R.layout.article_item, null)
-        mRvArticle.adapter = mArticleAdapter
-
-        // item
-        mArticleAdapter.setOnItemClickListener { _, _, position ->
-            val article = mArticleAdapter.getItem(position)
-            article?.let {
-                startActivity<WebViewActivity>("link" to it.link,
-                        "title" to it.title)
-            }
-        }
-
-        // ♥ 型按钮
-        mArticleAdapter.setOnItemChildClickListener { _, _, position ->
-            LoginContext.instance.collect(activity, position, this)
-        }
-
         initSecondTreeTab()
     }
 
@@ -74,27 +59,34 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
         super.initData()
 
         // 默认获取 一级菜单 二级菜单 第一个
-        switchArticle(0)
+        mViewModel.getArticle(getCurrentCid(0), 0)
     }
 
     override fun dataObserver() {
+        // 调用父类 dataObserver
+        super.dataObserver()
+
         mViewModel.mTreeArticleData.observe(this, Observer { response ->
-            response?.let { setArticleData(it.data) }
-        })
-
-        mViewModel.mCollectData.observe(this, Observer {
-            val article = mArticleAdapter.getItem(current)
-
-            article?.let {
-                // 更新 RecyclerView  ♥ 型状态
-                it.collect = !it.collect
-                mArticleAdapter.notifyDataSetChanged()
+            response?.let {
+                if (flag) {
+                    // 如果是切换了 tab  就重新设置 新的数据
+                    // 后续的 加载更多就直接 添加数据
+                    // 例如  开发环境 -> AndroidStudio 相关 切换至 gradle 就重新设置数据
+                    mArticleAdapter.setNewData(it.data.datas)
+                    flag = false
+                } else {
+                    addData(it.data.datas)
+                }
             }
         })
     }
 
-    private fun setArticleData(data: TreeArticleRsp) {
-        mArticleAdapter.setNewData(data.datas)
+    override fun onRefreshData() {
+        mViewModel.getArticle(getCurrentCid(tabIndex), 0)
+    }
+
+    override fun onLoadMoreData() {
+        mViewModel.getArticle(getCurrentCid(tabIndex), ++page)
     }
 
     private fun initSecondTreeTab() {
@@ -107,29 +99,17 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                switchArticle(tab?.position ?: 0)
+                flag = true
+                tabIndex = tab?.position ?: 0
+                mViewModel.getArticle(getCurrentCid(tabIndex), 0)
             }
         })
     }
 
-    private fun switchArticle(position: Int) {
-        ids?.let {
+    private fun getCurrentCid(position: Int): Int {
+        return ids?.let {
             // 判断 是否有 数据
-            val cid = if (it.isNotEmpty()) it[position] else -1
-            mViewModel.getArticle(cid, page)
-        }
-    }
-
-
-    // 点击收藏 回调
-    override fun collect(position: Int) {
-
-        val article = mArticleAdapter.getItem(position)
-
-        article?.let {
-            if (it.collect) mViewModel.unCollect(it.id) else mViewModel.collect(it.id)
-
-            current = position
-        }
+            if (it.isNotEmpty()) it[position] else -1
+        } ?: -1
     }
 }
