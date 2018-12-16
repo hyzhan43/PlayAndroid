@@ -12,7 +12,7 @@ import zqx.rj.com.playandroid.system.vm.SystemViewModel
 /**
  * author：  HyZhan
  * created： 2018/10/22 18:55
- * desc：    TODO
+ * desc：    体系模块
  */
 class SystemFragment : LifecycleFragment<SystemViewModel>() {
 
@@ -37,7 +37,6 @@ class SystemFragment : LifecycleFragment<SystemViewModel>() {
         mViewModel.mTreeData.observe(this, Observer { response ->
             response?.let { initSystemData(it.data) }
         })
-
     }
 
     private fun initSystemData(data: List<TopTreeRsp>) {

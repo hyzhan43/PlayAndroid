@@ -21,7 +21,6 @@ import zqx.rj.com.playandroid.project.vm.ProjectViewModel
 class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
 
     private var mPage: Int = 1
-    private val mProjectsData by lazy { ArrayList<Project>() }
 
     private val mAdapter: ProjectTabAdapter by lazy {
         ProjectTabAdapter(R.layout.project_item, null)
@@ -45,11 +44,15 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
         mRvProject.layoutManager = GridLayoutManager(activity, 2)
         mRvProject.adapter = mAdapter
 
+        // 设置 下拉刷新 loading 颜色
+        mSrlRefresh.setColorSchemeResources(R.color.colorPrimary)
         mSrlRefresh.setOnRefreshListener { refreshRvProject() }
 
         mAdapter.setOnItemClickListener { _, _, position ->
-            if (mProjectsData.isNotEmpty()){
-                val project = mProjectsData[position]
+
+            val project = mAdapter.getItem(position)
+
+            project?.let {
                 startActivity<WebViewActivity>("link" to project.link,
                         "title" to project.title)
             }
@@ -57,22 +60,16 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
 
         mAdapter.setEnableLoadMore(true)
         // 加载更多
-        mAdapter.setOnLoadMoreListener({
-            getProjects(++mPage)
-        }, mRvProject)
+        mAdapter.setOnLoadMoreListener({ getProjects(++mPage) }, mRvProject)
     }
 
     private fun refreshRvProject() {
-        mPage = 1
-        mProjectsData.clear()
-        mAdapter.data.clear()
-        getProjects(mPage)
+        getProjects(1)
     }
 
     override fun initData() {
         super.initData()
-
-        getProjects(mPage)
+        getProjects(1)
     }
 
     private fun getProjects(page: Int) {
@@ -83,22 +80,28 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
 
 
     override fun dataObserver() {
-        mViewModel.mProjectsData.observe(this, Observer {response->
-            response?.data?.let {
-                if (it.datas.isEmpty()) {
-                    mAdapter.loadMoreEnd()
-                } else {
-                    initRecyclerView(it.datas)
-                }
-            }
+        mViewModel.mProjectsData.observe(this, Observer { response ->
+            response?.data?.let { addData(it.datas) }
         })
     }
 
-    private fun initRecyclerView(projects: List<Project>) {
-        mProjectsData.addAll(projects)
+    private fun addData(projects: List<Project>) {
+        // 如果为空的话，就直接 显示加载完毕
+        if (projects.isEmpty()) {
+            mAdapter.loadMoreEnd()
+            return
+        }
+
+        // 如果是 下拉刷新 直接设置数据
+        if (mSrlRefresh.isRefreshing) {
+            mSrlRefresh.isRefreshing = false
+            mAdapter.setNewData(projects)
+            mAdapter.loadMoreComplete()
+            return
+        }
+
+        // 否则 添加新数据
         mAdapter.addData(projects)
         mAdapter.loadMoreComplete()
-
-        if (mSrlRefresh.isRefreshing) mSrlRefresh.isRefreshing = false
     }
 }

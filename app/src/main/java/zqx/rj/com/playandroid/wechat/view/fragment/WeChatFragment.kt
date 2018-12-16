@@ -12,7 +12,7 @@ import zqx.rj.com.playandroid.wechat.vm.WeChatViewModel
 /**
  * author：  HyZhan
  * created： 2018/11/2 16:28
- * desc：    微信公众号 文章
+ * desc：    微信公众号
  */
 class WeChatFragment : LifecycleFragment<WeChatViewModel>() {
 

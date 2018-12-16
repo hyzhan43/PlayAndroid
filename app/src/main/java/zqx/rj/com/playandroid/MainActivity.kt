@@ -18,7 +18,6 @@ import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
 import zqx.rj.com.mvvm.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.account.data.context.LoginContext
-import zqx.rj.com.playandroid.account.data.context.LogoutState
 import zqx.rj.com.playandroid.common.search.view.SearchActivity
 import zqx.rj.com.playandroid.home.view.fragment.HomeFragment
 import zqx.rj.com.playandroid.mine.view.activity.AboutActivity
@@ -43,7 +42,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
     private val mProjectFragment by lazy { ProjectFragment() }
 
     // 当前显示的 fragment
-    private lateinit var mCurrent: Fragment
+    private lateinit var mCurrentFragment: Fragment
     private val mFragmentManager by lazy { supportFragmentManager }
 
     override fun getLayoutId(): Int = R.layout.activity_main
@@ -136,7 +135,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
 
     // 设置默认选中 fragment
     private fun setDefaultFragment() {
-        mCurrent = mHomeFragment
+        mCurrentFragment = mHomeFragment
         val transaction = mFragmentManager.beginTransaction()
         transaction.add(R.id.content, mHomeFragment).commit()
     }
@@ -145,32 +144,32 @@ class MainActivity : BaseActivity(), LoginSucListener {
         when (position) {
             Constant.HOME -> {
                 setToolBar(toolbar, getString(R.string.home))
-                switch(mCurrent, mHomeFragment)
+                switch(mCurrentFragment, mHomeFragment)
             }
             Constant.WECHAT -> {
                 setToolBar(toolbar, getString(R.string.wechat))
-                switch(mCurrent, mWeChatFragment)
+                switch(mCurrentFragment, mWeChatFragment)
             }
 
             Constant.SYSTEM -> {
                 setToolBar(toolbar, getString(R.string.system))
-                switch(mCurrent, mSystemFragment)
+                switch(mCurrentFragment, mSystemFragment)
             }
             Constant.NAVIGATION -> {
                 setToolBar(toolbar, getString(R.string.navigation))
-                switch(mCurrent, mNavigationFragment)
+                switch(mCurrentFragment, mNavigationFragment)
             }
             Constant.PROJECT -> {
                 setToolBar(toolbar, getString(R.string.project))
-                switch(mCurrent, mProjectFragment)
+                switch(mCurrentFragment, mProjectFragment)
             }
         }
     }
 
     // 复用 fragment
     private fun switch(from: Fragment, to: Fragment) {
-        if (mCurrent != to) {
-            mCurrent = to
+        if (mCurrentFragment != to) {
+            mCurrentFragment = to
             val transaction = mFragmentManager.beginTransaction()
             if (to.isAdded)
                 transaction.hide(from).show(to)

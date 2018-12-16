@@ -82,7 +82,7 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
             response?.let { setArticleData(it.data) }
         })
 
-        mViewModel.mCollectData.observe(this, Observer { response ->
+        mViewModel.mCollectData.observe(this, Observer {
             val article = mArticleAdapter.getItem(current)
 
             article?.let {
@@ -94,7 +94,6 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
     }
 
     private fun setArticleData(data: TreeArticleRsp) {
-        // 跳转 WebActivity 需要用到
         mArticleAdapter.setNewData(data.datas)
     }
 
@@ -131,17 +130,6 @@ class SysArticleFragment : LifecycleFragment<SystemViewModel>(), CollectListener
             if (it.collect) mViewModel.unCollect(it.id) else mViewModel.collect(it.id)
 
             current = position
-        }
-    }
-
-    fun updateState(id: Int) {
-        var position = 0
-
-        for ((index, value) in mArticleAdapter.data.withIndex()) {
-            if (value.id == id) {
-                position = index
-                break
-            }
         }
     }
 }
