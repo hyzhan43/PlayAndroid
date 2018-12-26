@@ -58,8 +58,9 @@ class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListen
     override fun initData() {
         super.initData()
 
+        page = 0
         // 默认获取 一级菜单 二级菜单 第一个
-        mViewModel.getArticle(getCurrentCid(0), 0)
+        mViewModel.getArticle(getCurrentCid(0), page)
     }
 
     override fun dataObserver() {
@@ -82,7 +83,8 @@ class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListen
     }
 
     override fun onRefreshData() {
-        mViewModel.getArticle(getCurrentCid(tabIndex), 0)
+        page = 0
+        mViewModel.getArticle(getCurrentCid(tabIndex), page)
     }
 
     override fun onLoadMoreData() {

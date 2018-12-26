@@ -20,7 +20,7 @@ import zqx.rj.com.playandroid.project.vm.ProjectViewModel
  */
 class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
 
-    private var mPage: Int = 1
+    private var page: Int = 1
 
     private val mAdapter: ProjectTabAdapter by lazy {
         ProjectTabAdapter(R.layout.project_item, null)
@@ -60,16 +60,18 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
 
         mAdapter.setEnableLoadMore(true)
         // 加载更多
-        mAdapter.setOnLoadMoreListener({ getProjects(++mPage) }, mRvProject)
+        mAdapter.setOnLoadMoreListener({ getProjects(++page) }, mRvProject)
     }
 
     private fun refreshRvProject() {
-        getProjects(1)
+        page = 1
+        getProjects(page)
     }
 
     override fun initData() {
         super.initData()
-        getProjects(1)
+        page = 1
+        getProjects(page)
     }
 
     private fun getProjects(page: Int) {

@@ -44,6 +44,9 @@ Kotlin 版 玩Android
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20181105212408587.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
 
 版本：
+## v 1.0.9
+- [√] 修复加载更多和刷新数据出现 缺少数据(page)
+
 ## v 1.0.8
 
 - [√] 添加首页双击标题栏 返回顶部(仿微信朋友圈)

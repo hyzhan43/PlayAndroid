@@ -41,8 +41,9 @@ class CollectActivity : ArticleListActivity<MineViewModel>() {
     override fun initData() {
         super.initData()
 
+        page = 0
         // 获取收藏的文章
-        mViewModel.getCollectArticle(0)
+        mViewModel.getCollectArticle(page)
     }
 
     override fun dataObserver() {
@@ -70,7 +71,8 @@ class CollectActivity : ArticleListActivity<MineViewModel>() {
     }
 
     override fun onRefreshData() {
-        mViewModel.getCollectArticle(0)
+        page = 0
+        mViewModel.getCollectArticle(page)
     }
 
     override fun onLoadMoreData() {

@@ -203,7 +203,8 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
     }
 
     override fun onRefreshData() {
-        mViewModel.search(0, mIcSearch.mEtInput.str())
+        page = 0
+        mViewModel.search(page, mIcSearch.mEtInput.str())
     }
 
     // 搜索结果  加载更多

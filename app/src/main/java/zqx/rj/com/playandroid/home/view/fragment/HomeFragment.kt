@@ -69,8 +69,9 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
     }
 
     override fun initData() {
+        page = 0
         // 获取 首页 article
-        mViewModel.getArticle(0)
+        mViewModel.getArticle(page)
 
         // 获取 Banner
         mViewModel.getBanner()
@@ -91,8 +92,9 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
     }
 
     override fun onRefreshData() {
+        page = 0
         // 获取 首页 article
-        mViewModel.getArticle(0)
+        mViewModel.getArticle(page)
 
         // 获取 Banner
         mViewModel.getBanner()
