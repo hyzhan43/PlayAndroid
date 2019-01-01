@@ -51,10 +51,12 @@
 
     <string name="github">Github：https://github.com/hyzhan43</string>
     <string name="csdn">Csdn：https://blog.csdn.net/weixin_40595516</string>
-    <string name="email">Email：1063523767@qq.com</string>
+    <string name="email">Email：hyzhan43@163.com</string>
+    <string name="qq">QQ：1063523767</string>
 
     <string name="loading">加载中~</string>
     <string name="network_fail">网络异常</string>
     <string name="exit_app_tips">再按一次退出程序</string>
     <string name="empty_data">没有相关数据哦~</string>
+    <string name="todo">TODO</string>
 </resources>

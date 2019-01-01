@@ -24,6 +24,7 @@ import zqx.rj.com.playandroid.mine.view.activity.AboutActivity
 import zqx.rj.com.playandroid.navigation.view.fragment.NavigationFragment
 import zqx.rj.com.playandroid.project.view.fragment.ProjectFragment
 import zqx.rj.com.playandroid.system.view.fragment.SystemFragment
+import zqx.rj.com.playandroid.todo.view.activity.TodoActivity
 import zqx.rj.com.playandroid.wechat.view.fragment.WeChatFragment
 
 class MainActivity : BaseActivity(), LoginSucListener {
@@ -52,6 +53,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
         initToolBar()
         initDrawerLayout()
         initNavigationBar()
+        initFloatButton()
         setDefaultFragment()
     }
 
@@ -91,6 +93,9 @@ class MainActivity : BaseActivity(), LoginSucListener {
             when (it.itemId) {
                 R.id.nav_menu_collect -> {
                     LoginContext.instance.toCollectActivity(this)
+                }
+                R.id.nav_menu_todo -> {
+                    startActivity<TodoActivity>()
                 }
                 R.id.nav_menu_about -> {
                     startActivity<AboutActivity>()
@@ -132,6 +137,11 @@ class MainActivity : BaseActivity(), LoginSucListener {
             })
         }
     }
+
+    private fun initFloatButton() {
+        mFabAdd.setOnClickListener { startActivity<TodoActivity>() }
+    }
+
 
     // 设置默认选中 fragment
     private fun setDefaultFragment() {

@@ -30,8 +30,7 @@
         <activity android:name=".home.view.activity.CommonWebActivity" />
         <activity android:name=".mine.view.activity.CollectActivity" />
         <activity android:name=".mine.view.activity.AboutActivity" />
-
-
+        <activity android:name=".todo.view.activity.TodoActivity"></activity>
     </application>
 
 </manifest>
