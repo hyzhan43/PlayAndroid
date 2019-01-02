@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentView="@+id/content"
+    app:rightMenuView="@+id/right">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/mTvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/mTvContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/test"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mTvTitle" />
+    </android.support.constraint.ConstraintLayout>
+
+    <!--右边删除-->
+    <LinearLayout
+        android:id="@+id/right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_red_light"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/delete"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout>

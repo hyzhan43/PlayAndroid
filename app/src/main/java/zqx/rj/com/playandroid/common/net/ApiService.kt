@@ -15,6 +15,8 @@ import zqx.rj.com.playandroid.project.data.bean.ProjectRsp
 import zqx.rj.com.playandroid.project.data.bean.ProjectTreeRsp
 import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
 import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
+import zqx.rj.com.playandroid.todo.data.bean.PageRsp
+import zqx.rj.com.playandroid.todo.data.bean.TodoRsp
 import zqx.rj.com.playandroid.wechat.data.bean.WeChatNameRsp
 import zqx.rj.com.playandroid.wechat.data.bean.WxArticleRsp
 
@@ -81,4 +83,7 @@ interface ApiService {
     @GET("/wxarticle/list/{id}/{page}/json")
     fun getWxArticle(@Path("id") id: Int, @Path("page") page: Int)
             : Observable<BaseResponse<WxArticleRsp>>
+
+    @GET("/lg/todo/v2/list/{page}/json")
+    fun getTodoList(@Path("page") page: Int): Observable<BaseResponse<PageRsp<TodoRsp>>>
 }

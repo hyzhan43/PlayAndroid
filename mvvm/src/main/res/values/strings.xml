@@ -43,7 +43,7 @@
 
     <!--mine-->
     <string name="mine_collect">我的收藏</string>
-    <string name="mine_setting">设置</string>
+    <string name="setting">设置</string>
     <string name="mine_about">关于我的</string>
     <string name="logout">未登录</string>
     <string name="project">项目</string>
@@ -59,4 +59,11 @@
     <string name="exit_app_tips">再按一次退出程序</string>
     <string name="empty_data">没有相关数据哦~</string>
     <string name="todo">TODO</string>
+    <string name="all">全部</string>
+    <string name="work">工作</string>
+    <string name="life">生活</string>
+    <string name="play">娱乐</string>
+    <string name="finish">完成</string>
+    <string name="plan">计划</string>
+    <string name="delete">删除</string>
 </resources>

@@ -3,6 +3,7 @@ package zqx.rj.com.playandroid
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Gravity
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
@@ -101,7 +102,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
                     startActivity<AboutActivity>()
                 }
                 R.id.nav_menu_setting -> {
-                    toast(getString(R.string.mine_setting))
+                    toast(getString(R.string.setting))
                 }
                 R.id.nav_menu_logout -> {
                     LoginContext.instance.logoutSuccess()
@@ -118,11 +119,11 @@ class MainActivity : BaseActivity(), LoginSucListener {
         with(mNavigationBar) {
             setMode(BottomNavigationBar.MODE_FIXED)
 
-            addItem(BottomNavigationItem(R.mipmap.ic_home, getString(R.string.home)))
-            addItem(BottomNavigationItem(R.mipmap.ic_wechat, getString(R.string.wechat)))
-            addItem(BottomNavigationItem(R.mipmap.ic_system, getString(R.string.system)))
-            addItem(BottomNavigationItem(R.mipmap.ic_navigation, getString(R.string.navigation)))
-            addItem(BottomNavigationItem(R.mipmap.ic_project, getString(R.string.project)))
+            addItem(BottomNavigationItem(R.mipmap.ic_home, R.string.home))
+            addItem(BottomNavigationItem(R.mipmap.ic_wechat, R.string.wechat))
+            addItem(BottomNavigationItem(R.mipmap.ic_system, R.string.system))
+            addItem(BottomNavigationItem(R.mipmap.ic_navigation, R.string.navigation))
+            addItem(BottomNavigationItem(R.mipmap.ic_project, R.string.project))
 
             // 设置底部 BottomBar 默认选中 home
             setFirstSelectedPosition(Constant.HOME)
@@ -140,6 +141,17 @@ class MainActivity : BaseActivity(), LoginSucListener {
 
     private fun initFloatButton() {
         mFabAdd.setOnClickListener { startActivity<TodoActivity>() }
+    }
+
+    /**
+     *  创建 search 搜索 icon
+     */
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // 设置 toolbar   search 图标
+        // search 图标大小 -> 通过 drawable-hdpi 文件夹  还有 原图片大小来设置这里 32dp
+        // 如果直接放入 drawable 会偏大
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
 

@@ -10,6 +10,8 @@
     <color name="colorPrimaryDark">#01ABF9</color>
     <color name="colorAccent">#01ABF9</color>
 
+    <color name="lightBlue">#54c9ff</color>
+
     <color name="colorDark">#FF0158F9</color>
     <color name="colorLightDark">#029ae1</color>
 
@@ -18,4 +20,5 @@
     <color name="lightGray">#EEEEEE</color>
     <color name="black">#000000</color>
 
+    
 </resources>

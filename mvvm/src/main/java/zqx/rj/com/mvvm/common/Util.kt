@@ -26,4 +26,5 @@ object Util {
                 .actualTypeArguments[0]
                 as Class<T>
     }
+
 }

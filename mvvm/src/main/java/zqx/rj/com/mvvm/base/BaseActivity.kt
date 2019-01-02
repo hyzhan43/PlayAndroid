@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
+import android.view.MenuItem
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import io.reactivex.disposables.CompositeDisposable
@@ -74,12 +75,14 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // 设置 toolbar   search 图标
-        // search 图标大小 -> 通过 drawable-hdpi 文件夹  还有 原图片大小来设置这里 32dp
-        // 如果直接放入 drawable 会偏大
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return super.onCreateOptionsMenu(menu)
+    /**
+     *  设置toolbar 通用 back 返回为 finish
+     */
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {

@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".todo.view.activity.TodoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +30,8 @@
         <activity android:name=".home.view.activity.CommonWebActivity" />
         <activity android:name=".mine.view.activity.CollectActivity" />
         <activity android:name=".mine.view.activity.AboutActivity" />
-        <activity android:name=".todo.view.activity.TodoActivity"></activity>
+        <!--<activity android:name=".todo.view.activity.TodoActivity"/>-->
+        <activity android:name=".todo.view.activity.AddTodoActivity"/>
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@
     android:background="@color/colorPrimaryDark"
     android:minHeight="?attr/actionBarSize"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:popupTheme="@style/OverflowMenuStyle"
     app:titleTextColor="@color/white">
 
     <!--这两句显示左边的三条杠，如果要变为白色在toolbar的布局文件里添加这两句：-->
