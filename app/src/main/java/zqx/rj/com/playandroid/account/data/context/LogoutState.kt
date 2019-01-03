@@ -14,21 +14,24 @@ import zqx.rj.com.playandroid.account.view.LoginActivity
  * desc：    未登录状态
  */
 class LogoutState : UserState {
+    override fun goTodoActivity(context: Context?) {
+        goLoginActivity(context)
+    }
 
     override fun collect(context: Context?, position: Int,listener: CollectListener) {
-        jumpToLoginActivity(context)
+        goLoginActivity(context)
     }
 
     override fun login(context: Context?) {
-        jumpToLoginActivity(context)
+        goLoginActivity(context)
     }
 
-    override fun toCollectActivity(context: Context?) {
-        jumpToLoginActivity(context)
+    override fun goCollectActivity(context: Context?) {
+        goLoginActivity(context)
     }
 
     // 跳转到登录
-    private fun jumpToLoginActivity(context: Context?) {
+    private fun goLoginActivity(context: Context?) {
         context?.let {
             it.toast(it.getString(R.string.please_login))
             it.startActivity<LoginActivity>()

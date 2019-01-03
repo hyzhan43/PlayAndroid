@@ -8,9 +8,7 @@ import zqx.rj.com.mvvm.common.State
 import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.common.constant.StateType
 import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.mvvm.state.callback.login.LoginSucState
-import zqx.rj.com.playandroid.account.data.context.LoginContext
-import zqx.rj.com.playandroid.account.data.context.LogoutState
+import zqx.rj.com.playandroid.account.data.context.UserContext
 
 
 /**
@@ -42,7 +40,7 @@ class BaseObserver<T : BaseResponse<*>>(val liveData: MutableLiveData<T>,
             }
             Constant.NOT_LOGIN -> {
                 // 如果 cookie 失效的话，直接标志退出
-                LoginContext.instance.logoutSuccess()
+                UserContext.instance.logoutSuccess()
                 loadState.postValue(State(StateType.ERROR, msg = "登录已过期,请重新登录"))
             }
             else -> {

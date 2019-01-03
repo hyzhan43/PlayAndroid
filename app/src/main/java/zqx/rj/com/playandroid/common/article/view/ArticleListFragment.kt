@@ -11,7 +11,7 @@ import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
 import zqx.rj.com.mvvm.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.WebViewActivity
-import zqx.rj.com.playandroid.account.data.context.LoginContext
+import zqx.rj.com.playandroid.account.data.context.UserContext
 import zqx.rj.com.playandroid.common.article.data.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
@@ -57,7 +57,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
         // 收藏 按钮
         mArticleAdapter.setOnItemChildClickListener { _, _, position ->
-            LoginContext.instance.collect(activity, position, this)
+            UserContext.instance.collect(activity, position, this)
         }
 
         mArticleAdapter.setEnableLoadMore(true)

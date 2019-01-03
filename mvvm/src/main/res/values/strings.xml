@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mvvm</string>
+    <string name="app_name">玩Android</string>
 
     <!--account-->
     <string name="account">账号</string>
@@ -19,6 +19,7 @@
     <string name="system">体系</string>
     <string name="navigation">导航</string>
     <string name="mine">我的</string>
+    <string name="wechat">公众号</string>
 
     <!--splash-->
     <string name="app_desc">一款每日推荐优质文章的app</string>
@@ -41,6 +42,15 @@
     <string name="hot_key">热门搜索</string>
     <string name="history">最近搜索</string>
 
+    <!--模块todo-->
+    <string name="todo">TODO</string>
+    <string name="all">全部</string>
+    <string name="work">工作</string>
+    <string name="life">生活</string>
+    <string name="finish">完成</string>
+    <string name="study">学习</string>
+    <string name="delete">删除</string>
+
     <!--mine-->
     <string name="mine_collect">我的收藏</string>
     <string name="setting">设置</string>
@@ -58,12 +68,7 @@
     <string name="network_fail">网络异常</string>
     <string name="exit_app_tips">再按一次退出程序</string>
     <string name="empty_data">没有相关数据哦~</string>
-    <string name="todo">TODO</string>
-    <string name="all">全部</string>
-    <string name="work">工作</string>
-    <string name="life">生活</string>
-    <string name="finish">完成</string>
-    <string name="unfinish">TODO</string>
-    <string name="delete">删除</string>
-    <string name="study">学习</string>
+
+
+
 </resources>

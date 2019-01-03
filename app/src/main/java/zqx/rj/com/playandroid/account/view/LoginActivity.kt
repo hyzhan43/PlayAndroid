@@ -6,13 +6,9 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.base.LifecycleActivity
-import zqx.rj.com.mvvm.common.Preference
-import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.common.str
-import zqx.rj.com.mvvm.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.account.data.context.LoginContext
-import zqx.rj.com.playandroid.account.data.context.LoginState
+import zqx.rj.com.playandroid.account.data.context.UserContext
 import zqx.rj.com.playandroid.account.vm.AccountViewModel
 
 class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListener {
@@ -47,7 +43,7 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
         // 处理 repository 回调的数据
         mViewModel.mLoginData.observe(this, Observer {
             it?.data?.let { loginRsp ->
-                LoginContext.instance.loginSuccess(loginRsp.username, loginRsp.collectIds)
+                UserContext.instance.loginSuccess(loginRsp.username, loginRsp.collectIds)
                 toast(getString(R.string.login_suc))
                 finish()
             }

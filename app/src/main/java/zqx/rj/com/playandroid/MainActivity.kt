@@ -18,7 +18,7 @@ import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
 import zqx.rj.com.mvvm.state.callback.login.LoginSucState
-import zqx.rj.com.playandroid.account.data.context.LoginContext
+import zqx.rj.com.playandroid.account.data.context.UserContext
 import zqx.rj.com.playandroid.common.search.view.SearchActivity
 import zqx.rj.com.playandroid.home.view.fragment.HomeFragment
 import zqx.rj.com.playandroid.mine.view.activity.AboutActivity
@@ -87,15 +87,15 @@ class MainActivity : BaseActivity(), LoginSucListener {
         headView.mTvName.text = mUsername
 
         // 点击 登录
-        headView.mCivIcon.setOnClickListener { LoginContext.instance.login(this) }
+        headView.mCivIcon.setOnClickListener { UserContext.instance.login(this) }
 
         mNavMain.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_menu_collect -> {
-                    LoginContext.instance.toCollectActivity(this)
+                    UserContext.instance.goCollectActivity(this)
                 }
                 R.id.nav_menu_todo -> {
-                    startActivity<TodoActivity>()
+                    UserContext.instance.goTodoActivity(this)
                 }
                 R.id.nav_menu_about -> {
                     startActivity<AboutActivity>()
@@ -104,7 +104,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
                     toast(getString(R.string.setting))
                 }
                 R.id.nav_menu_logout -> {
-                    LoginContext.instance.logoutSuccess()
+                    UserContext.instance.logoutSuccess()
                 }
             }
 
@@ -165,38 +165,38 @@ class MainActivity : BaseActivity(), LoginSucListener {
         when (position) {
             Constant.HOME -> {
                 setToolBar(toolbar, getString(R.string.home))
-                switch(mCurrentFragment, mHomeFragment)
+                goTo(mHomeFragment)
             }
             Constant.WECHAT -> {
                 setToolBar(toolbar, getString(R.string.wechat))
-                switch(mCurrentFragment, mWeChatFragment)
+                goTo(mWeChatFragment)
             }
 
             Constant.SYSTEM -> {
                 setToolBar(toolbar, getString(R.string.system))
-                switch(mCurrentFragment, mSystemFragment)
+                goTo(mSystemFragment)
             }
             Constant.NAVIGATION -> {
                 setToolBar(toolbar, getString(R.string.navigation))
-                switch(mCurrentFragment, mNavigationFragment)
+                goTo(mNavigationFragment)
             }
             Constant.PROJECT -> {
                 setToolBar(toolbar, getString(R.string.project))
-                switch(mCurrentFragment, mProjectFragment)
+                goTo(mProjectFragment)
             }
         }
     }
 
     // 复用 fragment
-    private fun switch(from: Fragment, to: Fragment) {
+    private fun goTo(to: Fragment) {
         if (mCurrentFragment != to) {
-            mCurrentFragment = to
             val transaction = supportFragmentManager.beginTransaction()
             if (to.isAdded)
-                transaction.hide(from).show(to)
+                transaction.hide(mCurrentFragment).show(to)
             else
-                transaction.hide(from).add(R.id.content, to)
+                transaction.hide(mCurrentFragment).add(R.id.content, to)
             transaction.commit()
+            mCurrentFragment = to
         }
     }
 

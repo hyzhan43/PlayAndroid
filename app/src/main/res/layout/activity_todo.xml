@@ -8,20 +8,14 @@
 
     <include layout="@layout/layout_toolbar" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/mSrlRefresh"
+    <!-- list 内容-->
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/mNavigationBar"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:ignore="UnknownIdInLayout">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/mRvTodo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-
+        tools:ignore="UnknownIdInLayout" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/mFabAdd"

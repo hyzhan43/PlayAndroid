@@ -24,4 +24,13 @@ object Constant {
 
     const val SUCCESS = 0
     const val NOT_LOGIN = -1001
+
+
+    const val STATUS = "status"
+    const val TODO_STATUS = 0
+    const val FINISH_STATUS = 1
+
+    const val FINISH = 0
+    const val TODO = 1
+    const val SETTING = 2
 }
