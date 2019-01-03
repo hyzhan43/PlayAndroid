@@ -1,14 +1,19 @@
 package zqx.rj.com.playandroid.common.net
 
 import io.reactivex.Observable
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.response.EmptyRsp
 import zqx.rj.com.playandroid.account.data.bean.LoginRsp
 import zqx.rj.com.playandroid.account.data.bean.RegisterRsp
 import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
 import zqx.rj.com.playandroid.common.search.data.bean.SearchResultRsp
-import zqx.rj.com.playandroid.home.data.bean.*
+import zqx.rj.com.playandroid.home.data.bean.BannerRsp
+import zqx.rj.com.playandroid.home.data.bean.CommonWebRsp
+import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
 import zqx.rj.com.playandroid.mine.data.bean.CollectRsp
 import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
 import zqx.rj.com.playandroid.project.data.bean.ProjectRsp
@@ -85,5 +90,18 @@ interface ApiService {
             : Observable<BaseResponse<WxArticleRsp>>
 
     @GET("/lg/todo/v2/list/{page}/json")
-    fun getTodoList(@Path("page") page: Int): Observable<BaseResponse<PageRsp<TodoRsp>>>
+    fun getTodoList(@Path("page") page: Int,
+                    @Query("status") status: Int,
+                    @Query("type") type: Int,
+                    @Query("priority") priority: Int,
+                    @Query("orderby") orderby: Int)
+            : Observable<BaseResponse<PageRsp<TodoRsp>>>
+
+    @POST("/lg/todo/done/{id}/json")
+    fun finishTodo(@Path("id") id: Int,
+                   @Query("status") status: Int)
+            : Observable<BaseResponse<EmptyRsp>>
+
+    @POST("/lg/todo/delete/{id}/json")
+    fun deleteTodo(@Path("id") id: Int): Observable<BaseResponse<EmptyRsp>>
 }

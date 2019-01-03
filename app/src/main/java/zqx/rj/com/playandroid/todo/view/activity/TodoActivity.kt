@@ -10,7 +10,6 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
@@ -36,6 +35,12 @@ class TodoActivity : LifecycleActivity<TodoViewModel>() {
     private lateinit var mTodoAdapter: TodoAdapter
 
     private var page: Int = 1
+    // 当前状态  未完成 0  完成 1
+    private var status: Int = 0
+    // 当前 类型 工作1；生活2；娱乐3  0 默认全部
+    private var type: Int = 0
+    // delete index
+    private var deleteIndex = -1
 
     override fun getLayoutId(): Int = R.layout.activity_todo
 
@@ -51,8 +56,16 @@ class TodoActivity : LifecycleActivity<TodoViewModel>() {
         mSrlRefresh.setColorSchemeResources(R.color.colorPrimaryDark)
         mSrlRefresh.setOnRefreshListener {
             page = 1
-            mViewModel.getTodoList(page)
+            mViewModel.getTodoList(page, status, type)
         }
+    }
+
+    /**
+     *  重新加载
+     */
+    override fun reLoad() {
+        page = 1
+        mViewModel.getTodoList(page, status, type)
     }
 
     private fun initFloatButton() {
@@ -67,12 +80,17 @@ class TodoActivity : LifecycleActivity<TodoViewModel>() {
         mRvTodo.adapter = mTodoAdapter
         // 设置空数据布局
         mTodoAdapter.setEmptyView(R.layout.layout_empty, mRvTodo)
+        // 开启上拉加载更多
+        mTodoAdapter.setEnableLoadMore(true)
+        mTodoAdapter.setOnLoadMoreListener({
+            mViewModel.getTodoList(++page, status, type)
+        }, mRvTodo)
 
         // 设置 item 的组名
         val groupListener = GroupListener { position ->
             if (mTodoAdapter.data.isNotEmpty()) {
                 //获取分组名
-                mTodoAdapter.data[position].dateStr
+                mTodoAdapter.getItem(position)?.dateStr
             } else ""
         }
 
@@ -121,17 +139,16 @@ class TodoActivity : LifecycleActivity<TodoViewModel>() {
             }
 
             override fun onItemSwiped(viewHolder: RecyclerView.ViewHolder?, pos: Int) {
-                super.onItemSwiped(viewHolder, pos)
-                toast("完成")
-                // TODO 设置完成 todo
+                // 滑动完成 回调  status = 1 未完成
+                mViewModel.finishTodo(mTodoAdapter.getItem(pos)?.id ?: 0, 1)
             }
         })
 
-        mTodoAdapter.setOnItemChildClickListener { adapter, view, position ->
+        mTodoAdapter.setOnItemChildClickListener { _, view, position ->
             when (view.id) {
                 R.id.right -> {
-                    toast("删除 $position")
-                    adapter.remove(position)
+                    deleteIndex = position
+                    mViewModel.deleteTodo(mTodoAdapter.getItem(position)?.id ?: 0)
                 }
             }
         }
@@ -141,35 +158,70 @@ class TodoActivity : LifecycleActivity<TodoViewModel>() {
         with(mNavigationBar) {
             setMode(BottomNavigationBar.MODE_FIXED)
 
-            addItem(BottomNavigationItem(R.mipmap.ic_plan, R.string.plan))
+            addItem(BottomNavigationItem(R.mipmap.ic_not_finish, R.string.todo))
             addItem(BottomNavigationItem(R.mipmap.ic_finish, R.string.finish))
             // 设置底部 BottomBar 默认选中 plan
             setFirstSelectedPosition(0)
             // 初始化
             initialise()
+
+            setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
+                override fun onTabReselected(position: Int) {}
+
+                override fun onTabUnselected(position: Int) {}
+
+                override fun onTabSelected(position: Int) {
+
+                    showLoading()
+                    page = 1
+                    // 因为只有两个底部button 所有刚好对应
+                    // position ->  0 是未完成
+                    // position ->  1 完成
+                    status = position
+                    mViewModel.getTodoList(page, status, type)
+                }
+            })
         }
     }
 
     override fun initData() {
         super.initData()
 
+        showLoading()
         page = 1
-        mViewModel.getTodoList(page)
+        mViewModel.getTodoList(page, status, type)
     }
 
     override fun dataObserver() {
         mViewModel.mTodoData.observe(this, Observer { response ->
             response?.data?.datas?.let { setTodoData(it) }
         })
+
+        mViewModel.mDeleteTodoData.observe(this, Observer {
+            mTodoAdapter.remove(deleteIndex)
+            toast("删除成功")
+        })
     }
 
     private fun setTodoData(data: List<TodoRsp>) {
 
-        if (mSrlRefresh.isRefreshing) {
+        showSuccess()
+
+        if (mSrlRefresh.isRefreshing || page == 1) {
             mSrlRefresh.isRefreshing = false
+            mTodoAdapter.setNewData(data)
+            mTodoAdapter.loadMoreComplete()
+            return
         }
 
+        if (data.isEmpty()) {
+            mTodoAdapter.loadMoreEnd()
+            return
+        }
+
+        // 否则 就是添加数据
         mTodoAdapter.addData(data)
+        mTodoAdapter.loadMoreComplete()
     }
 
     private fun initPaint(): Paint {
@@ -191,23 +243,37 @@ class TodoActivity : LifecycleActivity<TodoViewModel>() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        //  全部, 工作1 生活2  娱乐3
+        // 显示 loading
+        showLoading()
+        //  全部, 工作1  学习2 生活3
         when (item?.itemId) {
             R.id.todo_all -> {
                 toolbar.title = getString(R.string.all)
+                page = 1
+                type = 0
+                mViewModel.getTodoList(page, status, type)
             }
             R.id.todo_work -> {
                 toolbar.title = getString(R.string.work)
+                page = 1
+                type = 1
+                mViewModel.getTodoList(page, status, type)
+            }
+            R.id.todo_study -> {
+                toolbar.title = getString(R.string.study)
+                page = 1
+                type = 2
+                mViewModel.getTodoList(page, status, type)
             }
             R.id.todo_life -> {
                 toolbar.title = getString(R.string.life)
-            }
-            R.id.todo_play -> {
-                toolbar.title = getString(R.string.play)
+                page = 1
+                type = 3
+                mViewModel.getTodoList(page, status, type)
             }
             R.id.todo_setting -> {
                 toast("设置")
+                showSuccess()
             }
         }
         return super.onOptionsItemSelected(item)

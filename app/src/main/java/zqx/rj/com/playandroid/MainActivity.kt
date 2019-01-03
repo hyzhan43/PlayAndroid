@@ -45,7 +45,6 @@ class MainActivity : BaseActivity(), LoginSucListener {
 
     // 当前显示的 fragment
     private lateinit var mCurrentFragment: Fragment
-    private val mFragmentManager by lazy { supportFragmentManager }
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
@@ -158,7 +157,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
     // 设置默认选中 fragment
     private fun setDefaultFragment() {
         mCurrentFragment = mHomeFragment
-        val transaction = mFragmentManager.beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.content, mHomeFragment).commit()
     }
 
@@ -192,7 +191,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
     private fun switch(from: Fragment, to: Fragment) {
         if (mCurrentFragment != to) {
             mCurrentFragment = to
-            val transaction = mFragmentManager.beginTransaction()
+            val transaction = supportFragmentManager.beginTransaction()
             if (to.isAdded)
                 transaction.hide(from).show(to)
             else

@@ -62,8 +62,8 @@
     <string name="all">全部</string>
     <string name="work">工作</string>
     <string name="life">生活</string>
-    <string name="play">娱乐</string>
     <string name="finish">完成</string>
-    <string name="plan">计划</string>
+    <string name="unfinish">TODO</string>
     <string name="delete">删除</string>
+    <string name="study">学习</string>
 </resources>
