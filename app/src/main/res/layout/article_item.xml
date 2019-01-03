@@ -37,8 +37,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:text="@string/category"
-            android:textSize="@dimen/s10"
             android:textColor="@color/colorAccent"
+            android:textSize="@dimen/s10"
             app:layout_constraintTop_toBottomOf="@+id/mTvTitle" />
 
         <TextView
@@ -62,5 +62,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/mTvNews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:rotation="-45"
+        android:visibility="gone"
+        android:text="@string/news"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="@dimen/s12"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 </android.support.v7.widget.CardView>

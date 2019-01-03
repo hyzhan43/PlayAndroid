@@ -30,7 +30,6 @@ object Constant {
     const val TODO_STATUS = 0
     const val FINISH_STATUS = 1
 
-    const val FINISH = 0
-    const val TODO = 1
-    const val SETTING = 2
+    const val TODO = 0
+    const val FINISH = 1
 }

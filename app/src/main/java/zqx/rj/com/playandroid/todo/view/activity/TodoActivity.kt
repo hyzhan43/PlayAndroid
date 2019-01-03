@@ -8,13 +8,10 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import kotlinx.android.synthetic.main.activity_todo.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.base.BaseActivity
 import zqx.rj.com.mvvm.common.constant.Constant
-import zqx.rj.com.playandroid.R
 import zqx.rj.com.mvvm.state.callback.todo.TodoTypeContext
-import zqx.rj.com.mvvm.state.callback.todo.TypeChangeListener
-import zqx.rj.com.playandroid.todo.view.fragment.SettingFragment
+import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.todo.view.fragment.TodoFragment
 
 
@@ -25,9 +22,6 @@ class TodoActivity : BaseActivity() {
 
     private val mTodoFragment by lazy { TodoFragment.getInstance(Constant.TODO_STATUS) }
     private val mFinishFragment by lazy { TodoFragment.getInstance(Constant.FINISH_STATUS) }
-    private val mSettingFragment by lazy { SettingFragment() }
-
-    var listener: TypeChangeListener? = null
 
     override fun getLayoutId(): Int = R.layout.activity_todo
 
@@ -57,11 +51,10 @@ class TodoActivity : BaseActivity() {
         with(mNavigationBar) {
             setMode(BottomNavigationBar.MODE_FIXED)
 
+            addItem(BottomNavigationItem(R.mipmap.ic_todo, R.string.todo))
             addItem(BottomNavigationItem(R.mipmap.ic_finish, R.string.finish))
-            addItem(BottomNavigationItem(R.mipmap.ic_not_finish, R.string.todo))
-            addItem(BottomNavigationItem(R.drawable.ic_setting, R.string.setting))
             // 设置底部 BottomBar 默认选中 plan
-            setFirstSelectedPosition(1)
+            setFirstSelectedPosition(0)
             // 初始化
             initialise()
             // 设置 button 点击事件
@@ -72,9 +65,8 @@ class TodoActivity : BaseActivity() {
 
                 override fun onTabSelected(position: Int) {
                     when (position) {
-                        Constant.FINISH -> goTo(mFinishFragment)
                         Constant.TODO -> goTo(mTodoFragment)
-                        Constant.SETTING -> goTo(mSettingFragment)
+                        Constant.FINISH -> goTo(mFinishFragment)
                     }
                 }
             })
@@ -121,9 +113,6 @@ class TodoActivity : BaseActivity() {
             R.id.todo_life -> {
                 toolbar.title = getString(R.string.life)
                 TodoTypeContext.notifyTodoTypeChange(3)
-            }
-            R.id.todo_setting -> {
-                toast("设置")
             }
         }
         return super.onOptionsItemSelected(item)

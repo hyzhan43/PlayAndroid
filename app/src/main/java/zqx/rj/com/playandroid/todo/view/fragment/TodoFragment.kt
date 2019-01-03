@@ -133,7 +133,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
                     // 设置侧滑删除的 颜色
                     it.drawColor(ContextCompat.getColor(activity!!, R.color.colorPrimaryDark))
 
-                    // 获取 itemview 的高度
+                    // 获取 item view 的高度
                     val height = viewHolder?.itemView?.height ?: 1
 
                     // 文字的范围
@@ -143,7 +143,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
                     // 计算出 文字 y 轴的位置。
                     // y = 总item高度的一半 + 文字的高度的一半(注意的 文字是根据左下角来绘制的.所以是加上文字高度的一半)
                     val y = height / 2.0f + bounds.height() / 2.0f
-                    // 绘制文字
+                    // 绘制文字  x,y为  文字位置
                     it.drawText(text, 50f, y, paint)
                 }
             }
