@@ -25,7 +25,7 @@ import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.todo.data.adapter.TodoAdapter
 import zqx.rj.com.playandroid.todo.data.bean.TodoRsp
 import zqx.rj.com.mvvm.state.callback.todo.TypeChangeListener
-import zqx.rj.com.mvvm.state.callback.todo.TodoTypeContext
+import zqx.rj.com.mvvm.state.callback.todo.TodoContext
 import zqx.rj.com.playandroid.todo.vm.TodoViewModel
 
 /**
@@ -40,7 +40,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
     private var page: Int = 1
     // 当前状态  未完成 0  完成 1
     private val status by lazy { arguments?.getInt(Constant.STATUS) ?: 0 }
-    // 当前 类型 工作1；生活2；娱乐3  0 默认全部
+    // 当前 类型 工作1  学习2 生活3  0 默认全部
     private var type: Int = 0
     // delete index
     private var deleteIndex = -1
@@ -66,13 +66,10 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
 
         // 设置 刷新
         mSrlRefresh.setColorSchemeResources(R.color.colorPrimaryDark)
-        mSrlRefresh.setOnRefreshListener {
-            page = 1
-            mViewModel.getTodoList(page, status, type)
-        }
+        mSrlRefresh.setOnRefreshListener { refresh() }
 
         // 设置 type listener
-        TodoTypeContext.addListener(this)
+        TodoContext.addListener(this)
     }
 
     /**
@@ -214,18 +211,22 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
         return paint
     }
 
-    /**
-     *  type 变化回调   (activity ——> fragment)
-     */
-    override fun change(type: Int) {
+    override fun typeChange(type: Int) {
         this.type = type
         // 刷新数据
+        refresh()
+    }
+
+    override fun refreshTodoList() = refresh()
+
+
+    private fun refresh() {
         page = 1
         mViewModel.getTodoList(page, status, type)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        TodoTypeContext.removeListener(this)
+        TodoContext.removeListener(this)
     }
 }

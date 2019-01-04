@@ -5,7 +5,7 @@ package zqx.rj.com.mvvm.state.callback.todo
  * create：  2019/1/3 19:33
  * desc：    TODO
  */
-object TodoTypeContext {
+object TodoContext {
 
     private val listeners = ArrayList<TypeChangeListener>()
 
@@ -19,7 +19,13 @@ object TodoTypeContext {
 
     fun notifyTodoTypeChange(type: Int) {
         for (listener in listeners) {
-            listener.change(type)
+            listener.typeChange(type)
+        }
+    }
+
+    fun notifyTodoRefresh() {
+        for (listener in listeners) {
+            listener.refreshTodoList()
         }
     }
 }

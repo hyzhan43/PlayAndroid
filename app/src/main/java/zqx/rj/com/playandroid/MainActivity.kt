@@ -139,7 +139,7 @@ class MainActivity : BaseActivity(), LoginSucListener {
     }
 
     private fun initFloatButton() {
-        mFabAdd.setOnClickListener { startActivity<TodoActivity>() }
+        mFabAdd.setOnClickListener { UserContext.instance.goTodoActivity(this) }
     }
 
     /**

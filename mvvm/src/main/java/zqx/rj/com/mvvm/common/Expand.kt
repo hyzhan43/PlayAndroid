@@ -1,12 +1,14 @@
 package zqx.rj.com.mvvm.common
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.text.Html
 import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -15,6 +17,8 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import zqx.rj.com.mvvm.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * author：  HyZhan
@@ -22,7 +26,7 @@ import zqx.rj.com.mvvm.R
  * desc：    扩展方法
  */
 
-fun EditText.str(): String {
+fun TextView.str(): String {
     return this.text.toString()
 }
 
@@ -68,6 +72,15 @@ fun <T> Observable<T>.execute(observer: Observer<T>) {
     this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(observer)
+}
+
+fun Date.format(pattern: String = "yyyy-MM-dd"): String {
+    return SimpleDateFormat(pattern, Locale.getDefault()).format(this)
+}
+
+// R.color.xxxx  -> @ColorInt
+fun Int.toColor(context: Context): Int{
+    return ContextCompat.getColor(context, this)
 }
 
 

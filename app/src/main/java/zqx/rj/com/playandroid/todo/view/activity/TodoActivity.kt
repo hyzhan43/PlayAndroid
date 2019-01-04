@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.layout_toolbar.*
 import org.jetbrains.anko.startActivity
 import zqx.rj.com.mvvm.base.BaseActivity
 import zqx.rj.com.mvvm.common.constant.Constant
-import zqx.rj.com.mvvm.state.callback.todo.TodoTypeContext
+import zqx.rj.com.mvvm.state.callback.todo.TodoContext
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.todo.view.fragment.TodoFragment
 
@@ -100,19 +100,19 @@ class TodoActivity : BaseActivity() {
             R.id.todo_all -> {
                 toolbar.title = getString(R.string.all)
                 // 通知 子 fragment 更新数据
-                TodoTypeContext.notifyTodoTypeChange(0)
+                TodoContext.notifyTodoTypeChange(Constant.ALL)
             }
             R.id.todo_work -> {
                 toolbar.title = getString(R.string.work)
-                TodoTypeContext.notifyTodoTypeChange(1)
+                TodoContext.notifyTodoTypeChange(Constant.WORK)
             }
             R.id.todo_study -> {
                 toolbar.title = getString(R.string.study)
-                TodoTypeContext.notifyTodoTypeChange(2)
+                TodoContext.notifyTodoTypeChange(Constant.STUDY)
             }
             R.id.todo_life -> {
                 toolbar.title = getString(R.string.life)
-                TodoTypeContext.notifyTodoTypeChange(3)
+                TodoContext.notifyTodoTypeChange(Constant.LIFE)
             }
         }
         return super.onOptionsItemSelected(item)

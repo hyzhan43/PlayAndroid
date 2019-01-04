@@ -104,4 +104,10 @@ interface ApiService {
 
     @POST("/lg/todo/delete/{id}/json")
     fun deleteTodo(@Path("id") id: Int): Observable<BaseResponse<EmptyRsp>>
+
+    @POST("/lg/todo/add/json")
+    fun saveTodo(@Query("title") title: String,
+                 @Query("date") time: String,
+                 @Query("type") type: Int,
+                 @Query("content") content: String): Observable<BaseResponse<EmptyRsp>>
 }

@@ -6,5 +6,7 @@ package zqx.rj.com.mvvm.state.callback.todo
  * desc：    type 监听器
  */
 interface TypeChangeListener {
-    fun change(type: Int)
+    fun typeChange(type: Int)
+
+    fun refreshTodoList()
 }

@@ -3,8 +3,11 @@ package zqx.rj.com.playandroid.todo.vm
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import zqx.rj.com.mvvm.base.BaseViewModel
+import zqx.rj.com.mvvm.common.State
+import zqx.rj.com.mvvm.common.constant.StateType
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.mvvm.http.response.EmptyRsp
+import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.todo.data.bean.PageRsp
 import zqx.rj.com.playandroid.todo.data.bean.TodoRsp
 import zqx.rj.com.playandroid.todo.data.repository.TodoRepository
@@ -19,6 +22,7 @@ class TodoViewModel(application: Application) : BaseViewModel<TodoRepository>(ap
     var mTodoData: MutableLiveData<BaseResponse<PageRsp<TodoRsp>>> = MutableLiveData()
     var mFinishTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
     var mDeleteTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
+    var mSaveTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
 
     /**
      *  status 状态， 1完成；0未完成; 默认全部展示 -1；
@@ -53,5 +57,14 @@ class TodoViewModel(application: Application) : BaseViewModel<TodoRepository>(ap
 
     fun deleteTodo(id: Int) {
         mRepository.deleteTodo(id, mDeleteTodoData)
+    }
+
+    fun saveTodo(title: String, time: String, type: Int, content: String) {
+        if (title.isBlank()) {
+            loadState.postValue(State(StateType.TIPS, tip = R.string.title_empty))
+            return
+        }
+
+        mRepository.saveTodo(title, time, type, content, mSaveTodoData)
     }
 }

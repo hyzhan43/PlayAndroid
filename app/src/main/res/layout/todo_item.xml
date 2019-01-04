@@ -15,26 +15,44 @@
         android:padding="@dimen/dp_10">
 
         <TextView
+            android:id="@+id/mTvType"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/white_round_bg"
+            android:gravity="center"
+            android:text="@string/whole"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/mTvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/mTvTitle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:text="@string/app_name"
             android:textColor="@color/black"
             android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mTvType"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/mTvContent"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@string/test"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mTvType"
             app:layout_constraintTop_toBottomOf="@+id/mTvTitle" />
+
     </android.support.constraint.ConstraintLayout>
 
     <!--右边删除-->

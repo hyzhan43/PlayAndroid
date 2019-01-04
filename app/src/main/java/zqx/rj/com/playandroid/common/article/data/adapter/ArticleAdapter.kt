@@ -30,7 +30,7 @@ class ArticleAdapter(layoutId: Int, listData: List<Article>?)
 
     // 判断是否是最新文章
     private fun isNews(niceDate: String): Boolean {
-        return niceDate.contains("分钟") or niceDate.contains("刚刚")
+        return niceDate.contains("分钟") or niceDate.contains("刚刚") or niceDate.contains("小时")
     }
 
     private fun category(article: Article): String {

@@ -91,9 +91,11 @@ dependencies {
     api "org.litepal.android:kotlin:$litepal_version"
 
     // 侧滑删除
-    api 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
+    api "com.github.anzaizai:EasySwipeMenuLayout:$swipe_menu_version"
 
     // RecyclerView粘性标签库
-    api 'com.gavin.com.library:stickyDecoration:1.4.11'
+    api "com.gavin.com.library:stickyDecoration:$sticky_decoration_version"
 
+    // 选择器
+    api 'com.contrarywind:Android-PickerView:4.1.6'
 }

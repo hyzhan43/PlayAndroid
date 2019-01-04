@@ -42,7 +42,7 @@
     <string name="hot_key">热门搜索</string>
     <string name="history">最近搜索</string>
 
-    <!--模块todo-->
+    <!--todo模块-->
     <string name="todo">TODO</string>
     <string name="all">全部</string>
     <string name="work">工作</string>
@@ -50,6 +50,17 @@
     <string name="finish">完成</string>
     <string name="study">学习</string>
     <string name="delete">删除</string>
+    <string name="news">News</string>
+    <string name="add_todo">添加TODO</string>
+    <string name="save">保存</string>
+    <string name="type">类型：</string>
+    <string name="title">标题：</string>
+    <string name="date">日期：</string>
+    <string name="content">内容：</string>
+    <string name="must">必填</string>
+    <string name="not_must">非必填</string>
+    <string name="title_empty">标题不能为空</string>
+    <string name="save_suc">保存成功</string>
 
     <!--mine-->
     <string name="mine_collect">我的收藏</string>

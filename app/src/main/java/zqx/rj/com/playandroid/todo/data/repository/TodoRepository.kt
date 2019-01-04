@@ -36,4 +36,9 @@ class TodoRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
     fun deleteTodo(id: Int, liveData: MutableLiveData<BaseResponse<EmptyRsp>>) {
         apiService.deleteTodo(id).execute(BaseObserver(liveData, loadState, this))
     }
+
+    fun saveTodo(title: String, time: String, type: Int, content: String, liveData: MutableLiveData<BaseResponse<EmptyRsp>>) {
+        apiService.saveTodo(title, time, type, content)
+                .execute(BaseObserver(liveData, loadState, this))
+    }
 }

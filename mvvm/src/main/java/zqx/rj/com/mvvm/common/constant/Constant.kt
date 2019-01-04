@@ -32,4 +32,9 @@ object Constant {
 
     const val TODO = 0
     const val FINISH = 1
+
+    const val ALL = 0
+    const val WORK = 1
+    const val STUDY = 2
+    const val LIFE = 3
 }
