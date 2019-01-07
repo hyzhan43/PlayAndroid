@@ -1,6 +1,8 @@
 package zqx.rj.com.playandroid.todo.view.activity
 
 import android.arch.lifecycle.Observer
+import android.view.MotionEvent
+import android.view.View
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
@@ -21,6 +23,8 @@ import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.todo.vm.TodoViewModel
 import java.util.*
 import kotlin.collections.ArrayList
+
+
 
 
 /**
