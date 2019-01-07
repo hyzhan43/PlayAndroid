@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_todo.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import org.jetbrains.anko.startActivity
 import zqx.rj.com.mvvm.base.BaseActivity
+import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.state.callback.todo.TodoContext
 import zqx.rj.com.playandroid.R
@@ -20,18 +21,37 @@ class TodoActivity : BaseActivity() {
     // 当前显示的 fragment
     private lateinit var mCurrentFragment: Fragment
 
-    private val mTodoFragment by lazy { TodoFragment.getInstance(Constant.TODO_STATUS) }
-    private val mFinishFragment by lazy { TodoFragment.getInstance(Constant.FINISH_STATUS) }
+    // 当前 类型 工作1  学习2 生活3  0 默认全部
+    // SharedPreference 保存type类型
+    private var type by Preference(Constant.TODO_TYPE, 0)
+
+    private val mTodoFragment by lazy {
+        TodoFragment.getInstance(Constant.TODO_STATUS, getString(R.string.finish), R.color.colorPrimaryDark)
+    }
+
+    private val mFinishFragment by lazy {
+        TodoFragment.getInstance(Constant.FINISH_STATUS, getString(R.string.reduction), R.color.green)
+    }
 
     override fun getLayoutId(): Int = R.layout.activity_todo
 
     override fun initView() {
         super.initView()
 
-        setToolBar(toolbar, getString(R.string.all))
+        setToolBar(toolbar, getStringType(type))
         setDefaultFragment()
         initFloatButton()
         initNavigationBar()
+    }
+
+    private fun getStringType(type: Int): String {
+        return when (type) {
+            Constant.ALL -> getString(R.string.all)
+            Constant.WORK -> getString(R.string.work)
+            Constant.STUDY -> getString(R.string.study)
+            Constant.LIFE -> getString(R.string.life)
+            else -> getString(R.string.all)
+        }
     }
 
     /**
@@ -99,7 +119,7 @@ class TodoActivity : BaseActivity() {
         when (item?.itemId) {
             R.id.todo_all -> {
                 toolbar.title = getString(R.string.all)
-                // 通知 子 fragment 更新数据
+                //通知 子 fragment 更新数据
                 TodoContext.notifyTodoTypeChange(Constant.ALL)
             }
             R.id.todo_work -> {

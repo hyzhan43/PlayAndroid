@@ -8,13 +8,26 @@
 
     <include layout="@layout/layout_toolbar" />
 
-    <!-- list 内容-->
+    <TextView
+        android:id="@+id/mTvSmile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/smile_tip"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="UnknownIdInLayout" />
+
+    <!-- todoList 内容-->
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/mNavigationBar"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/mTvSmile"
         tools:ignore="UnknownIdInLayout" />
 
     <android.support.design.widget.FloatingActionButton

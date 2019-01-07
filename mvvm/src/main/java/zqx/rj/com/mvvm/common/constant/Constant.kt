@@ -37,4 +37,11 @@ object Constant {
     const val WORK = 1
     const val STUDY = 2
     const val LIFE = 3
+    const val SWIPE_TITLE = "swipeTitle"
+    const val SWIPE_COLOR = "swipeColor"
+
+    // todo重要（1），一般（2）
+    const val TODO_IMPORTANT = 1
+    const val TODO_COMMON = 0
+    const val TODO_TYPE = "type"
 }

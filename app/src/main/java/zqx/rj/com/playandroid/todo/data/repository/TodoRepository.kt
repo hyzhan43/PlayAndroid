@@ -24,8 +24,11 @@ class TodoRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
                 .execute(BaseObserver(liveData, loadState, this))
     }
 
-    fun updateTodo() {
+    fun updateTodo(id: Int, title: String, time: String, status: Int, type: Int,
+                   content: String, priority: Int, liveData: MutableLiveData<BaseResponse<EmptyRsp>>) {
 
+        apiService.updateTodo(id, title, time, status, type, content, priority)
+                .execute(BaseObserver(liveData, loadState, this))
     }
 
     fun finishTodo(id: Int, status: Int, liveData: MutableLiveData<BaseResponse<EmptyRsp>>) {

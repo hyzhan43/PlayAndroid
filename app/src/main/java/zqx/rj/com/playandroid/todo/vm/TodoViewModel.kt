@@ -23,6 +23,7 @@ class TodoViewModel(application: Application) : BaseViewModel<TodoRepository>(ap
     var mFinishTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
     var mDeleteTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
     var mSaveTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
+    var mUpdateTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
 
     /**
      *  status 状态， 1完成；0未完成; 默认全部展示 -1；
@@ -45,10 +46,32 @@ class TodoViewModel(application: Application) : BaseViewModel<TodoRepository>(ap
      *   type: ；
      *   priority:
      */
-    fun updateTodo(id: Int, title: String, content: String, status: Int,
-                   type: Int, priority: Int) {
+    fun updateTodo(id: Int, title: String, time: String, status: Int, type: Int,
+                   content: String, priority: Int) {
 
-        mRepository.updateTodo()
+        /**
+         *  id: 拼接在链接上，为唯一标识，列表数据返回时，每个todo 都会有个id标识 （必须）
+         *  title: 更新标题 （必须）
+         *  content: 新增详情（必须）
+         *  date: 2018-08-01（必须）
+         */
+
+        if (title.isBlank()) {
+            loadState.postValue(State(StateType.TIPS, tip = R.string.title_empty))
+            return
+        }
+
+        if (content.isBlank()) {
+            loadState.postValue(State(StateType.TIPS, tip = R.string.content_empty))
+            return
+        }
+
+        if (time.isBlank()) {
+            loadState.postValue(State(StateType.TIPS, tip = R.string.time_empty))
+            return
+        }
+
+        mRepository.updateTodo(id, title, time, status, type, content, priority, mUpdateTodoData)
     }
 
     fun finishTodo(id: Int, status: Int) {

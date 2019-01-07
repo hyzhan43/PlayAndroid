@@ -20,4 +20,7 @@
     <color name="lightGray">#EEEEEE</color>
     <color name="black">#000000</color>
 
+    <color name="orange">#ffff8800</color>
+    <color name="red">#ffff4444</color>
+    <color name="green">#14BE74</color>
 </resources>

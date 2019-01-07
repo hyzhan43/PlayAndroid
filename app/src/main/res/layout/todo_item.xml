@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipe_menu"
+    android:id="@+id/mSwipeMenu"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:contentView="@+id/content"
@@ -18,7 +18,7 @@
             android:id="@+id/mTvType"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/white_round_bg"
+            android:background="@drawable/blue_round_bg"
             android:gravity="center"
             android:text="@string/whole"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -60,13 +60,29 @@
         android:id="@+id/right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_red_light"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/mTvImportant"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/important"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/mTvDelete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:gravity="center"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:text="@string/delete"

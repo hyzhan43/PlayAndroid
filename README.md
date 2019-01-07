@@ -44,6 +44,9 @@ Kotlin 版 玩Android
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20181105212408587.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
 
 版本：
+## v 1.0.10
+- [√] 完成TODO功能的未完成、已完成显示，类型切换，标记重要(取消)，删除，发布
+
 ## v 1.0.9
 - [√] 修复加载更多和刷新数据出现 缺少数据(page)
 - [√] 添加首页 news 标签

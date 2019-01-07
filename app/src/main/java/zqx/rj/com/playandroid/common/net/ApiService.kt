@@ -110,4 +110,14 @@ interface ApiService {
                  @Query("date") time: String,
                  @Query("type") type: Int,
                  @Query("content") content: String): Observable<BaseResponse<EmptyRsp>>
+
+    @POST("/lg/todo/update/{id}/json")
+    fun updateTodo(@Path("id") id: Int,
+                   @Query("title") title: String,
+                   @Query("date") time: String,
+                   @Query("status") status: Int,
+                   @Query("type") type: Int,
+                   @Query("content") content: String,
+                   @Query("priority") priority: Int
+    ): Observable<BaseResponse<EmptyRsp>>
 }

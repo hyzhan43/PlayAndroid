@@ -60,7 +60,13 @@
     <string name="must">必填</string>
     <string name="not_must">非必填</string>
     <string name="title_empty">标题不能为空</string>
+    <string name="content_empty">内容不能为空</string>
     <string name="save_suc">保存成功</string>
+    <string name="whole">全</string>
+    <string name="mixed">杂七杂八</string>
+    <string name="reduction">还原</string>
+    <string name="time_empty">时间不能为空</string>
+    <string name="important_suc">标记成功</string>
 
     <!--mine-->
     <string name="mine_collect">我的收藏</string>
@@ -79,7 +85,9 @@
     <string name="network_fail">网络异常</string>
     <string name="exit_app_tips">再按一次退出程序</string>
     <string name="empty_data">没有相关数据哦~</string>
-
+    <string name="smile_tip">开心每一天 \t :)</string>
+    <string name="important">重要</string>
+    <string name="delete_suc">删除成功</string>
 
 
 </resources>
