@@ -27,7 +27,7 @@ import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.state.callback.todo.TodoContext
 import zqx.rj.com.mvvm.state.callback.todo.TypeChangeListener
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.todo.data.adapter.TodoAdapter
+import zqx.rj.com.playandroid.todo.adapter.TodoAdapter
 import zqx.rj.com.playandroid.todo.data.bean.TodoRsp
 import zqx.rj.com.playandroid.todo.view.activity.AddTodoActivity
 import zqx.rj.com.playandroid.todo.vm.TodoViewModel

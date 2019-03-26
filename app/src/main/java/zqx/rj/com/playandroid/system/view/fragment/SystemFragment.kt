@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 import kotlinx.android.synthetic.main.fragment_system.*
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.system.data.adapter.TopTreeAdapter
+import zqx.rj.com.playandroid.system.adapter.TopTreeAdapter
 import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
 import zqx.rj.com.playandroid.system.vm.SystemViewModel
 

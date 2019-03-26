@@ -80,15 +80,18 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            android.R.id.home -> finish()
+            android.R.id.home -> {
+                finish()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        AppManager.instance.removeActivity(this)
         // 取消订阅
         disposable?.dispose()
+        AppManager.instance.removeActivity(this)
     }
 }

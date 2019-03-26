@@ -9,7 +9,7 @@ import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.WebViewActivity
 import zqx.rj.com.playandroid.account.data.context.UserContext
-import zqx.rj.com.playandroid.common.article.data.adapter.ArticleAdapter
+import zqx.rj.com.playandroid.common.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 

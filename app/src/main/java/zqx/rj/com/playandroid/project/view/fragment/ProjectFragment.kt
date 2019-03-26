@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 import kotlinx.android.synthetic.main.fragment_project.*
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.project.data.adapter.ViewPagerAdapter
+import zqx.rj.com.playandroid.project.adapter.ViewPagerAdapter
 import zqx.rj.com.playandroid.project.data.bean.ProjectTreeRsp
 import zqx.rj.com.playandroid.project.vm.ProjectViewModel
 

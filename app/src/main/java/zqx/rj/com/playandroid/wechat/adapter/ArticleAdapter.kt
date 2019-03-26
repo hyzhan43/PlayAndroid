@@ -1,4 +1,4 @@
-package zqx.rj.com.playandroid.wechat.data.adapter
+package zqx.rj.com.playandroid.wechat.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder

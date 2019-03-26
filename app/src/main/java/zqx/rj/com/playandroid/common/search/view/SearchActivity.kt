@@ -28,7 +28,7 @@ import zqx.rj.com.mvvm.http.rx.RxSchedulers
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.view.ArticleListActivity
-import zqx.rj.com.playandroid.common.search.data.adapter.HistoryAdapter
+import zqx.rj.com.playandroid.common.adapter.HistoryAdapter
 import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
 import zqx.rj.com.playandroid.common.search.data.db.bean.Record
 import zqx.rj.com.playandroid.common.search.vm.SearchViewModel

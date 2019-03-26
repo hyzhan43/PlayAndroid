@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 import kotlinx.android.synthetic.main.fragment_wechat.*
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.wechat.data.adapter.WxNameAdapter
+import zqx.rj.com.playandroid.wechat.adapter.WxNameAdapter
 import zqx.rj.com.playandroid.wechat.data.bean.WeChatNameRsp
 import zqx.rj.com.playandroid.wechat.vm.WeChatViewModel
 

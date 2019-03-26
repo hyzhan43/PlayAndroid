@@ -12,7 +12,7 @@ import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.WebViewActivity
-import zqx.rj.com.playandroid.navigation.data.adapter.CategoryAdapter
+import zqx.rj.com.playandroid.navigation.adapter.CategoryAdapter
 import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
 import zqx.rj.com.playandroid.navigation.vm.NavigationViewModel
 

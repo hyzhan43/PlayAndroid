@@ -1,4 +1,4 @@
-package zqx.rj.com.playandroid.navigation.data.adapter
+package zqx.rj.com.playandroid.navigation.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder

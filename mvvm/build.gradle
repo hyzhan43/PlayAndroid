@@ -11,7 +11,6 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -47,10 +46,6 @@ dependencies {
     // circle view
     api "de.hdodenhof:circleimageview:$circleimageview_version"
 
-    // anko
-//    api "org.jetbrains.anko:anko-commons:$anko_version"
-    // Appcompat-v7 (only Anko Commons)
-//    api "org.jetbrains.anko:anko-appcompat-v7-commons:$anko_version"
     // Support-v4 (only Anko Commons)
     api "org.jetbrains.anko:anko-support-v4-commons:$anko_version"
 

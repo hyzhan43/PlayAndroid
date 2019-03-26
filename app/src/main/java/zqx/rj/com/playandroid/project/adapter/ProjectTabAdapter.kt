@@ -1,4 +1,4 @@
-package zqx.rj.com.playandroid.project.data.adapter
+package zqx.rj.com.playandroid.project.adapter
 
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter

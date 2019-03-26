@@ -1,4 +1,4 @@
-package zqx.rj.com.playandroid.common.article.data.adapter
+package zqx.rj.com.playandroid.common.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder

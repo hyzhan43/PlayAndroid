@@ -1,4 +1,4 @@
-package zqx.rj.com.playandroid.navigation.data.adapter
+package zqx.rj.com.playandroid.navigation.adapter
 
 import android.graphics.Color
 import android.support.v4.content.ContextCompat

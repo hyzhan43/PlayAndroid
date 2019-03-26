@@ -1,4 +1,4 @@
-package zqx.rj.com.playandroid.todo.data.adapter
+package zqx.rj.com.playandroid.todo.adapter
 
 import com.chad.library.adapter.base.BaseItemDraggableAdapter
 import com.chad.library.adapter.base.BaseViewHolder

@@ -203,10 +203,14 @@ class MainActivity : BaseActivity(), LoginSucListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             //将滑动菜单显示出来
-            android.R.id.home -> mDrawerMain.openDrawer(Gravity.START)
+            android.R.id.home -> {
+                mDrawerMain.openDrawer(Gravity.START)
+                return true
+            }
             // 跳转到 搜索
             R.id.action_search -> {
                 startActivity<SearchActivity>()
+                return true
             }
         }
         return super.onOptionsItemSelected(item)

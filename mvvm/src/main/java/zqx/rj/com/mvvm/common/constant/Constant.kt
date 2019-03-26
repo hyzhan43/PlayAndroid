@@ -6,7 +6,8 @@ package zqx.rj.com.mvvm.common.constant
  * desc：    TODO
  */
 object Constant {
-    const val SERVER_ADDRESS = "http://www.wanandroid.com"
+//    const val SERVER_ADDRESS = "http://www.wanandroid.com"
+    const val SERVER_ADDRESS = "https://www.wanandroid.com"
 
     const val USERNAME_KEY = "username"
     const val LOGIN_KEY = "login"

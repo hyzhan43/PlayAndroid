@@ -44,6 +44,13 @@ Kotlin 版 玩Android
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190107190600593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
 
 版本：
+## v 1.1.0 (2019-03-14)
+- [√] 修复点击R.android.home 异常bug
+- [√] 调整目录结构 原来data目录下adapter目录移至data同级
+- [√] 升级为 Https
+- [√] 添加Android 8.0 桌面图标适配
+
+
 ## v 1.0.10
 - [√] 完成TODO功能的未完成、已完成显示，类型切换，标记重要(取消)，删除，发布
 - [√] 更新最新的 apk, 欢迎大家扫码体验~

@@ -1,20 +1,16 @@
-package zqx.rj.com.playandroid.wechat.data.adapter
+package zqx.rj.com.playandroid.system.adapter
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.view.ViewGroup
 
 /**
  * author：  HyZhan
- * created： 2018/11/2 16:58
+ * created： 2018/10/22 19:42
  * desc：    TODO
  */
-class WxNameAdapter(fm: FragmentManager,
-                    val titles: List<String>,
-                    val fragments: List<Fragment>)
-    : FragmentStatePagerAdapter(fm) {
+class TopTreeAdapter(fm: FragmentManager, val titles: List<String>, val fragments: List<Fragment>)
+    : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment = fragments[position]
 
