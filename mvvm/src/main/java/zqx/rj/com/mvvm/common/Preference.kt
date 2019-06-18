@@ -1,6 +1,5 @@
 package zqx.rj.com.mvvm.common
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import kotlin.properties.ReadWriteProperty
@@ -44,7 +43,6 @@ class Preference<T>(private val name: String, private val default: T) : ReadWrit
     }
 
     // 存储 key 为name  值为 value
-    @SuppressLint("CommitPrefEdits")
     private fun <T> putPreference(name: String, value: T) = with(preference.edit()) {
         when (value) {
             is Long -> putLong(name, value)

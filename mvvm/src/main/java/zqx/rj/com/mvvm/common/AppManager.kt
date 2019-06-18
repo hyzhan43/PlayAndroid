@@ -1,6 +1,5 @@
 package zqx.rj.com.mvvm.common
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
