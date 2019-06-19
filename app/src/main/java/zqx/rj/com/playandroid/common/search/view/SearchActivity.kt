@@ -16,20 +16,15 @@ import kotlinx.android.synthetic.main.common_search.view.*
 import kotlinx.android.synthetic.main.common_tag.view.*
 import kotlinx.android.synthetic.main.history_foot.view.*
 import org.jetbrains.anko.toast
-import org.litepal.LitePal
-import org.litepal.extension.delete
-import org.litepal.extension.deleteAll
-import org.litepal.extension.find
 import zqx.rj.com.mvvm.ext.gone
 import zqx.rj.com.mvvm.ext.hideKeyboard
 import zqx.rj.com.mvvm.ext.str
 import zqx.rj.com.mvvm.ext.visible
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.common.adapter.HistoryAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.view.ArticleListActivity
-import zqx.rj.com.playandroid.common.adapter.HistoryAdapter
 import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
-import zqx.rj.com.playandroid.common.search.data.db.bean.Record
 import zqx.rj.com.playandroid.common.search.vm.SearchViewModel
 
 
@@ -49,9 +44,10 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
     // 最多纪录数
     private val maxRecord = 5
 
+    private var recordIndex = 0
+
     private lateinit var mFootView: View
-    private val mHistoryData by lazy { ArrayList<String>() }
-    private val mHistoryAdapter by lazy { HistoryAdapter(R.layout.history_item, mHistoryData) }
+    private val mHistoryAdapter by lazy { HistoryAdapter() }
 
     override fun getLayoutId(): Int = R.layout.activity_search
 
@@ -79,23 +75,18 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
 
         // 清除全部历史记录
         mFootView.mTvClear.setOnClickListener {
-            LitePal.deleteAll<Record>()
-            mHistoryAdapter.setNewData(null)
-            mFootView.gone()
+            mViewModel.clearRecords()
         }
 
         mHistoryAdapter.setOnItemChildClickListener { _, view, position ->
             if (view.id == R.id.mIvDelete) {
-                LitePal.deleteAll(Record::class.java, "name = ?", mHistoryAdapter.data[position])
-                mHistoryAdapter.remove(position)
-
-                if (mHistoryAdapter.data.isEmpty()) mFootView.visible()
+                recordIndex = position
+                mViewModel.deleteOneRecord(mHistoryAdapter.data[position])
             }
         }
 
         mHistoryAdapter.setOnItemClickListener { _, view, position ->
-            val keyword = mHistoryAdapter.data[position]
-            searchKeyword(keyword)
+            searchKeyword(mHistoryAdapter.data[position])
             view.hideKeyboard()
         }
     }
@@ -141,34 +132,9 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
         mViewModel.search(page, keyword)
     }
 
-    // 添加历史搜索记录
-    private fun addHistory(keyword: String) {
-
-        keyword.let {
-            saveDataToDb(it)
-            updateRecordPosition(it)
-        }
-    }
-
     override fun initData() {
-        getHistory()
+        mViewModel.getRecords()
         mViewModel.getHotKey()
-    }
-
-    // 获取 历史搜索记录
-    private fun getHistory() {
-        val records = LitePal.select("name")
-                .order("id desc")
-                .find<Record>()
-                .map { it.name }
-                .toList()
-
-        if (records.isEmpty()) {
-            mFootView.gone()
-            return
-        }
-
-        mHistoryAdapter.addData(records)
     }
 
 
@@ -186,10 +152,30 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
             response?.let {
                 showSearchResult(it.data.datas)
                 // 添加历史搜索记录
-                addHistory(mEtInput.str())
+                mViewModel.addRecord(mEtInput.str())
             }
         })
 
+        mViewModel.deleteRecord.observe(this, Observer {
+            mHistoryAdapter.remove(recordIndex)
+            if (mHistoryAdapter.data.isEmpty()) mFootView.gone()
+        })
+
+        mViewModel.newRecord.observe(this, Observer {
+            updateRecordPosition(mEtInput.str())
+        })
+
+        mViewModel.records.observe(this, Observer { records ->
+            val recordNames = records?.map { it.name }?.toList()
+            recordNames?.let {
+                if (it.isEmpty()) mFootView.gone() else mHistoryAdapter.addData(it)
+            }
+        })
+
+        mViewModel.clearRecord.observe(this, Observer {
+            mHistoryAdapter.setNewData(null)
+            mFootView.gone()
+        })
     }
 
     private fun showSearchResult(resultList: List<Article>) {
@@ -261,42 +247,6 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
         }
     }
 
-
-    private fun saveDataToDb(name: String) {
-
-        // 查询数据库
-        LitePal.where("name = ?", name)
-                .find<Record>()
-                .getOrElse(0) {
-                    /**
-                     *  1、如果查询结果有, 则获取List 第0个, 并 delete()
-                     *  2、若没有相同记录, 就先判断是否达到 5条记录, 达到则返回最后最后一条记录并 delete()
-                     *  3、没有达到5条记录, 就返回空的记录 Record() -> delete()
-                     */
-                    return@getOrElse if (mHistoryAdapter.data.size >= maxRecord) {
-                        LitePal.findLast(Record::class.java)
-                    } else Record()
-                }.delete()
-
-
-//        val result = LitePal.where("name = ?", name).find<Record>()
-//
-//        // 如果存在则 删除原来数据 添加新数据,不存在 则添加 到数据库，
-//        if (result.isNotEmpty()) {
-//            result[0].delete()
-//        } else {
-//            // 如果不存在相同记录, 就先判断是否达到 5条记录, 达到则删除最后一条记录
-//            if (mHistoryAdapter.data.size >= maxRecord) {
-//                // 删除最后一条
-//                LitePal.findLast(Record::class.java).delete()
-//            }
-//        }
-
-        // 添加新纪录
-        val record = Record()
-        record.name = name
-        record.save()
-    }
 
     private fun updateRecordPosition(name: String) {
 

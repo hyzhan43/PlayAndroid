@@ -8,6 +8,7 @@ import zqx.rj.com.playandroid.common.net.BaseObserver
 import zqx.rj.com.playandroid.common.article.data.repository.ArticleRepository
 import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
 import zqx.rj.com.playandroid.common.search.data.bean.SearchResultRsp
+import zqx.rj.com.playandroid.common.search.data.db.bean.Record
 
 /**
  * author：  HyZhan
@@ -24,16 +25,23 @@ class SearchRepository(loadState: MutableLiveData<State>) : ArticleRepository(lo
         apiService.search(page, str).execute(BaseObserver(liveData, loadState, this))
     }
 
-    fun clearRecords(){
-        HistoryDao.clearHistory()
+    fun clearRecords(): Int {
+        return RecordDao.clearHistory()
     }
 
-    fun deleteOneRecord(name: String){
-        HistoryDao.deleteHistoryByName(name)
+    fun deleteOneRecord(name: String): Int {
+        return RecordDao.deleteHistoryByName(name)
     }
 
-    fun getRecords(){
-        val records = HistoryDao.getRecords()
+    fun getRecords(): List<Record> {
+        return RecordDao.getRecords()
+    }
 
+    fun getRecordByName(name: String): List<Record> {
+        return RecordDao.getRecordByName(name)
+    }
+
+    fun newRecord(name: String): Boolean {
+        return RecordDao.newRecord(name)
     }
 }
