@@ -3,7 +3,7 @@ package zqx.rj.com.playandroid.project.adapter
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import zqx.rj.com.mvvm.common.loadUrl
+import zqx.rj.com.mvvm.ext.loadUrl
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.project.data.bean.Project
 

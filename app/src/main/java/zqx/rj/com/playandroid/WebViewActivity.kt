@@ -6,7 +6,7 @@ import kotlinx.android.synthetic.main.activity_webview.*
 import zqx.rj.com.mvvm.base.BaseActivity
 import com.just.agentweb.AgentWeb
 import kotlinx.android.synthetic.main.common_bar.*
-import zqx.rj.com.mvvm.common.toHtml
+import zqx.rj.com.mvvm.ext.toHtml
 
 
 /**

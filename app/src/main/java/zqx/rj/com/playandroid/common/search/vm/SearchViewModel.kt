@@ -9,7 +9,7 @@ import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
 import zqx.rj.com.playandroid.common.search.data.bean.SearchResultRsp
-import zqx.rj.com.playandroid.common.search.data.repository.SearchRepository
+import zqx.rj.com.playandroid.common.search.data.SearchRepository
 
 /**
  * author：  HyZhan
@@ -18,9 +18,8 @@ import zqx.rj.com.playandroid.common.search.data.repository.SearchRepository
  */
 class SearchViewModel(application: Application) : ArticleViewModel<SearchRepository>(application) {
 
-    var mHotKeyData: MutableLiveData<BaseResponse<List<HotKeyRsp>>> = MutableLiveData()
-    var mSearchResultData: MutableLiveData<BaseResponse<SearchResultRsp>> = MutableLiveData()
-
+    val mHotKeyData = MutableLiveData<BaseResponse<List<HotKeyRsp>>>()
+    val mSearchResultData = MutableLiveData<BaseResponse<SearchResultRsp>>()
 
     fun getHotKey() {
         mRepository.getHotKey(mHotKeyData)
@@ -32,5 +31,21 @@ class SearchViewModel(application: Application) : ArticleViewModel<SearchReposit
         } else {
             loadState.postValue(State(StateType.TIPS, tip = R.string.input_tips))
         }
+    }
+
+    fun clearRecords(){
+        mRepository.clearRecords()
+    }
+
+    fun deleteOneRecord(name: String){
+        mRepository.deleteOneRecord(name)
+    }
+
+    fun getRecords(){
+        mRepository.getRecords()
+    }
+
+    fun getRecordByName(){
+
     }
 }

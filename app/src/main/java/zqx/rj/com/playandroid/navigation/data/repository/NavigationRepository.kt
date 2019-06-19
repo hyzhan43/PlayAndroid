@@ -2,7 +2,7 @@ package zqx.rj.com.playandroid.navigation.data.repository
 
 import android.arch.lifecycle.MutableLiveData
 import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.common.execute
+import zqx.rj.com.mvvm.ext.execute
 import zqx.rj.com.mvvm.http.response.BaseResponse
 import zqx.rj.com.playandroid.common.net.BaseObserver
 import zqx.rj.com.playandroid.common.net.ApiRepository

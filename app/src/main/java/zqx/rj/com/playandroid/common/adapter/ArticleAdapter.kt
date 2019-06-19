@@ -2,7 +2,7 @@ package zqx.rj.com.playandroid.common.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import zqx.rj.com.mvvm.common.toHtml
+import zqx.rj.com.mvvm.ext.toHtml
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 

@@ -13,7 +13,10 @@ class HistoryAdapter(layoutId: Int, listData: List<String>?)
     : BaseQuickAdapter<String, BaseViewHolder>(layoutId, listData) {
 
     override fun convert(helper: BaseViewHolder?, item: String?) {
-        helper?.setText(R.id.mTvName, item ?: "")
-        helper?.addOnClickListener(R.id.mIvDelete)
+
+        helper?.run {
+            setText(R.id.mTvName, item ?: "")
+            addOnClickListener(R.id.mIvDelete)
+        }
     }
 }

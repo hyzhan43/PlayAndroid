@@ -6,7 +6,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.base.LifecycleActivity
-import zqx.rj.com.mvvm.common.str
+import zqx.rj.com.mvvm.ext.str
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.context.UserContext
 import zqx.rj.com.playandroid.account.vm.AccountViewModel
