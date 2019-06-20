@@ -85,9 +85,8 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
             }
         }
 
-        mHistoryAdapter.setOnItemClickListener { _, view, position ->
+        mHistoryAdapter.setOnItemClickListener { _, _, position ->
             searchKeyword(mHistoryAdapter.data[position])
-            view.hideKeyboard()
         }
     }
 
@@ -96,11 +95,10 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
         mIvClose.setOnClickListener {
             mIcSearch.mEtInput.setText("")
             showSearchView()
-            it.hideKeyboard()
+            hideKeyboard()
         }
 
         mBtnSearch.setOnClickListener { view ->
-            view.hideKeyboard()
             //搜索
             searchKeyword(mEtInput.str())
         }
@@ -109,7 +107,6 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
         mEtInput.setOnEditorActionListener(TextView.OnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchKeyword(mEtInput.str())
-                view.hideKeyboard()
                 return@OnEditorActionListener true
             }
             false
@@ -124,6 +121,8 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
             toast(getString(R.string.keyword_empty))
             return
         }
+
+        hideKeyboard()
 
         mEtInput.setText(keyword)
         // 设置光标位置
@@ -241,8 +240,6 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
 
         mTagFlowLayout.setOnTagClickListener { view, position, _ ->
             searchKeyword(tags[position])
-            // 关闭软键盘
-            view.hideKeyboard()
             true
         }
     }

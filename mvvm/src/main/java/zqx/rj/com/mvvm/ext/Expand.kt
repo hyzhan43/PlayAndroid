@@ -1,12 +1,9 @@
 package zqx.rj.com.mvvm.ext
 
-import android.app.Activity
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.text.Html
 import android.text.Html.FROM_HTML_MODE_COMPACT
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
