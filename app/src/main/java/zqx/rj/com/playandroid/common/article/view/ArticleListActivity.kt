@@ -56,11 +56,8 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
         // item 点击
         mArticleAdapter.setOnItemClickListener { _, _, position ->
 
-            val article = mArticleAdapter.getItem(position)
-
-            article?.let {
-                startActivity<WebViewActivity>("link" to it.link,
-                        "title" to it.title)
+            mArticleAdapter.getItem(position)?.let {
+                startActivity<WebViewActivity>("link" to it.link, "title" to it.title)
             }
         }
 

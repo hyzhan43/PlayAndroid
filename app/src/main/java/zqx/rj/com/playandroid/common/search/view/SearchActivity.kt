@@ -178,13 +178,6 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
     }
 
     private fun showSearchResult(resultList: List<Article>) {
-        // 如果数据为空直接不 显示搜索结果
-        if (resultList.isEmpty()) {
-            showSearchView()
-            toast(getString(R.string.empty_data))
-            return
-        }
-
         addData(resultList)
         hideSearchView()
     }

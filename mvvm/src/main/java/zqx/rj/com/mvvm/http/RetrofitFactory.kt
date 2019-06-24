@@ -53,8 +53,6 @@ class RetrofitFactory private constructor() {
     }
 
     fun <T> create(clz: Class<T>): T {
-        checkNotNull(clz)
-        checkNotNull(retrofit)
         return retrofit.create(clz)
     }
 
