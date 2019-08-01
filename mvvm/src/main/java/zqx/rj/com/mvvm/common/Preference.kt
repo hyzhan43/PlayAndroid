@@ -12,13 +12,13 @@ import kotlin.reflect.KProperty
  */
 class Preference<T>(private val name: String, private val default: T) : ReadWriteProperty<Any?, T> {
 
-    companion object {
-        lateinit var preference: SharedPreferences
+        companion object {
+            lateinit var preference: SharedPreferences
 
-        // 初始化 application 传入
-        fun setContext(context: Context) {
-            preference = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
-        }
+            // 初始化 application 传入
+            fun setContext(context: Context) {
+                preference = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
+            }
 
         // 清除数据
         fun clear() = preference.edit().clear().apply()

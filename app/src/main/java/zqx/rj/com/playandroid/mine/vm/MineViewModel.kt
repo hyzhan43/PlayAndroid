@@ -15,8 +15,8 @@ import zqx.rj.com.playandroid.mine.data.repository.MineRepository
  */
 class MineViewModel(application: Application) : ArticleViewModel<MineRepository>(application) {
 
-    var mCollectArticleData: MutableLiveData<BaseResponse<CollectRsp>> = MutableLiveData()
-    var mRequestCollectData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
+    val mCollectArticleData: MutableLiveData<BaseResponse<CollectRsp>> = MutableLiveData()
+    val mRequestCollectData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
 
     fun getCollectArticle(page: Int) {
         mRepository.getCollectArticle(page, mCollectArticleData)

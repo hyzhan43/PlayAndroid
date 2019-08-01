@@ -19,9 +19,9 @@ import zqx.rj.com.playandroid.home.data.repository.HomeRepository
  */
 class HomeViewModel(application: Application) : ArticleViewModel<HomeRepository>(application) {
 
-    var mBannerData: MutableLiveData<BaseResponse<List<BannerRsp>>> = MutableLiveData()
-    var mHomeArticleData: MutableLiveData<BaseResponse<HomeArticleRsp>> = MutableLiveData()
-    var mCommonWebData: MutableLiveData<BaseResponse<List<CommonWebRsp>>> = MutableLiveData()
+    val mBannerData: MutableLiveData<BaseResponse<List<BannerRsp>>> = MutableLiveData()
+    val mHomeArticleData: MutableLiveData<BaseResponse<HomeArticleRsp>> = MutableLiveData()
+    val mCommonWebData: MutableLiveData<BaseResponse<List<CommonWebRsp>>> = MutableLiveData()
 
     fun getBanner() {
         mRepository.getBanner(mBannerData)
