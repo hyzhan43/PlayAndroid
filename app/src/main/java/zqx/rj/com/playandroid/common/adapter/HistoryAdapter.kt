@@ -9,11 +9,13 @@ import zqx.rj.com.playandroid.R
  * created： 2018/10/28 20:12
  * desc：    TODO
  */
-class HistoryAdapter(layoutId: Int, listData: List<String>?)
-    : BaseQuickAdapter<String, BaseViewHolder>(layoutId, listData) {
+class HistoryAdapter : BaseQuickAdapter<String, BaseViewHolder>(R.layout.history_item, null) {
 
     override fun convert(helper: BaseViewHolder?, item: String?) {
-        helper?.setText(R.id.mTvName, item ?: "")
-        helper?.addOnClickListener(R.id.mIvDelete)
+
+        helper?.run {
+            setText(R.id.mTvName, item ?: "")
+            addOnClickListener(R.id.mIvDelete)
+        }
     }
 }

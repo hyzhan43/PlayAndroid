@@ -1,12 +1,9 @@
-package zqx.rj.com.mvvm.common
+package zqx.rj.com.mvvm.ext
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.text.Html
 import android.text.Html.FROM_HTML_MODE_COMPACT
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -30,18 +27,6 @@ fun TextView.str(): String {
     return this.text.toString()
 }
 
-// 关闭软键盘
-fun View.hideKeyboard() {
-    val imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(this.windowToken, 0)
-}
-
-// 显示软键盘
-fun View.showKeyboard() {
-    val imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    this.requestFocus()
-    imm.showSoftInput(this, 0)
-}
 
 // 将 html 代码转化 为 string
 // Android N（API level 24.）废弃了Html.fromHtml(String)

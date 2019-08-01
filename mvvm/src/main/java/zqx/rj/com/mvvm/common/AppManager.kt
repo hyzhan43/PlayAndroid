@@ -1,10 +1,10 @@
 package zqx.rj.com.mvvm.common
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
 import java.util.*
+import kotlin.system.exitProcess
 
 /**
  * author：  HyZhan
@@ -38,6 +38,6 @@ class AppManager {
         finishAllActivity()
         val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         activityManager.killBackgroundProcesses(context.packageName)
-        System.exit(0)
+        exitProcess(0)
     }
 }

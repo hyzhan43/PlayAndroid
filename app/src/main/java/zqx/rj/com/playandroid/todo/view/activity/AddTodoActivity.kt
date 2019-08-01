@@ -1,8 +1,6 @@
 package zqx.rj.com.playandroid.todo.view.activity
 
 import android.arch.lifecycle.Observer
-import android.view.MotionEvent
-import android.view.View
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
@@ -14,10 +12,10 @@ import kotlinx.android.synthetic.main.layout_toolbar.*
 import org.jetbrains.anko.toast
 import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.mvvm.common.constant.Constant
-import zqx.rj.com.mvvm.common.format
-import zqx.rj.com.mvvm.common.str
-import zqx.rj.com.mvvm.common.toColor
-import zqx.rj.com.mvvm.common.toHtml
+import zqx.rj.com.mvvm.ext.format
+import zqx.rj.com.mvvm.ext.str
+import zqx.rj.com.mvvm.ext.toColor
+import zqx.rj.com.mvvm.ext.toHtml
 import zqx.rj.com.mvvm.state.callback.todo.TodoContext
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.todo.vm.TodoViewModel
