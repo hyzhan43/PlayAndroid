@@ -18,8 +18,8 @@ import zqx.rj.com.playandroid.account.data.repository.AccountRepository
  */
 class AccountViewModel(application: Application) : BaseViewModel<AccountRepository>(application) {
 
-    var mLoginData: MutableLiveData<BaseResponse<LoginRsp>> = MutableLiveData()
-    var mRegisterData: MutableLiveData<BaseResponse<RegisterRsp>> = MutableLiveData()
+    val mLoginData = MutableLiveData<BaseResponse<LoginRsp>>()
+    val mRegisterData = MutableLiveData<BaseResponse<RegisterRsp>>()
 
     fun getLoginData(username: String, password: String) {
         if (checkNotNull(username, password)) {

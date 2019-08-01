@@ -19,11 +19,11 @@ import zqx.rj.com.playandroid.todo.data.repository.TodoRepository
  */
 class TodoViewModel(application: Application) : BaseViewModel<TodoRepository>(application) {
 
-    var mTodoData: MutableLiveData<BaseResponse<PageRsp<TodoRsp>>> = MutableLiveData()
-    var mFinishTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
-    var mDeleteTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
-    var mSaveTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
-    var mUpdateTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
+    val mTodoData: MutableLiveData<BaseResponse<PageRsp<TodoRsp>>> = MutableLiveData()
+    val mFinishTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
+    val mDeleteTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
+    val mSaveTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
+    val mUpdateTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
 
     /**
      *  status 状态， 1完成；0未完成; 默认全部展示 -1；

@@ -15,8 +15,8 @@ import zqx.rj.com.playandroid.system.data.repository.SystemRepository
  */
 class SystemViewModel(application: Application) : ArticleViewModel<SystemRepository>(application) {
 
-    var mTreeData: MutableLiveData<BaseResponse<List<TopTreeRsp>>> = MutableLiveData()
-    var mTreeArticleData: MutableLiveData<BaseResponse<TreeArticleRsp>> = MutableLiveData()
+    val mTreeData: MutableLiveData<BaseResponse<List<TopTreeRsp>>> = MutableLiveData()
+    val mTreeArticleData: MutableLiveData<BaseResponse<TreeArticleRsp>> = MutableLiveData()
 
     fun getTree() {
         mRepository.getTree(mTreeData)

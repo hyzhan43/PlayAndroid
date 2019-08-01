@@ -1,6 +1,7 @@
 package zqx.rj.com.playandroid.common.net
 
 import android.arch.lifecycle.MutableLiveData
+import android.util.Log
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import zqx.rj.com.mvvm.base.BaseRepository
@@ -14,7 +15,7 @@ import zqx.rj.com.playandroid.account.data.context.UserContext
 /**
  * author：  HyZhan
  * created： 2018/10/11 18:42
- * desc：    封装 Obaserver -> 基础状态分发 -> 若 成功 直接返回到 view
+ * desc：    封装 Observer -> 基础状态分发 -> 若 成功 直接返回到 view
  */
 class BaseObserver<T : BaseResponse<*>>(val liveData: MutableLiveData<T>,
                                         val loadState: MutableLiveData<State>,
@@ -51,6 +52,7 @@ class BaseObserver<T : BaseResponse<*>>(val liveData: MutableLiveData<T>,
     }
 
     override fun onError(e: Throwable) {
+        Log.d("LST", e.message)
         loadState.postValue(State(StateType.NETWORK))
     }
 

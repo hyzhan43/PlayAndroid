@@ -25,23 +25,23 @@ class RetrofitFactory private constructor() {
 
     init {
         retrofit = Retrofit.Builder()
-                .baseUrl(Constant.SERVER_ADDRESS)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(initOkHttpClient())
-                .build()
+            .baseUrl(Constant.SERVER_ADDRESS)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(initOkHttpClient())
+            .build()
     }
 
     // 初始化 okHttp
     private fun initOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-                .addInterceptor(initCookieIntercept())
-                .addInterceptor(initLoginIntercept())
-                .addInterceptor(initCommonIntercept())
-                .addInterceptor(initLogInterceptor())
-                .readTimeout(10, TimeUnit.SECONDS)
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .build()
+            .addInterceptor(initCookieIntercept())
+            .addInterceptor(initLoginIntercept())
+            .addInterceptor(initCommonIntercept())
+            .addInterceptor(initLogInterceptor())
+            .readTimeout(10, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .build()
     }
 
     // 初始化日志
@@ -53,8 +53,6 @@ class RetrofitFactory private constructor() {
     }
 
     fun <T> create(clz: Class<T>): T {
-        checkNotNull(clz)
-        checkNotNull(retrofit)
         return retrofit.create(clz)
     }
 
@@ -70,7 +68,8 @@ class RetrofitFactory private constructor() {
 
             // 如果 是(登录请求 或者 注册请求) 并且 请求头包含 cookie
             if ((requestUrl.contains(Constant.SAVE_USER_LOGIN_KEY)
-                            || requestUrl.contains(Constant.SAVE_USER_REGISTER_KEY))) {
+                        || requestUrl.contains(Constant.SAVE_USER_REGISTER_KEY))
+            ) {
 
 
                 // 获取 全部 cookie
@@ -108,10 +107,10 @@ class RetrofitFactory private constructor() {
     private fun initCommonIntercept(): Interceptor {
         return Interceptor { chain ->
             val request = chain.request()
-                    .newBuilder()
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("charset", "UTF-8")
-                    .build()
+                .newBuilder()
+                .addHeader("Content-Type", "application/json")
+                .addHeader("charset", "UTF-8")
+                .build()
 
             chain.proceed(request)
         }
@@ -120,11 +119,19 @@ class RetrofitFactory private constructor() {
     // 解析 cookie
     private fun encodeCookie(cookies: List<String>): String {
 
+        if (cookies.isEmpty()) {
+            return ""
+        }
+
         val sb = StringBuilder()
 
         // 组装 cookie
         cookies.forEach { cookie ->
             sb.append(cookie).append(";")
+        }
+
+        if (sb.isEmpty()) {
+            return ""
         }
 
         // 去掉 最后的 “ ; ”

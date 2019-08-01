@@ -15,8 +15,8 @@ import zqx.rj.com.playandroid.project.data.repository.ProjectRepository
  */
 class ProjectViewModel(application: Application) : BaseViewModel<ProjectRepository>(application) {
 
-    var mProjectTreeData: MutableLiveData<BaseResponse<List<ProjectTreeRsp>>> = MutableLiveData()
-    var mProjectsData: MutableLiveData<BaseResponse<ProjectRsp>> = MutableLiveData()
+    val mProjectTreeData: MutableLiveData<BaseResponse<List<ProjectTreeRsp>>> = MutableLiveData()
+    val mProjectsData: MutableLiveData<BaseResponse<ProjectRsp>> = MutableLiveData()
 
     fun getProjectTree() {
         mRepository.getProjectTree(mProjectTreeData)

@@ -1,6 +1,5 @@
 package zqx.rj.com.mvvm.common
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import kotlin.properties.ReadWriteProperty
@@ -13,13 +12,13 @@ import kotlin.reflect.KProperty
  */
 class Preference<T>(private val name: String, private val default: T) : ReadWriteProperty<Any?, T> {
 
-    companion object {
-        lateinit var preference: SharedPreferences
+        companion object {
+            lateinit var preference: SharedPreferences
 
-        // 初始化 application 传入
-        fun setContext(context: Context) {
-            preference = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
-        }
+            // 初始化 application 传入
+            fun setContext(context: Context) {
+                preference = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
+            }
 
         // 清除数据
         fun clear() = preference.edit().clear().apply()
@@ -44,7 +43,6 @@ class Preference<T>(private val name: String, private val default: T) : ReadWrit
     }
 
     // 存储 key 为name  值为 value
-    @SuppressLint("CommitPrefEdits")
     private fun <T> putPreference(name: String, value: T) = with(preference.edit()) {
         when (value) {
             is Long -> putLong(name, value)

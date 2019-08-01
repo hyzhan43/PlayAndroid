@@ -15,7 +15,7 @@ import zqx.rj.com.playandroid.navigation.data.repository.NavigationRepository
  */
 class NavigationViewModel(application: Application) : BaseViewModel<NavigationRepository>(application) {
 
-    var mCategory: MutableLiveData<BaseResponse<List<NaviCategoryRsp>>> = MutableLiveData()
+    val mCategory: MutableLiveData<BaseResponse<List<NaviCategoryRsp>>> = MutableLiveData()
 
     fun getCategory() {
         mRepository.getCategory(mCategory)
