@@ -1,6 +1,10 @@
 # PlayAndroid
 
-#  前言：
+# 最新(2019-08-07):
+尝试引入自己开源的一个 [Android MVVM](https://github.com/hyzhan43/KtArmor/tree/mvvm) 快速开发框架, 所以新建了一个新的分支`KtArmor-MVVM`, 有别于现在架构。替换了`MVVM module`, 整体代码少了三分之一, 并且实现更加优雅, 欢迎小伙伴Fork, Clone 交流学习~  
+项目后续会继续更新 `未完待续`~
+
+# 前言：
 继上次用 kotlin 编写了 一款简单 [豆瓣电影 app](http://www.wanandroid.com/blog/show/2298) 后。体验到了kotlin 的魅力。加上这段时间学习了 MVP 模式、MVVM模式，心痒痒，就像做个 app 来练练手，正当犹豫要选择哪一种来练手的时候，无意中看见另一种的模式[艺术图片应用 T-MVVM](http://www.wanandroid.com/blog/show/2357)~ 感觉说的挺有道理的。好奇心驱使我去试一下这种模式，说干就干。
 
 #  玩Android
