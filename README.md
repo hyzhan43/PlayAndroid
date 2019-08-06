@@ -1,6 +1,10 @@
 # PlayAndroid
-Kotlin 版 玩Android
-#  前言：
+
+# 最新(2019-08-07):
+尝试引入自己开源的一个 [Android MVVM](https://github.com/hyzhan43/KtArmor/tree/mvvm) 快速开发框架, 所以新建了一个新的分支`KtArmor-MVVM`, 有别于现在架构。替换了`MVVM module`, 整体代码少了三分之一, 并且实现更加优雅, 欢迎小伙伴Fork, Clone 交流学习~
+项目后续会继续更新 `未完待续`~
+
+# 前言：
 继上次用 kotlin 编写了 一款简单 [豆瓣电影 app](http://www.wanandroid.com/blog/show/2298) 后。体验到了kotlin 的魅力。加上这段时间学习了 MVP 模式、MVVM模式，心痒痒，就像做个 app 来练练手，正当犹豫要选择哪一种来练手的时候，无意中看见另一种的模式[艺术图片应用 T-MVVM](http://www.wanandroid.com/blog/show/2357)~ 感觉说的挺有道理的。好奇心驱使我去试一下这种模式，说干就干。
 
 #  玩Android
@@ -8,45 +12,12 @@ Kotlin 版 玩Android
 玩Android 采用的是 **LiveData+ViewModel+RxJava+okHttp+Retrofit+Glide** 架构
 架构方面借鉴了 [艺术图片应用 T-MVVM](http://www.wanandroid.com/blog/show/2357) 也加入了自己的想法~     真香~~
 
-#### API
+# 版本：
+## v 1.1.3 (2019-08-06)
+- [√] 引入KtArmor-MVVM 快速开发框架(重构)
 
-[鸿洋大大的 玩Android API](http://www.wanandroid.com/blog/show/2)
-
-#### 框架
-
-- [anko](https://github.com/Kotlin/anko)
-- [Loadsir](https://github.com/KingJA/LoadSir)
-- [rxkotlin](https://github.com/ReactiveX/RxKotlin)
-- [rxandroid](https://github.com/ReactiveX/RxAndroid)
-- [retrofit](https://github.com/square/retrofit)
-- [glide](https://github.com/bumptech/glide)
-- [banner](https://github.com/youth5201314/banner)
-- [BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
-- [webView](https://github.com/Justson/AgentWeb)
-- [flowlayout](https://github.com/hongyangAndroid/FlowLayout)
-- [litepal](https://github.com/LitePalFramework/LitePal) 
-
-## 无图说 **  
-![欢迎页面](https://img-blog.csdnimg.cn/20181029174425184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029174836472.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029174917436.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029174940736.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2018102917500270.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029175020831.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029175040559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029175050636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
-
-####  扫码体验
-[直接下载](https://fir.im/jtkp?release_id=5c333191959d692026d61c53)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190107190600593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
-
-版本：
 ## v 1.1.2 (2019-08-01)
 - [√] 修复Login bug
-
 
 ## v 1.1.1 (2019-06-20)
 - [√] 优化SearchActivity代码
@@ -120,6 +91,43 @@ Kotlin 版 玩Android
 - [√] 导航
 - [√] 搜索
 - [√] 我的
+
+#### API
+
+[鸿洋大大的 玩Android API](http://www.wanandroid.com/blog/show/2)
+
+#### 框架
+
+- [anko](https://github.com/Kotlin/anko)
+- [Loadsir](https://github.com/KingJA/LoadSir)
+- [rxkotlin](https://github.com/ReactiveX/RxKotlin)
+- [rxandroid](https://github.com/ReactiveX/RxAndroid)
+- [retrofit](https://github.com/square/retrofit)
+- [glide](https://github.com/bumptech/glide)
+- [banner](https://github.com/youth5201314/banner)
+- [BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
+- [webView](https://github.com/Justson/AgentWeb)
+- [flowlayout](https://github.com/hongyangAndroid/FlowLayout)
+- [litepal](https://github.com/LitePalFramework/LitePal)
+
+## 无图说 **
+![欢迎页面](https://img-blog.csdnimg.cn/20181029174425184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029174836472.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029174917436.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029174940736.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2018102917500270.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029175020831.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029175040559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20181029175050636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
+
+####  扫码体验
+[直接下载](https://fir.im/jtkp?release_id=5c333191959d692026d61c53)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190107190600593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDU5NTUxNg==,size_16,color_FFFFFF,t_70)
+
+
 
 #  最后
 
