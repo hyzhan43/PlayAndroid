@@ -1,15 +1,10 @@
 package zqx.rj.com.playandroid.home.vm
 
-import android.app.Application
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.common.constant.StateType
-import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.playandroid.R
+import androidx.lifecycle.MutableLiveData
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
-import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
-import zqx.rj.com.playandroid.common.search.data.bean.SearchResultRsp
-import zqx.rj.com.playandroid.home.data.bean.*
+import zqx.rj.com.playandroid.home.data.bean.BannerRsp
+import zqx.rj.com.playandroid.home.data.bean.CommonWebRsp
+import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
 import zqx.rj.com.playandroid.home.data.repository.HomeRepository
 
 /**
@@ -17,21 +12,28 @@ import zqx.rj.com.playandroid.home.data.repository.HomeRepository
  * created： 2018/10/14 19:06
  * desc：    TODO
  */
-class HomeViewModel(application: Application) : ArticleViewModel<HomeRepository>(application) {
+class HomeViewModel : ArticleViewModel<HomeRepository>() {
 
-    val mBannerData: MutableLiveData<BaseResponse<List<BannerRsp>>> = MutableLiveData()
-    val mHomeArticleData: MutableLiveData<BaseResponse<HomeArticleRsp>> = MutableLiveData()
-    val mCommonWebData: MutableLiveData<BaseResponse<List<CommonWebRsp>>> = MutableLiveData()
+    val bannerData = MutableLiveData<List<BannerRsp>>()
+    val homeArticleData = MutableLiveData<HomeArticleRsp>()
+    val commonWebData = MutableLiveData<List<CommonWebRsp>>()
 
     fun getBanner() {
-        mRepository.getBanner(mBannerData)
+        launchUI({
+            repository.getBanner().execute({ bannerData.value = it })
+        })
     }
 
     fun getArticle(page: Int) {
-        mRepository.getArticle(page, mHomeArticleData)
+        launchUI({
+            repository.getArticle(page).execute({ homeArticleData.value = it })
+        })
+
     }
 
     fun getCommonWeb() {
-        mRepository.getCommonWeb(mCommonWebData)
+        launchUI({
+            repository.getCommonWeb().execute({ commonWebData.value = it })
+        })
     }
 }

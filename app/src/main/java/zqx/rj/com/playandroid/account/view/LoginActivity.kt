@@ -1,12 +1,12 @@
 package zqx.rj.com.playandroid.account.view
 
-import android.arch.lifecycle.Observer
 import android.view.View
+import androidx.lifecycle.Observer
+import com.zhan.mvvm.ext.Toasts.toast
+import com.zhan.mvvm.ext.startActivity
+import com.zhan.mvvm.ext.str
+import com.zhan.mvvm.mvvm.LifecycleActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
-import zqx.rj.com.mvvm.base.LifecycleActivity
-import zqx.rj.com.mvvm.ext.str
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.context.UserContext
 import zqx.rj.com.playandroid.account.vm.AccountViewModel
@@ -27,9 +27,7 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
     override fun onClick(v: View?) {
 
         when (v?.id) {
-            R.id.mBtnLogin -> {
-                mViewModel.getLoginData(mTieAccount.str(), mTiePassword.str())
-            }
+            R.id.mBtnLogin -> viewModel.login(mTieAccount.str(), mTiePassword.str())
             R.id.mTvRegister -> {
                 startActivity<RegisterActivity>()
                 finish()
@@ -39,17 +37,13 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
 
     // 监听数据变化
     override fun dataObserver() {
-
         // 处理 repository 回调的数据
-        mViewModel.mLoginData.observe(this, Observer {
-            it?.data?.let { loginRsp ->
-                UserContext.instance.loginSuccess(loginRsp.username, loginRsp.collectIds)
-                toast(getString(R.string.login_suc))
-                finish()
-            }
+        viewModel.loginData.observe(this, Observer {
+            UserContext.instance.loginSuccess(it.username, it.collectIds)
+            toast(getString(R.string.login_suc))
+            finish()
         })
     }
-
 
     override fun onBackPressed() = finish()
 }

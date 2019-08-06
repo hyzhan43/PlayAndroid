@@ -1,18 +1,17 @@
 package zqx.rj.com.playandroid.common.article.view
 
-import android.arch.lifecycle.Observer
-import android.util.Log
+import androidx.lifecycle.Observer
+import com.zhan.mvvm.ext.startActivity
+import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.fragment_article_list.*
-import org.jetbrains.anko.support.v4.startActivity
-import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.mvvm.common.SpeedLayoutManager
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
 import zqx.rj.com.mvvm.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivity
+import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.account.data.context.UserContext
-import zqx.rj.com.playandroid.common.adapter.ArticleAdapter
+import zqx.rj.com.playandroid.common.article.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 
@@ -50,8 +49,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
             val article = mArticleAdapter.getItem(position)
 
             article?.let {
-                startActivity<WebViewActivity>("link" to it.link,
-                        "title" to it.title)
+                startActivity<WebViewActivity>("link" to it.link, "title" to it.title)
             }
         }
 
@@ -107,7 +105,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
     override fun dataObserver() {
         // 收藏成功回调
-        mViewModel.mCollectData.observe(this, Observer {
+        viewModel.collectData.observe(this, Observer {
 
             val article = mArticleAdapter.getItem(current)
 
@@ -121,7 +119,6 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
     // 发起收藏
     override fun collect(position: Int) {
-        Log.d("LST", "position=$position")
         val article = mArticleAdapter.getItem(position)
 
         article?.let {
@@ -131,7 +128,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
             state = it.collect
 
             // 发起 收藏/取消收藏  请求
-            if (state) mViewModel.unCollect(it.id) else mViewModel.collect(it.id)
+            if (state) viewModel.unCollect(it.id) else viewModel.collect(it.id)
         }
     }
 

@@ -1,12 +1,17 @@
 package zqx.rj.com.playandroid.common.search.view
 
-import android.arch.lifecycle.Observer
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.zhan.mvvm.ext.Toasts.toast
+import com.zhan.mvvm.ext.gone
+import com.zhan.mvvm.ext.hideKeyboard
+import com.zhan.mvvm.ext.str
+import com.zhan.mvvm.ext.visible
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import kotlinx.android.synthetic.main.activity_search.*
@@ -15,13 +20,8 @@ import kotlinx.android.synthetic.main.common_search.*
 import kotlinx.android.synthetic.main.common_search.view.*
 import kotlinx.android.synthetic.main.common_tag.view.*
 import kotlinx.android.synthetic.main.history_foot.view.*
-import org.jetbrains.anko.toast
-import zqx.rj.com.mvvm.ext.gone
-import zqx.rj.com.mvvm.ext.hideKeyboard
-import zqx.rj.com.mvvm.ext.str
-import zqx.rj.com.mvvm.ext.visible
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.common.adapter.HistoryAdapter
+import zqx.rj.com.playandroid.common.search.adapter.HistoryAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.view.ArticleListActivity
 import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
@@ -75,13 +75,13 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
 
         // 清除全部历史记录
         mFootView.mTvClear.setOnClickListener {
-            mViewModel.clearRecords()
+            viewModel.clearRecords()
         }
 
         mHistoryAdapter.setOnItemChildClickListener { _, view, position ->
             if (view.id == R.id.mIvDelete) {
                 recordIndex = position
-                mViewModel.deleteOneRecord(mHistoryAdapter.data[position])
+                viewModel.deleteOneRecord(mHistoryAdapter.data[position])
             }
         }
 
@@ -98,13 +98,13 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
             hideKeyboard()
         }
 
-        mBtnSearch.setOnClickListener { view ->
+        mBtnSearch.setOnClickListener {
             //搜索
             searchKeyword(mEtInput.str())
         }
 
         // 点击 键盘search按钮 隐藏软键盘
-        mEtInput.setOnEditorActionListener(TextView.OnEditorActionListener { view, actionId, _ ->
+        mEtInput.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchKeyword(mEtInput.str())
                 return@OnEditorActionListener true
@@ -128,12 +128,13 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
         // 设置光标位置
         mEtInput.setSelection(keyword.length)
 
-        mViewModel.search(page, keyword)
+        viewModel.search(page, keyword)
     }
 
     override fun initData() {
-        mViewModel.getRecords()
-        mViewModel.getHotKey()
+        super.initData()
+        viewModel.getRecords()
+        viewModel.getHotKey()
     }
 
 
@@ -142,36 +143,34 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
         super.dataObserver()
 
         // 热门搜索 回调
-        mViewModel.mHotKeyData.observe(this, Observer { response ->
-            response?.let { showHotTags(it.data) }
+        viewModel.hotKeyData.observe(this, Observer {
+            showHotTags(it)
         })
 
         // 搜索成功回调
-        mViewModel.mSearchResultData.observe(this, Observer { response ->
-            response?.let {
-                showSearchResult(it.data.datas)
-                // 添加历史搜索记录
-                mViewModel.addRecord(mEtInput.str())
-            }
+        viewModel.searchResultData.observe(this, Observer {
+            showSearchResult(it.datas)
+            // 添加历史搜索记录
+            viewModel.addRecord(mEtInput.str())
         })
 
-        mViewModel.deleteRecord.observe(this, Observer {
+        viewModel.deleteRecord.observe(this, Observer {
             mHistoryAdapter.remove(recordIndex)
             if (mHistoryAdapter.data.isEmpty()) mFootView.gone()
         })
 
-        mViewModel.newRecord.observe(this, Observer {
+        viewModel.newRecord.observe(this, Observer {
             updateRecordPosition(mEtInput.str())
         })
 
-        mViewModel.records.observe(this, Observer { records ->
+        viewModel.records.observe(this, Observer { records ->
             val recordNames = records?.map { it.name }?.toList()
             recordNames?.let {
                 if (it.isEmpty()) mFootView.gone() else mHistoryAdapter.addData(it)
             }
         })
 
-        mViewModel.clearRecord.observe(this, Observer {
+        viewModel.clearRecord.observe(this, Observer {
             mHistoryAdapter.setNewData(null)
             mFootView.gone()
         })
@@ -184,12 +183,12 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
 
     override fun onRefreshData() {
         page = 0
-        mViewModel.search(page, mEtInput.str())
+        viewModel.search(page, mEtInput.str())
     }
 
     // 搜索结果  加载更多
     override fun onLoadMoreData() {
-        mViewModel.search(++page, mEtInput.str())
+        viewModel.search(++page, mEtInput.str())
     }
 
     private fun showSearchView() {
@@ -231,7 +230,7 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
         }
 
 
-        mTagFlowLayout.setOnTagClickListener { view, position, _ ->
+        mTagFlowLayout.setOnTagClickListener { _, position, _ ->
             searchKeyword(tags[position])
             true
         }

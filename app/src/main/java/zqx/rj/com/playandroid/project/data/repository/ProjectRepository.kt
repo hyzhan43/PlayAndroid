@@ -1,11 +1,8 @@
 package zqx.rj.com.playandroid.project.data.repository
 
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.ext.execute
-import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.playandroid.common.net.BaseObserver
-import zqx.rj.com.playandroid.common.net.ApiRepository
+import com.zhan.mvvm.mvvm.BaseRepository
+import zqx.rj.com.playandroid.other.bean.BaseResponse
+import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
 import zqx.rj.com.playandroid.project.data.bean.ProjectRsp
 import zqx.rj.com.playandroid.project.data.bean.ProjectTreeRsp
 
@@ -14,15 +11,13 @@ import zqx.rj.com.playandroid.project.data.bean.ProjectTreeRsp
  * created： 2018/10/27 16:14
  * desc：    TODO
  */
-class ProjectRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
+class ProjectRepository : BaseRepository() {
 
-    fun getProjectTree(liveData: MutableLiveData<BaseResponse<List<ProjectTreeRsp>>>) {
-        apiService.getProjectTree()
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun getProjectTree(): BaseResponse<List<ProjectTreeRsp>> {
+        return launchIO { apiService.getProjectTreeAsync().await() }
     }
 
-    fun getProjects(page: Int, id: Int, liveData: MutableLiveData<BaseResponse<ProjectRsp>>) {
-        apiService.getProjects(page, id)
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun getProjects(page: Int, id: Int): BaseResponse<ProjectRsp> {
+        return launchIO { apiService.getProjectsAsync(page, id).await() }
     }
 }

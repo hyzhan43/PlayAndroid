@@ -1,17 +1,17 @@
 package zqx.rj.com.playandroid.navigation.view.fragment
 
-import android.arch.lifecycle.Observer
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.zhan.mvvm.ext.startActivity
+import com.zhan.mvvm.mvvm.LifecycleFragment
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import kotlinx.android.synthetic.main.common_tag.view.*
 import kotlinx.android.synthetic.main.fragment_navigation.*
-import org.jetbrains.anko.support.v4.startActivity
-import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivity
+import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.navigation.adapter.CategoryAdapter
 import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
 import zqx.rj.com.playandroid.navigation.vm.NavigationViewModel
@@ -45,14 +45,13 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
     }
 
     override fun initData() {
-        mViewModel.getCategory()
+        super.initData()
+        viewModel.getCategory()
     }
 
     override fun dataObserver() {
-        mViewModel.mCategory.observe(this, Observer { response ->
-            response?.let {
-                initNavigation(it.data)
-            }
+        viewModel.category.observe(this, Observer {
+            initNavigation(it)
         })
     }
 

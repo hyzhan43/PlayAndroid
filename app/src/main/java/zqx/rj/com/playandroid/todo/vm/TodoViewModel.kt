@@ -1,13 +1,10 @@
 package zqx.rj.com.playandroid.todo.vm
 
-import android.app.Application
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.base.BaseViewModel
-import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.common.constant.StateType
-import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.mvvm.http.response.EmptyRsp
+import androidx.lifecycle.MutableLiveData
+import com.zhan.mvvm.common.SharedData
+import com.zhan.mvvm.mvvm.BaseViewModel
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.other.bean.EmptyRsp
 import zqx.rj.com.playandroid.todo.data.bean.PageRsp
 import zqx.rj.com.playandroid.todo.data.bean.TodoRsp
 import zqx.rj.com.playandroid.todo.data.repository.TodoRepository
@@ -17,13 +14,13 @@ import zqx.rj.com.playandroid.todo.data.repository.TodoRepository
  * create：  2019/1/2 17:29
  * desc：    TODO
  */
-class TodoViewModel(application: Application) : BaseViewModel<TodoRepository>(application) {
+class TodoViewModel : BaseViewModel<TodoRepository>() {
 
-    val mTodoData: MutableLiveData<BaseResponse<PageRsp<TodoRsp>>> = MutableLiveData()
-    val mFinishTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
-    val mDeleteTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
-    val mSaveTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
-    val mUpdateTodoData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
+    val todoData = MutableLiveData<PageRsp<TodoRsp>>()
+    val finishTodoData = MutableLiveData<EmptyRsp>()
+    val deleteTodoData = MutableLiveData<EmptyRsp>()
+    val saveTodoData = MutableLiveData<EmptyRsp>()
+    val updateTodoData = MutableLiveData<EmptyRsp>()
 
     /**
      *  status 状态， 1完成；0未完成; 默认全部展示 -1；
@@ -34,7 +31,11 @@ class TodoViewModel(application: Application) : BaseViewModel<TodoRepository>(ap
     fun getTodoList(page: Int = 1, status: Int = -1, type: Int = 0, priority: Int = 0,
                     orderby: Int = 4) {
 
-        mRepository.getTodoList(page, status, type, priority, orderby, mTodoData)
+        launchUI({
+            repository.getTodoList(page, status, type, priority, orderby).execute({
+                todoData.value = it
+            })
+        })
     }
 
     /**
@@ -57,37 +58,53 @@ class TodoViewModel(application: Application) : BaseViewModel<TodoRepository>(ap
          */
 
         if (title.isBlank()) {
-            loadState.postValue(State(StateType.TIPS, tip = R.string.title_empty))
+            sharedData.value = SharedData(strRes = R.string.title_empty)
             return
         }
 
         if (content.isBlank()) {
-            loadState.postValue(State(StateType.TIPS, tip = R.string.content_empty))
+            sharedData.value = SharedData(strRes = R.string.content_empty)
             return
         }
 
         if (time.isBlank()) {
-            loadState.postValue(State(StateType.TIPS, tip = R.string.time_empty))
+            sharedData.value = SharedData(strRes = R.string.time_empty)
             return
         }
 
-        mRepository.updateTodo(id, title, time, status, type, content, priority, mUpdateTodoData)
+        launchUI({
+            repository.updateTodo(id, title, time, status, type, content, priority).execute({
+                updateTodoData.value = it
+            })
+        })
     }
 
     fun finishTodo(id: Int, status: Int) {
-        mRepository.finishTodo(id, status, mFinishTodoData)
+        launchUI({
+            repository.finishTodo(id, status).execute({
+                finishTodoData.value = it
+            })
+        })
     }
 
     fun deleteTodo(id: Int) {
-        mRepository.deleteTodo(id, mDeleteTodoData)
+        launchUI({
+            repository.deleteTodo(id).execute({
+                deleteTodoData.value = it
+            })
+        })
     }
 
     fun saveTodo(title: String, time: String, type: Int, content: String) {
         if (title.isBlank()) {
-            loadState.postValue(State(StateType.TIPS, tip = R.string.title_empty))
+            sharedData.value = SharedData(strRes = R.string.title_empty)
             return
         }
 
-        mRepository.saveTodo(title, time, type, content, mSaveTodoData)
+        launchUI({
+            repository.saveTodo(title, time, type, content).execute({
+                saveTodoData.value = it
+            })
+        })
     }
 }

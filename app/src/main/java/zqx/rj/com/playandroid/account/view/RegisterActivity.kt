@@ -1,13 +1,14 @@
 package zqx.rj.com.playandroid.account.view
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.view.View
+import com.zhan.mvvm.ext.Toasts.toast
+import com.zhan.mvvm.ext.str
+import com.zhan.mvvm.mvvm.LifecycleActivity
+import kotlinx.android.synthetic.main.activity_collect.mIcBar
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.common_bar.*
 import kotlinx.android.synthetic.main.common_bar.view.*
-import org.jetbrains.anko.toast
-import zqx.rj.com.mvvm.base.LifecycleActivity
-import zqx.rj.com.mvvm.ext.str
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.context.UserContext
 import zqx.rj.com.playandroid.account.vm.AccountViewModel
@@ -26,7 +27,7 @@ class RegisterActivity : LifecycleActivity<AccountViewModel>() {
         mIcBar.mTvBarTitle.text = getString(R.string.register)
 
         mBtnRegister.setOnClickListener {
-            mViewModel.getRegister(mTieAccount.str(), mTiePassword.str(), mTiePasswordAg.str())
+            viewModel.register(mTieAccount.str(), mTiePassword.str(), mTiePasswordAg.str())
         }
 
         showSuccess()
@@ -34,13 +35,10 @@ class RegisterActivity : LifecycleActivity<AccountViewModel>() {
 
 
     override fun dataObserver() {
-        mViewModel.mRegisterData.observe(this, Observer { it ->
-
-            it?.data?.let {
-                toast(getString(R.string.register_suc))
-                UserContext.instance.loginSuccess(it.username, it.collectIds)
-                finish()
-            }
+        viewModel.registerData.observe(this, Observer {
+            toast(getString(R.string.register_suc))
+            UserContext.instance.loginSuccess(it.username, it.collectIds)
+            finish()
         })
     }
 

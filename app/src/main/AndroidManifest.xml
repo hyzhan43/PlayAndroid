@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="zqx.rj.com.mvvm.base.BaseApplication"
+        android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,18 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".common.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".home.view.activity.MainActivity" />
         <activity android:name=".account.view.RegisterActivity" />
         <activity android:name=".account.view.LoginActivity" />
         <activity android:name=".common.search.view.SearchActivity" />
-        <activity android:name=".WebViewActivity" />
+        <activity android:name=".common.WebViewActivity" />
         <activity android:name=".home.view.activity.CommonWebActivity" />
         <activity android:name=".mine.view.activity.CollectActivity" />
         <activity android:name=".mine.view.activity.AboutActivity" />

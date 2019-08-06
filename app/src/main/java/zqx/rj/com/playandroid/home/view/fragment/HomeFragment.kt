@@ -1,17 +1,17 @@
 package zqx.rj.com.playandroid.home.view.fragment
 
-import android.arch.lifecycle.Observer
 import android.view.View
+import androidx.lifecycle.Observer
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
+import com.zhan.mvvm.ext.startActivity
 import kotlinx.android.synthetic.main.article_item.view.*
 import kotlinx.android.synthetic.main.home_headview.view.*
 import kotlinx.android.synthetic.main.home_special_item.view.*
-import org.jetbrains.anko.support.v4.startActivity
 import zqx.rj.com.mvvm.common.GlideImageLoader
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivity
+import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
 import zqx.rj.com.playandroid.common.search.view.SearchActivity
 import zqx.rj.com.playandroid.home.data.bean.BannerRsp
@@ -47,7 +47,7 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         mBanner = headView.mBanner
         mBanner.setOnBannerListener { position ->
             startActivity<WebViewActivity>("link" to urls[position],
-                    "title" to titles[position])
+                "title" to titles[position])
         }
 
         // 添加 Banner
@@ -69,12 +69,13 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
     }
 
     override fun initData() {
+        super.initData()
         page = 0
         // 获取 首页 article
-        mViewModel.getArticle(page)
+        viewModel.getArticle(page)
 
         // 获取 Banner
-        mViewModel.getBanner()
+        viewModel.getBanner()
     }
 
     // 处理 repository 回调的数据
@@ -82,26 +83,26 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         // 调用父类 dataObserver
         super.dataObserver()
 
-        mViewModel.mBannerData.observe(this, Observer { response ->
-            response?.let { setBannerData(it.data) }
+        viewModel.bannerData.observe(this, Observer {
+            setBannerData(it)
         })
 
-        mViewModel.mHomeArticleData.observe(this, Observer { response ->
-            response?.let { addData(it.data.datas) }
+        viewModel.homeArticleData.observe(this, Observer {
+            addData(it.datas)
         })
     }
 
     override fun onRefreshData() {
         page = 0
         // 获取 首页 article
-        mViewModel.getArticle(page)
+        viewModel.getArticle(page)
 
         // 获取 Banner
-        mViewModel.getBanner()
+        viewModel.getBanner()
     }
 
     override fun onLoadMoreData() {
-        mViewModel.getArticle(++page)
+        viewModel.getArticle(++page)
     }
 
     private fun setBannerData(bannerList: List<BannerRsp>) {

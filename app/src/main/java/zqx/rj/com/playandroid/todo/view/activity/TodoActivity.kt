@@ -1,22 +1,22 @@
 package zqx.rj.com.playandroid.todo.view.activity
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
+import com.zhan.mvvm.common.Preference
+import com.zhan.mvvm.ext.startActivity
 import kotlinx.android.synthetic.main.activity_todo.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
-import org.jetbrains.anko.startActivity
-import zqx.rj.com.mvvm.base.BaseActivity
-import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.state.callback.todo.TodoContext
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.delete.ToolbarActivity
 import zqx.rj.com.playandroid.todo.view.fragment.TodoFragment
 
 
-class TodoActivity : BaseActivity() {
+class TodoActivity : ToolbarActivity() {
 
     // 当前显示的 fragment
     private lateinit var mCurrentFragment: Fragment
@@ -30,7 +30,7 @@ class TodoActivity : BaseActivity() {
     }
 
     private val mFinishFragment by lazy {
-        TodoFragment.getInstance(Constant.FINISH_STATUS, getString(R.string.reduction), R.color.green)
+        TodoFragment.getInstance(Constant.FINISH_STATUS, getString(R.string.reduction), R.color.green_500)
     }
 
     override fun getLayoutId(): Int = R.layout.activity_todo
@@ -38,7 +38,7 @@ class TodoActivity : BaseActivity() {
     override fun initView() {
         super.initView()
 
-        setToolBar(toolbar, getStringType(type))
+        toolbarTitle =  getStringType(type)
         setDefaultFragment()
         initFloatButton()
         initNavigationBar()

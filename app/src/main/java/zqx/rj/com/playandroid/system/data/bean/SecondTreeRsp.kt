@@ -6,6 +6,6 @@ package zqx.rj.com.playandroid.system.data.bean
  * desc：    TODO
  */
 data class SecondTreeRsp(
-        var name: String,
-        var id: Int
+        val name: String,
+        val id: Int
 )

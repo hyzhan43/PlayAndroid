@@ -1,11 +1,8 @@
 package zqx.rj.com.playandroid.wechat.data.repository
 
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.ext.execute
-import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.playandroid.common.net.BaseObserver
 import zqx.rj.com.playandroid.common.article.data.repository.ArticleRepository
+import zqx.rj.com.playandroid.other.bean.BaseResponse
+import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
 import zqx.rj.com.playandroid.wechat.data.bean.WeChatNameRsp
 import zqx.rj.com.playandroid.wechat.data.bean.WxArticleRsp
 
@@ -14,15 +11,13 @@ import zqx.rj.com.playandroid.wechat.data.bean.WxArticleRsp
  * created： 2018/11/2 16:29
  * desc：    TODO
  */
-class WeChatRepository(loadState: MutableLiveData<State>) : ArticleRepository(loadState) {
+class WeChatRepository : ArticleRepository() {
 
-    fun getWeChatName(liveData: MutableLiveData<BaseResponse<List<WeChatNameRsp>>>) {
-        apiService.getWeChatName()
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun getWeChatName():BaseResponse<List<WeChatNameRsp>> {
+        return launchIO { apiService.getWeChatNameAsync().await() }
     }
 
-    fun getWxArticle(id: Int, page: Int, liveData: MutableLiveData<BaseResponse<WxArticleRsp>>) {
-        apiService.getWxArticle(id, page)
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun getWxArticle(id: Int, page: Int):BaseResponse<WxArticleRsp> {
+        return launchIO { apiService.getWxArticleAsync(id, page).await() }
     }
 }

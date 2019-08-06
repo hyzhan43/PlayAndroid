@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
@@ -7,7 +7,6 @@
     android:background="@color/colorPrimaryDark"
     android:minHeight="?attr/actionBarSize"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:popupTheme="@style/OverflowMenuStyle"
     app:titleTextColor="@color/white">
 
     <!--这两句显示左边的三条杠，如果要变为白色在toolbar的布局文件里添加这两句：-->
@@ -15,4 +14,4 @@
     <!--app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
 
 
-</android.support.v7.widget.Toolbar>
+</androidx.appcompat.widget.Toolbar>

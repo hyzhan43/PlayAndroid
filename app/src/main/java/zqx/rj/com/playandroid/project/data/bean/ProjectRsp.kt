@@ -6,9 +6,9 @@ package zqx.rj.com.playandroid.project.data.bean
  * desc：    TODO
  */
 class ProjectRsp(
-        var datas: List<Project>,
-        var curPage: Int,
-        var size: Int,
-        var total: Int,
-        var pageCount: Int
+        val datas: List<Project>,
+        val curPage: Int,
+        val size: Int,
+        val total: Int,
+        val pageCount: Int
 )

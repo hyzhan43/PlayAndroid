@@ -8,8 +8,8 @@ import zqx.rj.com.playandroid.common.article.data.bean.Article
  * desc：    TODO
  */
 class TreeArticleRsp(
-        var curPage: Int,
-        var datas: List<Article>,
-        var pageCount: Int,
-        var total: Int
+        val curPage: Int,
+        val datas: List<Article>,
+        val pageCount: Int,
+        val total: Int
 )

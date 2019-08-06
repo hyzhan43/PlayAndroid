@@ -1,17 +1,17 @@
 package zqx.rj.com.playandroid.home.view.activity
 
-import android.arch.lifecycle.Observer
 import android.view.LayoutInflater
 import android.view.View
+import androidx.lifecycle.Observer
+import com.zhan.mvvm.ext.startActivity
+import com.zhan.mvvm.mvvm.LifecycleActivity
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import kotlinx.android.synthetic.main.activity_common_web.*
 import kotlinx.android.synthetic.main.common_bar.view.*
 import kotlinx.android.synthetic.main.common_tag.view.*
-import org.jetbrains.anko.startActivity
-import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivity
+import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.home.data.bean.CommonWebRsp
 import zqx.rj.com.playandroid.home.vm.HomeViewModel
 
@@ -36,12 +36,13 @@ class CommonWebActivity : LifecycleActivity<HomeViewModel>() {
     }
 
     override fun initData() {
-        mViewModel.getCommonWeb()
+        super.initData()
+        viewModel.getCommonWeb()
     }
 
     override fun dataObserver() {
-        mViewModel.mCommonWebData.observe(this, Observer { response ->
-            response?.let { initCommonWeb(it.data) }
+        viewModel.commonWebData.observe(this, Observer { response ->
+            response?.let { initCommonWeb(it) }
         })
     }
 

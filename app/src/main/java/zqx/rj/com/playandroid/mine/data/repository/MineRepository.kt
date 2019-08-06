@@ -1,12 +1,9 @@
 package zqx.rj.com.playandroid.mine.data.repository
 
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.ext.execute
-import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.mvvm.http.response.EmptyRsp
-import zqx.rj.com.playandroid.common.net.BaseObserver
 import zqx.rj.com.playandroid.common.article.data.repository.ArticleRepository
+import zqx.rj.com.playandroid.other.bean.BaseResponse
+import zqx.rj.com.playandroid.other.bean.EmptyRsp
+import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
 import zqx.rj.com.playandroid.mine.data.bean.CollectRsp
 
 /**
@@ -14,17 +11,15 @@ import zqx.rj.com.playandroid.mine.data.bean.CollectRsp
  * created： 2018/10/23 14:46
  * desc：    TODO
  */
-class MineRepository(loadState: MutableLiveData<State>) : ArticleRepository(loadState) {
+class MineRepository : ArticleRepository() {
 
     // 获取我的收藏
-    fun getCollectArticle(page: Int, liveData: MutableLiveData<BaseResponse<CollectRsp>>) {
-        apiService.getCollectArticle(page)
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun getCollectArticle(page: Int): BaseResponse<CollectRsp> {
+        return launchIO { apiService.getCollectArticleAsync(page).await() }
     }
 
     // 取消 我的收藏
-    fun unCollect(id: Int, originId: Int, liveData: MutableLiveData<BaseResponse<EmptyRsp>>) {
-        apiService.unMyCollect(id, originId)
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun unCollect(id: Int, originId: Int): BaseResponse<EmptyRsp> {
+        return launchIO { apiService.unMyCollectAsync(id, originId).await() }
     }
 }

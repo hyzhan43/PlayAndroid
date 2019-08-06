@@ -1,25 +1,18 @@
 package zqx.rj.com.playandroid.common.article.data.repository
 
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.ext.execute
-import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.mvvm.http.response.EmptyRsp
-import zqx.rj.com.playandroid.common.net.BaseObserver
-import zqx.rj.com.playandroid.common.net.ApiRepository
+import com.zhan.mvvm.mvvm.BaseRepository
+import zqx.rj.com.playandroid.other.bean.BaseResponse
+import zqx.rj.com.playandroid.other.bean.EmptyRsp
+import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
 
 /**
  * author：  HyZhan
  * created： 2018/11/2 19:24
  * desc：    文章 收藏仓库
  */
-abstract class ArticleRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
+abstract class ArticleRepository : BaseRepository() {
 
-    fun collect(id: Int, liveData: MutableLiveData<BaseResponse<EmptyRsp>>) {
-        apiService.collect(id).execute(BaseObserver(liveData, loadState, this))
-    }
+    suspend fun collect(id: Int): BaseResponse<EmptyRsp> = apiService.collectAsync(id).await()
 
-    fun unCollect(id: Int, liveData: MutableLiveData<BaseResponse<EmptyRsp>>) {
-        apiService.unCollect(id).execute(BaseObserver(liveData, loadState, this))
-    }
+    suspend fun unCollect(id: Int): BaseResponse<EmptyRsp> = apiService.unCollectAsync(id).await()
 }

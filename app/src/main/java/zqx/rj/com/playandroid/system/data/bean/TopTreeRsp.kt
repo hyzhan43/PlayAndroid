@@ -6,6 +6,6 @@ package zqx.rj.com.playandroid.system.data.bean
  * desc：    体系下 第一层级数据
  */
 data class TopTreeRsp(
-        var children: List<SecondTreeRsp>,
-        var name: String
+        val children: List<SecondTreeRsp>,
+        val name: String
 )

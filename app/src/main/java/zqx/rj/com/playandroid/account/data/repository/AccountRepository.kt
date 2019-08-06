@@ -1,13 +1,10 @@
 package zqx.rj.com.playandroid.account.data.repository
 
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.ext.execute
-import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.playandroid.common.net.BaseObserver
+import com.zhan.mvvm.mvvm.BaseRepository
+import zqx.rj.com.playandroid.other.bean.BaseResponse
 import zqx.rj.com.playandroid.account.data.bean.LoginRsp
 import zqx.rj.com.playandroid.account.data.bean.RegisterRsp
-import zqx.rj.com.playandroid.common.net.ApiRepository
+import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
 
 
 /**
@@ -15,16 +12,13 @@ import zqx.rj.com.playandroid.common.net.ApiRepository
  * created： 2018/10/11 14:56
  * desc：    账户仓库
  */
-class AccountRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
+class AccountRepository: BaseRepository() {
 
-    fun login(username: String, password: String, liveData: MutableLiveData<BaseResponse<LoginRsp>>) {
-        apiService.getLogin(username, password)
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun login(username: String, password: String): BaseResponse<LoginRsp> {
+        return apiService.loginAsync(username, password).await()
     }
 
-    fun register(username: String, password: String, repassword: String,
-                 liveData: MutableLiveData<BaseResponse<RegisterRsp>>) {
-        apiService.getRegister(username, password, repassword)
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun register(username: String, password: String, rePassword: String): BaseResponse<RegisterRsp> {
+        return apiService.registerAsync(username, password, rePassword).await()
     }
 }

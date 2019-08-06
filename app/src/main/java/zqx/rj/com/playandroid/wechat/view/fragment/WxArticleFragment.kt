@@ -1,9 +1,8 @@
 package zqx.rj.com.playandroid.wechat.view.fragment
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
 import zqx.rj.com.playandroid.wechat.vm.WeChatViewModel
 
@@ -31,23 +30,23 @@ class WxArticleFragment : ArticleListFragment<WeChatViewModel>() {
     override fun initData() {
         super.initData()
         page = 1
-        mViewModel.getWxArticle(uid, page)
+        viewModel.getWxArticle(uid, page)
     }
 
     override fun onRefreshData() {
         page = 1
-        mViewModel.getWxArticle(uid, page)
+        viewModel.getWxArticle(uid, page)
     }
 
     override fun onLoadMoreData() {
-        mViewModel.getWxArticle(uid, ++page)
+        viewModel.getWxArticle(uid, ++page)
     }
 
     override fun dataObserver() {
         super.dataObserver()
 
-        mViewModel.mWxArticleData.observe(this, Observer { response ->
-            response?.let { addData(it.data.datas) }
+        viewModel.wxArticleData.observe(this, Observer {
+            addData(it.datas)
         })
     }
 }

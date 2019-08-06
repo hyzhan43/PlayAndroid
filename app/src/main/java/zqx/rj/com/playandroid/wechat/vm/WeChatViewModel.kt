@@ -1,8 +1,6 @@
 package zqx.rj.com.playandroid.wechat.vm
 
-import android.app.Application
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.http.response.BaseResponse
+import androidx.lifecycle.MutableLiveData
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 import zqx.rj.com.playandroid.wechat.data.bean.WeChatNameRsp
 import zqx.rj.com.playandroid.wechat.data.bean.WxArticleRsp
@@ -13,18 +11,26 @@ import zqx.rj.com.playandroid.wechat.data.repository.WeChatRepository
  * created： 2018/11/2 16:28
  * desc：    TODO
  */
-class WeChatViewModel(application: Application) : ArticleViewModel<WeChatRepository>(application) {
+class WeChatViewModel : ArticleViewModel<WeChatRepository>() {
 
-    var mWeChatNameData: MutableLiveData<BaseResponse<List<WeChatNameRsp>>> = MutableLiveData()
-    var mWxArticleData: MutableLiveData<BaseResponse<WxArticleRsp>> = MutableLiveData()
+    var weChatNameData = MutableLiveData<List<WeChatNameRsp>>()
+    var wxArticleData = MutableLiveData<WxArticleRsp>()
 
 
     fun getWeChatName() {
-        mRepository.getWeChatName(mWeChatNameData)
+        launchUI({
+            repository.getWeChatName().execute({
+                weChatNameData.value = it
+            })
+        })
     }
 
     fun getWxArticle(id: Int, page: Int) {
-        mRepository.getWxArticle(id, page, mWxArticleData)
+        launchUI({
+            repository.getWxArticle(id, page).execute({
+                wxArticleData.value = it
+            })
+        })
     }
 
 }

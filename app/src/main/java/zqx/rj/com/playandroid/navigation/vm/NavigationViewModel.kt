@@ -1,10 +1,7 @@
 package zqx.rj.com.playandroid.navigation.vm
 
-import android.app.Application
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.base.BaseApplication
-import zqx.rj.com.mvvm.base.BaseViewModel
-import zqx.rj.com.mvvm.http.response.BaseResponse
+import androidx.lifecycle.MutableLiveData
+import com.zhan.mvvm.mvvm.BaseViewModel
 import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
 import zqx.rj.com.playandroid.navigation.data.repository.NavigationRepository
 
@@ -13,12 +10,14 @@ import zqx.rj.com.playandroid.navigation.data.repository.NavigationRepository
  * created： 2018/10/21 18:51
  * desc：    TODO
  */
-class NavigationViewModel(application: Application) : BaseViewModel<NavigationRepository>(application) {
+class NavigationViewModel : BaseViewModel<NavigationRepository>() {
 
-    val mCategory: MutableLiveData<BaseResponse<List<NaviCategoryRsp>>> = MutableLiveData()
+    val category = MutableLiveData<List<NaviCategoryRsp>>()
 
     fun getCategory() {
-        mRepository.getCategory(mCategory)
+        launchUI({
+            repository.getCategory().execute({ category.value = it })
+        })
     }
 
 }

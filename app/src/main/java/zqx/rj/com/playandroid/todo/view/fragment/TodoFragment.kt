@@ -1,28 +1,28 @@
 package zqx.rj.com.playandroid.todo.view.fragment
 
-import android.arch.lifecycle.Observer
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.os.Bundle
-import android.support.annotation.ColorRes
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.widget.LinearLayout
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback
 import com.gavin.com.library.StickyDecoration
 import com.gavin.com.library.listener.GroupListener
+import com.zhan.mvvm.common.Preference
+import com.zhan.mvvm.ext.Toasts.toast
+import com.zhan.mvvm.ext.startActivity
+import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.fragment_todo.*
-import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
-import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.mvvm.common.OnItemSwipeListenerAdapter
-import zqx.rj.com.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.state.callback.todo.TodoContext
 import zqx.rj.com.mvvm.state.callback.todo.TypeChangeListener
@@ -90,10 +90,10 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
     /**
      *  重新加载
      */
-    override fun reLoad() {
-        page = 1
-        mViewModel.getTodoList(page, status, type)
-    }
+//    override fun reLoad() {
+//        page = 1
+//        viewModel.getTodoList(page, status, type)
+//    }
 
 
     private fun initTodoList() {
@@ -106,7 +106,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
         // 开启上拉加载更多
         mTodoAdapter.setEnableLoadMore(true)
         mTodoAdapter.setOnLoadMoreListener({
-            mViewModel.getTodoList(++page, status, type)
+            viewModel.getTodoList(++page, status, type)
         }, mRvTodo)
 
         // 设置 item 的组名
@@ -121,7 +121,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
         val decoration = StickyDecoration.Builder
                 .init(groupListener)
                 .setTextSideMargin(20)
-                .setGroupBackground(ContextCompat.getColor(activity!!, R.color.lightBlue))
+                .setGroupBackground(ContextCompat.getColor(activity!!, R.color.light_blue_500))
                 .build()
         mRvTodo.addItemDecoration(decoration)
 
@@ -144,7 +144,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
                 // 滑动完成或还原 回调  (status = 1 完成, status = 0 未完成)
                 // 如果当前页面是 未完成fragment 则是 完成 status = 1。
                 val isFinish = if (status == 1) 0 else 1
-                mViewModel.finishTodo(mTodoAdapter.getItem(pos)?.id ?: 0, isFinish)
+                viewModel.finishTodo(mTodoAdapter.getItem(pos)?.id ?: 0, isFinish)
             }
         })
 
@@ -154,7 +154,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
                 // item 删除
                 R.id.mTvDelete -> {
                     deleteIndex = position
-                    mViewModel.deleteTodo(mTodoAdapter.getItem(position)?.id ?: 0)
+                    viewModel.deleteTodo(mTodoAdapter.getItem(position)?.id ?: 0)
                 }
                 // item 重要
                 R.id.mTvImportant -> {
@@ -168,7 +168,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
                             Constant.TODO_IMPORTANT
                         }
 
-                        mViewModel.updateTodo(
+                        viewModel.updateTodo(
                                 it.id,
                                 it.title,
                                 it.dateStr,
@@ -226,20 +226,20 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
 
         showLoading()
         page = 1
-        mViewModel.getTodoList(page, status, type)
+        viewModel.getTodoList(page, status, type)
     }
 
     override fun dataObserver() {
-        mViewModel.mTodoData.observe(this, Observer { response ->
-            response?.data?.datas?.let { setTodoData(it) }
+        viewModel.todoData.observe(this, Observer {
+            setTodoData(it.datas)
         })
 
-        mViewModel.mDeleteTodoData.observe(this, Observer {
+        viewModel.deleteTodoData.observe(this, Observer {
             mTodoAdapter.remove(deleteIndex)
             toast(getString(R.string.delete_suc))
         })
 
-        mViewModel.mUpdateTodoData.observe(this, Observer {
+        viewModel.updateTodoData.observe(this, Observer {
             // 改变数据源
             mTodoAdapter.data[updateIndex].priority = priority
             // 局部刷新 recyclerView
@@ -289,7 +289,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
 
     private fun refresh() {
         page = 1
-        mViewModel.getTodoList(page, status, type)
+        viewModel.getTodoList(page, status, type)
     }
 
     override fun onDestroy() {

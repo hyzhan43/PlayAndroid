@@ -7,7 +7,7 @@
     app:contentView="@+id/content"
     app:rightMenuView="@+id/right">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             app:layout_constraintStart_toEndOf="@+id/mTvType"
             app:layout_constraintTop_toBottomOf="@+id/mTvTitle" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!--右边删除-->
     <LinearLayout

@@ -1,11 +1,8 @@
 package zqx.rj.com.playandroid.system.data.repository
 
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.ext.execute
-import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.playandroid.common.net.BaseObserver
 import zqx.rj.com.playandroid.common.article.data.repository.ArticleRepository
+import zqx.rj.com.playandroid.other.bean.BaseResponse
+import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
 import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
 import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
 
@@ -14,15 +11,13 @@ import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
  * created： 2018/10/22 19:34
  * desc：    TODO
  */
-class SystemRepository(loadState: MutableLiveData<State>) : ArticleRepository(loadState) {
+class SystemRepository : ArticleRepository() {
 
-    fun getTree(liveData: MutableLiveData<BaseResponse<List<TopTreeRsp>>>) {
-        apiService.getTree()
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun getTree(): BaseResponse<List<TopTreeRsp>> {
+        return launchIO { apiService.getTreeAsync().await() }
     }
 
-    fun getArticle(page: Int, cid: Int, liveData: MutableLiveData<BaseResponse<TreeArticleRsp>>) {
-        apiService.getArticleTree(page, cid)
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun getArticle(page: Int, cid: Int): BaseResponse<TreeArticleRsp> {
+        return launchIO { apiService.getArticleTreeAsync(page, cid).await() }
     }
 }

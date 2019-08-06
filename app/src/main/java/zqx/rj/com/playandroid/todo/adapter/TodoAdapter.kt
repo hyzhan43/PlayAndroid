@@ -3,7 +3,7 @@ package zqx.rj.com.playandroid.todo.adapter
 import com.chad.library.adapter.base.BaseItemDraggableAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import zqx.rj.com.mvvm.common.constant.Constant
-import zqx.rj.com.mvvm.ext.toHtml
+import zqx.rj.com.playandroid.other.ext.toHtml
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.todo.data.bean.TodoRsp
 

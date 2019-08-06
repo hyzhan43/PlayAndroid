@@ -1,10 +1,8 @@
 package zqx.rj.com.playandroid.mine.vm
 
-import android.app.Application
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.mvvm.http.response.EmptyRsp
+import androidx.lifecycle.MutableLiveData
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
+import zqx.rj.com.playandroid.other.bean.EmptyRsp
 import zqx.rj.com.playandroid.mine.data.bean.CollectRsp
 import zqx.rj.com.playandroid.mine.data.repository.MineRepository
 
@@ -13,16 +11,24 @@ import zqx.rj.com.playandroid.mine.data.repository.MineRepository
  * created： 2018/10/23 14:45
  * desc：    TODO
  */
-class MineViewModel(application: Application) : ArticleViewModel<MineRepository>(application) {
+class MineViewModel : ArticleViewModel<MineRepository>() {
 
-    val mCollectArticleData: MutableLiveData<BaseResponse<CollectRsp>> = MutableLiveData()
-    val mRequestCollectData: MutableLiveData<BaseResponse<EmptyRsp>> = MutableLiveData()
+    val collectArticleData = MutableLiveData<CollectRsp>()
+    val requestCollectData = MutableLiveData<EmptyRsp>()
 
     fun getCollectArticle(page: Int) {
-        mRepository.getCollectArticle(page, mCollectArticleData)
+        launchUI({
+            repository.getCollectArticle(page).execute({
+                collectArticleData.value = it
+            })
+        })
     }
 
     fun unMyCollect(id: Int, originId: Int) {
-        mRepository.unCollect(id, originId, mRequestCollectData)
+        launchUI({
+            repository.unCollect(id, originId).execute({
+                requestCollectData.value = it
+            })
+        })
     }
 }

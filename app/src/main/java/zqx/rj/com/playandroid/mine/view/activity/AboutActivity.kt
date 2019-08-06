@@ -1,12 +1,12 @@
 package zqx.rj.com.playandroid.mine.view.activity
 
 import android.view.View
+import com.zhan.mvvm.base.BaseActivity
+import com.zhan.mvvm.ext.startActivity
 import kotlinx.android.synthetic.main.activity_about.*
 import kotlinx.android.synthetic.main.common_bar.*
-import org.jetbrains.anko.startActivity
-import zqx.rj.com.mvvm.base.BaseActivity
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivity
+import zqx.rj.com.playandroid.common.WebViewActivity
 
 /**
  * author：  HyZhan

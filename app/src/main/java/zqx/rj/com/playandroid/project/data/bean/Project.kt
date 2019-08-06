@@ -6,12 +6,12 @@ package zqx.rj.com.playandroid.project.data.bean
  * desc：    TODO
  */
 class Project(
-        var author: String,
-        var chapterName: String,
-        var desc: String,
-        var envelopePic: String,
-        var link: String,
-        var niceDate: String,
-        var superChapterName: String,
-        var title: String
+        val author: String,
+        val chapterName: String,
+        val desc: String,
+        val envelopePic: String,
+        val link: String,
+        val niceDate: String,
+        val superChapterName: String,
+        val title: String
 )

@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <include layout="@layout/common_bar" />
 
@@ -30,36 +30,36 @@
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:textIsSelectable="true"
         android:text="@string/github"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/mTvCsdn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:textIsSelectable="true"
         android:text="@string/csdn"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textIsSelectable="true" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:padding="10dp"
         android:text="@string/email"
-        android:textIsSelectable="true"
-        android:layout_marginTop="10dp"/>
+        android:textIsSelectable="true" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:padding="10dp"
         android:text="@string/qq"
-        android:textIsSelectable="true"
-        android:layout_marginTop="10dp"/>
+        android:textIsSelectable="true" />
 </LinearLayout>

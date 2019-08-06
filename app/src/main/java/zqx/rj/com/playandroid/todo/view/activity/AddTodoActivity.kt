@@ -1,28 +1,25 @@
 package zqx.rj.com.playandroid.todo.view.activity
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.bigkoo.pickerview.view.TimePickerView
+import com.zhan.mvvm.ext.Toasts.toast
+import com.zhan.mvvm.ext.getColorRef
+import com.zhan.mvvm.ext.str
+import com.zhan.mvvm.mvvm.LifecycleActivity
 import kotlinx.android.synthetic.main.activity_add_todo.*
-import kotlinx.android.synthetic.main.layout_toolbar.*
-import org.jetbrains.anko.toast
-import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.mvvm.common.constant.Constant
-import zqx.rj.com.mvvm.ext.format
-import zqx.rj.com.mvvm.ext.str
-import zqx.rj.com.mvvm.ext.toColor
-import zqx.rj.com.mvvm.ext.toHtml
 import zqx.rj.com.mvvm.state.callback.todo.TodoContext
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.other.ext.format
+import zqx.rj.com.playandroid.other.ext.toHtml
 import zqx.rj.com.playandroid.todo.vm.TodoViewModel
 import java.util.*
 import kotlin.collections.ArrayList
-
-
 
 
 /**
@@ -47,7 +44,7 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
     override fun initView() {
         super.initView()
 
-        setToolBar(toolbar, getString(R.string.add_todo))
+        // setToolBar(toolbar, getString(R.string.add_todo))
 
         initTimePick()
         mLlDate.setOnClickListener { mTimeView.show() }
@@ -86,7 +83,7 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
      */
     private fun saveTodo() {
         showLoading()
-        mViewModel.saveTodo(mEtTitle.str(),
+        viewModel.saveTodo(mEtTitle.str(),
                 mTvTime.str(),
                 getIntType(mTvType.str()),
                 mEtContent.str())
@@ -97,7 +94,7 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
      */
     private fun updateTodo() {
         showLoading()
-        mViewModel.updateTodo(
+        viewModel.updateTodo(
                 id,
                 mEtTitle.str(),
                 mTvTime.str(),
@@ -112,8 +109,8 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
         //时间选择器
         mTimeView = TimePickerBuilder(this, OnTimeSelectListener { date, _ ->
             mTvTime.text = date.format()
-        }).setSubmitColor(R.color.colorPrimaryDark.toColor(this))
-                .setCancelColor(R.color.colorPrimaryDark.toColor(this))
+        }).setSubmitColor(getColorRef(R.color.colorPrimaryDark))
+                .setCancelColor(getColorRef(R.color.colorPrimaryDark))
                 .build()
     }
 
@@ -129,8 +126,8 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
         mTypeView = OptionsPickerBuilder(this, OnOptionsSelectListener { options1, _, _, _ ->
             // options1 为 选中索引
             mTvType.text = typeList[options1]
-        }).setSubmitColor(R.color.colorPrimaryDark.toColor(this))
-                .setCancelColor(R.color.colorPrimaryDark.toColor(this))
+        }).setSubmitColor(getColorRef(R.color.colorPrimaryDark))
+                .setCancelColor(getColorRef(R.color.colorPrimaryDark))
                 .build<String>()
 
         // 设置数据源
@@ -138,11 +135,11 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
     }
 
     override fun dataObserver() {
-        mViewModel.mSaveTodoData.observe(this, Observer {
+        viewModel.saveTodoData.observe(this, Observer {
             refreshData()
         })
 
-        mViewModel.mUpdateTodoData.observe(this, Observer {
+        viewModel.updateTodoData.observe(this, Observer {
             refreshData()
         })
     }
@@ -178,11 +175,11 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
     /**
      *  保存失败，重新保存回调
      */
-    override fun reLoad() {
-        super.reLoad()
-        // 发起保存请求
-        saveTodo()
-    }
+//    override fun reLoad() {
+//        super.reLoad()
+//        // 发起保存请求
+//        saveTodo()
+//    }
 
     override fun onBackPressed() = finish()
 }

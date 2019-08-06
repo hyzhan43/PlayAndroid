@@ -5,8 +5,8 @@ package zqx.rj.com.playandroid.home.data.bean
  * created： 2018/10/14 18:57
  * desc：    banner
  */
-class BannerRsp(var id: Int,
-                var desc: String,
-                var imagePath: String,
-                var title: String,
-                var url: String)
+data class BannerRsp(val id: Int,
+                     val desc: String,
+                     val imagePath: String,
+                     val title: String,
+                     val url: String)

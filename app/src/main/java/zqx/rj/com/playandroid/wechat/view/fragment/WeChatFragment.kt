@@ -1,9 +1,9 @@
 package zqx.rj.com.playandroid.wechat.view.fragment
 
-import android.arch.lifecycle.Observer
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.fragment_wechat.*
-import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.wechat.adapter.WxNameAdapter
 import zqx.rj.com.playandroid.wechat.data.bean.WeChatNameRsp
@@ -28,13 +28,13 @@ class WeChatFragment : LifecycleFragment<WeChatViewModel>() {
     override fun initData() {
         super.initData()
 
-        mViewModel.getWeChatName()
+        viewModel.getWeChatName()
     }
 
 
     override fun dataObserver() {
-        mViewModel.mWeChatNameData.observe(this, Observer { response ->
-            response?.let { initWxArticle(it.data) }
+        viewModel.weChatNameData.observe(this, Observer {
+            initWxArticle(it)
         })
     }
 

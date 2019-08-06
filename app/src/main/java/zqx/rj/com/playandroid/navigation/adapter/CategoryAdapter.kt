@@ -1,7 +1,7 @@
 package zqx.rj.com.playandroid.navigation.adapter
 
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import kotlinx.android.synthetic.main.navigation_category_item.view.*

@@ -1,15 +1,15 @@
 package zqx.rj.com.playandroid.common.article.view
 
-import android.arch.lifecycle.Observer
-import android.support.v7.widget.LinearLayoutManager
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.zhan.mvvm.ext.startActivity
+import com.zhan.mvvm.mvvm.LifecycleActivity
 import kotlinx.android.synthetic.main.fragment_article_list.*
-import org.jetbrains.anko.startActivity
-import zqx.rj.com.mvvm.base.LifecycleActivity
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivity
+import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.account.data.context.UserContext
-import zqx.rj.com.playandroid.common.adapter.ArticleAdapter
+import zqx.rj.com.playandroid.common.article.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 
@@ -105,7 +105,7 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
     override fun dataObserver() {
 
         // 收藏成功回调
-        mViewModel.mCollectData.observe(this, Observer {
+        viewModel.collectData.observe(this, Observer {
 
             val article = mArticleAdapter.getItem(current)
 
@@ -129,7 +129,7 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
             state = it.collect
 
             // 发起 收藏/取消收藏  请求
-            if (state) mViewModel.unCollect(it.id) else mViewModel.collect(it.id)
+            if (state) viewModel.unCollect(it.id) else viewModel.collect(it.id)
         }
     }
 }

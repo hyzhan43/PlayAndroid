@@ -1,14 +1,14 @@
 package zqx.rj.com.playandroid.project.view.fragment
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import com.zhan.mvvm.ext.startActivity
+import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.fragment_project_tab.*
-import org.jetbrains.anko.support.v4.startActivity
-import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.WebViewActivity
+import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.project.adapter.ProjectTabAdapter
 import zqx.rj.com.playandroid.project.data.bean.Project
 import zqx.rj.com.playandroid.project.vm.ProjectViewModel
@@ -53,8 +53,7 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
             val project = mAdapter.getItem(position)
 
             project?.let {
-                startActivity<WebViewActivity>("link" to project.link,
-                        "title" to project.title)
+                startActivity<WebViewActivity>("link" to project.link, "title" to project.title)
             }
         }
 
@@ -76,14 +75,14 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
 
     private fun getProjects(page: Int) {
         arguments?.getInt("id")?.let {
-            mViewModel.getProjects(page, it)
+            viewModel.getProjects(page, it)
         }
     }
 
 
     override fun dataObserver() {
-        mViewModel.mProjectsData.observe(this, Observer { response ->
-            response?.data?.let { addData(it.datas) }
+        viewModel.projectsData.observe(this, Observer {
+            addData(it.datas)
         })
     }
 

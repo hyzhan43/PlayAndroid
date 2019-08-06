@@ -6,10 +6,10 @@ package zqx.rj.com.playandroid.wechat.data.bean
  * desc：    微信公众号列表
  */
 data class WeChatNameRsp(
-        var courseId: Int,
-        var name: String,
-        var id: Int,
-        var order: Int,
-        var parentChapterId: Int,
-        var userControlSetTop: Boolean
+        val courseId: Int,
+        val name: String,
+        val id: Int,
+        val order: Int,
+        val parentChapterId: Int,
+        val userControlSetTop: Boolean
 )

@@ -1,11 +1,8 @@
 package zqx.rj.com.playandroid.home.data.repository
 
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.ext.execute
-import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.playandroid.common.net.BaseObserver
 import zqx.rj.com.playandroid.common.article.data.repository.ArticleRepository
+import zqx.rj.com.playandroid.other.bean.BaseResponse
+import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
 import zqx.rj.com.playandroid.home.data.bean.BannerRsp
 import zqx.rj.com.playandroid.home.data.bean.CommonWebRsp
 import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
@@ -15,20 +12,17 @@ import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
  * created： 2018/10/14 19:09
  * desc：    首页仓库
  */
-class HomeRepository(loadState: MutableLiveData<State>) : ArticleRepository(loadState) {
+class HomeRepository : ArticleRepository() {
 
-    fun getBanner(liveData: MutableLiveData<BaseResponse<List<BannerRsp>>>) {
-        apiService.getBanner()
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun getBanner(): BaseResponse<List<BannerRsp>> {
+        return launchIO { apiService.getBannerAsync().await() }
     }
 
-    fun getArticle(page: Int, liveData: MutableLiveData<BaseResponse<HomeArticleRsp>>) {
-        apiService.getHomeArticle(page)
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun getArticle(page: Int): BaseResponse<HomeArticleRsp> {
+        return launchIO { apiService.getHomeArticleAsync(page).await() }
     }
 
-    fun getCommonWeb(liveData: MutableLiveData<BaseResponse<List<CommonWebRsp>>>) {
-        apiService.getCommonWeb()
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun getCommonWeb(): BaseResponse<List<CommonWebRsp>> {
+        return launchIO { apiService.getCommonWebAsync().await() }
     }
 }

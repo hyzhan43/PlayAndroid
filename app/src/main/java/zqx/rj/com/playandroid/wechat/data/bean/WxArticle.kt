@@ -6,15 +6,15 @@ package zqx.rj.com.playandroid.wechat.data.bean
  * desc：    TODO
  */
 data class WxArticle(
-        var apkLink: String,
-        var author: String,
-        var chapterName: String,
-        var link: String,
-        var niceDate: String,
-        var collect: Boolean,
-        var superChapterName: String,
+        val apkLink: String,
+        val author: String,
+        val chapterName: String,
+        val link: String,
+        val niceDate: String,
+        val collect: Boolean,
+        val superChapterName: String,
 //        var publishTime: Int,
-        var id: Int,
-        var title: String,
-        var superChapterId: Int
+        val id: Int,
+        val title: String,
+        val superChapterId: Int
 )

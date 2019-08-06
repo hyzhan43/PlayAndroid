@@ -8,7 +8,7 @@ import zqx.rj.com.playandroid.common.article.data.bean.Article
  * desc：    TODO
  */
 data class CollectRsp(
-        var curPage: Int,
-        var datas: List<Article>,
-        var total: Int
+        val curPage: Int,
+        val datas: List<Article>,
+        val total: Int
 )

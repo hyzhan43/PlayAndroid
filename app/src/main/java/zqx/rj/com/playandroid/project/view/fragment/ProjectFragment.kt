@@ -1,9 +1,9 @@
 package zqx.rj.com.playandroid.project.view.fragment
 
-import android.arch.lifecycle.Observer
-import android.support.v4.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.fragment_project.*
-import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.project.adapter.ViewPagerAdapter
 import zqx.rj.com.playandroid.project.data.bean.ProjectTreeRsp
@@ -32,15 +32,13 @@ class ProjectFragment : LifecycleFragment<ProjectViewModel>() {
         super.initData()
 
         // 获取项目 分类数据
-        mViewModel.getProjectTree()
+        viewModel.getProjectTree()
     }
 
     override fun dataObserver() {
-        mViewModel.mProjectTreeData.observe(this, Observer {response->
-            response?.let {
-                initTitles(it.data)
-                initFragment(it.data)
-            }
+        viewModel.projectTreeData.observe(this, Observer {
+            initTitles(it)
+            initFragment(it)
         })
     }
 

@@ -6,7 +6,7 @@ package zqx.rj.com.playandroid.navigation.data.bean
  * desc：    TODO
  */
 data class Represent(
-        var link: String,
-        var niceDate: String,
-        var title: String
+        val link: String,
+        val niceDate: String,
+        val title: String
 )

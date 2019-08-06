@@ -2,7 +2,7 @@ package zqx.rj.com.playandroid.account.data.context
 
 import android.app.Activity
 import android.content.Context
-import zqx.rj.com.mvvm.common.Preference
+import com.zhan.mvvm.common.Preference
 import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.state.UserState
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener

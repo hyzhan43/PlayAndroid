@@ -1,11 +1,8 @@
 package zqx.rj.com.playandroid.navigation.data.repository
 
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.common.State
-import zqx.rj.com.mvvm.ext.execute
-import zqx.rj.com.mvvm.http.response.BaseResponse
-import zqx.rj.com.playandroid.common.net.BaseObserver
-import zqx.rj.com.playandroid.common.net.ApiRepository
+import com.zhan.mvvm.mvvm.BaseRepository
+import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
+import zqx.rj.com.playandroid.other.bean.BaseResponse
 import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
 
 /**
@@ -13,11 +10,9 @@ import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
  * created： 2018/10/21 18:52
  * desc：    TODO
  */
-class NavigationRepository(val loadState: MutableLiveData<State>) : ApiRepository() {
+class NavigationRepository : BaseRepository() {
 
-    fun getCategory(liveData: MutableLiveData<BaseResponse<List<NaviCategoryRsp>>>) {
-        apiService.getCategory()
-                .execute(BaseObserver(liveData, loadState, this))
+    suspend fun getCategory(): BaseResponse<List<NaviCategoryRsp>> {
+        return launchIO { apiService.getCategoryAsync().await() }
     }
-
 }

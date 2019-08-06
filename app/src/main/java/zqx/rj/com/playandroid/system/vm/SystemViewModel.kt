@@ -1,8 +1,6 @@
 package zqx.rj.com.playandroid.system.vm
 
-import android.app.Application
-import android.arch.lifecycle.MutableLiveData
-import zqx.rj.com.mvvm.http.response.BaseResponse
+import androidx.lifecycle.MutableLiveData
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
 import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
@@ -13,16 +11,24 @@ import zqx.rj.com.playandroid.system.data.repository.SystemRepository
  * created： 2018/10/22 19:33
  * desc：    TODO
  */
-class SystemViewModel(application: Application) : ArticleViewModel<SystemRepository>(application) {
+class SystemViewModel : ArticleViewModel<SystemRepository>() {
 
-    val mTreeData: MutableLiveData<BaseResponse<List<TopTreeRsp>>> = MutableLiveData()
-    val mTreeArticleData: MutableLiveData<BaseResponse<TreeArticleRsp>> = MutableLiveData()
+    val treeData = MutableLiveData<List<TopTreeRsp>>()
+    val treeArticleData = MutableLiveData<TreeArticleRsp>()
 
     fun getTree() {
-        mRepository.getTree(mTreeData)
+        launchUI({
+            repository.getTree().execute({
+                treeData.value = it
+            })
+        })
     }
 
     fun getArticle(cid: Int, page: Int) {
-        mRepository.getArticle(page, cid, mTreeArticleData)
+        launchUI({
+            repository.getArticle(page, cid).execute({
+                treeArticleData.value = it
+            })
+        })
     }
 }

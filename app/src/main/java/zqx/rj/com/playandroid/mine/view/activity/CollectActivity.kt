@@ -1,6 +1,6 @@
 package zqx.rj.com.playandroid.mine.view.activity
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.view.View
 import kotlinx.android.synthetic.main.common_bar.view.*
 import zqx.rj.com.playandroid.R
@@ -43,18 +43,18 @@ class CollectActivity : ArticleListActivity<MineViewModel>() {
 
         page = 0
         // 获取收藏的文章
-        mViewModel.getCollectArticle(page)
+        viewModel.getCollectArticle(page)
     }
 
     override fun dataObserver() {
 
         // 获取 收藏数据
-        mViewModel.mCollectArticleData.observe(this, Observer { response ->
-            response?.let { buildCollectData(it.data.datas) }
+        viewModel.collectArticleData.observe(this, Observer {
+            buildCollectData(it.datas)
         })
 
         // 取消收藏
-        mViewModel.mRequestCollectData.observe(this, Observer {
+        viewModel.requestCollectData.observe(this, Observer {
             // 同步 recyclerView
             mArticleAdapter.remove(current)
         })
@@ -72,11 +72,11 @@ class CollectActivity : ArticleListActivity<MineViewModel>() {
 
     override fun onRefreshData() {
         page = 0
-        mViewModel.getCollectArticle(page)
+        viewModel.getCollectArticle(page)
     }
 
     override fun onLoadMoreData() {
-        mViewModel.getCollectArticle(++page)
+        viewModel.getCollectArticle(++page)
     }
 
     // 覆盖父类！！因为调用接口不一样
@@ -88,7 +88,7 @@ class CollectActivity : ArticleListActivity<MineViewModel>() {
         article?.let {
             current = position
             // 文章 id
-            mViewModel.unMyCollect(it.id, it.originId)
+            viewModel.unMyCollect(it.id, it.originId)
         }
     }
 

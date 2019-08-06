@@ -1,9 +1,9 @@
 package zqx.rj.com.playandroid.system.view.fragment
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_system_article.*
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
@@ -60,35 +60,33 @@ class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListen
 
         page = 0
         // 默认获取 一级菜单 二级菜单 第一个
-        mViewModel.getArticle(getCurrentCid(0), page)
+        viewModel.getArticle(getCurrentCid(0), page)
     }
 
     override fun dataObserver() {
         // 调用父类 dataObserver
         super.dataObserver()
 
-        mViewModel.mTreeArticleData.observe(this, Observer { response ->
-            response?.let {
-                if (flag) {
-                    // 如果是切换了 tab  就重新设置 新的数据
-                    // 后续的 加载更多就直接 添加数据
-                    // 例如  开发环境 -> AndroidStudio 相关 切换至 gradle 就重新设置数据
-                    mArticleAdapter.setNewData(it.data.datas)
-                    flag = false
-                } else {
-                    addData(it.data.datas)
-                }
+        viewModel.treeArticleData.observe(this, Observer {
+            if (flag) {
+                // 如果是切换了 tab  就重新设置 新的数据
+                // 后续的 加载更多就直接 添加数据
+                // 例如  开发环境 -> AndroidStudio 相关 切换至 gradle 就重新设置数据
+                mArticleAdapter.setNewData(it.datas)
+                flag = false
+            } else {
+                addData(it.datas)
             }
         })
     }
 
     override fun onRefreshData() {
         page = 0
-        mViewModel.getArticle(getCurrentCid(tabIndex), page)
+        viewModel.getArticle(getCurrentCid(tabIndex), page)
     }
 
     override fun onLoadMoreData() {
-        mViewModel.getArticle(getCurrentCid(tabIndex), ++page)
+        viewModel.getArticle(getCurrentCid(tabIndex), ++page)
     }
 
     private fun initSecondTreeTab() {
@@ -103,7 +101,7 @@ class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListen
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 flag = true
                 tabIndex = tab?.position ?: 0
-                mViewModel.getArticle(getCurrentCid(tabIndex), 0)
+                viewModel.getArticle(getCurrentCid(tabIndex), 0)
             }
         })
     }

@@ -6,6 +6,6 @@ package zqx.rj.com.playandroid.project.data.bean
  * desc：    TODO
  */
 data class ProjectTreeRsp(
-        var name: String,
-        var id: Int
+        val name: String,
+        val id: Int
 )

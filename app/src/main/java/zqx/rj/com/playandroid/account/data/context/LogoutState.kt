@@ -1,8 +1,8 @@
 package zqx.rj.com.playandroid.account.data.context
 
 import android.content.Context
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import com.zhan.mvvm.ext.Toasts.toast
+import com.zhan.mvvm.ext.startActivity
 import zqx.rj.com.mvvm.state.UserState
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
@@ -18,7 +18,7 @@ class LogoutState : UserState {
         goLoginActivity(context)
     }
 
-    override fun collect(context: Context?, position: Int,listener: CollectListener) {
+    override fun collect(context: Context?, position: Int, listener: CollectListener) {
         goLoginActivity(context)
     }
 
@@ -32,9 +32,9 @@ class LogoutState : UserState {
 
     // 跳转到登录
     private fun goLoginActivity(context: Context?) {
-        context?.let {
-            it.toast(it.getString(R.string.please_login))
-            it.startActivity<LoginActivity>()
+        context?.run {
+            toast(getString(R.string.please_login))
+            startActivity<LoginActivity>()
         }
     }
 }

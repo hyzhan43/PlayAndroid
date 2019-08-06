@@ -6,6 +6,6 @@ package zqx.rj.com.playandroid.navigation.data.bean
  * desc：    TODO
  */
 data class NaviCategoryRsp(
-        var articles: List<Represent>,
-        var name: String
+        val articles: List<Represent>,
+        val name: String
 )

@@ -6,12 +6,12 @@ package zqx.rj.com.playandroid.todo.data.bean
  * desc：    TODO
  */
 data class TodoRsp(
-        var completeDate: String,
-        var content: String,
-        var dateStr: String,
-        var id: Int,
+        val completeDate: String,
+        val content: String,
+        val dateStr: String,
+        val id: Int,
         var priority: Int,
-        var status: Int,
-        var type: Int,
-        var title: String
+        val status: Int,
+        val type: Int,
+        val title: String
 )

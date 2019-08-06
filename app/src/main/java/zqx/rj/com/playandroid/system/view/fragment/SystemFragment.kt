@@ -1,9 +1,9 @@
 package zqx.rj.com.playandroid.system.view.fragment
 
-import android.arch.lifecycle.Observer
-import android.support.v4.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.fragment_system.*
-import zqx.rj.com.mvvm.base.LifecycleFragment
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.system.adapter.TopTreeAdapter
 import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
@@ -30,12 +30,12 @@ class SystemFragment : LifecycleFragment<SystemViewModel>() {
     override fun initData() {
         super.initData()
 
-        mViewModel.getTree()
+        viewModel.getTree()
     }
 
     override fun dataObserver() {
-        mViewModel.mTreeData.observe(this, Observer { response ->
-            response?.let { initSystemData(it.data) }
+        viewModel.treeData.observe(this, Observer {
+            initSystemData(it)
         })
     }
 

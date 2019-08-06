@@ -1,7 +1,7 @@
 package zqx.rj.com.playandroid.account.data.context
 
 import android.content.Context
-import org.jetbrains.anko.startActivity
+import com.zhan.mvvm.ext.startActivity
 import zqx.rj.com.mvvm.state.UserState
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 import zqx.rj.com.playandroid.mine.view.activity.CollectActivity
