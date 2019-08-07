@@ -10,7 +10,7 @@ import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
 import zqx.rj.com.playandroid.other.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
-import zqx.rj.com.playandroid.account.data.context.UserContext
+import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.common.article.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel

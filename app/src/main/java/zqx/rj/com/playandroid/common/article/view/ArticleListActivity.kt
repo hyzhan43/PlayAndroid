@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.fragment_article_list.*
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
-import zqx.rj.com.playandroid.account.data.context.UserContext
+import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.common.article.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel

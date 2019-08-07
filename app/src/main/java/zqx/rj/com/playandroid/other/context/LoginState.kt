@@ -1,4 +1,4 @@
-package zqx.rj.com.playandroid.account.data.context
+package zqx.rj.com.playandroid.other.context
 
 import android.content.Context
 import com.zhan.mvvm.ext.startActivity

@@ -6,10 +6,8 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
-import com.zhan.mvvm.common.Preference
 import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.startActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,7 +17,7 @@ import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
 import zqx.rj.com.playandroid.other.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.account.data.context.UserContext
+import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.common.search.view.SearchActivity
 import zqx.rj.com.playandroid.delete.ToolbarActivity
 import zqx.rj.com.playandroid.home.view.fragment.HomeFragment
@@ -34,8 +32,6 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     private var clickTime: Long = 0
 
     private lateinit var headView: View
-    // 委托属性   将实现委托给了 -> Preference
-    private var mUsername: String by Preference(Constant.USERNAME_KEY, getString(R.string.not_login))
 
     private val mHomeFragment by lazy { HomeFragment() }
     private val mWeChatFragment by lazy { WeChatFragment() }
@@ -85,7 +81,7 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
 
         // 直接获取报错   error -> mNavMain.mTvName
         headView = mNavMain.getHeaderView(0)
-        headView.mTvName.text = mUsername
+        headView.mTvName.text = UserContext.username
 
         // 点击 登录
         headView.mCivIcon.setOnClickListener { UserContext.login(this) }
@@ -210,7 +206,7 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     // 登录成功 回调
     override fun success(username: String, collectIds: List<Int>?) {
         // 进行 SharedPreference 存储
-        mUsername = username
+        UserContext.username = username
         headView.mTvName.text = username
     }
 

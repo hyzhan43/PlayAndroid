@@ -2,6 +2,7 @@ package zqx.rj.com.playandroid.common
 
 import com.zhan.mvvm.base.BaseActivity
 import com.zhan.mvvm.ext.startActivity
+import kotlinx.coroutines.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.home.view.activity.MainActivity
 
@@ -12,15 +13,23 @@ import zqx.rj.com.playandroid.home.view.activity.MainActivity
  */
 class SplashActivity : BaseActivity() {
 
+    private lateinit var job: Job
+
     override fun getLayoutId(): Int {
         return R.layout.activity_splash
     }
 
     override fun initView() {
-        // 延迟 3s 进入 loginAsync
-//        disposable = Observable.timer(3, TimeUnit.SECONDS)
-//                .subscribe { startActivity<MainActivity>() }
+        // 延迟 3s 进入 主页面
+        job = CoroutineScope(Dispatchers.IO).launch {
+            delay(3000)
+            startActivity<MainActivity>()
+            finish()
+        }
+    }
 
-        startActivity<MainActivity>()
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }

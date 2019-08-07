@@ -7,7 +7,7 @@ import com.zhan.mvvm.ext.str
 import com.zhan.mvvm.mvvm.LifecycleActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.account.data.context.UserContext
+import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.account.vm.AccountViewModel
 
 class LoginActivity : LifecycleActivity<AccountViewModel>(){

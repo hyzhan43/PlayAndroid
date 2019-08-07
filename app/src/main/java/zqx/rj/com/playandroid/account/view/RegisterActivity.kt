@@ -5,7 +5,7 @@ import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.str
 import kotlinx.android.synthetic.main.activity_register.*
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.account.data.context.UserContext
+import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.account.vm.AccountViewModel
 import zqx.rj.com.playandroid.delete.LifecycleActivity
 
