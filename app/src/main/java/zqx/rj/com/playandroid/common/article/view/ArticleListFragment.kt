@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.fragment_article_list.*
 import zqx.rj.com.mvvm.common.SpeedLayoutManager
 import zqx.rj.com.mvvm.state.callback.collect.CollectListener
 import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
-import zqx.rj.com.mvvm.state.callback.login.LoginSucState
+import zqx.rj.com.playandroid.other.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.account.data.context.UserContext
@@ -55,7 +55,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
         // 收藏 按钮
         mArticleAdapter.setOnItemChildClickListener { _, _, position ->
-            UserContext.instance.collect(activity, position, this)
+            UserContext.collect(activity, position, this)
         }
 
         mArticleAdapter.setEnableLoadMore(true)

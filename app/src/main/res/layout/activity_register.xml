@@ -8,16 +8,17 @@
     android:focusableInTouchMode="false"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/mIcBar"
-        layout="@layout/common_bar" />
+    <!--<include-->
+    <!--android:id="@+id/mIcBar"-->
+    <!--layout="@layout/common_bar" />-->
+    <include layout="@layout/layout_toolbar" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
         android:contentDescription="@string/app_name"
         android:elevation="5dp"
         android:src="@drawable/ic_logo"
@@ -31,8 +32,8 @@
         android:layout_marginTop="30dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
         <ImageView
             android:layout_width="26dp"
@@ -62,8 +63,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
         <ImageView
             android:layout_width="26dp"
@@ -94,8 +95,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
         <ImageView
             android:layout_width="26dp"

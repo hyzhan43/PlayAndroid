@@ -1,4 +1,6 @@
-package zqx.rj.com.mvvm.state.callback.login
+package zqx.rj.com.playandroid.other.state.callback.login
+
+import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
 
 object LoginSucState {
 

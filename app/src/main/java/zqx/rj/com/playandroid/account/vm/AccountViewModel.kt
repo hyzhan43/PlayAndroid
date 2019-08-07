@@ -52,9 +52,7 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
         }
 
         launchUI({
-            repository.register(username, password, rePassword).execute({
-                registerData.value = it
-            })
+            repository.register(username, password, rePassword).execute({ registerData.value = it })
         })
     }
 }

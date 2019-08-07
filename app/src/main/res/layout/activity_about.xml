@@ -5,8 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/common_bar" />
-
+    <include layout="@layout/layout_toolbar"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="100dp"
@@ -42,6 +41,17 @@
         android:gravity="center_horizontal"
         android:padding="10dp"
         android:text="@string/csdn"
+        android:textColor="@color/colorPrimaryDark"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/mTvNuggets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="@string/nuggets"
         android:textColor="@color/colorPrimaryDark"
         android:textIsSelectable="true" />
 

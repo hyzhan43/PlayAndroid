@@ -72,7 +72,7 @@
     <string name="mine_collect">我的收藏</string>
     <string name="setting">设置</string>
     <string name="mine_about">关于我的</string>
-    <string name="logout">未登录</string>
+    <string name="logout">退出</string>
     <string name="project">项目</string>
     <string name="clear_history">清除历史记录</string>
 
@@ -93,4 +93,9 @@
     <string name="keyword_empty">请输入关键词</string>
     <string name="account_empty">账号不能为空</string>
     <string name="repassword_error">两次密码输入不正确</string>
+    <string name="nuggets">掘金：https://juejin.im/user/5c7c8bd4518825408d6fe014</string>
+    <string name="logout_tips">确定要退出登录吗？</string>
+    <string name="cancel">取消</string>
+    <string name="right">确定</string>
+    <string name="not_login">未登录</string>
 </resources>

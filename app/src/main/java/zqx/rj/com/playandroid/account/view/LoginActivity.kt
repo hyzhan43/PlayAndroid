@@ -1,6 +1,5 @@
 package zqx.rj.com.playandroid.account.view
 
-import android.view.View
 import androidx.lifecycle.Observer
 import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.startActivity
@@ -11,27 +10,20 @@ import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.context.UserContext
 import zqx.rj.com.playandroid.account.vm.AccountViewModel
 
-class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListener {
+class LoginActivity : LifecycleActivity<AccountViewModel>(){
 
     override fun getLayoutId(): Int = R.layout.activity_login
 
-    override fun initView() {
-        super.initView()
+    override fun setListener() {
+        super.setListener()
 
-        mBtnLogin.setOnClickListener(this)
-        mTvRegister.setOnClickListener(this)
+        mBtnLogin.setOnClickListener {
+            viewModel.login(mTieAccount.str(), mTiePassword.str())
+        }
 
-        showSuccess()
-    }
-
-    override fun onClick(v: View?) {
-
-        when (v?.id) {
-            R.id.mBtnLogin -> viewModel.login(mTieAccount.str(), mTiePassword.str())
-            R.id.mTvRegister -> {
-                startActivity<RegisterActivity>()
-                finish()
-            }
+        mTvRegister.setOnClickListener {
+            startActivity<RegisterActivity>()
+            finish()
         }
     }
 
@@ -39,7 +31,7 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(), View.OnClickListene
     override fun dataObserver() {
         // 处理 repository 回调的数据
         viewModel.loginData.observe(this, Observer {
-            UserContext.instance.loginSuccess(it.username, it.collectIds)
+            UserContext.loginSuccess(it.username, it.collectIds)
             toast(getString(R.string.login_suc))
             finish()
         })

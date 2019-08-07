@@ -63,7 +63,7 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
 
         // 收藏 按钮
         mArticleAdapter.setOnItemChildClickListener { _, _, position ->
-            UserContext.instance.collect(this, position, this)
+            UserContext.collect(this, position, this)
         }
 
         mArticleAdapter.setEnableLoadMore(isLoadMore)

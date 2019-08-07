@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.zhan.mvvm.common.Preference
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.layout_drawer_header.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
-import zqx.rj.com.mvvm.state.callback.login.LoginSucState
+import zqx.rj.com.playandroid.other.state.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.context.UserContext
 import zqx.rj.com.playandroid.common.search.view.SearchActivity
@@ -33,9 +34,8 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     private var clickTime: Long = 0
 
     private lateinit var headView: View
-    private val mNotLogin: String = "未登录"
     // 委托属性   将实现委托给了 -> Preference
-    private var mUsername: String by Preference(Constant.USERNAME_KEY, mNotLogin)
+    private var mUsername: String by Preference(Constant.USERNAME_KEY, getString(R.string.not_login))
 
     private val mHomeFragment by lazy { HomeFragment() }
     private val mWeChatFragment by lazy { WeChatFragment() }
@@ -63,13 +63,11 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
         toolbarTitle = getString(R.string.app_name)
 
         //设置导航图标、按钮有旋转特效
-        val toggle = ActionBarDrawerToggle(this, mDrawerMain, toolbar,
-            R.string.app_name,
-            R.string.app_name
-        )
+        val toggle = ActionBarDrawerToggle(this, mDrawerMain, toolbar, R.string.app_name, R.string.app_name)
         mDrawerMain.addDrawerListener(toggle)
         toggle.syncState()
 
+        // 快速滚动到顶部
         toolbar.setOnClickListener {
             val nowTime = System.currentTimeMillis()
             if (nowTime - clickTime > 1000) {
@@ -90,15 +88,15 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
         headView.mTvName.text = mUsername
 
         // 点击 登录
-        headView.mCivIcon.setOnClickListener { UserContext.instance.login(this) }
+        headView.mCivIcon.setOnClickListener { UserContext.login(this) }
 
         mNavMain.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_menu_collect -> UserContext.instance.goCollectActivity(this)
-                R.id.nav_menu_todo -> UserContext.instance.goTodoActivity(this)
+                R.id.nav_menu_collect -> UserContext.goCollectActivity(this)
+                R.id.nav_menu_todo -> UserContext.goTodoActivity(this)
                 R.id.nav_menu_about -> startActivity<AboutActivity>()
                 R.id.nav_menu_setting -> toast(getString(R.string.setting))
-                R.id.nav_menu_logout -> UserContext.instance.logoutSuccess()
+                R.id.nav_menu_logout -> UserContext.logout(this)
             }
 
             // 关闭侧边栏
@@ -112,22 +110,10 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
             setMode(BottomNavigationBar.MODE_FIXED)
 
             addItem(BottomNavigationItem(R.mipmap.ic_home, R.string.home))
-            addItem(BottomNavigationItem(
-                R.mipmap.ic_wechat,
-                R.string.wechat
-            ))
-            addItem(BottomNavigationItem(
-                R.mipmap.ic_system,
-                R.string.system
-            ))
-            addItem(BottomNavigationItem(
-                R.mipmap.ic_navigation,
-                R.string.navigation
-            ))
-            addItem(BottomNavigationItem(
-                R.mipmap.ic_project,
-                R.string.project
-            ))
+            addItem(BottomNavigationItem(R.mipmap.ic_wechat, R.string.wechat))
+            addItem(BottomNavigationItem(R.mipmap.ic_system, R.string.system))
+            addItem(BottomNavigationItem(R.mipmap.ic_navigation, R.string.navigation))
+            addItem(BottomNavigationItem(R.mipmap.ic_project, R.string.project))
 
             // 设置底部 BottomBar 默认选中 home
             setFirstSelectedPosition(Constant.HOME)
@@ -144,7 +130,7 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     }
 
     private fun initFloatButton() {
-        mFabAdd.setOnClickListener { UserContext.instance.goTodoActivity(this) }
+        mFabAdd.setOnClickListener { UserContext.goTodoActivity(this) }
     }
 
     /**
@@ -176,7 +162,6 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
                 toolbarTitle = getString(R.string.wechat)
                 goTo(mWeChatFragment)
             }
-
             Constant.SYSTEM -> {
                 toolbarTitle = getString(R.string.system)
                 goTo(mSystemFragment)
@@ -196,10 +181,11 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     private fun goTo(to: Fragment) {
         if (mCurrentFragment != to) {
             val transaction = supportFragmentManager.beginTransaction()
-            if (to.isAdded)
+            if (to.isAdded) {
                 transaction.hide(mCurrentFragment).show(to)
-            else
+            } else {
                 transaction.hide(mCurrentFragment).add(R.id.content, to)
+            }
             transaction.commit()
             mCurrentFragment = to
         }

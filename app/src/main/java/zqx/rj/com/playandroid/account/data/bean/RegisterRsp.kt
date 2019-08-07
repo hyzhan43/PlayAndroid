@@ -6,9 +6,9 @@ package zqx.rj.com.playandroid.account.data.bean
  * desc：    TODO
  */
 data class RegisterRsp(
-        var username: String,
-        var id: Int,
-        var icon: String,
-        var type: Int,
-        var collectIds: List<Int>
+        val username: String,
+        val id: Int,
+        val icon: String,
+        val type: Int,
+        val collectIds: List<Int>
 )

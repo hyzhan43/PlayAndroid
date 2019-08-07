@@ -6,8 +6,8 @@ package zqx.rj.com.playandroid.account.data.bean
  * desc：    登录返回类
  */
 data class LoginRsp(
-        var icon: String,
-        var type: String,
-        var collectIds: List<Int>,
-        var username: String
+        val icon: String,
+        val type: String,
+        val collectIds: List<Int>,
+        val username: String
 )
