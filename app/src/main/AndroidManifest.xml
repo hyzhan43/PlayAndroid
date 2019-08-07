@@ -22,16 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.view.activity.MainActivity" />
+        <activity android:name="zqx.rj.com.playandroid.main.MainActivity" />
         <activity android:name=".account.view.RegisterActivity" />
         <activity android:name=".account.view.LoginActivity" />
         <activity android:name=".common.search.view.SearchActivity" />
         <activity android:name=".common.WebViewActivity" />
-        <activity android:name=".home.view.activity.CommonWebActivity" />
-        <activity android:name=".mine.view.activity.CollectActivity" />
-        <activity android:name=".mine.view.activity.AboutActivity" />
-        <activity android:name=".todo.view.activity.TodoActivity"/>
-        <activity android:name=".todo.view.activity.AddTodoActivity"/>
+        <activity android:name="zqx.rj.com.playandroid.main.home.view.activity.CommonWebActivity" />
+        <activity android:name="zqx.rj.com.playandroid.mine.collect.view.activity.CollectActivity" />
+        <activity android:name="zqx.rj.com.playandroid.mine.AboutActivity" />
+        <activity android:name="zqx.rj.com.playandroid.mine.todo.view.activity.TodoActivity"/>
+        <activity android:name="zqx.rj.com.playandroid.mine.todo.view.activity.AddTodoActivity"/>
     </application>
 
 </manifest>

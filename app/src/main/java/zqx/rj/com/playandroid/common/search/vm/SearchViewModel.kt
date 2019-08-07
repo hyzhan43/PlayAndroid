@@ -1,7 +1,7 @@
 package zqx.rj.com.playandroid.common.search.vm
 
 import androidx.lifecycle.MutableLiveData
-import com.zhan.mvvm.common.SharedData
+import com.zhan.mvvm.bean.SharedData
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 import zqx.rj.com.playandroid.common.search.data.SearchRepository
@@ -32,15 +32,16 @@ class SearchViewModel : ArticleViewModel<SearchRepository>() {
     }
 
     fun search(page: Int, str: String) {
-        if (page >= 0 && str.isNotEmpty()) {
-            launchUI({
-                repository.search(page, str).execute({
-                    searchResultData.value = it
-                })
-            })
-        } else {
-            sharedData.value = SharedData(strRes = R.string.input_tips)
+        if (page < 0 || str.isEmpty()) {
+            showToast(R.string.input_tips)
+            return
         }
+
+        launchUI({
+            repository.search(page, str).execute({
+                searchResultData.value = it
+            })
+        })
     }
 
     fun clearRecords() {

@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.zhan.mvvm.ext.startActivity
 import com.zhan.mvvm.mvvm.LifecycleActivity
 import kotlinx.android.synthetic.main.fragment_article_list.*
-import zqx.rj.com.mvvm.state.callback.collect.CollectListener
+import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.other.context.UserContext

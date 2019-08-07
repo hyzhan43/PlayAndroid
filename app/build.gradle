@@ -77,5 +77,5 @@ dependencies {
     api 'com.contrarywind:Android-PickerView:4.1.6'
 
     // KtArmor
-    api 'com.github.hyzhan43:KtArmor:mvvm-1.0.1'
+    api 'com.github.hyzhan43:KtArmor:mvvm-1.0.2'
 }

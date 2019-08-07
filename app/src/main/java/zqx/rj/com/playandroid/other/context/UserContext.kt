@@ -4,12 +4,12 @@ import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.zhan.mvvm.common.Preference
-import zqx.rj.com.mvvm.common.constant.Constant
 import zqx.rj.com.mvvm.state.UserState
-import zqx.rj.com.mvvm.state.callback.collect.CollectListener
-import zqx.rj.com.playandroid.other.state.callback.login.LoginSucState
+import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
+import zqx.rj.com.playandroid.other.context.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.other.constant.Const
+import zqx.rj.com.playandroid.other.constant.Key
 
 /**
  * author：  HyZhan
@@ -18,9 +18,9 @@ import zqx.rj.com.playandroid.other.constant.Const
  */
 object UserContext{
 
-    private var isLogin: Boolean by Preference(Constant.LOGIN_KEY, false)
+    private var isLogin: Boolean by Preference(Key.LOGIN, false)
     // 委托属性   将实现委托给了 -> Preference
-    var username by Preference(Constant.USERNAME_KEY, Const.NOT_LOGIN)
+    var username by Preference(Key.USERNAME, Const.NOT_LOGIN_MSG)
 
     // 设置默认状态
     var mState: UserState = if (isLogin) LoginState() else LogoutState()
@@ -77,6 +77,6 @@ object UserContext{
         // 清除 cookie、登录缓存
         Preference.clear()
 
-        LoginSucState.notifyLoginState(Const.NOT_LOGIN, null)
+        LoginSucState.notifyLoginState(Const.NOT_LOGIN_MSG, null)
     }
 }

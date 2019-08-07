@@ -3,11 +3,11 @@ package zqx.rj.com.playandroid.account.view
 import androidx.lifecycle.Observer
 import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.str
+import com.zhan.mvvm.mvvm.LifecycleActivity
 import kotlinx.android.synthetic.main.activity_register.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.account.vm.AccountViewModel
-import zqx.rj.com.playandroid.delete.LifecycleActivity
 
 class RegisterActivity : LifecycleActivity<AccountViewModel>() {
 

@@ -11,19 +11,19 @@ import zqx.rj.com.playandroid.account.data.bean.LoginRsp
 import zqx.rj.com.playandroid.account.data.bean.RegisterRsp
 import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
 import zqx.rj.com.playandroid.common.search.data.bean.SearchResultRsp
-import zqx.rj.com.playandroid.home.data.bean.BannerRsp
-import zqx.rj.com.playandroid.home.data.bean.CommonWebRsp
-import zqx.rj.com.playandroid.home.data.bean.HomeArticleRsp
-import zqx.rj.com.playandroid.mine.data.bean.CollectRsp
-import zqx.rj.com.playandroid.navigation.data.bean.NaviCategoryRsp
-import zqx.rj.com.playandroid.project.data.bean.ProjectRsp
-import zqx.rj.com.playandroid.project.data.bean.ProjectTreeRsp
-import zqx.rj.com.playandroid.system.data.bean.TopTreeRsp
-import zqx.rj.com.playandroid.system.data.bean.TreeArticleRsp
-import zqx.rj.com.playandroid.todo.data.bean.PageRsp
-import zqx.rj.com.playandroid.todo.data.bean.TodoRsp
-import zqx.rj.com.playandroid.wechat.data.bean.WeChatNameRsp
-import zqx.rj.com.playandroid.wechat.data.bean.WxArticleRsp
+import zqx.rj.com.playandroid.main.home.data.bean.BannerRsp
+import zqx.rj.com.playandroid.main.home.data.bean.CommonWebRsp
+import zqx.rj.com.playandroid.main.home.data.bean.HomeArticleRsp
+import zqx.rj.com.playandroid.mine.collect.data.bean.CollectRsp
+import zqx.rj.com.playandroid.main.navigation.data.bean.NaviCategoryRsp
+import zqx.rj.com.playandroid.main.project.data.bean.ProjectRsp
+import zqx.rj.com.playandroid.main.project.data.bean.ProjectTreeRsp
+import zqx.rj.com.playandroid.main.system.data.bean.TopTreeRsp
+import zqx.rj.com.playandroid.main.system.data.bean.TreeArticleRsp
+import zqx.rj.com.playandroid.mine.todo.data.bean.PageRsp
+import zqx.rj.com.playandroid.mine.todo.data.bean.TodoRsp
+import zqx.rj.com.playandroid.main.wechat.data.bean.WeChatNameRsp
+import zqx.rj.com.playandroid.main.wechat.data.bean.WxArticleRsp
 
 /**
  * author：  HyZhan

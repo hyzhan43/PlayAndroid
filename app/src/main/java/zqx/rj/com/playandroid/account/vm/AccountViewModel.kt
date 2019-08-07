@@ -1,7 +1,6 @@
 package zqx.rj.com.playandroid.account.vm
 
 import androidx.lifecycle.MutableLiveData
-import com.zhan.mvvm.common.SharedData
 import com.zhan.mvvm.mvvm.BaseViewModel
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.bean.LoginRsp
@@ -20,12 +19,12 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
 
     fun login(username: String, password: String) {
         if (username.isEmpty()) {
-            sharedData.value = SharedData(strRes = R.string.account_empty)
+            showToast(R.string.account_empty)
             return
         }
 
         if (password.isEmpty()) {
-            sharedData.value = SharedData(strRes = R.string.password_empty)
+            showToast(R.string.password_empty)
             return
         }
 
@@ -37,22 +36,24 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
     fun register(username: String, password: String, rePassword: String) {
 
         if (username.isEmpty()) {
-            sharedData.value = SharedData(strRes = R.string.account_empty)
+            showToast(R.string.account_empty)
             return
         }
 
         if (password.isEmpty()) {
-            sharedData.value = SharedData(strRes = R.string.password_empty)
+            showToast(R.string.password_empty)
             return
         }
 
         if (rePassword != password) {
-            sharedData.value = SharedData(strRes = R.string.repassword_error)
+            showToast(R.string.repassword_error)
             return
         }
 
         launchUI({
-            repository.register(username, password, rePassword).execute({ registerData.value = it })
+            repository.register(username, password, rePassword).execute({
+                registerData.value = it
+            })
         })
     }
 }

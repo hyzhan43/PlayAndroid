@@ -4,7 +4,7 @@ import com.zhan.mvvm.base.BaseActivity
 import com.zhan.mvvm.ext.startActivity
 import kotlinx.coroutines.*
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.home.view.activity.MainActivity
+import zqx.rj.com.playandroid.main.MainActivity
 
 /**
  * author：  HyZhan

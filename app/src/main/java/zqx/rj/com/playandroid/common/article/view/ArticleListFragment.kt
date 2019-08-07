@@ -4,10 +4,10 @@ import androidx.lifecycle.Observer
 import com.zhan.mvvm.ext.startActivity
 import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.fragment_article_list.*
-import zqx.rj.com.mvvm.common.SpeedLayoutManager
-import zqx.rj.com.mvvm.state.callback.collect.CollectListener
-import zqx.rj.com.mvvm.state.callback.login.LoginSucListener
-import zqx.rj.com.playandroid.other.state.callback.login.LoginSucState
+import zqx.rj.com.playandroid.other.widget.SpeedLayoutManager
+import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
+import zqx.rj.com.playandroid.other.context.callback.login.LoginSucListener
+import zqx.rj.com.playandroid.other.context.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.other.context.UserContext

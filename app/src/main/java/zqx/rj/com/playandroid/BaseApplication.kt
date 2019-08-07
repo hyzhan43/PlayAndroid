@@ -4,9 +4,9 @@ import android.app.Application
 import com.kingja.loadsir.core.LoadSir
 import com.zhan.mvvm.KtArmor
 import org.litepal.LitePal
-import zqx.rj.com.playandroid.other.common.callback.EmptyCallback
-import zqx.rj.com.playandroid.other.common.callback.ErrorCallback
-import zqx.rj.com.playandroid.other.common.callback.LoadingCallback
+import zqx.rj.com.playandroid.other.callback.EmptyCallback
+import zqx.rj.com.playandroid.other.callback.ErrorCallback
+import zqx.rj.com.playandroid.other.callback.LoadingCallback
 import zqx.rj.com.playandroid.other.config.RetrofitConfig
 
 /**
