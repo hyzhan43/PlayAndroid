@@ -5,7 +5,6 @@ import com.zhan.mvvm.http.BaseRetrofitConfig
 import okhttp3.OkHttpClient
 import zqx.rj.com.playandroid.other.api.API
 import zqx.rj.com.playandroid.other.interceptor.CookieInterceptor
-import zqx.rj.com.playandroid.other.interceptor.LoginInterceptor
 
 /**
  * author：  HyZhan
@@ -17,9 +16,6 @@ class RetrofitConfig : BaseRetrofitConfig() {
         get() = API.BASE_URL
 
     override fun initOkHttpClient(): OkHttpClient {
-        return BaseOkHttpClient.create(
-            CookieInterceptor.create(),
-            LoginInterceptor.create()
-        )
+        return BaseOkHttpClient.create(CookieInterceptor.create())
     }
 }
