@@ -1,4 +1,4 @@
-package zqx.rj.com.mvvm.state
+package zqx.rj.com.playandroid.other.context.state
 
 import android.content.Context
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener

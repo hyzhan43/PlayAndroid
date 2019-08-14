@@ -48,8 +48,8 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
             val article = mArticleAdapter.getItem(position)
 
-            article?.let {
-                startActivity<WebViewActivity>("link" to it.link, "title" to it.title)
+            article?.run {
+                startActivity<WebViewActivity>("link" to link, "title" to title)
             }
         }
 
@@ -75,12 +75,12 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
     /**
      *  下拉刷新
      */
-    abstract fun onRefreshData()
+    open fun onRefreshData() {}
 
     /**
      *  加载更多数据
      */
-    abstract fun onLoadMoreData()
+    open fun onLoadMoreData() {}
 
     fun addData(articleList: List<Article>) {
 
@@ -106,7 +106,6 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
     override fun dataObserver() {
         // 收藏成功回调
         viewModel.collectData.observe(this, Observer {
-
             val article = mArticleAdapter.getItem(current)
 
             article?.let {

@@ -12,7 +12,11 @@ import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
  */
 abstract class ArticleRepository : BaseRepository() {
 
-    suspend fun collect(id: Int): BaseResponse<EmptyRsp> = apiService.collectAsync(id).await()
+    suspend fun collect(id: Int): BaseResponse<EmptyRsp> {
+        return launchIO { apiService.collectAsync(id).await() }
+    }
 
-    suspend fun unCollect(id: Int): BaseResponse<EmptyRsp> = apiService.unCollectAsync(id).await()
+    suspend fun unCollect(id: Int): BaseResponse<EmptyRsp> {
+        return launchIO { apiService.unCollectAsync(id).await() }
+    }
 }

@@ -7,5 +7,9 @@ package zqx.rj.com.playandroid.other.api
  */
 object API {
 
-    const val BASE_URL = "https://www.wanandroid.com"
+    const val BASE_URL = "https://www.wanandroid.com/"
+
+    const val LOGIN = "user/login"
+
+    const val REGISTER = "user/register"
 }

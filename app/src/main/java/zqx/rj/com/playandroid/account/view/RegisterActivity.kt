@@ -18,6 +18,10 @@ class RegisterActivity : LifecycleActivity<AccountViewModel>() {
 
         toolbarTitle = getString(R.string.register)
 
+        initListener()
+    }
+
+    private fun initListener() {
         mBtnRegister.setOnClickListener {
             viewModel.register(mTieAccount.str(), mTiePassword.str(), mTiePasswordAg.str())
         }

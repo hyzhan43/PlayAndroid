@@ -10,7 +10,7 @@ object Key {
     const val USERNAME = "username"
     const val LOGIN = "login"
 
-    const val SAVE_USER_LOGIN = "user/login"
-    const val SAVE_USER_REGISTER = "user/register"
     const val SET_COOKIE = "set-cookie"
+
+    const val COOKIE = "cookie"
 }

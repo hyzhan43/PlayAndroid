@@ -2,7 +2,7 @@ package zqx.rj.com.playandroid.other.context
 
 import android.content.Context
 import com.zhan.mvvm.ext.startActivity
-import zqx.rj.com.mvvm.state.UserState
+import zqx.rj.com.playandroid.other.context.state.UserState
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.mine.collect.view.activity.CollectActivity
 import zqx.rj.com.playandroid.mine.todo.view.activity.TodoActivity

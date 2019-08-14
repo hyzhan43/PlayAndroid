@@ -14,4 +14,14 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+
+    @Test
+    fun testString() {
+
+
+        assertEquals("1;2;3", listOf(1, 2, 3).joinToString(";"))
+        assertEquals("", ArrayList<String>().joinToString(";"))
+        assertEquals("1", listOf(1).joinToString(";"))
+    }
+
 }

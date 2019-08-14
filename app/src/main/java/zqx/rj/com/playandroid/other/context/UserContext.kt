@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.zhan.mvvm.common.Preference
-import zqx.rj.com.mvvm.state.UserState
+import zqx.rj.com.playandroid.other.context.state.UserState
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.other.context.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
@@ -19,8 +19,6 @@ import zqx.rj.com.playandroid.other.constant.Key
 object UserContext{
 
     private var isLogin: Boolean by Preference(Key.LOGIN, false)
-    // 委托属性   将实现委托给了 -> Preference
-    var username by Preference(Key.USERNAME, Const.NOT_LOGIN_MSG)
 
     // 设置默认状态
     var mState: UserState = if (isLogin) LoginState() else LogoutState()
@@ -71,7 +69,7 @@ object UserContext{
         LoginSucState.notifyLoginState(username, collectIds)
     }
 
-    fun clearLoginData() {
+    private fun clearLoginData() {
         mState = LogoutState()
 
         // 清除 cookie、登录缓存

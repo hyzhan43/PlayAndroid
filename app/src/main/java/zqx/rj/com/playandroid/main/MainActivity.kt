@@ -26,10 +26,10 @@ import zqx.rj.com.playandroid.other.constant.Const
 import zqx.rj.com.playandroid.main.project.view.fragment.ProjectFragment
 import zqx.rj.com.playandroid.main.system.view.fragment.SystemFragment
 import zqx.rj.com.playandroid.main.wechat.view.fragment.WeChatFragment
+import zqx.rj.com.playandroid.other.ext.setDoubleClickListener
+import zqx.rj.com.playandroid.other.persistence.Account
 
 class MainActivity : ToolbarActivity(), LoginSucListener {
-
-    private var clickTime: Long = 0
 
     private lateinit var headView: View
 
@@ -50,8 +50,9 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
         initToolBar()
         initDrawerLayout()
         initNavigationBar()
-        initFloatButton()
         setDefaultFragment()
+
+        initListener()
     }
 
     private fun initToolBar() {
@@ -62,16 +63,13 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
         val toggle = ActionBarDrawerToggle(this, mDrawerMain, toolbar, R.string.app_name, R.string.app_name)
         mDrawerMain.addDrawerListener(toggle)
         toggle.syncState()
+    }
 
+    private fun initListener() {
         // 快速滚动到顶部
-        toolbar.setOnClickListener {
-            val nowTime = System.currentTimeMillis()
-            if (nowTime - clickTime > 1000) {
-                clickTime = nowTime
-            } else {
-                mHomeFragment.moveToTop()
-            }
-        }
+        toolbar.setDoubleClickListener { mHomeFragment.moveToTop() }
+
+        mFabAdd.setOnClickListener { UserContext.goTodoActivity(this) }
     }
 
     private fun initDrawerLayout() {
@@ -79,12 +77,7 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
         // 设置 登录成功 监听
         LoginSucState.addListener(this)
 
-        // 直接获取报错   error -> mNavMain.mTvName
-        headView = mNavMain.getHeaderView(0)
-        headView.mTvName.text = UserContext.username
-
-        // 点击 登录
-        headView.mCivIcon.setOnClickListener { UserContext.login(this) }
+        initHeadView()
 
         mNavMain.setNavigationItemSelectedListener {
             when (it.itemId) {
@@ -99,6 +92,15 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
             mDrawerMain.closeDrawers()
             true
         }
+    }
+
+    private fun initHeadView() {
+        // 直接获取报错   error -> mNavMain.mTvName
+        headView = mNavMain.getHeaderView(0)
+        headView.mTvName.text = Account.username
+
+        // 点击 登录
+        headView.mCivIcon.setOnClickListener { UserContext.login(this) }
     }
 
     private fun initNavigationBar() {
@@ -123,10 +125,6 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
                 override fun onTabSelected(position: Int) = switchFragment(position)
             })
         }
-    }
-
-    private fun initFloatButton() {
-        mFabAdd.setOnClickListener { UserContext.goTodoActivity(this) }
     }
 
     /**
@@ -206,7 +204,7 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     // 登录成功 回调
     override fun success(username: String, collectIds: List<Int>?) {
         // 进行 SharedPreference 存储
-        UserContext.username = username
+        Account.username = username
         headView.mTvName.text = username
     }
 

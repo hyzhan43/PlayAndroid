@@ -3,7 +3,7 @@ package zqx.rj.com.playandroid.other.context
 import android.content.Context
 import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.startActivity
-import zqx.rj.com.mvvm.state.UserState
+import zqx.rj.com.playandroid.other.context.state.UserState
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.view.LoginActivity
