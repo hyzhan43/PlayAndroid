@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:textSize="@dimen/s16" />
+                android:textSize="@dimen/font_16" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -80,7 +80,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="@string/mixed"
-                android:textSize="@dimen/s16" />
+                android:textSize="@dimen/font_16" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -120,7 +120,7 @@
             android:background="@drawable/btn_bg"
             android:text="@string/save"
             android:textColor="@color/white"
-            android:textSize="@dimen/s16" />
+            android:textSize="@dimen/font_16" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

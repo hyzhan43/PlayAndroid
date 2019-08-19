@@ -29,7 +29,7 @@
         android:maxWidth="270dp"
         android:text="@string/test"
         android:textColor="@color/white"
-        android:textSize="@dimen/s16"
+        android:textSize="@dimen/font_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

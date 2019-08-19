@@ -8,5 +8,5 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/empty_data"
-        android:textSize="@dimen/s16" />
+        android:textSize="@dimen/font_16" />
 </RelativeLayout>

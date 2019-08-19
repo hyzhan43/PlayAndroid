@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -16,49 +17,53 @@
             android:id="@+id/mTvAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/author"
-            android:textSize="@dimen/s10" />
+            android:textSize="@dimen/font_10"
+            app:layout_constraintStart_toStartOf="@id/mTvTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/author" />
 
         <TextView
             android:id="@+id/mTvTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:ellipsize="end"
-            android:maxEms="14"
-            android:text="@string/test"
-            android:textSize="@dimen/s16"
-            app:layout_constraintTop_toBottomOf="@+id/mTvAuthor" />
+            android:textSize="@dimen/font_16"
+            app:layout_constraintEnd_toStartOf="@id/mIvLove"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mTvAuthor"
+            tools:text="@string/test" />
 
         <TextView
             android:id="@+id/mTvCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="@string/category"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/s10"
-            app:layout_constraintTop_toBottomOf="@+id/mTvTitle" />
+            android:textSize="@dimen/font_10"
+            app:layout_constraintStart_toStartOf="@id/mTvTitle"
+            app:layout_constraintTop_toBottomOf="@id/mTvTitle"
+            tools:text="@string/category" />
 
         <TextView
             android:id="@+id/mTvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/test_time"
-            android:textSize="@dimen/s10"
-            app:layout_constraintRight_toRightOf="parent" />
+            android:textSize="@dimen/font_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/test_time" />
 
         <ImageView
             android:id="@+id/mIvLove"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="@dimen/len_28"
+            android:layout_height="@dimen/len_28"
+            android:layout_marginStart="@dimen/len_4"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_collect"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mTvTitle"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -67,12 +72,11 @@
         android:id="@+id/mTvNews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="6dp"
         android:rotation="-45"
-        android:visibility="gone"
         android:text="@string/news"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="@dimen/s12"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:textColor="@color/red_400"
+        android:textSize="@dimen/font_12"
+        android:visibility="gone" />
 
 </androidx.cardview.widget.CardView>

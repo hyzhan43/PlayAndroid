@@ -21,7 +21,7 @@
         android:layout_marginStart="10dp"
         android:layout_weight="1"
         android:text="@string/app_name"
-        android:textSize="@dimen/s16" />
+        android:textSize="@dimen/font_16" />
 
     <ImageView
         android:layout_width="20dp"

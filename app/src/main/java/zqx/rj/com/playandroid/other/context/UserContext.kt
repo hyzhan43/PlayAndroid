@@ -57,6 +57,7 @@ object UserContext{
             .setNegativeButton(R.string.right) { _, _ ->
                 // 清除数据
                 clearLoginData()
+                // TODO Toast 退出成功
             }.show()
     }
 

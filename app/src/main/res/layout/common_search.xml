@@ -33,8 +33,8 @@
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:paddingStart="12dp"
-            android:textSize="@dimen/s14"
-            tools:ignore="Autofill,RtlSymmetry" />
+            android:textSize="@dimen/font_14"
+            tools:ignore="RtlSymmetry" />
 
         <ImageView
             android:id="@+id/mIvClose"

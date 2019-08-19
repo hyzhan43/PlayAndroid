@@ -18,7 +18,7 @@
         android:gravity="center"
         android:text="@string/common_tools"
         android:textColor="@color/white"
-        android:textSize="@dimen/s16" />
+        android:textSize="@dimen/font_16" />
 
     <Button
         android:id="@+id/mBtnWebsites"
@@ -31,6 +31,6 @@
         android:gravity="center"
         android:text="@string/common_websites"
         android:textColor="@color/white"
-        android:textSize="@dimen/s16" />
+        android:textSize="@dimen/font_16" />
 
 </LinearLayout>

@@ -22,6 +22,6 @@
             android:padding="5dp"
             android:text="@string/app_name"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/s14" />
+            android:textSize="@dimen/font_14" />
     </androidx.cardview.widget.CardView>
 </LinearLayout>

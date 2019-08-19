@@ -129,5 +129,5 @@
         android:background="@drawable/btn_bg"
         android:text="@string/register"
         android:textColor="@color/white"
-        android:textSize="@dimen/s18" />
+        android:textSize="@dimen/font_18" />
 </LinearLayout>

@@ -11,9 +11,10 @@
     <ImageView
         android:id="@+id/iv_login_bg"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="@dimen/len_256"
         android:background="@drawable/ic_login_bg"
-        android:contentDescription="@string/app_name" />
+        android:contentDescription="@string/app_name"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="100dp"
@@ -74,7 +75,7 @@
         android:background="@drawable/btn_bg"
         android:text="@string/login"
         android:textColor="@color/white"
-        android:textSize="@dimen/s18"
+        android:textSize="@dimen/font_18"
         app:layout_constraintTop_toBottomOf="@+id/ti_password" />
 
     <TextView
