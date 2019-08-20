@@ -65,7 +65,7 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
         toggle.syncState()
     }
 
-    private fun initListener() {
+    override fun initListener() {
         // 快速滚动到顶部
         toolbar.setDoubleClickListener { mHomeFragment.moveToTop() }
 
