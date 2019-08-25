@@ -5,6 +5,7 @@ import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.startActivity
 import com.zhan.mvvm.ext.str
 import com.zhan.mvvm.mvvm.LifecycleActivity
+import com.zhan.mvvm.widget.LoadingDialog
 import kotlinx.android.synthetic.main.activity_login.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.other.context.UserContext

@@ -11,5 +11,5 @@ import zqx.rj.com.playandroid.R
  */
 class LoadingCallback : Callback() {
 
-    override fun onCreateView(): Int = R.layout.layout_loading
+    override fun onCreateView(): Int = R.layout.layout_loading_callback
 }

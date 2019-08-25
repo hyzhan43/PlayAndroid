@@ -9,5 +9,5 @@ import zqx.rj.com.playandroid.R
  * desc：    TODO
  */
 class EmptyCallback: Callback(){
-    override fun onCreateView(): Int = R.layout.layout_empty
+    override fun onCreateView(): Int = R.layout.layout_empty_callback
 }

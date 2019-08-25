@@ -102,7 +102,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
         mRvTodo.addItemDecoration(DividerItemDecoration(activity, LinearLayout.VERTICAL))
         mRvTodo.adapter = mTodoAdapter
         // 设置空数据布局
-        mTodoAdapter.setEmptyView(R.layout.layout_empty, mRvTodo)
+        mTodoAdapter.setEmptyView(R.layout.layout_empty_callback, mRvTodo)
         // 开启上拉加载更多
         mTodoAdapter.setEnableLoadMore(true)
         mTodoAdapter.setOnLoadMoreListener({

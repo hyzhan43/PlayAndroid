@@ -9,5 +9,5 @@ import zqx.rj.com.playandroid.R
  * desc：    TODO
  */
 class ErrorCallback : Callback() {
-    override fun onCreateView(): Int = R.layout.layout_error
+    override fun onCreateView(): Int = R.layout.layout_error_callback
 }
