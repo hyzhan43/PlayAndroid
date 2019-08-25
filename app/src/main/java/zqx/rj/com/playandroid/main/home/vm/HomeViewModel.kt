@@ -20,7 +20,9 @@ class HomeViewModel : ArticleViewModel<HomeRepository>() {
 
     fun getBanner() {
         launchUI({
-            repository.getBanner().execute({ bannerData.value = it })
+            repository.getBanner().execute({
+                bannerData.value = it
+            })
         })
     }
 

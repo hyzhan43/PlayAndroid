@@ -1,12 +1,11 @@
 package zqx.rj.com.playandroid.common
 
-import android.view.View
 import android.widget.LinearLayout
 import com.just.agentweb.AgentWeb
-import com.zhan.mvvm.base.BaseActivity
+import com.zhan.mvvm.base.ToolbarActivity
 import kotlinx.android.synthetic.main.activity_webview.*
-import kotlinx.android.synthetic.main.common_bar.*
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.other.constant.Key
 import zqx.rj.com.playandroid.other.ext.toHtml
 
 
@@ -15,21 +14,18 @@ import zqx.rj.com.playandroid.other.ext.toHtml
  * created： 2018/10/18 14:29
  * desc：    TODO
  */
-class WebViewActivity : BaseActivity() {
+class WebViewActivity : ToolbarActivity() {
 
     private lateinit var mAgentWeb: AgentWeb
 
     override fun getLayoutId(): Int = R.layout.activity_webview
 
     override fun initView() {
+        super.initView()
 
-        mIvBack.visibility = View.VISIBLE
-        mIvBack.setOnClickListener { finish() }
+        toolbarTitle = intent.getStringExtra(Key.TITLE).toHtml()
+        val link = intent.getStringExtra(Key.LINK)
 
-        mIvSearch.visibility = View.GONE
-
-        val link = intent.getStringExtra("link")
-        mTvBarTitle.text = intent.getStringExtra("title").toHtml()
 
         mAgentWeb = AgentWeb.with(this)
                 // 传入 AgentWeb 父容器  mLlContent,  第二个参数是对应的 LinearLayout

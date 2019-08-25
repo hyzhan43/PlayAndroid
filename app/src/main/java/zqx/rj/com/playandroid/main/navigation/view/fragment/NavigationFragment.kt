@@ -13,8 +13,9 @@ import kotlinx.android.synthetic.main.fragment_navigation.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.main.navigation.adapter.CategoryAdapter
-import zqx.rj.com.playandroid.main.navigation.data.bean.NaviCategoryRsp
+import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationCategoryRsp
 import zqx.rj.com.playandroid.main.navigation.vm.NavigationViewModel
+import zqx.rj.com.playandroid.other.constant.Key
 
 /**
  * author：  HyZhan
@@ -24,7 +25,7 @@ import zqx.rj.com.playandroid.main.navigation.vm.NavigationViewModel
 class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
 
     private val categories = arrayListOf<String>()
-    private lateinit var mNaviCategoryRspList: List<NaviCategoryRsp>
+    private lateinit var mNavigationCategoryRspList: List<NavigationCategoryRsp>
 
     private val mCategoryAdapter: CategoryAdapter by lazy {
         CategoryAdapter(R.layout.navigation_category_item, null)
@@ -55,12 +56,12 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
         })
     }
 
-    private fun initNavigation(naviCategoryRspList: List<NaviCategoryRsp>) {
+    private fun initNavigation(navigationCategoryRspList: List<NavigationCategoryRsp>) {
 
-        mNaviCategoryRspList = naviCategoryRspList
+        mNavigationCategoryRspList = navigationCategoryRspList
 
-        for (naviCategoryRsp in naviCategoryRspList) {
-            categories.add(naviCategoryRsp.name)
+        for (navigationCategoryRsp in navigationCategoryRspList) {
+            categories.add(navigationCategoryRsp.name)
         }
 
         // 设置 分类数据
@@ -83,8 +84,8 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
         }
 
         mTflRepresent.setOnTagClickListener { _, position, _ ->
-            startActivity<WebViewActivity>("link" to links[position],
-                    "title" to titles[position])
+            startActivity<WebViewActivity>(Key.LINK to links[position],
+                    Key.TITLE to titles[position])
             true
         }
     }
@@ -95,7 +96,7 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
         val titles = arrayListOf<String>()
         val links = arrayListOf<String>()
 
-        for (article in mNaviCategoryRspList[position].articles) {
+        for (article in mNavigationCategoryRspList[position].articles) {
             titles.add(article.title)
             links.add(article.link)
         }

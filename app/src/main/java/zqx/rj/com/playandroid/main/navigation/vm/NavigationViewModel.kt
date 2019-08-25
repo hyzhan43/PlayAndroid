@@ -2,7 +2,7 @@ package zqx.rj.com.playandroid.main.navigation.vm
 
 import androidx.lifecycle.MutableLiveData
 import com.zhan.mvvm.mvvm.BaseViewModel
-import zqx.rj.com.playandroid.main.navigation.data.bean.NaviCategoryRsp
+import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationCategoryRsp
 import zqx.rj.com.playandroid.main.navigation.data.repository.NavigationRepository
 
 /**
@@ -12,7 +12,7 @@ import zqx.rj.com.playandroid.main.navigation.data.repository.NavigationReposito
  */
 class NavigationViewModel : BaseViewModel<NavigationRepository>() {
 
-    val category = MutableLiveData<List<NaviCategoryRsp>>()
+    val category = MutableLiveData<List<NavigationCategoryRsp>>()
 
     fun getCategory() {
         launchUI({

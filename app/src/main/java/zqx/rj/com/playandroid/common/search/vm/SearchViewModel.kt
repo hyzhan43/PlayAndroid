@@ -25,8 +25,8 @@ class SearchViewModel : ArticleViewModel<SearchRepository>() {
 
     fun getHotKey() {
         launchUI({
-            repository.getHotKey().execute({
-                hotKeyData.value = it
+            repository.getHotKey().execute({ hotKeyList->
+                hotKeyList?.let { hotKeyData.value = it }
             })
         })
     }
@@ -38,8 +38,8 @@ class SearchViewModel : ArticleViewModel<SearchRepository>() {
         }
 
         launchUI({
-            repository.search(page, str).execute({
-                searchResultData.value = it
+            repository.search(page, str).execute({searchResultRsp->
+                searchResultRsp?.let { searchResultData.value = it }
             })
         })
     }

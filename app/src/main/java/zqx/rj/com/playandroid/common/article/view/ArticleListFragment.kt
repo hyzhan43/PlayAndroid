@@ -3,7 +3,7 @@ package zqx.rj.com.playandroid.common.article.view
 import androidx.lifecycle.Observer
 import com.zhan.mvvm.ext.startActivity
 import com.zhan.mvvm.mvvm.LifecycleFragment
-import kotlinx.android.synthetic.main.fragment_article_list.*
+import kotlinx.android.synthetic.main.layout_article_list.*
 import zqx.rj.com.playandroid.other.widget.SpeedLayoutManager
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.other.context.callback.login.LoginSucListener
@@ -14,6 +14,7 @@ import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.common.article.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
+import zqx.rj.com.playandroid.other.constant.Key
 
 /**
  * author：  HyZhan
@@ -30,7 +31,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
     protected lateinit var mArticleAdapter: ArticleAdapter
 
-    override fun getLayoutId(): Int = R.layout.fragment_article_list
+    override fun getLayoutId(): Int = R.layout.layout_article_list
 
     override fun initView() {
         super.initView()
@@ -45,11 +46,8 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
         // item 点击
         mArticleAdapter.setOnItemClickListener { _, _, position ->
-
-            val article = mArticleAdapter.getItem(position)
-
-            article?.run {
-                startActivity<WebViewActivity>("link" to link, "title" to title)
+            mArticleAdapter.getItem(position)?.run {
+                startActivity<WebViewActivity>(Key.LINK to link, Key.TITLE to title)
             }
         }
 
@@ -106,12 +104,11 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
     override fun dataObserver() {
         // 收藏成功回调
         viewModel.collectData.observe(this, Observer {
-            val article = mArticleAdapter.getItem(current)
 
-            article?.let {
+            mArticleAdapter.data[current]?.let {
                 // 更新 RecyclerView  ♥ 型状态
                 it.collect = !state
-                mArticleAdapter.notifyDataSetChanged()
+                mArticleAdapter.refreshNotifyItemChanged(current)
             }
         })
     }
@@ -131,7 +128,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
         }
     }
 
-    override fun success(username: String, collectIds: List<Int>?) {
+    override fun loginSuccess(username: String, collectIds: List<Int>?) {
 
         collectIds?.let {
             it.forEach { id ->

@@ -7,6 +7,9 @@ package zqx.rj.com.playandroid.other.constant
  */
 object Key {
 
+    const val TITLE = "title"
+    const val LINK = "link"
+
     const val USERNAME = "username"
     const val LOGIN = "login"
 

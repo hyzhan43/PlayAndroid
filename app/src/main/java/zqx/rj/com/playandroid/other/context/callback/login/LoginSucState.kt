@@ -14,7 +14,7 @@ object LoginSucState {
 
     fun notifyLoginState(name: String, collectIds: List<Int>?) {
         for (listener in listeners) {
-            listener.success(name, collectIds)
+            listener.loginSuccess(name, collectIds)
         }
     }
 }

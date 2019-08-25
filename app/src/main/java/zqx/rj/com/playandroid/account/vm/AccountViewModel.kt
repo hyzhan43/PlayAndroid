@@ -29,7 +29,9 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
         }
 
         launchUI({
-            repository.login(username, password).execute({ loginData.value = it })
+            repository.login(username, password).execute({ loginRsp ->
+                loginRsp?.let { loginData.value = it }
+            })
         })
     }
 
@@ -51,8 +53,8 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
         }
 
         launchUI({
-            repository.register(username, password, rePassword).execute({
-                registerData.value = it
+            repository.register(username, password, rePassword).execute({ registerRsp ->
+                registerRsp?.let { registerData.value = it }
             })
         })
     }

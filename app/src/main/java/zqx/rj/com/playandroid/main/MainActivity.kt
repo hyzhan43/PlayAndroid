@@ -202,7 +202,7 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     }
 
     // 登录成功 回调
-    override fun success(username: String, collectIds: List<Int>?) {
+    override fun loginSuccess(username: String, collectIds: List<Int>?) {
         // 进行 SharedPreference 存储
         Account.username = username
         headView.mTvName.text = username

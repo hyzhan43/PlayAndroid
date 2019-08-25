@@ -1,0 +1,41 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:1:1-5:12
+	package
+		ADDED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:2:5-30
+		INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+		INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+		ADDED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:1:1-5:12
+		INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+		ADDED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:1:1-5:12
+		INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.KILL_BACKGROUND_PROCESSES
+ADDED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:4:5-84
+	android:name
+		ADDED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml:4:22-81
+uses-sdk
+INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+		ADDED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+		INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+		ADDED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml
+		INJECTED from /Users/zhanganxin/Develop/Android/WorkSpace/PlayAndroid/mvvm/src/main/AndroidManifest.xml

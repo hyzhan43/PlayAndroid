@@ -3,10 +3,13 @@ package zqx.rj.com.playandroid.mine.collect.view.activity
 import androidx.lifecycle.Observer
 import android.view.View
 import kotlinx.android.synthetic.main.common_bar.view.*
+import kotlinx.android.synthetic.main.layout_article_list.*
+import kotlinx.android.synthetic.main.layout_toolbar.view.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.view.ArticleListActivity
 import zqx.rj.com.playandroid.mine.collect.vm.CollectViewModel
+import java.util.stream.Collectors
 
 
 /**
@@ -21,21 +24,11 @@ class CollectActivity : ArticleListActivity<CollectViewModel>() {
     private var page = 0
 
     override fun initView() {
+        val headView = View.inflate(this, R.layout.layout_toolbar, null)
+        mLlContent.addView(headView, 0)
         super.initView()
 
-        initHeadView()
-    }
-
-    private fun initHeadView() {
-
-        val headView = View.inflate(this, R.layout.common_bar, null)
-
-        headView.mTvBarTitle.text = getString(R.string.mine_collect)
-        headView.mIvBack.visibility = View.VISIBLE
-        headView.mIvBack.setOnClickListener { finish() }
-        headView.mIvSearch.visibility = View.GONE
-
-        mArticleAdapter.addHeaderView(headView)
+        toolbarTitle = getString(R.string.mine_collect)
     }
 
     override fun initData() {
@@ -61,13 +54,9 @@ class CollectActivity : ArticleListActivity<CollectViewModel>() {
     }
 
     private fun buildCollectData(articles: List<Article>) {
-
         // 全部设置为 已收藏 状态
-        for (article in articles) {
-            article.collect = true
-        }
-
-        addData(articles)
+        addData(articles.onEach { article -> article.collect = true }
+                .toList())
     }
 
     override fun onRefreshData() {

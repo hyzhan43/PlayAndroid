@@ -15,9 +15,7 @@ class SplashActivity : BaseActivity() {
 
     private lateinit var job: Job
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_splash
-    }
+    override fun getLayoutId(): Int = R.layout.activity_splash
 
     override fun initView() {
         // 延迟 3s 进入 主页面

@@ -6,14 +6,14 @@ package zqx.rj.com.playandroid.common.article.data.bean
  * desc：    TODO
  */
 data class Article(
-        var id: Int,
-        var author: String,
-        var chapterName: String?,
-        var desc: String,
-        var link: String,
-        var originId: Int,
-        var title: String,
+        val id: Int,
+        val author: String,
+        val chapterName: String?,
+        val desc: String,
+        val link: String,
+        val originId: Int,
+        val title: String,
         var collect: Boolean,
-        var superChapterName: String?,
-        var niceDate: String
+        val superChapterName: String?,
+        val niceDate: String
 )

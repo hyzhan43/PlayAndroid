@@ -8,11 +8,11 @@ import zqx.rj.com.playandroid.common.article.data.bean.Article
  * desc：    TODO
  */
 data class SearchResultRsp(
-        var curPage: Int,
-        var datas: List<Article>,
-        var offset: Int,
-        var over: Boolean,
-        var pageCount: Int,
-        var size: Int,
-        var total: Int
+        val curPage: Int,
+        val datas: List<Article>,
+        val offset: Int,
+        val over: Boolean,
+        val pageCount: Int,
+        val size: Int,
+        val total: Int
 )

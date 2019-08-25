@@ -15,7 +15,7 @@ import zqx.rj.com.playandroid.main.home.data.bean.BannerRsp
 import zqx.rj.com.playandroid.main.home.data.bean.CommonWebRsp
 import zqx.rj.com.playandroid.main.home.data.bean.HomeArticleRsp
 import zqx.rj.com.playandroid.mine.collect.data.bean.CollectRsp
-import zqx.rj.com.playandroid.main.navigation.data.bean.NaviCategoryRsp
+import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationCategoryRsp
 import zqx.rj.com.playandroid.main.project.data.bean.ProjectRsp
 import zqx.rj.com.playandroid.main.project.data.bean.ProjectTreeRsp
 import zqx.rj.com.playandroid.main.system.data.bean.TopTreeRsp
@@ -58,7 +58,7 @@ interface ApiService {
     fun getCommonWebAsync(): Deferred<BaseResponse<List<CommonWebRsp>>>
 
     @GET("navi/json")
-    fun getCategoryAsync(): Deferred<BaseResponse<List<NaviCategoryRsp>>>
+    fun getCategoryAsync(): Deferred<BaseResponse<List<NavigationCategoryRsp>>>
 
     @GET("tree/json")
     fun getTreeAsync(): Deferred<BaseResponse<List<TopTreeRsp>>>

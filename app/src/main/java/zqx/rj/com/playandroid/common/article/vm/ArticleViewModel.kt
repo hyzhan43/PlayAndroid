@@ -17,14 +17,18 @@ abstract class ArticleViewModel<T : ArticleRepository> : BaseViewModel<T>() {
 
     fun collect(id: Int) {
         launchUI({
-            repository.collect(id).execute({ collectData.value = it })
+            repository.collect(id).execute({
+                collectData.value = it
+            })
         })
     }
 
     // 取消 我的收藏   (文章列表 取消收藏不一样)
     fun unCollect(id: Int) {
         launchUI({
-            repository.unCollect(id).execute({ collectData.value = it })
+            repository.unCollect(id).execute({
+                collectData.value = it
+            })
         })
     }
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zhan.mvvm.ext.startActivity
 import com.zhan.mvvm.mvvm.LifecycleActivity
-import kotlinx.android.synthetic.main.fragment_article_list.*
+import kotlinx.android.synthetic.main.layout_article_list.*
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
@@ -12,25 +12,24 @@ import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.common.article.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
+import zqx.rj.com.playandroid.other.constant.Key
 
 /**
  * author：  HyZhan
  * created： 2018/11/6 14:57
  * desc：    TODO
  */
-abstract class ArticleListActivity<T : ArticleViewModel<*>>
-    : LifecycleActivity<T>(), CollectListener {
+abstract class ArticleListActivity<T : ArticleViewModel<*>> : LifecycleActivity<T>(),
+        CollectListener {
 
     // 文章是否 收藏 状态
     private var state: Boolean = false
     // 点击后 当前文章的 位置
     private var current: Int = -1
 
-    protected var isLoadMore: Boolean = true
+    protected val mArticleAdapter by lazy { ArticleAdapter(R.layout.article_item, null) }
 
-    protected lateinit var mArticleAdapter: ArticleAdapter
-
-    override fun getLayoutId(): Int = R.layout.fragment_article_list
+    override fun getLayoutId(): Int = R.layout.layout_article_list
 
     override fun initView() {
         super.initView()
@@ -48,16 +47,19 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
         mSrlRefresh.setOnRefreshListener { onRefreshData() }
     }
 
-    protected fun initArticleRecyclerView() {
+    private fun initArticleRecyclerView() {
+        mArticleAdapter.setEnableLoadMore(true)
         mRvArticle.layoutManager = LinearLayoutManager(this)
-        mArticleAdapter = ArticleAdapter(R.layout.article_item, null)
         mRvArticle.adapter = mArticleAdapter
+    }
+
+    override fun initListener() {
+        super.initListener()
 
         // item 点击
         mArticleAdapter.setOnItemClickListener { _, _, position ->
-
-            mArticleAdapter.getItem(position)?.let {
-                startActivity<WebViewActivity>("link" to it.link, "title" to it.title)
+            mArticleAdapter.data[position]?.let {
+                startActivity<WebViewActivity>(Key.LINK to it.link, Key.TITLE to it.title)
             }
         }
 
@@ -66,7 +68,7 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
             UserContext.collect(this, position, this)
         }
 
-        mArticleAdapter.setEnableLoadMore(isLoadMore)
+
         // 上拉加载更多
         mArticleAdapter.setOnLoadMoreListener({ onLoadMoreData() }, mRvArticle)
     }
@@ -74,13 +76,16 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
     /**
      *  上拉加载更多
      */
-    abstract fun onLoadMoreData()
+    open fun onLoadMoreData() {}
 
     /**
      *  下拉刷新
      */
-    abstract fun onRefreshData()
+    open fun onRefreshData() {}
 
+    /**
+     *  加载数据, 并更新 SwipeRefreshLayout, RecyclerView 状态
+     */
     fun addData(articleList: List<Article>) {
 
         // 如果为空的话，就直接 显示加载完毕
@@ -107,12 +112,10 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>>
         // 收藏成功回调
         viewModel.collectData.observe(this, Observer {
 
-            val article = mArticleAdapter.getItem(current)
-
-            article?.let {
+            mArticleAdapter.data[current]?.let {
                 // 更新 RecyclerView  ♥ 型状态
                 it.collect = !state
-                mArticleAdapter.notifyDataSetChanged()
+                mArticleAdapter.refreshNotifyItemChanged(current)
             }
         })
     }

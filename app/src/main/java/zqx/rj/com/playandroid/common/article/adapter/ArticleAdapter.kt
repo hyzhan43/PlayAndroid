@@ -11,19 +11,20 @@ import zqx.rj.com.playandroid.common.article.data.bean.Article
  * created： 2018/10/22 20:39
  * desc：    TODO
  */
-class ArticleAdapter(layoutId: Int, listData: List<Article>?)
-    : BaseQuickAdapter<Article, BaseViewHolder>(layoutId, listData) {
+class ArticleAdapter(layoutId: Int, listData: List<Article>?) :
+    BaseQuickAdapter<Article, BaseViewHolder>(layoutId, listData) {
 
     override fun convert(viewHolder: BaseViewHolder?, article: Article?) {
-        viewHolder?.let { holder ->
-            article?.let {
-                holder.setText(R.id.mTvAuthor, it.author)
-                        .setText(R.id.mTvTitle, it.title.toHtml())
-                        .setText(R.id.mTvCategory, category(it))
-                        .setText(R.id.mTvTime, it.niceDate)
-                        .setImageResource(R.id.mIvLove, isCollect(it))
-                        .addOnClickListener(R.id.mIvLove)
-                        .setVisible(R.id.mTvNews, isNews(it.niceDate))
+
+        article?.let {
+            viewHolder?.run {
+                setText(R.id.mTvAuthor, it.author)
+                setText(R.id.mTvTitle, it.title.toHtml())
+                setText(R.id.mTvCategory, category(it))
+                setText(R.id.mTvTime, it.niceDate)
+                setImageResource(R.id.mIvLove, isCollect(it))
+                addOnClickListener(R.id.mIvLove)
+                setVisible(R.id.mTvNews, isNews(it.niceDate))
             }
         }
     }
@@ -38,11 +39,12 @@ class ArticleAdapter(layoutId: Int, listData: List<Article>?)
             return when {
                 it.superChapterName.isNullOrEmpty() and it.chapterName.isNullOrEmpty() -> ""
                 it.superChapterName.isNullOrEmpty() -> it.chapterName ?: ""
-                it.chapterName.isNullOrEmpty() -> it.superChapterName ?: ""
+                it.chapterName.isNullOrEmpty() -> it.superChapterName
                 else -> "${it.superChapterName}/${it.chapterName}"
             }
         }
     }
 
-    private fun isCollect(article: Article): Int = if (article.collect) R.drawable.ic_collected else R.drawable.ic_collect
+    private fun isCollect(article: Article): Int =
+        if (article.collect) R.drawable.ic_collected else R.drawable.ic_collect
 }

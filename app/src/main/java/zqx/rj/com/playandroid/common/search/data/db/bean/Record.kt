@@ -7,7 +7,7 @@ import org.litepal.crud.LitePalSupport
  * created： 2018/10/28 21:12
  * desc：    TODO
  */
-class Record(var id: Long = -1, var name: String = "") : LitePalSupport(){
+class Record(val id: Long = -1, var name: String = "") : LitePalSupport(){
 
     companion object{
         const val MAX_RECORDS = 5

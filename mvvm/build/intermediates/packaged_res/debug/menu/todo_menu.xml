@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/todo_all"
+        android:title="@string/all" />
+
+    <item
+        android:id="@+id/todo_work"
+        android:title="@string/work" />
+
+    <item
+        android:id="@+id/todo_life"
+        android:title="@string/life" />
+
+    <item
+        android:id="@+id/todo_study"
+        android:title="@string/study" />
+
+    <item
+        android:id="@+id/todo_setting"
+        android:title="@string/setting" />
+</menu>
