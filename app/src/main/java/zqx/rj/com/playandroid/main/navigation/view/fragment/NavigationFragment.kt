@@ -27,9 +27,7 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
     private val categories = arrayListOf<String>()
     private lateinit var mNavigationCategoryRspList: List<NavigationCategoryRsp>
 
-    private val mCategoryAdapter: CategoryAdapter by lazy {
-        CategoryAdapter(R.layout.navigation_category_item, null)
-    }
+    private val mCategoryAdapter by lazy { CategoryAdapter() }
 
     override fun getLayoutId(): Int = R.layout.fragment_navigation
 
@@ -38,7 +36,10 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
 
         mRvCategory.layoutManager = LinearLayoutManager(activity)
         mRvCategory.adapter = mCategoryAdapter
+    }
 
+    override fun initListener() {
+        super.initListener()
         mCategoryAdapter.setOnItemChildClickListener { _, _, position ->
             switchCategory(position)
             switchRepresent(position)
@@ -76,16 +77,17 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
         mTflRepresent.adapter = object : TagAdapter<String>(titles) {
             override fun getView(parent: FlowLayout?, position: Int, title: String?): View {
 
-                val mTagLayout = LayoutInflater.from(this@NavigationFragment.context)
-                        .inflate(R.layout.common_tag, parent, false)
-                mTagLayout.mTvTag.text = title
-                return mTagLayout
+                return LayoutInflater.from(context)
+                    .inflate(R.layout.common_tag, parent, false)
+                    .apply { mTvTag.text = title }
             }
         }
 
         mTflRepresent.setOnTagClickListener { _, position, _ ->
-            startActivity<WebViewActivity>(Key.LINK to links[position],
-                    Key.TITLE to titles[position])
+            startActivity<WebViewActivity>(
+                Key.LINK to links[position],
+                Key.TITLE to titles[position]
+            )
             true
         }
     }
@@ -106,7 +108,10 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
 
     // 切换 category 选择状态
     private fun switchCategory(position: Int) {
-        mCategoryAdapter.selectedPosition = position
-        mCategoryAdapter.notifyDataSetChanged()
+        mCategoryAdapter.run {
+            refreshNotifyItemChanged(selectedPosition)
+            selectedPosition = position
+            refreshNotifyItemChanged(position)
+        }
     }
 }

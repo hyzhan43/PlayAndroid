@@ -1,11 +1,10 @@
 package zqx.rj.com.playandroid.other.ext
 
 import android.content.Context
-import androidx.core.content.ContextCompat
+import android.os.Build
 import android.text.Html
 import android.text.Html.FROM_HTML_MODE_COMPACT
 import android.widget.ImageView
-import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -21,7 +20,7 @@ import java.util.*
 // 将 html 代码转化 为 string
 // Android N（API level 24.）废弃了Html.fromHtml(String)
 fun String.toHtml(): String {
-    return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(this, FROM_HTML_MODE_COMPACT).toString()
     } else {
         Html.fromHtml(this).toString()

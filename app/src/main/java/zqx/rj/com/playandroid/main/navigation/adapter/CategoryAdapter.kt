@@ -1,9 +1,9 @@
 package zqx.rj.com.playandroid.main.navigation.adapter
 
 import android.graphics.Color
-import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.zhan.mvvm.ext.getColorRef
 import kotlinx.android.synthetic.main.navigation_category_item.view.*
 import zqx.rj.com.playandroid.R
 
@@ -12,32 +12,28 @@ import zqx.rj.com.playandroid.R
  * created： 2018/10/21 19:06
  * desc：    TODO
  */
-class CategoryAdapter(layoutId: Int, categories: List<String>?)
-    : BaseQuickAdapter<String, BaseViewHolder>(layoutId, categories) {
+class CategoryAdapter :
+    BaseQuickAdapter<String, BaseViewHolder>(R.layout.navigation_category_item, null) {
 
     var selectedPosition: Int = -1
 
     override fun convert(helper: BaseViewHolder?, item: String?) {
 
-        helper?.let {
-            with(it) {
-                setText(R.id.mTvName, item)
-                addOnClickListener(R.id.mTvName)
+        helper?.run {
+            setText(R.id.mTvName, item ?: "")
+            addOnClickListener(R.id.mTvName)
 
+            itemView.run {
                 if (adapterPosition == selectedPosition) {
-                    itemView.mTvName.setTextColor(getColor(R.color.colorPrimaryDark))
-                    itemView.mTvName.setBackgroundColor(getColor(R.color.lightGray))
+                    mTvName.setTextColor(mContext.getColorRef(R.color.colorPrimaryDark))
+                    mTvName.setBackgroundColor(mContext.getColorRef(R.color.lightGray))
                 } else {
                     // 默认 不设置颜色
-                    itemView.mTvName.setTextColor(Color.GRAY)
+                    mTvName.setTextColor(Color.GRAY)
                     // 默认背景
-                    itemView.mTvName.setBackgroundColor(0)
+                    mTvName.setBackgroundColor(0)
                 }
             }
         }
-    }
-
-    private fun getColor(color: Int): Int {
-        return ContextCompat.getColor(mContext, color)
     }
 }
