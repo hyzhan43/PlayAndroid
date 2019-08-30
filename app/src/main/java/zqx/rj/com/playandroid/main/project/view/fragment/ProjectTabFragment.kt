@@ -23,9 +23,7 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
 
     private var page: Int = 1
 
-    private val mAdapter: ProjectTabAdapter by lazy {
-        ProjectTabAdapter(R.layout.project_item, null)
-    }
+    private val mAdapter by lazy { ProjectTabAdapter() }
 
     companion object {
         fun getNewInstance(id: Int): Fragment {

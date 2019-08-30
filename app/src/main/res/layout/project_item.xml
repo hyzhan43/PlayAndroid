@@ -41,8 +41,8 @@
             android:maxLines="2"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            tools:text="@string/test"
-            android:textSize="@dimen/font_12" />
+            android:textSize="@dimen/font_12"
+            tools:text="@string/test" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

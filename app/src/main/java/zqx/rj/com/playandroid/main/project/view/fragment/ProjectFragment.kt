@@ -43,15 +43,11 @@ class ProjectFragment : LifecycleFragment<ProjectViewModel>() {
     }
 
     private fun initTitles(dataList: List<ProjectTreeRsp>) {
-        for (item in dataList) {
-            titles.add(item.name)
-        }
+        dataList.map { titles.add(it.name) }
     }
 
     private fun initFragment(dataList: List<ProjectTreeRsp>) {
-        for (projectTreeRsp in dataList) {
-            fragments.add(ProjectTabFragment.getNewInstance(projectTreeRsp.id))
-        }
+        dataList.map { fragments.add(ProjectTabFragment.getNewInstance(it.id)) }
 
         mAdapter = ViewPagerAdapter(titles, fragments, childFragmentManager)
         mVpFragments.adapter = mAdapter

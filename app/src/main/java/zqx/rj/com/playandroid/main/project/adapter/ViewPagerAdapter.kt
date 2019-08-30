@@ -9,7 +9,8 @@ import androidx.fragment.app.FragmentPagerAdapter
  * created： 2018/10/27 16:45
  * desc：    TODO
  */
-class ViewPagerAdapter(private val titles: List<String>, private val fragments: List<Fragment>,
+class ViewPagerAdapter(private val titles: List<String>,
+                       private val fragments: List<Fragment>,
                        manager: FragmentManager) : FragmentPagerAdapter(manager) {
 
     override fun getItem(position: Int): Fragment = fragments[position]

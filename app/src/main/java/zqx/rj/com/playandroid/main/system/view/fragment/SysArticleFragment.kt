@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.tabs.TabLayout
+import com.zhan.mvvm.constant.Const
 import kotlinx.android.synthetic.main.fragment_system_article.*
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
 import zqx.rj.com.playandroid.main.system.vm.SystemViewModel
+import zqx.rj.com.playandroid.other.constant.Key
 
 /**
  * author：  HyZhan
@@ -33,16 +35,16 @@ class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListen
     private var flag: Boolean = false
 
     // 获取 初始化 传入的 ids、titles
-    private val titles: ArrayList<String>? by lazy { arguments?.getStringArrayList("titles") }
-    private val ids: ArrayList<Int>? by lazy { arguments?.getIntegerArrayList("ids") }
+    private val titles: ArrayList<String>? by lazy { arguments?.getStringArrayList(Key.TITLES) }
+    private val ids: ArrayList<Int>? by lazy { arguments?.getIntegerArrayList(Key.IDS) }
 
     override fun getLayoutId(): Int = R.layout.fragment_system_article
 
     companion object {
         fun getNewInstance(ids: ArrayList<Int>, titles: ArrayList<String>): Fragment {
             val bundle = Bundle()
-            bundle.putIntegerArrayList("ids", ids)
-            bundle.putStringArrayList("titles", titles)
+            bundle.putIntegerArrayList(Key.IDS, ids)
+            bundle.putStringArrayList(Key.TITLES, titles)
             val articleFragment = SysArticleFragment()
             articleFragment.arguments = bundle
             return articleFragment

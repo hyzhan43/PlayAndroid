@@ -12,11 +12,11 @@ import zqx.rj.com.playandroid.main.navigation.data.repository.NavigationReposito
  */
 class NavigationViewModel : BaseViewModel<NavigationRepository>() {
 
-    val category = MutableLiveData<List<NavigationCategoryRsp>>()
+    val categoryData = MutableLiveData<List<NavigationCategoryRsp>>()
 
     fun getCategory() {
         launchUI({
-            repository.getCategory().execute({ category.value = it })
+            repository.getCategory().execute({ categoryData.value = it })
         })
     }
 

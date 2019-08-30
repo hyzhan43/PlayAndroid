@@ -7,6 +7,7 @@ package zqx.rj.com.playandroid.other.constant
  */
 object Key {
 
+    const val TITLES = "titles"
     const val TITLE = "title"
     const val LINK = "link"
 
@@ -18,4 +19,6 @@ object Key {
     const val SET_COOKIE = "set-cookie"
 
     const val COOKIE = "cookie"
+
+    const val IDS = "ids"
 }

@@ -24,4 +24,11 @@ class ExampleUnitTest {
         assertEquals("1", listOf(1).joinToString(";"))
     }
 
+    @Test
+    fun testList(){
+        val a:List<Int>? = arrayListOf(1, 2)
+        println(a?.get(0))
+        println(a?.get(1) )
+        println(a?.get(2) ?:  "$(-1)")
+    }
 }

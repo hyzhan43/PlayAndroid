@@ -9,8 +9,9 @@ import androidx.fragment.app.FragmentPagerAdapter
  * created： 2018/10/22 19:42
  * desc：    TODO
  */
-class TopTreeAdapter(fm: FragmentManager, val titles: List<String>, val fragments: List<Fragment>)
-    : FragmentPagerAdapter(fm) {
+class TopTreeAdapter(fm: FragmentManager,
+                     private val titles: List<String>,
+                     private val fragments: List<Fragment>) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment = fragments[position]
 

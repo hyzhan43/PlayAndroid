@@ -1,19 +1,19 @@
 package zqx.rj.com.playandroid.main.project.adapter
 
-import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import zqx.rj.com.playandroid.other.ext.loadUrl
+import kotlinx.android.synthetic.main.project_item.view.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.main.project.data.bean.Project
+import zqx.rj.com.playandroid.other.ext.loadUrl
 
 /**
  * author：  HyZhan
  * created： 2018/10/27 16:40
  * desc：    TODO
  */
-class ProjectTabAdapter(layoutId: Int, listData: List<Project>?)
-    : BaseQuickAdapter<Project, BaseViewHolder>(layoutId, listData) {
+class ProjectTabAdapter
+    : BaseQuickAdapter<Project, BaseViewHolder>(R.layout.project_item, null) {
 
 
     override fun convert(helper: BaseViewHolder?, item: Project?) {
@@ -25,7 +25,7 @@ class ProjectTabAdapter(layoutId: Int, listData: List<Project>?)
                 setText(R.id.mTvTime, it.niceDate)
                 setText(R.id.mTvAuthor, it.author)
 
-                (getView(R.id.mIvIcon) as ImageView).loadUrl(mContext, it.envelopePic)
+                itemView.mIvIcon.loadUrl(mContext, it.envelopePic)
             }
         }
     }

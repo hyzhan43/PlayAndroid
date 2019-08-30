@@ -52,7 +52,7 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
     }
 
     override fun dataObserver() {
-        viewModel.category.observe(this, Observer {
+        viewModel.categoryData.observe(this, Observer {
             initNavigation(it)
         })
     }
@@ -69,7 +69,7 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
         mCategoryAdapter.addData(categories)
         // 默认选中第一个  并设置 第一个 tag值
         switchRepresent(0)
-        // 默认选中第一个 category
+        // 默认选中第一个 categoryData
         switchCategory(0)
     }
 
@@ -106,7 +106,7 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
         initTagLayout(titles, links)
     }
 
-    // 切换 category 选择状态
+    // 切换 categoryData 选择状态
     private fun switchCategory(position: Int) {
         mCategoryAdapter.run {
             refreshNotifyItemChanged(selectedPosition)
