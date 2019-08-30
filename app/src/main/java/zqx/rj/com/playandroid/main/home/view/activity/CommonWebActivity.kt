@@ -13,6 +13,7 @@ import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.main.home.data.bean.CommonWebRsp
 import zqx.rj.com.playandroid.main.home.vm.HomeViewModel
+import zqx.rj.com.playandroid.other.constant.Key
 
 /**
  * author：  HyZhan
@@ -61,7 +62,7 @@ class CommonWebActivity : LifecycleActivity<HomeViewModel>() {
         }
 
         mTflCommonWeb.setOnTagClickListener { _, position, _ ->
-            startActivity<WebViewActivity>("link" to links[position], "title" to tags[position])
+            startActivity<WebViewActivity>(Key.LINK to links[position], Key.TITLE to tags[position])
             true
         }
     }

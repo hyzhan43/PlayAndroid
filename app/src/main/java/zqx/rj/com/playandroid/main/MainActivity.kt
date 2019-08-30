@@ -28,6 +28,7 @@ import zqx.rj.com.playandroid.main.system.view.fragment.SystemFragment
 import zqx.rj.com.playandroid.main.wechat.view.fragment.WeChatFragment
 import zqx.rj.com.playandroid.other.ext.setDoubleClickListener
 import zqx.rj.com.playandroid.other.persistence.Account
+import zqx.rj.com.playandroid.other.widget.adapter.BottomNavigationAdapter
 
 class MainActivity : ToolbarActivity(), LoginSucListener {
 
@@ -51,8 +52,6 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
         initDrawerLayout()
         initNavigationBar()
         setDefaultFragment()
-
-        initListener()
     }
 
     private fun initToolBar() {
@@ -60,13 +59,17 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
         toolbarTitle = getString(R.string.app_name)
 
         //设置导航图标、按钮有旋转特效
-        val toggle = ActionBarDrawerToggle(this, mDrawerMain, toolbar, R.string.app_name, R.string.app_name)
+        val toggle =
+            ActionBarDrawerToggle(this, mDrawerMain, toolbar, R.string.app_name, R.string.app_name)
         mDrawerMain.addDrawerListener(toggle)
         toggle.syncState()
     }
 
     override fun initListener() {
-        // 快速滚动到顶部
+
+        /**
+         *  双击 toolbar  返回 顶部
+         */
         toolbar.setDoubleClickListener { mHomeFragment.moveToTop() }
 
         mFabAdd.setOnClickListener { UserContext.goTodoActivity(this) }
@@ -118,10 +121,7 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
             // 初始化
             initialise()
 
-            setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
-                override fun onTabReselected(position: Int) {}
-                override fun onTabUnselected(position: Int) {}
-
+            setTabSelectedListener(object : BottomNavigationAdapter() {
                 override fun onTabSelected(position: Int) = switchFragment(position)
             })
         }
@@ -173,14 +173,19 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
 
     // 复用 fragment
     private fun goTo(to: Fragment) {
-        if (mCurrentFragment != to) {
-            val transaction = supportFragmentManager.beginTransaction()
+        if (mCurrentFragment == to) {
+            return
+        }
+
+        with(supportFragmentManager.beginTransaction()) {
+            hide(mCurrentFragment)
+
             if (to.isAdded) {
-                transaction.hide(mCurrentFragment).show(to)
+                show(to)
             } else {
-                transaction.hide(mCurrentFragment).add(R.id.content, to)
+                add(R.id.content, to)
             }
-            transaction.commit()
+            commit()
             mCurrentFragment = to
         }
     }

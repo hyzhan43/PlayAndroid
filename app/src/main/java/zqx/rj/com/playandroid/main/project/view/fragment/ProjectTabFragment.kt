@@ -12,6 +12,7 @@ import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.main.project.adapter.ProjectTabAdapter
 import zqx.rj.com.playandroid.main.project.data.bean.Project
 import zqx.rj.com.playandroid.main.project.vm.ProjectViewModel
+import zqx.rj.com.playandroid.other.constant.Key
 
 /**
  * author：  HyZhan
@@ -29,10 +30,10 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
     companion object {
         fun getNewInstance(id: Int): Fragment {
             val bundle = Bundle()
-            bundle.putInt("id", id)
-            val projectTabFragment = ProjectTabFragment()
-            projectTabFragment.arguments = bundle
-            return projectTabFragment
+            bundle.putInt(Key.ID, id)
+            return ProjectTabFragment().apply {
+                arguments = bundle
+            }
         }
     }
 
@@ -49,11 +50,8 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
         mSrlRefresh.setOnRefreshListener { refreshRvProject() }
 
         mAdapter.setOnItemClickListener { _, _, position ->
-
-            val project = mAdapter.getItem(position)
-
-            project?.let {
-                startActivity<WebViewActivity>("link" to project.link, "title" to project.title)
+            mAdapter.data[position]?.let {
+                startActivity<WebViewActivity>(Key.LINK to it.link, Key.TITLE to it.title)
             }
         }
 
@@ -74,7 +72,7 @@ class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
     }
 
     private fun getProjects(page: Int) {
-        arguments?.getInt("id")?.let {
+        arguments?.getInt(Key.ID)?.let {
             viewModel.getProjects(page, it)
         }
     }

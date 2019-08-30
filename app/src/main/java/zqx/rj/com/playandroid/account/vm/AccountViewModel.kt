@@ -28,7 +28,9 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
             return
         }
 
+
         launchUI({
+            showLoading()
             repository.login(username, password).execute({ loginRsp ->
                 loginRsp?.let { loginData.value = it }
             })
@@ -53,6 +55,7 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
         }
 
         launchUI({
+            showLoading()
             repository.register(username, password, rePassword).execute({ registerRsp ->
                 registerRsp?.let { registerData.value = it }
             })

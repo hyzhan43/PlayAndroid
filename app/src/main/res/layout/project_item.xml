@@ -1,5 +1,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -25,11 +26,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:maxLines="1"
-            android:paddingEnd="10dp"
             android:paddingStart="10dp"
-            android:text="@string/test"
+            android:paddingEnd="10dp"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/font_14" />
+            android:textSize="@dimen/font_14"
+            tools:text="@string/test" />
 
         <TextView
             android:id="@+id/mTvContent"
@@ -38,9 +39,9 @@
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:paddingEnd="10dp"
             android:paddingStart="10dp"
-            android:text="@string/test"
+            android:paddingEnd="10dp"
+            tools:text="@string/test"
             android:textSize="@dimen/font_12" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,19 +49,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center_vertical"
-            android:paddingBottom="10dp"
+            android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:paddingStart="10dp">
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/mTvAuthor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
-                app:layout_constraintTop_toTopOf="parent"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/font_10"
-                app:layout_constraintLeft_toLeftOf="parent" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/mTvTime"

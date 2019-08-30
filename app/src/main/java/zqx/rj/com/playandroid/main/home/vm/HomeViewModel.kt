@@ -28,14 +28,18 @@ class HomeViewModel : ArticleViewModel<HomeRepository>() {
 
     fun getArticle(page: Int) {
         launchUI({
-            repository.getArticle(page).execute({ homeArticleData.value = it })
+            repository.getArticle(page).execute({
+                homeArticleData.value = it
+            })
         })
 
     }
 
     fun getCommonWeb() {
         launchUI({
-            repository.getCommonWeb().execute({ commonWebData.value = it })
+            repository.getCommonWeb().execute({
+                commonWebData.value = it
+            })
         })
     }
 }

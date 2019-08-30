@@ -1,9 +1,9 @@
 package zqx.rj.com.playandroid.common.article.data.repository
 
 import com.zhan.mvvm.mvvm.BaseRepository
-import zqx.rj.com.playandroid.other.bean.BaseResponse
 import zqx.rj.com.playandroid.other.bean.EmptyRsp
 import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
+import zqx.rj.com.playandroid.other.bean.BaseResponse
 
 /**
  * author：  HyZhan

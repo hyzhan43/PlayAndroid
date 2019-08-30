@@ -10,6 +10,8 @@ object Key {
     const val TITLE = "title"
     const val LINK = "link"
 
+    const val ID = "id"
+
     const val USERNAME = "username"
     const val LOGIN = "login"
 

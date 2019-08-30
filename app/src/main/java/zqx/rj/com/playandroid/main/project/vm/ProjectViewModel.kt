@@ -18,16 +18,18 @@ class ProjectViewModel : BaseViewModel<ProjectRepository>() {
 
     fun getProjectTree() {
         launchUI({
-            repository.getProjectTree().execute({
-                projectTreeData.value = it
+            repository.getProjectTree().execute({ projectTreeRsp ->
+                projectTreeRsp?.let {
+                    projectTreeData.value = it
+                }
             })
         })
     }
 
     fun getProjects(page: Int, id: Int) {
         launchUI({
-            repository.getProjects(page, id).execute({
-                projectsData.value = it
+            repository.getProjects(page, id).execute({ projectRsp ->
+                projectRsp?.let { projectsData.value = it }
             })
         })
     }

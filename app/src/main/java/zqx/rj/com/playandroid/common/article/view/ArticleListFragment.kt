@@ -151,9 +151,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
         mArticleAdapter.notifyDataSetChanged()
     }
 
-    /**
-     *  双击 toolbar  返回 顶部
-     */
+
     fun moveToTop() {
         mRvArticle.smoothScrollToPosition(0)
     }
