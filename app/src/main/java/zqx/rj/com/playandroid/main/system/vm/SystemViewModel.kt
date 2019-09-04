@@ -13,22 +13,18 @@ import zqx.rj.com.playandroid.main.system.data.repository.SystemRepository
  */
 class SystemViewModel : ArticleViewModel<SystemRepository>() {
 
-    val treeData = MutableLiveData<List<TopTreeRsp>>()
+    val topTreeData = MutableLiveData<List<TopTreeRsp>>()
     val treeArticleData = MutableLiveData<TreeArticleRsp>()
 
-    fun getTree() {
-        launchUI({
-            repository.getTree().execute({
-                treeData.value = it
-            })
+    fun getTree() = launchUI({
+        repository.getTree().execute({ topTreeRspList ->
+            topTreeRspList?.let { topTreeData.value = it }
         })
-    }
+    })
 
-    fun getArticle(cid: Int, page: Int) {
-        launchUI({
-            repository.getArticle(page, cid).execute({
-                treeArticleData.value = it
-            })
+    fun getArticle(cid: Int, page: Int) = launchUI({
+        repository.getArticle(page, cid).execute({ treeArticleRsp ->
+            treeArticleRsp?.let { treeArticleData.value = it }
         })
-    }
+    })
 }

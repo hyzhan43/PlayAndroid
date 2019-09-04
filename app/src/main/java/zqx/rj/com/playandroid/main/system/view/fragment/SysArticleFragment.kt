@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.tabs.TabLayout
-import com.zhan.mvvm.constant.Const
 import kotlinx.android.synthetic.main.fragment_system_article.*
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
+import zqx.rj.com.playandroid.main.system.data.bean.TreeArticleRsp
 import zqx.rj.com.playandroid.main.system.vm.SystemViewModel
 import zqx.rj.com.playandroid.other.constant.Key
 
@@ -20,9 +20,6 @@ import zqx.rj.com.playandroid.other.constant.Key
 class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListener {
 
     private var page: Int = 0
-
-    // 当前 收藏 article 索引
-    private var current: Int = -1
 
     // 当前选中的 tab  索引  默认是 0 选中第一个
     private var tabIndex: Int = 0
@@ -41,14 +38,13 @@ class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListen
     override fun getLayoutId(): Int = R.layout.fragment_system_article
 
     companion object {
-        fun getNewInstance(ids: ArrayList<Int>, titles: ArrayList<String>): Fragment {
-            val bundle = Bundle()
-            bundle.putIntegerArrayList(Key.IDS, ids)
-            bundle.putStringArrayList(Key.TITLES, titles)
-            val articleFragment = SysArticleFragment()
-            articleFragment.arguments = bundle
-            return articleFragment
-        }
+        fun newInstance(ids: ArrayList<Int>, titles: ArrayList<String>) =
+            SysArticleFragment().also {
+                it.arguments = Bundle().apply {
+                    putIntegerArrayList(Key.IDS, ids)
+                    putStringArrayList(Key.TITLES, titles)
+                }
+            }
     }
 
     override fun initView() {
@@ -70,16 +66,18 @@ class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListen
         super.dataObserver()
 
         viewModel.treeArticleData.observe(this, Observer {
-            if (flag) {
-                // 如果是切换了 tab  就重新设置 新的数据
-                // 后续的 加载更多就直接 添加数据
-                // 例如  开发环境 -> AndroidStudio 相关 切换至 gradle 就重新设置数据
-                mArticleAdapter.setNewData(it.datas)
-                flag = false
-            } else {
-                addData(it.datas)
-            }
+            changeTree(it)
         })
+    }
+
+    private fun changeTree(it: TreeArticleRsp) {
+        if (flag) {
+            mArticleAdapter.setNewData(it.datas)
+            flag = false
+            return
+        }
+
+        addData(it.datas)
     }
 
     override fun onRefreshData() {
@@ -109,9 +107,6 @@ class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListen
     }
 
     private fun getCurrentCid(position: Int): Int {
-        return ids?.let {
-            // 判断 是否有 数据
-            if (it.isNotEmpty()) it[position] else -1
-        } ?: -1
+        return ids?.getOrNull(position) ?: -1
     }
 }

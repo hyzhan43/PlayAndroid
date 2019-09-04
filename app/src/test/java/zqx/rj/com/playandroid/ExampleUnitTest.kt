@@ -29,6 +29,6 @@ class ExampleUnitTest {
         val a:List<Int>? = arrayListOf(1, 2)
         println(a?.get(0))
         println(a?.get(1) )
-        println(a?.get(2) ?:  "$(-1)")
+        println(a?.getOrNull(2) ?: -1)
     }
 }

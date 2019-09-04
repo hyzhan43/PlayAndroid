@@ -16,9 +16,6 @@ import zqx.rj.com.playandroid.main.system.vm.SystemViewModel
  */
 class SystemFragment : LifecycleFragment<SystemViewModel>() {
 
-    private val titles by lazy { arrayListOf<String>() }
-    private val fragments by lazy { arrayListOf<Fragment>() }
-
     override fun getLayoutId(): Int = R.layout.fragment_system
 
     override fun initView() {
@@ -29,31 +26,24 @@ class SystemFragment : LifecycleFragment<SystemViewModel>() {
 
     override fun initData() {
         super.initData()
-
         viewModel.getTree()
     }
 
     override fun dataObserver() {
-        viewModel.treeData.observe(this, Observer {
+        viewModel.topTreeData.observe(this, Observer {
             initSystemData(it)
         })
     }
 
     private fun initSystemData(data: List<TopTreeRsp>) {
-
-        initTitle(data)
-        initFragment(data)
-
+        val titles = data.map { it.name }.toList()
+        val fragments = initFragment(data)
         mVpContent.adapter = TopTreeAdapter(childFragmentManager, titles, fragments)
     }
 
-    private fun initTitle(topTreeList: List<TopTreeRsp>) {
-        for (topTree in topTreeList) {
-            titles.add(topTree.name)
-        }
-    }
-
     private fun initFragment(topTreeList: List<TopTreeRsp>): List<Fragment> {
+
+        val fragments = arrayListOf<Fragment>()
 
         // 一级菜单
         for (topTreeRsp in topTreeList) {
@@ -62,12 +52,12 @@ class SystemFragment : LifecycleFragment<SystemViewModel>() {
             val secondTreeTitles = arrayListOf<String>()
 
             // 二级菜单
-            for (child in topTreeRsp.children) {
-                ids.add(child.id)
-                secondTreeTitles.add(child.name)
+            topTreeRsp.children.map {
+                ids.add(it.id)
+                secondTreeTitles.add(it.name)
             }
 
-            fragments.add(SysArticleFragment.getNewInstance(ids, secondTreeTitles))
+            fragments.add(SysArticleFragment.newInstance(ids, secondTreeTitles))
         }
         return fragments
     }
