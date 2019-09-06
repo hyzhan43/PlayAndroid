@@ -14,16 +14,13 @@ import zqx.rj.com.playandroid.main.wechat.vm.WeChatViewModel
 class WxArticleFragment : ArticleListFragment<WeChatViewModel>() {
 
     private var page: Int = 1
-    private val uid: Int by lazy { arguments?.getInt("id") ?: -1 }
+    private val uid by lazy { arguments?.getInt(KEY_ID) ?: -1 }
 
     companion object {
-        fun getNewInstance(id: Int): Fragment {
-            val bundle = Bundle()
-            bundle.putInt("id", id)
+        const val KEY_ID = "id"
 
-            val fragment = WxArticleFragment()
-            fragment.arguments = bundle
-            return fragment
+        fun newInstance(id: Int): Fragment = WxArticleFragment().apply {
+            arguments = Bundle().apply { putInt(KEY_ID, id) }
         }
     }
 

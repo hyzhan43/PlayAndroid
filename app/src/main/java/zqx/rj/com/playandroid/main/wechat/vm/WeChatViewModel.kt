@@ -16,19 +16,18 @@ class WeChatViewModel : ArticleViewModel<WeChatRepository>() {
     var weChatNameData = MutableLiveData<List<WeChatNameRsp>>()
     var wxArticleData = MutableLiveData<WxArticleRsp>()
 
-
     fun getWeChatName() {
         launchUI({
-            repository.getWeChatName().execute({
-                weChatNameData.value = it
+            repository.getWeChatName().execute({ weChatNameList ->
+                weChatNameList?.let { weChatNameData.value = it }
             })
         })
     }
 
     fun getWxArticle(id: Int, page: Int) {
         launchUI({
-            repository.getWxArticle(id, page).execute({
-                wxArticleData.value = it
+            repository.getWxArticle(id, page).execute({ wxArticleRsp ->
+                wxArticleRsp?.let { wxArticleData.value = it }
             })
         })
     }

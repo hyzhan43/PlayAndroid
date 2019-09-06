@@ -9,10 +9,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter
  * created： 2018/11/2 16:58
  * desc：    TODO
  */
-class WxNameAdapter(fm: FragmentManager,
-                    val titles: List<String>,
-                    val fragments: List<Fragment>)
-    : FragmentStatePagerAdapter(fm) {
+class WxNameAdapter(
+    fm: FragmentManager,
+    val titles: List<String>,
+    private val fragments: List<Fragment>
+) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment = fragments[position]
 

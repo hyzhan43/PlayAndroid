@@ -43,9 +43,9 @@ class WeChatFragment : LifecycleFragment<WeChatViewModel>() {
         val titles = arrayListOf<String>()
         val fragments = arrayListOf<Fragment>()
 
-        for (data in dataList) {
-            titles.add(data.name)
-            fragments.add(WxArticleFragment.getNewInstance(data.id))
+        dataList.forEach {
+            titles.add(it.name)
+            fragments.add(WxArticleFragment.newInstance(it.id))
         }
 
         mVpContent.adapter = WxNameAdapter(childFragmentManager, titles, fragments)
