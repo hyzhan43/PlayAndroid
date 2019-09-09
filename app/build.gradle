@@ -21,6 +21,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
@@ -69,6 +72,9 @@ dependencies {
 
     // 侧滑删除
     api "com.github.anzaizai:EasySwipeMenuLayout:$swipe_menu_version"
+
+    // BaseRecyclerViewAdapterHelper
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
 
     // RecyclerView粘性标签库
     api "com.gavin.com.library:stickyDecoration:$sticky_decoration_version"

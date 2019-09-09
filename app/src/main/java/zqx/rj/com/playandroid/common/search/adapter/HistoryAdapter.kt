@@ -11,9 +11,9 @@ import zqx.rj.com.playandroid.R
  */
 class HistoryAdapter : BaseQuickAdapter<String, BaseViewHolder>(R.layout.history_item, null) {
 
-    override fun convert(helper: BaseViewHolder?, item: String?) {
+    override fun convert(helper: BaseViewHolder, item: String?) {
 
-        helper?.run {
+        helper.run {
             setText(R.id.mTvName, item ?: "")
             addOnClickListener(R.id.mIvDelete)
         }

@@ -14,10 +14,10 @@ import zqx.rj.com.playandroid.common.article.data.bean.Article
 class ArticleAdapter(layoutId: Int, listData: List<Article>?) :
     BaseQuickAdapter<Article, BaseViewHolder>(layoutId, listData) {
 
-    override fun convert(viewHolder: BaseViewHolder?, article: Article?) {
+    override fun convert(viewHolder: BaseViewHolder, article: Article?) {
 
         article?.let {
-            viewHolder?.run {
+            viewHolder.run {
                 setText(R.id.mTvAuthor, it.author)
                 setText(R.id.mTvTitle, it.title.toHtml())
                 setText(R.id.mTvCategory, category(it))

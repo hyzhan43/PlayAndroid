@@ -19,6 +19,7 @@ import com.gavin.com.library.StickyDecoration
 import com.gavin.com.library.listener.GroupListener
 import com.zhan.mvvm.common.Preference
 import com.zhan.mvvm.ext.Toasts.toast
+import com.zhan.mvvm.ext.getColorRef
 import com.zhan.mvvm.ext.startActivity
 import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.fragment_todo.*
@@ -31,6 +32,8 @@ import zqx.rj.com.playandroid.mine.todo.adapter.TodoAdapter
 import zqx.rj.com.playandroid.mine.todo.data.bean.TodoRsp
 import zqx.rj.com.playandroid.mine.todo.view.activity.AddTodoActivity
 import zqx.rj.com.playandroid.mine.todo.vm.TodoViewModel
+import zqx.rj.com.playandroid.other.ext.format
+import java.util.*
 
 /**
  * author：  HyZhan
@@ -39,7 +42,7 @@ import zqx.rj.com.playandroid.mine.todo.vm.TodoViewModel
  */
 class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
 
-    private val mTodoAdapter by lazy { TodoAdapter(R.layout.todo_item, null) }
+    private val mTodoAdapter by lazy { TodoAdapter() }
 
     private var page: Int = 1
     // 当前状态  未完成 0  完成 1
@@ -58,18 +61,14 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
     }
 
     companion object {
-        fun getInstance(status: Int, swipeTitle: String, @ColorRes swipeColor: Int): Fragment {
-
-            val bundle = Bundle()
-            bundle.putInt(Const.STATUS, status)
-            bundle.putString(Const.SWIPE_TITLE, swipeTitle)
-            bundle.putInt(Const.SWIPE_COLOR, swipeColor)
-
-            val fragment = TodoFragment()
-            fragment.arguments = bundle
-
-            return fragment
-        }
+        fun newInstance(status: Int, swipeTitle: String, @ColorRes swipeColor: Int): Fragment =
+            TodoFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(Const.STATUS, status)
+                    putString(Const.SWIPE_TITLE, swipeTitle)
+                    putInt(Const.SWIPE_COLOR, swipeColor)
+                }
+            }
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_todo
@@ -97,33 +96,31 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
 
 
     private fun initTodoList() {
-        mRvTodo.layoutManager = LinearLayoutManager(activity)
-        // 设置默认分割线
-        mRvTodo.addItemDecoration(DividerItemDecoration(activity, LinearLayout.VERTICAL))
-        mRvTodo.adapter = mTodoAdapter
-        // 设置空数据布局
-        mTodoAdapter.setEmptyView(R.layout.layout_empty_callback, mRvTodo)
-        // 开启上拉加载更多
-        mTodoAdapter.setEnableLoadMore(true)
-        mTodoAdapter.setOnLoadMoreListener({
-            viewModel.getTodoList(++page, status, type)
-        }, mRvTodo)
+        mRvTodo.run {
+            layoutManager = LinearLayoutManager(activity)
+            // 设置默认分割线
+            addItemDecoration(DividerItemDecoration(activity, LinearLayout.VERTICAL))
+            adapter = mTodoAdapter
 
-        // 设置 item 的组名
-        val groupListener = GroupListener { position ->
-            if (mTodoAdapter.data.isNotEmpty()) {
-                //获取分组名
-                mTodoAdapter.getItem(position)?.dateStr
-            } else ""
+            // 利用RecyclerView.ItemDecoration实现顶部悬浮效果
+            activity?.run {
+                val decoration = StickyDecoration.Builder
+                    .init { position -> mTodoAdapter.data.getOrNull(position)?.dateStr ?: "" } // 设置 item 的组名
+                    .setTextSideMargin(20)
+                    .setGroupBackground(getColorRef(R.color.light_blue_500))
+                    .build()
+                addItemDecoration(decoration)
+            }
         }
 
-        // 利用RecyclerView.ItemDecoration实现顶部悬浮效果
-        val decoration = StickyDecoration.Builder
-                .init(groupListener)
-                .setTextSideMargin(20)
-                .setGroupBackground(ContextCompat.getColor(activity!!, R.color.light_blue_500))
-                .build()
-        mRvTodo.addItemDecoration(decoration)
+        with(mTodoAdapter) {
+            // 设置空数据布局
+            setEmptyView(R.layout.layout_empty_callback, mRvTodo)
+            // 开启上拉加载更多
+            setEnableLoadMore(true)
+            setOnLoadMoreListener({ viewModel.getTodoList(++page, status, type) }, mRvTodo)
+        }
+
 
         // 设置 默认的滑动
         val itemDragAndSwipeCallback = ItemDragAndSwipeCallback(mTodoAdapter)
@@ -135,7 +132,13 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
 
         // 设置滑动监听
         mTodoAdapter.setOnItemSwipeListener(object : OnItemSwipeListenerAdapter() {
-            override fun onItemSwipeMoving(canvas: Canvas?, viewHolder: RecyclerView.ViewHolder?, dX: Float, dY: Float, isCurrentlyActive: Boolean) {
+            override fun onItemSwipeMoving(
+                canvas: Canvas?,
+                viewHolder: RecyclerView.ViewHolder?,
+                dX: Float,
+                dY: Float,
+                isCurrentlyActive: Boolean
+            ) {
                 // 绘制出文字和背景色
                 drawText(canvas, viewHolder)
             }
@@ -152,58 +155,55 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
         mTodoAdapter.setOnItemChildClickListener { _, view, position ->
             when (view.id) {
                 // item 删除
-                R.id.mTvDelete -> {
-                    deleteIndex = position
-                    viewModel.deleteTodo(mTodoAdapter.getItem(position)?.id ?: 0)
-                }
+                R.id.mTvDelete -> deleteItem(position)
                 // item 重要
-                R.id.mTvImportant -> {
-                    updateIndex = position
-                    val todoRsp = mTodoAdapter.getItem(position)
-
-                    todoRsp?.let {
-                        priority = if (it.priority == 1) {
-                            Const.TODO_COMMON
-                        } else {
-                            Const.TODO_IMPORTANT
-                        }
-
-                        viewModel.updateTodo(
-                                it.id,
-                                it.title,
-                                it.dateStr,
-                                it.status,
-                                it.type,
-                                it.content,
-                                priority)
-                    }
-                }
+                R.id.mTvImportant -> markImportTodo(position)
                 // item click
-                R.id.content -> {
-                    // 滑动有冲突 (BaseRecyclerViewAdapter 与 EasySwipeMenuLayout)
-                    // adapter.setOnItemClickListener 无效
-                    // 采用 R.id.content 来实现点击效果
-                    val todoRsp = mTodoAdapter.getItem(position)
-                    todoRsp?.let {
-                        startActivity<AddTodoActivity>(
-                                "id" to it.id,
-                                "title" to it.title,
-                                "time" to it.dateStr,
-                                "status" to it.status,
-                                "type" to it.type,
-                                "content" to it.content,
-                                "priority" to it.priority)
-                    }
-                }
+                R.id.mContent -> showDetail(position)
             }
         }
     }
 
+    private fun showDetail(position: Int) {
+        // 滑动有冲突 (BaseRecyclerViewAdapter 与 EasySwipeMenuLayout)
+        // adapter.setOnItemClickListener 无效
+        // 采用 R.id.mContent 来实现点击效果
+        mTodoAdapter.data[position]?.let { startActivity<AddTodoActivity>(AddTodoActivity.TODO_DATA to it) }
+    }
+
+    private fun markImportTodo(position: Int) {
+        updateIndex = position
+        val todoRsp = mTodoAdapter.getItem(position)
+
+        todoRsp?.let {
+            priority = if (it.priority == 1) {
+                Const.TODO_COMMON
+            } else {
+                Const.TODO_IMPORTANT
+            }
+
+            viewModel.updateTodo(
+                it.id ?: -1,
+                it.title ?: "",
+                it.dateStr ?: Date().format(),
+                it.status ?: 0,
+                it.type ?: 0,
+                it.content ?: "",
+                priority
+            )
+        }
+    }
+
+    private fun deleteItem(position: Int) {
+        deleteIndex = position
+        viewModel.deleteTodo(mTodoAdapter.getItem(position)?.id ?: 0)
+    }
+
     private fun drawText(canvas: Canvas?, viewHolder: RecyclerView.ViewHolder?) {
         val paint = initPaint()
-        canvas?.let {
+        canvas?.run {
             // 设置侧滑删除的 颜色
-            it.drawColor(ContextCompat.getColor(activity!!, swipeColor))
+            drawColor(ContextCompat.getColor(activity!!, swipeColor))
 
             // 获取 item view 的高度
             val height = viewHolder?.itemView?.height ?: 1
@@ -216,7 +216,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
             // y = 总item高度的一半 + 文字的高度的一半(注意的 文字是根据左下角来绘制的.所以是加上文字高度的一半)
             val y = height / 2.0f + bounds.height() / 2.0f
             // 绘制文字  x,y为  文字位置
-            it.drawText(swipeTitle, 50f, y, paint)
+            drawText(swipeTitle, 50f, y, paint)
         }
     }
 

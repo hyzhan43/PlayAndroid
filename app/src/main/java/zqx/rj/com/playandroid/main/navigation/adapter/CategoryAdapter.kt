@@ -17,9 +17,9 @@ class CategoryAdapter :
 
     var selectedPosition: Int = -1
 
-    override fun convert(helper: BaseViewHolder?, item: String?) {
+    override fun convert(helper: BaseViewHolder, item: String?) {
 
-        helper?.run {
+        helper.run {
             setText(R.id.mTvName, item ?: "")
             addOnClickListener(R.id.mTvName)
 

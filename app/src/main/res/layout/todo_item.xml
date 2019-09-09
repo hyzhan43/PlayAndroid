@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mSwipeMenu"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:contentView="@+id/content"
+    app:contentView="@+id/mContent"
     app:rightMenuView="@+id/right">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/content"
+        android:id="@+id/mContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -20,11 +21,11 @@
             android:layout_height="40dp"
             android:background="@drawable/blue_round_bg"
             android:gravity="center"
-            android:text="@string/whole"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/mTvTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/whole" />
 
         <TextView
             android:id="@+id/mTvTitle"
@@ -32,12 +33,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:text="@string/app_name"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/mTvType"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/app_name" />
 
         <TextView
             android:id="@+id/mTvContent"
@@ -47,11 +48,11 @@
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/test"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/mTvType"
-            app:layout_constraintTop_toBottomOf="@+id/mTvTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
+            tools:text="@string/test" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

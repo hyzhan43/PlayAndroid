@@ -16,9 +16,9 @@ class ProjectTabAdapter
     : BaseQuickAdapter<Project, BaseViewHolder>(R.layout.project_item, null) {
 
 
-    override fun convert(helper: BaseViewHolder?, item: Project?) {
+    override fun convert(helper: BaseViewHolder, item: Project?) {
 
-        helper?.run {
+        helper.run {
             item?.let {
                 setText(R.id.mTvTitle, it.title)
                 setText(R.id.mTvContent, it.desc)

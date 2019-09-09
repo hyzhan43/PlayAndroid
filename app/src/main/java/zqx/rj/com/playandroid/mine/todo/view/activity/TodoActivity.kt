@@ -14,6 +14,7 @@ import zqx.rj.com.playandroid.other.context.callback.todo.TodoContext
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.other.constant.Const
 import zqx.rj.com.playandroid.mine.todo.view.fragment.TodoFragment
+import zqx.rj.com.playandroid.other.widget.adapter.BottomNavigationAdapter
 
 
 class TodoActivity : ToolbarActivity() {
@@ -22,15 +23,22 @@ class TodoActivity : ToolbarActivity() {
     private lateinit var mCurrentFragment: Fragment
 
     // 当前 类型 工作1  学习2 生活3  0 默认全部
-    // SharedPreference 保存type类型
     private var type by Preference(Const.TODO_TYPE, 0)
 
     private val mTodoFragment by lazy {
-        TodoFragment.getInstance(Const.TODO_STATUS, getString(R.string.finish), R.color.colorPrimaryDark)
+        TodoFragment.newInstance(
+            Const.TODO_STATUS,
+            getString(R.string.finish),
+            R.color.colorPrimaryDark
+        )
     }
 
     private val mFinishFragment by lazy {
-        TodoFragment.getInstance(Const.FINISH_STATUS, getString(R.string.reduction), R.color.green_500)
+        TodoFragment.newInstance(
+            Const.FINISH_STATUS,
+            getString(R.string.reduction),
+            R.color.green_500
+        )
     }
 
     override fun getLayoutId(): Int = R.layout.activity_todo
@@ -38,9 +46,8 @@ class TodoActivity : ToolbarActivity() {
     override fun initView() {
         super.initView()
 
-        toolbarTitle =  getStringType(type)
+        toolbarTitle = getStringType(type)
         setDefaultFragment()
-        initFloatButton()
         initNavigationBar()
     }
 
@@ -60,10 +67,11 @@ class TodoActivity : ToolbarActivity() {
     private fun setDefaultFragment() {
         mCurrentFragment = mTodoFragment
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.content, mTodoFragment).commit()
+        transaction.add(R.id.mContent, mTodoFragment).commit()
     }
 
-    private fun initFloatButton() {
+    override fun initListener() {
+        super.initListener()
         mFabAdd.setOnClickListener { startActivity<AddTodoActivity>() }
     }
 
@@ -78,11 +86,7 @@ class TodoActivity : ToolbarActivity() {
             // 初始化
             initialise()
             // 设置 button 点击事件
-            setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
-                override fun onTabReselected(position: Int) {}
-
-                override fun onTabUnselected(position: Int) {}
-
+            setTabSelectedListener(object : BottomNavigationAdapter() {
                 override fun onTabSelected(position: Int) {
                     when (position) {
                         Const.TODO -> goTo(mTodoFragment)
@@ -95,13 +99,14 @@ class TodoActivity : ToolbarActivity() {
 
     // 复用 fragment
     private fun goTo(to: Fragment) {
-        if (mCurrentFragment != to) {
-            val transaction = supportFragmentManager.beginTransaction()
-            if (to.isAdded)
-                transaction.hide(mCurrentFragment).show(to)
-            else
-                transaction.hide(mCurrentFragment).add(R.id.content, to)
-            transaction.commit()
+        if (mCurrentFragment == to) {
+            return
+        }
+
+        with(supportFragmentManager.beginTransaction()) {
+            hide(mCurrentFragment)
+            if (to.isAdded) { show(to) } else { add(R.id.mContent, to) }
+            commit()
             mCurrentFragment = to
         }
     }
@@ -117,25 +122,18 @@ class TodoActivity : ToolbarActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         //  全部, 工作1  学习2 生活3
         when (item?.itemId) {
-            R.id.todo_all -> {
-                toolbar.title = getString(R.string.all)
-                //通知 子 fragment 更新数据
-                TodoContext.notifyTodoTypeChange(Const.ALL)
-            }
-            R.id.todo_work -> {
-                toolbar.title = getString(R.string.work)
-                TodoContext.notifyTodoTypeChange(Const.WORK)
-            }
-            R.id.todo_study -> {
-                toolbar.title = getString(R.string.study)
-                TodoContext.notifyTodoTypeChange(Const.STUDY)
-            }
-            R.id.todo_life -> {
-                toolbar.title = getString(R.string.life)
-                TodoContext.notifyTodoTypeChange(Const.LIFE)
-            }
+            R.id.todo_all -> changeFragment(R.string.all, Const.ALL)
+            R.id.todo_work -> changeFragment(R.string.work, Const.WORK)
+            R.id.todo_study -> changeFragment(R.string.study, Const.STUDY)
+            R.id.todo_life -> changeFragment(R.string.life, Const.LIFE)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun changeFragment(titleRes: Int, type: Int) {
+        toolbar.title = getString(titleRes)
+        //通知 子 fragment 更新数据
+        TodoContext.notifyTodoTypeChange(type)
     }
 
     override fun onBackPressed() = finish()

@@ -25,15 +25,17 @@ class TodoViewModel : BaseViewModel<TodoRepository>() {
      *  status 状态， 1完成；0未完成; 默认全部展示 -1；
      *  type   工作1；生活2；娱乐3； 默认全部展示  0;
      *  priority 创建时传入的优先级；默认全部展示  0;
-     *  orderby 1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)；
+     *  orderBy 1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)；
      */
     fun getTodoList(
-        page: Int = 1, status: Int = -1, type: Int = 0, priority: Int = 0,
-        orderby: Int = 4
+        page: Int = 1,
+        status: Int = -1,
+        type: Int = 0,
+        priority: Int = 0,
+        orderBy: Int = 4
     ) {
-
         launchUI({
-            repository.getTodoList(page, status, type, priority, orderby).execute({
+            repository.getTodoList(page, status, type, priority, orderBy).execute({
                 todoData.value = it
             })
         })
@@ -49,8 +51,13 @@ class TodoViewModel : BaseViewModel<TodoRepository>() {
      *   priority:
      */
     fun updateTodo(
-        id: Int, title: String, time: String, status: Int, type: Int,
-        content: String, priority: Int
+        id: Int,
+        title: String,
+        time: String,
+        status: Int,
+        type: Int,
+        content: String,
+        priority: Int
     ) {
 
         /**

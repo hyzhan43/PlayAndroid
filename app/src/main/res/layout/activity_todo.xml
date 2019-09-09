@@ -17,13 +17,13 @@
         android:padding="10dp"
         android:text="@string/smile_tip"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/content"
+        app:layout_constraintBottom_toTopOf="@+id/mContent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="UnknownIdInLayout" />
 
     <!-- todoList 内容-->
     <FrameLayout
-        android:id="@+id/content"
+        android:id="@+id/mContent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/mNavigationBar"

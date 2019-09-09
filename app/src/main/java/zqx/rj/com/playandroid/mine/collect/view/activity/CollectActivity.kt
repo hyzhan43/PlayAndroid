@@ -72,9 +72,7 @@ class CollectActivity : ArticleListActivity<CollectViewModel>() {
     //  点击 ♥ 取消收藏 前提是登录成功
     override fun collect(position: Int) {
 
-        val article = mArticleAdapter.getItem(position)
-
-        article?.let {
+        mArticleAdapter.getItem(position)?.let {
             current = position
             // 文章 id
             viewModel.unMyCollect(it.id, it.originId)

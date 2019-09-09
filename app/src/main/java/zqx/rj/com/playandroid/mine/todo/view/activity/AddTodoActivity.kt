@@ -14,6 +14,7 @@ import com.zhan.mvvm.mvvm.LifecycleActivity
 import kotlinx.android.synthetic.main.activity_add_todo.*
 import zqx.rj.com.playandroid.other.context.callback.todo.TodoContext
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.mine.todo.data.bean.TodoRsp
 import zqx.rj.com.playandroid.other.constant.Const
 import zqx.rj.com.playandroid.other.ext.format
 import zqx.rj.com.playandroid.other.ext.toHtml
@@ -39,18 +40,18 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
     // todo级别
     private var priority: Int = 0
 
+    companion object {
+        const val TODO_DATA = "todo_data"
+    }
+
     override fun getLayoutId(): Int = R.layout.activity_add_todo
 
     override fun initView() {
         super.initView()
 
-        // setToolBar(toolbar, getString(R.string.add_todo))
-
         initTimePick()
-        mLlDate.setOnClickListener { mTimeView.show() }
 
         initTypePick()
-        mLlType.setOnClickListener { mTypeView.show() }
 
         // 保存 button
         mBtnSave.setOnClickListener {
@@ -63,17 +64,18 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
     override fun initData() {
         super.initData()
 
-        with(intent) {
-            id = getIntExtra("id", -1)
-            status = getIntExtra("status", 0)
-            priority = getIntExtra("priority", 0)
-            val title = (getStringExtra("title") ?: "").toHtml()
+        intent?.getParcelableExtra<TodoRsp>(TODO_DATA)?.let {
+
+            id = it.id ?: -1
+            status = it.status ?: 0
+            priority = it.priority ?: 0
+            val title = it.title?.toHtml() ?: ""
             mEtTitle.setText(title)
             mEtTitle.setSelection(title.length)
             // 如果 time 没有，就设置 当前日期
-            mTvTime.text = getStringExtra("time") ?: Date().format()
-            mTvType.text = getStringType(getIntExtra("type", 0))
-            mEtContent.setText((getStringExtra("content") ?: "").toHtml())
+            mTvTime.text = it.dateStr ?: Date().format()
+            mTvType.text = getStringType(it.type ?: 0)
+            mEtContent.setText(it.content?.toHtml() ?: "")
         }
     }
 
@@ -82,10 +84,12 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
      */
     private fun saveTodo() {
         showLoading()
-        viewModel.saveTodo(mEtTitle.str(),
-                mTvTime.str(),
-                getIntType(mTvType.str()),
-                mEtContent.str())
+        viewModel.saveTodo(
+            mEtTitle.str(),
+            mTvTime.str(),
+            getIntType(mTvType.str()),
+            mEtContent.str()
+        )
     }
 
     /**
@@ -94,13 +98,14 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
     private fun updateTodo() {
         showLoading()
         viewModel.updateTodo(
-                id,
-                mEtTitle.str(),
-                mTvTime.str(),
-                status,
-                getIntType(mTvType.str()),
-                mEtContent.str(),
-                priority)
+            id,
+            mEtTitle.str(),
+            mTvTime.str(),
+            status,
+            getIntType(mTvType.str()),
+            mEtContent.str(),
+            priority
+        )
     }
 
     private fun initTimePick() {
@@ -109,8 +114,8 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
         mTimeView = TimePickerBuilder(this, OnTimeSelectListener { date, _ ->
             mTvTime.text = date.format()
         }).setSubmitColor(getColorRef(R.color.colorPrimaryDark))
-                .setCancelColor(getColorRef(R.color.colorPrimaryDark))
-                .build()
+            .setCancelColor(getColorRef(R.color.colorPrimaryDark))
+            .build()
     }
 
     private fun initTypePick() {
@@ -126,11 +131,19 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
             // options1 为 选中索引
             mTvType.text = typeList[options1]
         }).setSubmitColor(getColorRef(R.color.colorPrimaryDark))
-                .setCancelColor(getColorRef(R.color.colorPrimaryDark))
-                .build<String>()
+            .setCancelColor(getColorRef(R.color.colorPrimaryDark))
+            .build()
 
         // 设置数据源
         mTypeView.setPicker(typeList)
+    }
+
+    override fun initListener() {
+        super.initListener()
+
+        mLlType.setOnClickListener { mTypeView.show() }
+
+        mLlDate.setOnClickListener { mTimeView.show() }
     }
 
     override fun dataObserver() {

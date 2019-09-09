@@ -143,36 +143,22 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     private fun setDefaultFragment() {
         mCurrentFragment = mHomeFragment
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.content, mHomeFragment).commit()
+        transaction.add(R.id.mContent, mHomeFragment).commit()
     }
 
     private fun switchFragment(position: Int) {
         when (position) {
-            Const.HOME -> {
-                toolbarTitle = getString(R.string.home)
-                goTo(mHomeFragment)
-            }
-            Const.WECHAT -> {
-                toolbarTitle = getString(R.string.wechat)
-                goTo(mWeChatFragment)
-            }
-            Const.SYSTEM -> {
-                toolbarTitle = getString(R.string.system)
-                goTo(mSystemFragment)
-            }
-            Const.NAVIGATION -> {
-                toolbarTitle = getString(R.string.navigation)
-                goTo(mNavigationFragment)
-            }
-            Const.PROJECT -> {
-                toolbarTitle = getString(R.string.project)
-                goTo(mProjectFragment)
-            }
+            Const.HOME -> goTo(R.string.home, mHomeFragment)
+            Const.WECHAT -> goTo(R.string.wechat, mWeChatFragment)
+            Const.SYSTEM -> goTo(R.string.system, mSystemFragment)
+            Const.NAVIGATION -> goTo(R.string.navigation, mNavigationFragment)
+            Const.PROJECT -> goTo(R.string.project, mProjectFragment)
         }
     }
 
     // 复用 fragment
-    private fun goTo(to: Fragment) {
+    private fun goTo(titleRes: Int, to: Fragment) {
+        toolbarTitle = getString(titleRes)
         if (mCurrentFragment == to) {
             return
         }
@@ -183,7 +169,7 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
             if (to.isAdded) {
                 show(to)
             } else {
-                add(R.id.content, to)
+                add(R.id.mContent, to)
             }
             commit()
             mCurrentFragment = to
@@ -191,7 +177,7 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+        return when (item?.itemId) {
             //将滑动菜单显示出来
             android.R.id.home -> {
                 mDrawerMain.openDrawer(Gravity.START)
@@ -202,8 +188,8 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
                 startActivity<SearchActivity>()
                 return true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     // 登录成功 回调
