@@ -1,6 +1,5 @@
 package zqx.rj.com.playandroid.other.config
 
-import com.zhan.mvvm.http.BaseOkHttpClient
 import com.zhan.mvvm.http.BaseRetrofitConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

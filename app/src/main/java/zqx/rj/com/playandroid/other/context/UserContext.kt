@@ -10,6 +10,8 @@ import zqx.rj.com.playandroid.other.context.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.other.constant.Const
 import zqx.rj.com.playandroid.other.constant.Key
+import zqx.rj.com.playandroid.other.context.state.LoginState
+import zqx.rj.com.playandroid.other.context.state.LogoutState
 
 /**
  * author：  HyZhan

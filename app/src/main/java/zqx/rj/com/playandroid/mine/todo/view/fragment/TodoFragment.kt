@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback
 import com.gavin.com.library.StickyDecoration
-import com.gavin.com.library.listener.GroupListener
 import com.zhan.mvvm.common.Preference
 import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.getColorRef
@@ -105,7 +104,9 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
             // 利用RecyclerView.ItemDecoration实现顶部悬浮效果
             activity?.run {
                 val decoration = StickyDecoration.Builder
-                    .init { position -> mTodoAdapter.data.getOrNull(position)?.dateStr ?: "" } // 设置 item 的组名
+                    .init { position ->
+                        mTodoAdapter.data.getOrNull(position)?.dateStr ?: ""
+                    } // 设置 item 的组名
                     .setTextSideMargin(20)
                     .setGroupBackground(getColorRef(R.color.light_blue_500))
                     .build()
@@ -119,6 +120,9 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
             // 开启上拉加载更多
             setEnableLoadMore(true)
             setOnLoadMoreListener({ viewModel.getTodoList(++page, status, type) }, mRvTodo)
+
+            // 开启滑动
+            enableSwipeItem()
         }
 
 
@@ -126,9 +130,10 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
         val itemDragAndSwipeCallback = ItemDragAndSwipeCallback(mTodoAdapter)
         val itemTouchHelper = ItemTouchHelper(itemDragAndSwipeCallback)
         itemTouchHelper.attachToRecyclerView(mRvTodo)
+    }
 
-        // 开启滑动
-        mTodoAdapter.enableSwipeItem()
+    override fun initListener() {
+        super.initListener()
 
         // 设置滑动监听
         mTodoAdapter.setOnItemSwipeListener(object : OnItemSwipeListenerAdapter() {
@@ -146,8 +151,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
             override fun onItemSwiped(viewHolder: RecyclerView.ViewHolder?, pos: Int) {
                 // 滑动完成或还原 回调  (status = 1 完成, status = 0 未完成)
                 // 如果当前页面是 未完成fragment 则是 完成 status = 1。
-                val isFinish = if (status == 1) 0 else 1
-                viewModel.finishTodo(mTodoAdapter.getItem(pos)?.id ?: 0, isFinish)
+                viewModel.finishTodo(mTodoAdapter.getItem(pos)?.id ?: 0, isFinish())
             }
         })
 
@@ -164,6 +168,8 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
         }
     }
 
+    private fun isFinish() = if (status == 1) 0 else 1
+
     private fun showDetail(position: Int) {
         // 滑动有冲突 (BaseRecyclerViewAdapter 与 EasySwipeMenuLayout)
         // adapter.setOnItemClickListener 无效
@@ -176,11 +182,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
         val todoRsp = mTodoAdapter.getItem(position)
 
         todoRsp?.let {
-            priority = if (it.priority == 1) {
-                Const.TODO_COMMON
-            } else {
-                Const.TODO_IMPORTANT
-            }
+            priority = isImportant(it)
 
             viewModel.updateTodo(
                 it.id ?: -1,
@@ -194,6 +196,12 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
         }
     }
 
+    private fun isImportant(it: TodoRsp): Int = if (it.priority == 1) {
+        Const.TODO_COMMON
+    } else {
+        Const.TODO_IMPORTANT
+    }
+
     private fun deleteItem(position: Int) {
         deleteIndex = position
         viewModel.deleteTodo(mTodoAdapter.getItem(position)?.id ?: 0)
@@ -203,7 +211,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
         val paint = initPaint()
         canvas?.run {
             // 设置侧滑删除的 颜色
-            drawColor(ContextCompat.getColor(activity!!, swipeColor))
+            context?.getColorRef(swipeColor)?.let { drawColor(it) }
 
             // 获取 item view 的高度
             val height = viewHolder?.itemView?.height ?: 1

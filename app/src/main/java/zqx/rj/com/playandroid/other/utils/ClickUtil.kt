@@ -1,7 +1,5 @@
 package zqx.rj.com.playandroid.other.utils
 
-import android.view.View
-
 /**
  * author：  HyZhan
  * create：  2019/8/13
@@ -13,7 +11,7 @@ object ClickUtil {
 
     /**
      *  双击事件
-     *  @param duation 两次间隔时间
+     *  @param duration 两次间隔时间
      */
     fun interval(block: () -> Unit, duration: Int = 1000) {
         val nowTime = System.currentTimeMillis()

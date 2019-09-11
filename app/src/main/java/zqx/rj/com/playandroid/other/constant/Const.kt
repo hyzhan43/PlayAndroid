@@ -17,10 +17,6 @@ object Const{
     const val NAVIGATION = 3
     const val PROJECT = 4
 
-    const val SUCCESS = 0
-    const val NOT_LOGIN = -1001
-
-
     const val STATUS = "status"
     const val TODO_STATUS = 0
     const val FINISH_STATUS = 1

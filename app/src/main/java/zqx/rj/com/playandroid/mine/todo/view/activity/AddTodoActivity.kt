@@ -50,15 +50,7 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
         super.initView()
 
         initTimePick()
-
         initTypePick()
-
-        // 保存 button
-        mBtnSave.setOnClickListener {
-            // 如果有 id 则是更新, 否则是保存新的todo
-            if (id == -1) saveTodo() else updateTodo()
-        }
-
     }
 
     override fun initData() {
@@ -78,6 +70,7 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
             mEtContent.setText(it.content?.toHtml() ?: "")
         }
     }
+
 
     /**
      *  发起保存请求
@@ -144,6 +137,12 @@ class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
         mLlType.setOnClickListener { mTypeView.show() }
 
         mLlDate.setOnClickListener { mTimeView.show() }
+
+        // 保存 button
+        mBtnSave.setOnClickListener {
+            // 如果有 id 则是更新, 否则是保存新的todo
+            if (id == -1) saveTodo() else updateTodo()
+        }
     }
 
     override fun dataObserver() {

@@ -121,19 +121,20 @@ class TodoActivity : ToolbarActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         //  全部, 工作1  学习2 生活3
-        when (item?.itemId) {
+        return when (item?.itemId) {
             R.id.todo_all -> changeFragment(R.string.all, Const.ALL)
             R.id.todo_work -> changeFragment(R.string.work, Const.WORK)
             R.id.todo_study -> changeFragment(R.string.study, Const.STUDY)
             R.id.todo_life -> changeFragment(R.string.life, Const.LIFE)
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
-    private fun changeFragment(titleRes: Int, type: Int) {
+    private fun changeFragment(titleRes: Int, type: Int): Boolean {
         toolbar.title = getString(titleRes)
         //通知 子 fragment 更新数据
         TodoContext.notifyTodoTypeChange(type)
+        return true
     }
 
     override fun onBackPressed() = finish()
