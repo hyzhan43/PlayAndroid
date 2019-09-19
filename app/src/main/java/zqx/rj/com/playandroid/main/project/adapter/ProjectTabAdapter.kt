@@ -12,8 +12,7 @@ import zqx.rj.com.playandroid.other.ext.loadUrl
  * created： 2018/10/27 16:40
  * desc：    TODO
  */
-class ProjectTabAdapter
-    : BaseQuickAdapter<Project, BaseViewHolder>(R.layout.project_item, null) {
+class ProjectTabAdapter : BaseQuickAdapter<Project, BaseViewHolder>(R.layout.project_item, null) {
 
 
     override fun convert(helper: BaseViewHolder, item: Project?) {

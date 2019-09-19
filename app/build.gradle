@@ -48,9 +48,6 @@ dependencies {
     // circle view
     api "de.hdodenhof:circleimageview:$circleimageview_version"
 
-    // LoadSir
-    api "com.kingja.loadsir:loadsir:$loadsir_version"
-
     // banner
     api "com.youth.banner:banner:$banner_version"
 

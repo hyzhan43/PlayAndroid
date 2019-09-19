@@ -66,8 +66,8 @@ class TodoActivity : ToolbarActivity() {
      */
     private fun setDefaultFragment() {
         mCurrentFragment = mTodoFragment
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.mContent, mTodoFragment).commit()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.mContent, mTodoFragment).commit()
     }
 
     override fun initListener() {
@@ -87,13 +87,15 @@ class TodoActivity : ToolbarActivity() {
             initialise()
             // 设置 button 点击事件
             setTabSelectedListener(object : BottomNavigationAdapter() {
-                override fun onTabSelected(position: Int) {
-                    when (position) {
-                        Const.TODO -> goTo(mTodoFragment)
-                        Const.FINISH -> goTo(mFinishFragment)
-                    }
-                }
+                override fun onTabSelected(position: Int) = switchFragment(position)
             })
+        }
+    }
+
+    private fun switchFragment(position: Int) {
+        when (position) {
+            Const.TODO -> goTo(mTodoFragment)
+            Const.FINISH -> goTo(mFinishFragment)
         }
     }
 
@@ -105,7 +107,11 @@ class TodoActivity : ToolbarActivity() {
 
         with(supportFragmentManager.beginTransaction()) {
             hide(mCurrentFragment)
-            if (to.isAdded) { show(to) } else { add(R.id.mContent, to) }
+            if (to.isAdded) {
+                show(to)
+            } else {
+                add(R.id.mContent, to)
+            }
             commit()
             mCurrentFragment = to
         }
