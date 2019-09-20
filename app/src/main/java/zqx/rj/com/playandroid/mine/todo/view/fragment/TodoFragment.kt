@@ -196,7 +196,7 @@ class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
         }
     }
 
-    private fun isImportant(it: TodoRsp): Int = if (it.priority == 1) {
+    private fun isImportant(it: TodoRsp): Int = if (it.isImportant()) {
         Const.TODO_COMMON
     } else {
         Const.TODO_IMPORTANT

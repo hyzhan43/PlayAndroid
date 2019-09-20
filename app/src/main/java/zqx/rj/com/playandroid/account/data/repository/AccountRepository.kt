@@ -15,10 +15,10 @@ import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
 class AccountRepository: BaseRepository() {
 
     suspend fun login(username: String, password: String): BaseResponse<LoginRsp> {
-        return apiService.loginAsync(username, password).await()
+        return launchIO { apiService.loginAsync(username, password) }
     }
 
     suspend fun register(username: String, password: String, rePassword: String): BaseResponse<RegisterRsp> {
-        return apiService.registerAsync(username, password, rePassword).await()
+        return launchIO { apiService.registerAsync(username, password, rePassword) }
     }
 }

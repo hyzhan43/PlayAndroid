@@ -1,6 +1,5 @@
 package zqx.rj.com.playandroid.other.api
 
-import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -33,94 +32,115 @@ import zqx.rj.com.playandroid.main.wechat.data.bean.WxArticleRsp
 interface ApiService {
 
     @POST(API.LOGIN)
-    fun loginAsync(@Query("username") username: String,
-                   @Query("password") password: String): Deferred<BaseResponse<LoginRsp>>
+    suspend fun loginAsync(
+        @Query("username") username: String,
+        @Query("password") password: String
+    ): BaseResponse<LoginRsp>
 
     @POST(API.REGISTER)
-    fun registerAsync(@Query("username") username: String,
-                      @Query("password") password: String,
-                      @Query("repassword") repassword: String): Deferred<BaseResponse<RegisterRsp>>
+    suspend fun registerAsync(
+        @Query("username") username: String,
+        @Query("password") password: String,
+        @Query("repassword") repassword: String
+    ): BaseResponse<RegisterRsp>
 
     @GET("banner/json")
-    fun getBannerAsync(): Deferred<BaseResponse<List<BannerRsp>>>
+    suspend fun getBannerAsync(): BaseResponse<List<BannerRsp>>
 
     @GET("article/list/{page}/json")
-    fun getHomeArticleAsync(@Path("page") page: Int): Deferred<BaseResponse<HomeArticleRsp>>
+    suspend fun getHomeArticleAsync(@Path("page") page: Int): BaseResponse<HomeArticleRsp>
 
     @GET("hotkey/json")
-    fun getHotKeyAsync(): Deferred<BaseResponse<List<HotKeyRsp>>>
+    suspend fun getHotKeyAsync(): BaseResponse<List<HotKeyRsp>>
 
     @POST("article/query/{page}/json")
-    fun searchAsync(@Path("page") page: Int, @Query("k") key: String):
-            Deferred<BaseResponse<SearchResultRsp>>
+    suspend fun searchAsync(
+        @Path("page") page: Int,
+        @Query("k") key: String
+    ): BaseResponse<SearchResultRsp>
 
     @GET("friend/json")
-    fun getCommonWebAsync(): Deferred<BaseResponse<List<CommonWebRsp>>>
+    suspend fun getCommonWebAsync(): BaseResponse<List<CommonWebRsp>>
 
     @GET("navi/json")
-    fun getCategoryAsync(): Deferred<BaseResponse<List<NavigationCategoryRsp>>>
+    suspend fun getCategoryAsync(): BaseResponse<List<NavigationCategoryRsp>>
 
     @GET("tree/json")
-    fun getTreeAsync(): Deferred<BaseResponse<List<TopTreeRsp>>>
+    suspend fun getTreeAsync(): BaseResponse<List<TopTreeRsp>>
 
     @GET("article/list/{page}/json")
-    fun getArticleTreeAsync(@Path("page") page: Int, @Query("cid") id: Int):
-            Deferred<BaseResponse<TreeArticleRsp>>
+    suspend fun getArticleTreeAsync(
+        @Path("page") page: Int,
+        @Query("cid") id: Int
+    ): BaseResponse<TreeArticleRsp>
 
     @GET("lg/collect/list/{page}/json")
-    fun getCollectArticleAsync(@Path("page") page: Int): Deferred<BaseResponse<CollectRsp>>
+    suspend fun getCollectArticleAsync(@Path("page") page: Int): BaseResponse<CollectRsp>
 
     @POST("lg/collect/{id}/json")
-    fun collectAsync(@Path("id") id: Int): Deferred<BaseResponse<EmptyRsp>>
+    suspend fun collectAsync(@Path("id") id: Int): BaseResponse<EmptyRsp>
 
     @POST("lg/uncollect_originId/{id}/json")
-    fun unCollectAsync(@Path("id") id: Int): Deferred<BaseResponse<EmptyRsp>>
+    suspend fun unCollectAsync(@Path("id") id: Int): BaseResponse<EmptyRsp>
 
     @POST("lg/uncollect/{id}/json")
-    fun unMyCollectAsync(@Path("id") id: Int, @Query("originId") originId: Int): Deferred<BaseResponse<EmptyRsp>>
+    suspend fun unMyCollectAsync(
+        @Path("id") id: Int,
+        @Query("originId") originId: Int
+    ): BaseResponse<EmptyRsp>
 
     @GET("project/tree/json")
-    fun getProjectTreeAsync(): Deferred<BaseResponse<List<ProjectTreeRsp>>>
+    suspend fun getProjectTreeAsync(): BaseResponse<List<ProjectTreeRsp>>
 
     @GET("project/list/{page}/json")
-    fun getProjectsAsync(@Path("page") page: Int, @Query("cid") cid: Int): Deferred<BaseResponse<ProjectRsp>>
+    suspend fun getProjectsAsync(
+        @Path("page") page: Int,
+        @Query("cid") cid: Int
+    ): BaseResponse<ProjectRsp>
 
     @GET("wxarticle/chapters/json")
-    fun getWeChatNameAsync(): Deferred<BaseResponse<List<WeChatNameRsp>>>
+    suspend fun getWeChatNameAsync(): BaseResponse<List<WeChatNameRsp>>
 
     @GET("wxarticle/list/{id}/{page}/json")
-    fun getWxArticleAsync(@Path("id") id: Int, @Path("page") page: Int)
-            : Deferred<BaseResponse<WxArticleRsp>>
+    suspend fun getWxArticleAsync(
+        @Path("id") id: Int,
+        @Path("page") page: Int
+    ): BaseResponse<WxArticleRsp>
 
     @GET("lg/todo/v2/list/{page}/json")
-    fun getTodoListAsync(@Path("page") page: Int,
-                         @Query("status") status: Int,
-                         @Query("type") type: Int,
-                         @Query("priority") priority: Int,
-                         @Query("orderby") orderby: Int)
-            : Deferred<BaseResponse<PageRsp<TodoRsp>>>
+    suspend fun getTodoListAsync(
+        @Path("page") page: Int,
+        @Query("status") status: Int,
+        @Query("type") type: Int,
+        @Query("priority") priority: Int,
+        @Query("orderby") orderby: Int
+    ): BaseResponse<PageRsp<TodoRsp>>
 
     @POST("lg/todo/done/{id}/json")
-    fun finishTodoAsync(@Path("id") id: Int,
-                        @Query("status") status: Int)
-            : Deferred<BaseResponse<EmptyRsp>>
+    suspend fun finishTodoAsync(
+        @Path("id") id: Int,
+        @Query("status") status: Int
+    ): BaseResponse<EmptyRsp>
 
     @POST("lg/todo/delete/{id}/json")
-    fun deleteTodoAsync(@Path("id") id: Int): Deferred<BaseResponse<EmptyRsp>>
+    suspend fun deleteTodoAsync(@Path("id") id: Int): BaseResponse<EmptyRsp>
 
     @POST("lg/todo/add/json")
-    fun saveTodoAsync(@Query("title") title: String,
-                      @Query("date") time: String,
-                      @Query("type") type: Int,
-                      @Query("content") content: String): Deferred<BaseResponse<EmptyRsp>>
+    suspend fun saveTodoAsync(
+        @Query("title") title: String,
+        @Query("date") time: String,
+        @Query("type") type: Int,
+        @Query("content") content: String
+    ): BaseResponse<EmptyRsp>
 
     @POST("lg/todo/update/{id}/json")
-    fun updateTodoAsync(@Path("id") id: Int,
-                        @Query("title") title: String,
-                        @Query("date") time: String,
-                        @Query("status") status: Int,
-                        @Query("type") type: Int,
-                        @Query("content") content: String,
-                        @Query("priority") priority: Int
-    ): Deferred<BaseResponse<EmptyRsp>>
+    suspend fun updateTodoAsync(
+        @Path("id") id: Int,
+        @Query("title") title: String,
+        @Query("date") time: String,
+        @Query("status") status: Int,
+        @Query("type") type: Int,
+        @Query("content") content: String,
+        @Query("priority") priority: Int
+    ): BaseResponse<EmptyRsp>
 }

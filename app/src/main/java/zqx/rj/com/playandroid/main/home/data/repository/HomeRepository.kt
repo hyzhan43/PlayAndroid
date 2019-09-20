@@ -15,14 +15,14 @@ import zqx.rj.com.playandroid.main.home.data.bean.HomeArticleRsp
 class HomeRepository : ArticleRepository() {
 
     suspend fun getBanner(): BaseResponse<List<BannerRsp>> {
-        return launchIO { apiService.getBannerAsync().await() }
+        return launchIO { apiService.getBannerAsync() }
     }
 
     suspend fun getArticle(page: Int): BaseResponse<HomeArticleRsp> {
-        return launchIO { apiService.getHomeArticleAsync(page).await() }
+        return launchIO { apiService.getHomeArticleAsync(page) }
     }
 
     suspend fun getCommonWeb(): BaseResponse<List<CommonWebRsp>> {
-        return launchIO { apiService.getCommonWebAsync().await() }
+        return launchIO { apiService.getCommonWebAsync() }
     }
 }

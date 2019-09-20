@@ -14,10 +14,10 @@ import zqx.rj.com.playandroid.main.project.data.bean.ProjectTreeRsp
 class ProjectRepository : BaseRepository() {
 
     suspend fun getProjectTree(): BaseResponse<List<ProjectTreeRsp>> {
-        return launchIO { apiService.getProjectTreeAsync().await() }
+        return launchIO { apiService.getProjectTreeAsync()}
     }
 
     suspend fun getProjects(page: Int, id: Int): BaseResponse<ProjectRsp> {
-        return launchIO { apiService.getProjectsAsync(page, id).await() }
+        return launchIO { apiService.getProjectsAsync(page, id) }
     }
 }

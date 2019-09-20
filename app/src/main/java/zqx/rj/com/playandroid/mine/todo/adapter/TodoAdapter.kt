@@ -15,37 +15,35 @@ import zqx.rj.com.playandroid.mine.todo.data.bean.TodoRsp
  */
 class TodoAdapter : BaseItemDraggableAdapter<TodoRsp, BaseViewHolder>(R.layout.todo_item, null) {
 
-    private val import: Int = 1
-
     override fun convert(helper: BaseViewHolder, item: TodoRsp?) {
 
         item?.let {
             helper.run {
                 setText(R.id.mTvTitle, it.title?.toHtml() ?: "")
                 setText(R.id.mTvContent, it.content?.toHtml() ?: "")
+                setText(R.id.mTvType, getType(it.type ?: 0))
+                setText(R.id.mTvImportant, isShowImportant(it))
+                setBackgroundRes(R.id.mTvType, isImportant(it))
+                setBackgroundRes(R.id.mTvImportant, isShowImportantBg(it))
                 addOnClickListener(R.id.mTvDelete)
                 addOnClickListener(R.id.mTvImportant)
                 addOnClickListener(R.id.mContent)
-                setText(R.id.mTvType, getType(it.type ?: 0))
-                setBackgroundRes(R.id.mTvType, isImportant(it.priority ?: 0))
-                setText(R.id.mTvImportant, isShowImportant(it.priority ?: 0))
-                setBackgroundRes(R.id.mTvImportant, isShowImportantBg(it.priority ?: 0))
             }
         }
     }
 
     // 判断是否是重要的todo
-    private fun isImportant(priority: Int): Int {
-        return if (priority == import) R.drawable.red_round_bg else R.drawable.blue_round_bg
+    private fun isImportant(todoRsp: TodoRsp): Int {
+        return if (todoRsp.isImportant()) R.drawable.red_round_bg else R.drawable.blue_round_bg
     }
 
     // 标记为 重要/普通
-    private fun isShowImportant(priority: Int): String {
-        return if (priority == import) "普通" else "重要"
+    private fun isShowImportant(todoRsp: TodoRsp): String {
+        return if (todoRsp.isImportant()) "普通" else "重要"
     }
 
-    private fun isShowImportantBg(priority: Int): Int {
-        return if (priority == import) R.color.gray else R.color.orange
+    private fun isShowImportantBg(todoRsp: TodoRsp): Int {
+        return if (todoRsp.isImportant()) R.color.gray else R.color.orange
     }
 
     private fun getType(type: Int): String {

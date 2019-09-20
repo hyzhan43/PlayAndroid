@@ -15,11 +15,11 @@ import zqx.rj.com.playandroid.common.search.data.db.bean.Record
 class SearchRepository : ArticleRepository() {
 
     suspend fun getHotKey(): BaseResponse<List<HotKeyRsp>> {
-        return launchIO { apiService.getHotKeyAsync().await() }
+        return launchIO { apiService.getHotKeyAsync() }
     }
 
     suspend fun search(page: Int, str: String): BaseResponse<SearchResultRsp> {
-        return launchIO { apiService.searchAsync(page, str).await() }
+        return launchIO { apiService.searchAsync(page, str)}
     }
 
     fun clearRecords(): Int {

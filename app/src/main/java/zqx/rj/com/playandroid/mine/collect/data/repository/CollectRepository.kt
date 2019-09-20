@@ -15,11 +15,11 @@ class CollectRepository : ArticleRepository() {
 
     // 获取我的收藏
     suspend fun getCollectArticle(page: Int): BaseResponse<CollectRsp> {
-        return launchIO { apiService.getCollectArticleAsync(page).await() }
+        return launchIO { apiService.getCollectArticleAsync(page) }
     }
 
     // 取消 我的收藏
     suspend fun unCollect(id: Int, originId: Int): BaseResponse<EmptyRsp> {
-        return launchIO { apiService.unMyCollectAsync(id, originId).await() }
+        return launchIO { apiService.unMyCollectAsync(id, originId) }
     }
 }

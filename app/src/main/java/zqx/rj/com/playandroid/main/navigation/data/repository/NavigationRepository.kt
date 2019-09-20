@@ -13,6 +13,6 @@ import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationCategoryRsp
 class NavigationRepository : BaseRepository() {
 
     suspend fun getCategory(): BaseResponse<List<NavigationCategoryRsp>> {
-        return launchIO { apiService.getCategoryAsync().await() }
+        return launchIO { apiService.getCategoryAsync() }
     }
 }

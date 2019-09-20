@@ -13,10 +13,10 @@ import zqx.rj.com.playandroid.other.bean.BaseResponse
 abstract class ArticleRepository : BaseRepository() {
 
     suspend fun collect(id: Int): BaseResponse<EmptyRsp> {
-        return launchIO { apiService.collectAsync(id).await() }
+        return launchIO { apiService.collectAsync(id) }
     }
 
     suspend fun unCollect(id: Int): BaseResponse<EmptyRsp> {
-        return launchIO { apiService.unCollectAsync(id).await() }
+        return launchIO { apiService.unCollectAsync(id) }
     }
 }
