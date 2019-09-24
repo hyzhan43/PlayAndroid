@@ -7,6 +7,8 @@ package zqx.rj.com.playandroid.other.constant
  */
 object Key {
 
+    const val RANK = "rank"
+    const val SCORE = "score"
     const val TITLES = "titles"
     const val TITLE = "title"
     const val LINK = "link"

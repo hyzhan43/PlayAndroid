@@ -1,5 +1,7 @@
 package zqx.rj.com.playandroid.other.context.callback.login
 
+import zqx.rj.com.playandroid.account.data.bean.UserInfoRsp
+
 object LoginSucState {
 
     var listeners = ArrayList<LoginSucListener>()
@@ -12,9 +14,9 @@ object LoginSucState {
         listeners.remove(listener)
     }
 
-    fun notifyLoginState(name: String, collectIds: List<Int>?) {
+    fun notifyLoginState(userInfoRsp: UserInfoRsp?) {
         for (listener in listeners) {
-            listener.loginSuccess(name, collectIds)
+            listener.loginSuccess(userInfoRsp)
         }
     }
 }

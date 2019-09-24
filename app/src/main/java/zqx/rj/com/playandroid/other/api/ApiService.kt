@@ -7,7 +7,7 @@ import retrofit2.http.Query
 import zqx.rj.com.playandroid.other.bean.BaseResponse
 import zqx.rj.com.playandroid.other.bean.EmptyRsp
 import zqx.rj.com.playandroid.account.data.bean.LoginRsp
-import zqx.rj.com.playandroid.account.data.bean.RegisterRsp
+import zqx.rj.com.playandroid.account.data.bean.ScoreInfoRsp
 import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
 import zqx.rj.com.playandroid.common.search.data.bean.SearchResultRsp
 import zqx.rj.com.playandroid.main.home.data.bean.BannerRsp
@@ -42,7 +42,7 @@ interface ApiService {
         @Query("username") username: String,
         @Query("password") password: String,
         @Query("repassword") repassword: String
-    ): BaseResponse<RegisterRsp>
+    ): BaseResponse<LoginRsp>
 
     @GET("banner/json")
     suspend fun getBannerAsync(): BaseResponse<List<BannerRsp>>
@@ -143,4 +143,7 @@ interface ApiService {
         @Query("content") content: String,
         @Query("priority") priority: Int
     ): BaseResponse<EmptyRsp>
+
+    @GET("lg/coin/userinfo/json")
+    suspend fun getScoreInfoAsync(): BaseResponse<ScoreInfoRsp>
 }

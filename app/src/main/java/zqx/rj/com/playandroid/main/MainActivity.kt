@@ -11,12 +11,14 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.zhan.mvvm.base.ToolbarActivity
 import com.zhan.mvvm.ext.Toasts.toast
 import com.zhan.mvvm.ext.startActivity
+import com.zhan.mvvm.ext.str
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_drawer_header.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import zqx.rj.com.playandroid.other.context.callback.login.LoginSucListener
 import zqx.rj.com.playandroid.other.context.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.account.data.bean.UserInfoRsp
 import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.common.search.view.SearchActivity
 import zqx.rj.com.playandroid.main.home.view.fragment.HomeFragment
@@ -100,8 +102,8 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     private fun initHeadView() {
         // 直接获取报错   error -> mNavMain.mTvName
         headView = mNavMain.getHeaderView(0)
-        headView.mTvName.text = Account.username
 
+        updateUserInfo()
         // 点击 登录
         headView.mCivIcon.setOnClickListener { UserContext.login(this) }
     }
@@ -193,10 +195,27 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     }
 
     // 登录成功 回调
-    override fun loginSuccess(username: String, collectIds: List<Int>?) {
-        // 进行 SharedPreference 存储
-        Account.username = username
-        headView.mTvName.text = username
+    override fun loginSuccess(userInfoRsp: UserInfoRsp?) {
+        userInfoRsp?.run {
+            Account.username = username
+            Account.score = coinCount
+            Account.rank = rank
+
+            updateUserInfo()
+        } ?: updateUserInfo(Const.NOT_LOGIN_MSG, 0, 0)
+    }
+
+    private fun updateUserInfo(
+        username: String = Account.username,
+        score: Int = Account.score,
+        rank: Int = Account.rank
+    ) {
+        with(headView) {
+            mTvName.text = username
+            mTvScore.text = String.format(getString(R.string.score), score)
+            mTvGrade.text = String.format(getString(R.string.grade), (score / 100 + 1))
+            mTvRank.text = String.format(getString(R.string.rank), rank)
+        }
     }
 
     override fun onDestroy() {

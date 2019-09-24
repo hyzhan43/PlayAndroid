@@ -13,5 +13,9 @@ object Account {
 
     var username by Preference(Key.USERNAME, Const.NOT_LOGIN_MSG)
 
+    var score by Preference(Key.SCORE, 0)
+
+    var rank by Preference(Key.RANK, 0)
+
     var cookie by Preference(Key.COOKIE, "")
 }

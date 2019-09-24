@@ -7,6 +7,7 @@ package zqx.rj.com.playandroid.account.data.bean
  */
 data class LoginRsp(
         val icon: String,
+        val id: Int,
         val type: String,
         val collectIds: List<Int>,
         val username: String

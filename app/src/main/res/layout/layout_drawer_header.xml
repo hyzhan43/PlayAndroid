@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="30dp">
+    android:background="@color/white">
 
     <ImageView
         android:layout_width="match_parent"
@@ -36,7 +36,47 @@
         android:textSize="@dimen/font_16"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mCivIcon" />
+        app:layout_constraintTop_toBottomOf="@+id/mCivIcon"
+        tools:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/mTvScore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/len_10"
+        android:textSize="@dimen/font_14"
+        android:gravity="end"
+        android:text="@string/score"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/mTvGrade"
+        app:layout_constraintTop_toBottomOf="@+id/mTvName" />
+
+    <TextView
+        android:id="@+id/mTvGrade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/len_10"
+        android:textSize="@dimen/font_14"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/grade"
+        app:layout_constraintRight_toLeftOf="@+id/mTvRank"
+        app:layout_constraintLeft_toRightOf="@+id/mTvScore"
+        app:layout_constraintTop_toBottomOf="@+id/mTvName" />
+
+    <TextView
+        android:id="@+id/mTvRank"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/len_10"
+        android:textSize="@dimen/font_14"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/rank"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/mTvGrade"
+        app:layout_constraintTop_toBottomOf="@+id/mTvName" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

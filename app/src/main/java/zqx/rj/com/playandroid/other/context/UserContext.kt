@@ -8,6 +8,7 @@ import zqx.rj.com.playandroid.other.context.state.UserState
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.other.context.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.account.data.bean.UserInfoRsp
 import zqx.rj.com.playandroid.other.constant.Const
 import zqx.rj.com.playandroid.other.constant.Key
 import zqx.rj.com.playandroid.other.context.state.LoginState
@@ -63,13 +64,13 @@ object UserContext{
             }.show()
     }
 
-    fun loginSuccess(username: String, collectIds: List<Int>?) {
+    fun loginSuccess(userInfoRsp: UserInfoRsp) {
         // 改变 sharedPreferences   isLogin值
         isLogin = true
         mState = LoginState()
 
         // 登录成功 回调 -> DrawerLayout -> 个人信息更新状态
-        LoginSucState.notifyLoginState(username, collectIds)
+        LoginSucState.notifyLoginState(userInfoRsp)
     }
 
     private fun clearLoginData() {
@@ -78,6 +79,6 @@ object UserContext{
         // 清除 cookie、登录缓存
         Preference.clear()
 
-        LoginSucState.notifyLoginState(Const.NOT_LOGIN_MSG, null)
+        LoginSucState.notifyLoginState(null)
     }
 }

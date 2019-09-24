@@ -99,4 +99,7 @@
     <string name="right">确定</string>
     <string name="not_login">未登录</string>
     <string name="developing">开发中</string>
+    <string name="score">积分: %d</string>
+    <string name="grade">等级: %d</string>
+    <string name="rank">排名: %d</string>
 </resources>

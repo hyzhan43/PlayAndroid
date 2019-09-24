@@ -9,6 +9,7 @@ import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.other.context.callback.login.LoginSucListener
 import zqx.rj.com.playandroid.other.context.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.account.data.bean.UserInfoRsp
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.common.article.adapter.ArticleAdapter
@@ -128,9 +129,9 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
         }
     }
 
-    override fun loginSuccess(username: String, collectIds: List<Int>?) {
+    override fun loginSuccess(userInfoRsp: UserInfoRsp?) {
 
-        collectIds?.let {
+        userInfoRsp?.collectIds?.let {
             it.forEach { id ->
                 mArticleAdapter.data.forEach { article ->
                     // 更新文章收藏状态
