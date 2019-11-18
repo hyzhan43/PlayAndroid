@@ -1,9 +1,9 @@
 package zqx.rj.com.playandroid.account.view
 
 import androidx.lifecycle.Observer
-import com.zhan.mvvm.ext.Toasts.toast
-import com.zhan.mvvm.ext.startActivity
-import com.zhan.mvvm.ext.str
+import com.zhan.ktwing.ext.Toasts.toast
+import com.zhan.ktwing.ext.startActivity
+import com.zhan.ktwing.ext.str
 import com.zhan.mvvm.mvvm.LifecycleActivity
 import com.zhan.mvvm.widget.LoadingDialog
 import kotlinx.android.synthetic.main.activity_login.*

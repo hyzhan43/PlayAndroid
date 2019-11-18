@@ -8,10 +8,9 @@ import android.view.MenuItem
 import android.view.View
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
+import com.zhan.ktwing.ext.Toasts.toast
+import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.base.ToolbarActivity
-import com.zhan.mvvm.ext.Toasts.toast
-import com.zhan.mvvm.ext.startActivity
-import com.zhan.mvvm.ext.str
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_drawer_header.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*

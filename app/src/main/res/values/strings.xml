@@ -102,4 +102,5 @@
     <string name="score">积分: %d</string>
     <string name="grade">等级: %d</string>
     <string name="rank">排名: %d</string>
+    <string name="logout_success">退出成功</string>
 </resources>

@@ -1,7 +1,7 @@
 package zqx.rj.com.playandroid.common.article.view
 
 import androidx.lifecycle.Observer
-import com.zhan.mvvm.ext.startActivity
+import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.layout_article_list.*
 import zqx.rj.com.playandroid.other.widget.SpeedLayoutManager

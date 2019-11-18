@@ -1,7 +1,7 @@
 package zqx.rj.com.playandroid.mine
 
+import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.base.ToolbarActivity
-import com.zhan.mvvm.ext.startActivity
 import kotlinx.android.synthetic.main.activity_about.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity

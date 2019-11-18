@@ -1,8 +1,9 @@
 package zqx.rj.com.playandroid.other.context.state
 
+import android.app.Activity
 import android.content.Context
-import com.zhan.mvvm.ext.Toasts.toast
-import com.zhan.mvvm.ext.startActivity
+import com.zhan.ktwing.ext.Toasts.toast
+import com.zhan.ktwing.ext.startActivity
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.view.LoginActivity
@@ -23,6 +24,10 @@ class LogoutState : UserState {
 
     override fun login(context: Context?) {
         goLoginActivity(context)
+    }
+
+    override fun logout(activity: Activity) {
+
     }
 
     override fun goCollectActivity(context: Context?) {

@@ -4,7 +4,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
-import com.zhan.mvvm.ext.startActivity
+import com.zhan.ktwing.ext.startActivity
 import kotlinx.android.synthetic.main.article_item.view.*
 import kotlinx.android.synthetic.main.home_headview.*
 import kotlinx.android.synthetic.main.home_headview.view.*

@@ -7,11 +7,11 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zhan.mvvm.ext.Toasts.toast
-import com.zhan.mvvm.ext.gone
-import com.zhan.mvvm.ext.hideKeyboard
-import com.zhan.mvvm.ext.str
-import com.zhan.mvvm.ext.visible
+import com.zhan.ktwing.ext.Toasts.toast
+import com.zhan.ktwing.ext.gone
+import com.zhan.ktwing.ext.hideKeyboard
+import com.zhan.ktwing.ext.str
+import com.zhan.ktwing.ext.visible
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import kotlinx.android.synthetic.main.activity_search.*

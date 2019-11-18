@@ -1,5 +1,6 @@
 package zqx.rj.com.playandroid.other.context.state
 
+import android.app.Activity
 import android.content.Context
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 
@@ -17,4 +18,6 @@ interface UserState {
     fun goTodoActivity(context: Context?)
 
     fun goCollectActivity(context: Context?)
+
+    fun logout(activity: Activity)
 }

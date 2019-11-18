@@ -3,7 +3,7 @@ package zqx.rj.com.playandroid.main.navigation.adapter
 import android.graphics.Color
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.zhan.mvvm.ext.getColorRef
+import com.zhan.ktwing.ext.getColorRef
 import kotlinx.android.synthetic.main.navigation_category_item.view.*
 import zqx.rj.com.playandroid.R
 

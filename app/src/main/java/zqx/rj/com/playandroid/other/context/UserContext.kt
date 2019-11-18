@@ -2,17 +2,14 @@ package zqx.rj.com.playandroid.other.context
 
 import android.app.Activity
 import android.content.Context
-import androidx.appcompat.app.AlertDialog
-import com.zhan.mvvm.common.Preference
-import zqx.rj.com.playandroid.other.context.state.UserState
+import com.zhan.ktwing.common.Preference
+import zqx.rj.com.playandroid.account.data.bean.UserInfoRsp
+import zqx.rj.com.playandroid.other.constant.Key
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.other.context.callback.login.LoginSucState
-import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.account.data.bean.UserInfoRsp
-import zqx.rj.com.playandroid.other.constant.Const
-import zqx.rj.com.playandroid.other.constant.Key
 import zqx.rj.com.playandroid.other.context.state.LoginState
 import zqx.rj.com.playandroid.other.context.state.LogoutState
+import zqx.rj.com.playandroid.other.context.state.UserState
 
 /**
  * author：  HyZhan
@@ -46,23 +43,9 @@ object UserContext{
     }
 
     fun logout(activity: Activity){
-
-        if (!isLogin){
-            // TODO toast 请先登录
-            return
-        }
-
-
-        AlertDialog.Builder(activity)
-            .setTitle(R.string.logout)
-            .setMessage(R.string.logout_tips)
-            .setPositiveButton(R.string.cancel, null)
-            .setNegativeButton(R.string.right) { _, _ ->
-                // 清除数据
-                clearLoginData()
-                // TODO Toast 退出成功
-            }.show()
+        mState.logout(activity)
     }
+
 
     fun loginSuccess(userInfoRsp: UserInfoRsp) {
         // 改变 sharedPreferences   isLogin值
@@ -73,12 +56,5 @@ object UserContext{
         LoginSucState.notifyLoginState(userInfoRsp)
     }
 
-    private fun clearLoginData() {
-        mState = LogoutState()
 
-        // 清除 cookie、登录缓存
-        Preference.clear()
-
-        LoginSucState.notifyLoginState(null)
-    }
 }

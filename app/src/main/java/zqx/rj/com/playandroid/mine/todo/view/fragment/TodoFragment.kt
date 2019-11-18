@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback
 import com.gavin.com.library.StickyDecoration
-import com.zhan.mvvm.common.Preference
-import com.zhan.mvvm.ext.Toasts.toast
-import com.zhan.mvvm.ext.getColorRef
-import com.zhan.mvvm.ext.startActivity
+import com.zhan.ktwing.common.Preference
+import com.zhan.ktwing.ext.Toasts.toast
+import com.zhan.ktwing.ext.getColorRef
+import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.fragment_todo.*
 import zqx.rj.com.playandroid.other.widget.adapter.OnItemSwipeListenerAdapter

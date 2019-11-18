@@ -1,6 +1,6 @@
 package zqx.rj.com.playandroid.other.persistence
 
-import com.zhan.mvvm.common.Preference
+import com.zhan.ktwing.common.Preference
 import zqx.rj.com.playandroid.other.constant.Const
 import zqx.rj.com.playandroid.other.constant.Key
 

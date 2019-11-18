@@ -2,7 +2,7 @@ package zqx.rj.com.playandroid.common.article.view
 
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zhan.mvvm.ext.startActivity
+import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.mvvm.LifecycleActivity
 import kotlinx.android.synthetic.main.layout_article_list.*
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener

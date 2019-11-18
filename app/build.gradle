@@ -36,8 +36,8 @@ dependencies {
 
     api 'com.google.android.material:material:1.0.0'
 
-    api 'androidx.core:core-ktx:1.0.2'
-    api 'androidx.appcompat:appcompat:1.0.2'
+    api 'androidx.core:core-ktx:1.1.0'
+    api 'androidx.appcompat:appcompat:1.1.0'
     api 'androidx.cardview:cardview:1.0.0'
     api 'androidx.recyclerview:recyclerview:1.0.0'
     api 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -80,5 +80,5 @@ dependencies {
     api 'com.contrarywind:Android-PickerView:4.1.6'
 
     // KtArmor
-    api 'com.github.hyzhan43:KtArmor:mvvm-1.0.4'
+    api 'com.github.hyzhan43:KtArmor:mvvm-1.0.5'
 }

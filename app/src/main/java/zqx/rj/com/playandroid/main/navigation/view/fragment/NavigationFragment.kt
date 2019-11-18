@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zhan.mvvm.ext.startActivity
+import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.mvvm.LifecycleFragment
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter

@@ -1,7 +1,7 @@
 package zqx.rj.com.playandroid.common
 
+import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.base.BaseActivity
-import com.zhan.mvvm.ext.startActivity
 import kotlinx.coroutines.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.main.MainActivity

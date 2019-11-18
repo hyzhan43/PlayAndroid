@@ -3,7 +3,7 @@ package zqx.rj.com.playandroid.main.home.view.activity
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.Observer
-import com.zhan.mvvm.ext.startActivity
+import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.mvvm.LifecycleActivity
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
