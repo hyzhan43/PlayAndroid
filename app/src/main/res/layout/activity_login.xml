@@ -9,7 +9,7 @@
     android:focusableInTouchMode="true">
 
     <ImageView
-        android:id="@+id/iv_login_bg"
+        android:id="@+id/mIvLoginBg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/len_256"
         android:background="@drawable/ic_login_bg"
@@ -25,13 +25,13 @@
         android:src="@drawable/ic_logo"
         app:civ_border_color="@color/white"
         app:civ_border_width="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_login_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/mIvLoginBg"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:targetApi="lollipop" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_account"
+        android:id="@+id/mTilAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -39,7 +39,7 @@
         android:layout_marginEnd="20dp"
         android:hint="@string/account"
         android:textColorHint="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@+id/iv_login_bg">
+        app:layout_constraintTop_toBottomOf="@+id/mIvLoginBg">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/mTieAccount"
@@ -48,7 +48,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_password"
+        android:id="@+id/mTilPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -56,7 +56,7 @@
         android:layout_marginEnd="20dp"
         android:hint="@string/password"
         android:textColorHint="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@+id/ti_account">
+        app:layout_constraintTop_toBottomOf="@+id/mTilAccount">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/mTiePassword"
@@ -76,7 +76,7 @@
         android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="@dimen/font_18"
-        app:layout_constraintTop_toBottomOf="@+id/ti_password" />
+        app:layout_constraintTop_toBottomOf="@+id/mTilPassword" />
 
     <TextView
         android:id="@+id/mTvRegister"

@@ -46,6 +46,18 @@ object UserContext{
         mState.logout(activity)
     }
 
+    fun setLoginState(){
+        // 改变 sharedPreferences   isLogin值
+        isLogin = true
+        mState = LoginState()
+    }
+
+    fun setLogoutState(){
+        // 改变 sharedPreferences   isLogin值
+        isLogin = false
+        mState = LogoutState()
+    }
+
 
     fun loginSuccess(userInfoRsp: UserInfoRsp) {
         // 改变 sharedPreferences   isLogin值
