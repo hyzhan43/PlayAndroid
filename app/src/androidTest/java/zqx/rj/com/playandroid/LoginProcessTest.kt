@@ -1,30 +1,24 @@
 package zqx.rj.com.playandroid
 
-import android.app.Activity
-import android.content.Intent
-import androidx.test.espresso.Espresso.registerIdlingResources
-import androidx.test.espresso.Espresso.unregisterIdlingResources
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.IdlingResource
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import com.jakewharton.espresso.OkHttp3IdlingResource
-import com.zhan.ktwing.ext.logd
-import org.junit.*
+import org.junit.After
 import org.junit.Assert.assertTrue
-import org.junit.experimental.theories.Theories
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import zqx.rj.com.playandroid.BaseTest.onClick
 import zqx.rj.com.playandroid.BaseTest.onEditView
 import zqx.rj.com.playandroid.BaseTest.onToast
 import zqx.rj.com.playandroid.account.view.LoginActivity
-import zqx.rj.com.playandroid.main.MainActivity
-import zqx.rj.com.playandroid.other.config.RetrofitConfig
 
 /**
  *  author: HyJame
  *  date:   2019-11-28
- *  desc:   TODO
+ *  desc:   登录页面——登录流程测试
  */
 @RunWith(AndroidJUnit4::class)
 class LoginProcessTest {
@@ -35,8 +29,6 @@ class LoginProcessTest {
     @Rule
     @JvmField
     val activityTestRule = ActivityTestRule(LoginActivity::class.java)
-
-    fun ActivityTestRule<out Activity>.isFinished(): Boolean = activity.isFinishing
 
     private lateinit var idlingResource: IdlingResource
 
@@ -91,6 +83,6 @@ class LoginProcessTest {
         IdlingRegistry.getInstance().register(idlingResource)
         onClick(R.id.mBtnLogin)
 
-        assertTrue(activityTestRule.isFinished())
+        assertTrue(activityTestRule.activity.isFinishing)
     }
 }

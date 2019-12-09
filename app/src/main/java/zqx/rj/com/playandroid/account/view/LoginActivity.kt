@@ -53,8 +53,6 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(){
         finish()
 
         mIdlingResource.setIdleState(true)
-
-
     }
 
     override fun onBackPressed() = finish()
