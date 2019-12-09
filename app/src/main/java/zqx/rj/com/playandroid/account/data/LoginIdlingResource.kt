@@ -24,10 +24,17 @@ class LoginIdlingResource : IdlingResource {
     }
 
     fun setIdleState(isIdleNow: Boolean) {
-        logd("isIdleNow = $isIdleNow")
         mIsIdleNow.set(isIdleNow)
         if (isIdleNow) {
             callback?.onTransitionToIdle()
         }
+    }
+
+    fun isIdleState(){
+        setIdleState(true)
+    }
+
+    fun isNotIdleState(){
+        setIdleState(false)
     }
 }
