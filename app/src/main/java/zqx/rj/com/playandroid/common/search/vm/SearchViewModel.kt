@@ -5,6 +5,7 @@ import com.zhan.mvvm.bean.SharedData
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 import zqx.rj.com.playandroid.common.search.data.SearchRepository
+import zqx.rj.com.playandroid.common.search.data.bean.HotKeyData
 import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
 import zqx.rj.com.playandroid.common.search.data.bean.SearchResultRsp
 import zqx.rj.com.playandroid.common.search.data.db.bean.Record
@@ -16,7 +17,7 @@ import zqx.rj.com.playandroid.common.search.data.db.bean.Record
  */
 class SearchViewModel : ArticleViewModel<SearchRepository>() {
 
-    val hotKeyData = MutableLiveData<List<HotKeyRsp>>()
+    val hotKeyLiveData = MutableLiveData<HotKeyData>()
     val searchResultData = MutableLiveData<SearchResultRsp>()
     val deleteRecord = MutableLiveData<Int>()
     val records = MutableLiveData<List<Record>>()
@@ -24,11 +25,20 @@ class SearchViewModel : ArticleViewModel<SearchRepository>() {
     val clearRecord = MutableLiveData<Int>()
 
     fun getHotKey() {
-        launchUI({
-            repository.getHotKey().execute({ hotKeyList->
-                hotKeyList?.let { hotKeyData.value = it }
-            })
-        })
+        quickLaunch<List<HotKeyRsp>> {
+
+            request { repository.getHotKey() }
+
+            onSuccess { hotKeyList ->
+                hotKeyList?.let { updateHotKeyData(it) }
+            }
+        }
+    }
+
+    private fun updateHotKeyData(hotKeyRspList: List<HotKeyRsp>) {
+        val tags = hotKeyRspList.map { it.name }.toList()
+
+        hotKeyLiveData.value = HotKeyData(tags)
     }
 
     fun search(page: Int, str: String) {
@@ -38,7 +48,7 @@ class SearchViewModel : ArticleViewModel<SearchRepository>() {
         }
 
         launchUI({
-            repository.search(page, str).execute({searchResultRsp->
+            repository.search(page, str).execute({ searchResultRsp ->
                 searchResultRsp?.let { searchResultData.value = it }
             })
         })

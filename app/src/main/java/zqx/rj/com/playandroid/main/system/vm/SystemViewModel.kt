@@ -3,7 +3,6 @@ package zqx.rj.com.playandroid.main.system.vm
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
-import zqx.rj.com.playandroid.main.system.adapter.TopTreeAdapter
 import zqx.rj.com.playandroid.main.system.data.bean.TopTreeData
 import zqx.rj.com.playandroid.main.system.data.bean.TopTreeRsp
 import zqx.rj.com.playandroid.main.system.data.bean.TreeArticleRsp
@@ -26,12 +25,12 @@ class SystemViewModel : ArticleViewModel<SystemRepository>() {
             request { repository.getTree() }
 
             onSuccess { topTreeRspList ->
-                topTreeRspList?.let { initSystemData(it) }
+                topTreeRspList?.let { updateTopTreeData(it) }
             }
         }
     }
 
-    private fun initSystemData(topTreeRspList: List<TopTreeRsp>) {
+    private fun updateTopTreeData(topTreeRspList: List<TopTreeRsp>) {
 
         val titles = topTreeRspList.map { it.name }.toList()
 

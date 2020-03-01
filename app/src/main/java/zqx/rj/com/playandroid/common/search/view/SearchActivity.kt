@@ -143,8 +143,8 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
         super.dataObserver()
 
         // 热门搜索 回调
-        viewModel.hotKeyData.observe(this, Observer {
-            showHotTags(it)
+        viewModel.hotKeyLiveData.observe(this, Observer {
+            showHotTags(it.tags)
         })
 
         // 搜索成功回调
@@ -216,9 +216,7 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
     }
 
     // 热门搜索tag 标签
-    private fun showHotTags(homeHotKeyRsp: List<HotKeyRsp>) {
-
-        val tags = homeHotKeyRsp.map { it.name }.toList()
+    private fun showHotTags(tags: List<String>) {
 
         mTagFlowLayout.adapter = object : TagAdapter<String>(tags) {
             override fun getView(parent: FlowLayout, position: Int, tag: String): View {
