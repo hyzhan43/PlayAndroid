@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.zhan.mvvm.mvvm.BaseViewModel
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.bean.LoginRsp
+import zqx.rj.com.playandroid.account.data.bean.ScoreInfoRsp
 import zqx.rj.com.playandroid.account.data.bean.UserInfoRsp
 import zqx.rj.com.playandroid.account.data.repository.AccountRepository
 
@@ -27,13 +28,14 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
             return
         }
 
+        quickLaunch<LoginRsp> {
 
-        launchUI({
-            showLoading()
-            repository.login(username, password).execute({ loginRsp ->
+            request { repository.login(username, password) }
+
+            onSuccess { loginRsp ->
                 loginRsp?.let { getUserScoreInfo(it) }
-            })
-        })
+            }
+        }
     }
 
     fun register(username: String, password: String, rePassword: String) {
@@ -53,19 +55,27 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
             return
         }
 
-        launchUI({
-            showLoading()
-            repository.register(username, password, rePassword).execute({ loginRsp ->
+        quickLaunch<LoginRsp> {
+
+            onStart { showLoading() }
+
+            request { repository.register(username, password, rePassword) }
+
+            onSuccess { loginRsp ->
                 loginRsp?.let { getUserScoreInfo(it) }
-            })
-        })
+            }
+        }
     }
 
     private fun getUserScoreInfo(loginRsp: LoginRsp) {
-        launchUI({
-            repository.getUserInfo().execute({ scoreInfoRsp ->
+
+        quickLaunch<ScoreInfoRsp> {
+
+            request { repository.getUserInfo() }
+
+            onSuccess { scoreInfoRsp ->
                 scoreInfoRsp?.let { userInfoData.value = UserInfoRsp(loginRsp, it) }
-            })
-        })
+            }
+        }
     }
 }

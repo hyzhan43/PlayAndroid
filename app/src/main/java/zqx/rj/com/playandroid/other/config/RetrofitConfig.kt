@@ -12,6 +12,7 @@ import zqx.rj.com.playandroid.other.interceptor.CookieInterceptor
  * desc：    TODO
  */
 class RetrofitConfig : BaseRetrofitConfig() {
+
     override val baseUrl: String
         get() = API.BASE_URL
 

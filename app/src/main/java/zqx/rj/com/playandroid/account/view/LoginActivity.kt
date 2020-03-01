@@ -24,7 +24,7 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(){
 
         mBtnLogin.setOnClickListener {
             //耗时操作开始，设置空闲状态为false，阻塞测试线程
-            mIdlingResource.setIdleState(false)
+            mIdlingResource.isNotIdleState()
             viewModel.login(mTieAccount.str(), mTiePassword.str())
         }
 
@@ -42,7 +42,7 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(){
 
     override fun showToast(msg: String) {
         super.showToast(msg)
-        mIdlingResource.setIdleState(true)
+        mIdlingResource.isIdleState()
     }
 
     private fun loginSuccess(userInfoRsp: UserInfoRsp) {
@@ -52,7 +52,7 @@ class LoginActivity : LifecycleActivity<AccountViewModel>(){
         toast(getString(R.string.login_suc))
         finish()
 
-        mIdlingResource.setIdleState(true)
+        mIdlingResource.isIdleState()
     }
 
     override fun onBackPressed() = finish()

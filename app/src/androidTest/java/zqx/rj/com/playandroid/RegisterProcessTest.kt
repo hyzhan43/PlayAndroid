@@ -23,7 +23,7 @@ import zqx.rj.com.playandroid.account.view.RegisterActivity
 @RunWith(AndroidJUnit4::class)
 class RegisterProcessTest {
 
-    private val registerAccount = "2311120978"
+    private val registerAccount = "231112097822"
     private val registerPassword = "123456"
 
     @Rule

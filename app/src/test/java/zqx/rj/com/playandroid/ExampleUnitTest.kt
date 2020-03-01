@@ -13,5 +13,19 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+
+        val a: Int? = null
+
+        a?.let {
+            println("Hello")
+            return@let 1
+        } ?: doSomething()
+
+
+        //println(result)
+    }
+
+    private fun doSomething(){
+        println("World")
     }
 }
