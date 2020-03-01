@@ -14,10 +14,10 @@ import zqx.rj.com.playandroid.main.system.data.bean.TreeArticleRsp
 class SystemRepository : ArticleRepository() {
 
     suspend fun getTree(): BaseResponse<List<TopTreeRsp>> {
-        return launchIO { apiService.getTreeAsync() }
+        return apiService.getTreeAsync()
     }
 
     suspend fun getArticle(page: Int, cid: Int): BaseResponse<TreeArticleRsp> {
-        return launchIO { apiService.getArticleTreeAsync(page, cid) }
+        return apiService.getArticleTreeAsync(page, cid)
     }
 }

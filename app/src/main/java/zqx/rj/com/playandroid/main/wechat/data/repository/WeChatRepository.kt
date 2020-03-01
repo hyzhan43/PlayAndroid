@@ -13,11 +13,11 @@ import zqx.rj.com.playandroid.main.wechat.data.bean.WxArticleRsp
  */
 class WeChatRepository : ArticleRepository() {
 
-    suspend fun getWeChatName():BaseResponse<List<WeChatNameRsp>> {
-        return launchIO { apiService.getWeChatNameAsync() }
+    suspend fun getWeChatArticle(): BaseResponse<List<WeChatNameRsp>> {
+        return apiService.getWeChatArticleAsync()
     }
 
-    suspend fun getWxArticle(id: Int, page: Int):BaseResponse<WxArticleRsp> {
-        return launchIO { apiService.getWxArticleAsync(id, page) }
+    suspend fun getWxArticle(id: Int, page: Int): BaseResponse<WxArticleRsp> {
+        return apiService.getWxArticleAsync(id, page)
     }
 }

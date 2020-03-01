@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_common_web.*
 import kotlinx.android.synthetic.main.common_tag.view.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
+import zqx.rj.com.playandroid.main.home.data.bean.CommonWebData
 import zqx.rj.com.playandroid.main.home.data.bean.CommonWebRsp
 import zqx.rj.com.playandroid.main.home.vm.HomeViewModel
 import zqx.rj.com.playandroid.other.constant.Key
@@ -21,8 +22,6 @@ import zqx.rj.com.playandroid.other.constant.Key
  * desc：    常用网站
  */
 class CommonWebActivity : LifecycleActivity<HomeViewModel>() {
-
-    private val links = arrayListOf<String>()
 
     override fun getLayoutId(): Int = R.layout.activity_common_web
 
@@ -38,19 +37,15 @@ class CommonWebActivity : LifecycleActivity<HomeViewModel>() {
     }
 
     override fun dataObserver() {
-        viewModel.commonWebData.observe(this, Observer {
+        viewModel.commonWebLiveData.observe(this, Observer {
             initCommonWeb(it)
         })
     }
 
-    private fun initCommonWeb(dataList: List<CommonWebRsp>) {
+    private fun initCommonWeb(commonWebData: CommonWebData) {
 
-        val tags = arrayListOf<String>()
-
-        for (commonWebRsp in dataList) {
-            tags.add(commonWebRsp.name)
-            links.add(commonWebRsp.link)
-        }
+        val tags = commonWebData.tags
+        val links = commonWebData.links
 
         mTflCommonWeb.adapter = object : TagAdapter<String>(tags) {
             override fun getView(parent: FlowLayout?, position: Int, tag: String?): View {
@@ -66,7 +61,6 @@ class CommonWebActivity : LifecycleActivity<HomeViewModel>() {
             true
         }
     }
-
 
     override fun onBackPressed() = finish()
 }

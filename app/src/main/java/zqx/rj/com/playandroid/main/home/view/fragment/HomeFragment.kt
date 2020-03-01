@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.home_special_item.view.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
+import zqx.rj.com.playandroid.main.home.data.bean.BannerData
 import zqx.rj.com.playandroid.main.home.data.bean.BannerRsp
 import zqx.rj.com.playandroid.main.home.view.activity.CommonWebActivity
 import zqx.rj.com.playandroid.main.home.vm.HomeViewModel
@@ -29,8 +30,6 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
 
     private lateinit var headView: View
 
-    private val urls by lazy { arrayListOf<String>() }
-    private val titles by lazy { arrayListOf<String>() }
     private var page = 0
 
     override fun initView() {
@@ -38,7 +37,6 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
 
         initHeadView()
         initTitle()
-        initBanner()
     }
 
     private fun initHeadView() {
@@ -47,20 +45,6 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         mArticleAdapter.addHeaderView(headView)
     }
 
-    private fun initBanner() {
-        headView.mBanner.run {
-            setOnBannerListener { position ->
-                startActivity<WebViewActivity>(
-                    Key.LINK to urls[position],
-                    Key.TITLE to titles[position]
-                )
-            }
-            setImageLoader(GlideImageLoader())
-            setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
-            setDelayTime(3000)
-            setBannerAnimation(Transformer.DepthPage)
-        }
-    }
 
     private fun initTitle() {
         headView.run {
@@ -89,8 +73,8 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         // 调用父类 dataObserver
         super.dataObserver()
 
-        viewModel.bannerData.observe(this, Observer {
-            setBannerData(it)
+        viewModel.bannerLiveData.observe(this, Observer {
+            initBanner(it)
         })
 
         viewModel.homeArticleData.observe(this, Observer {
@@ -111,21 +95,25 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         viewModel.getArticle(++page)
     }
 
-    private fun setBannerData(bannerList: List<BannerRsp>) {
 
-        val images = ArrayList<String>()
+    private fun initBanner(bannerData: BannerData) {
 
-        urls.clear()
-        titles.clear()
+        headView.mBanner.run {
+            setOnBannerListener { position ->
+                startActivity<WebViewActivity>(
+                    Key.LINK to bannerData.urls[position],
+                    Key.TITLE to bannerData.titles[position]
+                )
+            }
 
-        for (bannerItem in bannerList) {
-            images.add(bannerItem.imagePath)
-            titles.add(bannerItem.title)
-            urls.add(bannerItem.url)
+            setImageLoader(GlideImageLoader())
+            setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
+            setDelayTime(3000)
+            setBannerAnimation(Transformer.DepthPage)
+
+            setImages(bannerData.images)
+            setBannerTitles(bannerData.titles)
+            start()
         }
-
-        mBanner.setImages(images)
-        mBanner.setBannerTitles(titles)
-        mBanner.start()
     }
 }

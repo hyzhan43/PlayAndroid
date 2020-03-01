@@ -6,6 +6,7 @@ import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.fragment_project.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.main.project.adapter.ViewPagerAdapter
+import zqx.rj.com.playandroid.main.project.data.bean.ProjectTreeData
 import zqx.rj.com.playandroid.main.project.data.bean.ProjectTreeRsp
 import zqx.rj.com.playandroid.main.project.vm.ProjectViewModel
 
@@ -17,8 +18,6 @@ import zqx.rj.com.playandroid.main.project.vm.ProjectViewModel
 class ProjectFragment : LifecycleFragment<ProjectViewModel>() {
 
     private lateinit var mAdapter: ViewPagerAdapter
-    private val titles by lazy { ArrayList<String>() }
-    private val fragments by lazy { ArrayList<Fragment>() }
 
     override fun getLayoutId(): Int = R.layout.fragment_project
 
@@ -36,20 +35,19 @@ class ProjectFragment : LifecycleFragment<ProjectViewModel>() {
     }
 
     override fun dataObserver() {
-        viewModel.projectTreeData.observe(this, Observer {
-            initTitles(it)
-            initFragment(it)
+        viewModel.projectTreeLiveData.observe(this, Observer {
+            initFragments(it)
         })
     }
 
-    private fun initTitles(dataList: List<ProjectTreeRsp>) {
-        dataList.map { titles.add(it.name) }
-    }
+    private fun initFragments(projectTreeData: ProjectTreeData) {
 
-    private fun initFragment(dataList: List<ProjectTreeRsp>) {
-        dataList.map { fragments.add(ProjectTabFragment.getNewInstance(it.id)) }
-
-        mAdapter = ViewPagerAdapter(titles, fragments, childFragmentManager)
+        mAdapter = ViewPagerAdapter(
+            projectTreeData.titles,
+            projectTreeData.fragments,
+            childFragmentManager
+        )
         mVpFragments.adapter = mAdapter
     }
+
 }

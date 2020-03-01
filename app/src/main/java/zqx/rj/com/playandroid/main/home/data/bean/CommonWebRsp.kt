@@ -6,6 +6,6 @@ package zqx.rj.com.playandroid.main.home.data.bean
  * desc：    TODO
  */
 data class CommonWebRsp(
-        val link: String,
-        val name: String
+    val link: String,
+    val name: String
 )

@@ -30,35 +30,8 @@ class SystemFragment : LifecycleFragment<SystemViewModel>() {
     }
 
     override fun dataObserver() {
-        viewModel.topTreeData.observe(this, Observer {
-            initSystemData(it)
+        viewModel.topTreeLiveData.observe(this, Observer {
+            mVpContent.adapter = TopTreeAdapter(childFragmentManager, it.titles, it.fragments)
         })
-    }
-
-    private fun initSystemData(data: List<TopTreeRsp>) {
-        val titles = data.map { it.name }.toList()
-        val fragments = initFragment(data)
-        mVpContent.adapter = TopTreeAdapter(childFragmentManager, titles, fragments)
-    }
-
-    private fun initFragment(topTreeList: List<TopTreeRsp>): List<Fragment> {
-
-        val fragments = arrayListOf<Fragment>()
-
-        // 一级菜单
-        for (topTreeRsp in topTreeList) {
-
-            val ids = arrayListOf<Int>()
-            val secondTreeTitles = arrayListOf<String>()
-
-            // 二级菜单
-            topTreeRsp.children.map {
-                ids.add(it.id)
-                secondTreeTitles.add(it.name)
-            }
-
-            fragments.add(SysArticleFragment.newInstance(ids, secondTreeTitles))
-        }
-        return fragments
     }
 }

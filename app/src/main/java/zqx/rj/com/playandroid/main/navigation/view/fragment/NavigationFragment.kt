@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.fragment_navigation.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.main.navigation.adapter.CategoryAdapter
-import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationCategoryRsp
+import zqx.rj.com.playandroid.main.navigation.data.bean.ArticleData
+import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationData
 import zqx.rj.com.playandroid.main.navigation.vm.NavigationViewModel
 import zqx.rj.com.playandroid.other.constant.Key
 
@@ -23,9 +24,6 @@ import zqx.rj.com.playandroid.other.constant.Key
  * desc：    TODO
  */
 class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
-
-    private val categories = arrayListOf<String>()
-    private lateinit var mNavigationCategoryRspList: List<NavigationCategoryRsp>
 
     private val mCategoryAdapter by lazy { CategoryAdapter() }
 
@@ -38,42 +36,40 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
         mRvCategory.adapter = mCategoryAdapter
     }
 
-    override fun initListener() {
-        super.initListener()
-        mCategoryAdapter.setOnItemChildClickListener { _, _, position ->
-            switchCategory(position)
-            switchRepresent(position)
-        }
-    }
-
     override fun initData() {
         super.initData()
         viewModel.getCategory()
     }
 
     override fun dataObserver() {
-        viewModel.categoryData.observe(this, Observer {
+        viewModel.categoryLiveData.observe(this, Observer {
             initNavigation(it)
         })
     }
 
-    private fun initNavigation(navigationCategoryRspList: List<NavigationCategoryRsp>) {
-
-        mNavigationCategoryRspList = navigationCategoryRspList
-
-        for (navigationCategoryRsp in navigationCategoryRspList) {
-            categories.add(navigationCategoryRsp.name)
-        }
-
+    private fun initNavigation(navigationData: NavigationData) {
         // 设置 分类数据
-        mCategoryAdapter.addData(categories)
-        // 默认选中第一个  并设置 第一个 tag值
-        switchRepresent(0)
-        // 默认选中第一个 categoryData
+        mCategoryAdapter.addData(navigationData.categories)
+
+        // 默认选中第一个并设置 第一个 tag值
+        initTagLayout(navigationData.articleData[0])
+
+        // 默认选中第一个 category
         switchCategory(0)
+
+        mCategoryAdapter.setOnItemChildClickListener { _, _, position ->
+            switchCategory(position)
+            initTagLayout(navigationData.articleData[position])
+        }
     }
 
-    private fun initTagLayout(titles: List<String>, links: List<String>) {
+
+    // 切换 分类的 内容(tag)
+    private fun initTagLayout(articleData: ArticleData) {
+
+        val titles = articleData.titles
+        val links = articleData.links
+
         mTflRepresent.adapter = object : TagAdapter<String>(titles) {
             override fun getView(parent: FlowLayout?, position: Int, title: String?): View {
 
@@ -90,20 +86,6 @@ class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
             )
             true
         }
-    }
-
-    // 切换 分类的 内容(tag)
-    private fun switchRepresent(position: Int) {
-
-        val titles = arrayListOf<String>()
-        val links = arrayListOf<String>()
-
-        for (article in mNavigationCategoryRspList[position].articles) {
-            titles.add(article.title)
-            links.add(article.link)
-        }
-
-        initTagLayout(titles, links)
     }
 
     // 切换 categoryData 选择状态

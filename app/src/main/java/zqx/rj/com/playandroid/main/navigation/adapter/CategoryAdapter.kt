@@ -31,7 +31,7 @@ class CategoryAdapter :
                     // 默认 不设置颜色
                     mTvName.setTextColor(Color.GRAY)
                     // 默认背景
-                    mTvName.setBackgroundColor(0)
+                    mTvName.setBackgroundColor(Color.WHITE)
                 }
             }
         }

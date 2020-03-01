@@ -3,7 +3,7 @@ package zqx.rj.com.playandroid.main.navigation.data.repository
 import com.zhan.mvvm.mvvm.BaseRepository
 import zqx.rj.com.playandroid.other.api.ServiceFactory.apiService
 import zqx.rj.com.playandroid.other.bean.BaseResponse
-import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationCategoryRsp
+import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationRsp
 
 /**
  * author：  HyZhan
@@ -12,7 +12,7 @@ import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationCategoryRsp
  */
 class NavigationRepository : BaseRepository() {
 
-    suspend fun getCategory(): BaseResponse<List<NavigationCategoryRsp>> {
-        return launchIO { apiService.getCategoryAsync() }
+    suspend fun getNavigation(): BaseResponse<List<NavigationRsp>> {
+        return apiService.getNavigationAsync()
     }
 }

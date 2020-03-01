@@ -2,9 +2,7 @@ package zqx.rj.com.playandroid.main.home.vm
 
 import androidx.lifecycle.MutableLiveData
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
-import zqx.rj.com.playandroid.main.home.data.bean.BannerRsp
-import zqx.rj.com.playandroid.main.home.data.bean.CommonWebRsp
-import zqx.rj.com.playandroid.main.home.data.bean.HomeArticleRsp
+import zqx.rj.com.playandroid.main.home.data.bean.*
 import zqx.rj.com.playandroid.main.home.data.repository.HomeRepository
 
 /**
@@ -14,32 +12,64 @@ import zqx.rj.com.playandroid.main.home.data.repository.HomeRepository
  */
 class HomeViewModel : ArticleViewModel<HomeRepository>() {
 
-    val bannerData = MutableLiveData<List<BannerRsp>>()
+    val bannerLiveData = MutableLiveData<BannerData>()
     val homeArticleData = MutableLiveData<HomeArticleRsp>()
-    val commonWebData = MutableLiveData<List<CommonWebRsp>>()
+
+    val commonWebLiveData = MutableLiveData<CommonWebData>()
+
 
     fun getBanner() {
-        launchUI({
-            repository.getBanner().execute({
-                bannerData.value = it
-            })
-        })
+        quickLaunch<List<BannerRsp>> {
+            request { repository.getBanner() }
+
+            onSuccess { bannerRspList ->
+                bannerRspList?.let { updateBannerData(it) }
+            }
+        }
+    }
+
+    private fun updateBannerData(bannerList: List<BannerRsp>) {
+
+        val images = arrayListOf<String>()
+        val titles = arrayListOf<String>()
+        val urls = arrayListOf<String>()
+
+        for (bannerItem in bannerList) {
+            images.add(bannerItem.imagePath)
+            titles.add(bannerItem.title)
+            urls.add(bannerItem.url)
+        }
+
+        bannerLiveData.value = BannerData(images, titles, urls)
     }
 
     fun getArticle(page: Int) {
-        launchUI({
-            repository.getArticle(page).execute({
-                homeArticleData.value = it
-            })
-        })
+        quickLaunch<HomeArticleRsp> {
+            request { repository.getArticle(page) }
 
+            onSuccess { homeArticleData.value = it }
+        }
     }
 
     fun getCommonWeb() {
-        launchUI({
-            repository.getCommonWeb().execute({
-                commonWebData.value = it
-            })
-        })
+        quickLaunch<List<CommonWebRsp>> {
+
+            request { repository.getCommonWeb() }
+
+            onSuccess { it?.let { updateCommonData(it) } }
+        }
+    }
+
+    private fun updateCommonData(commonWebRspList: List<CommonWebRsp>) {
+        val tags = arrayListOf<String>()
+        val links = arrayListOf<String>()
+
+
+        for (commonWebRsp in commonWebRspList) {
+            tags.add(commonWebRsp.name)
+            links.add(commonWebRsp.link)
+        }
+
+        commonWebLiveData.value = CommonWebData(tags, links)
     }
 }

@@ -14,7 +14,7 @@ import zqx.rj.com.playandroid.main.home.data.bean.BannerRsp
 import zqx.rj.com.playandroid.main.home.data.bean.CommonWebRsp
 import zqx.rj.com.playandroid.main.home.data.bean.HomeArticleRsp
 import zqx.rj.com.playandroid.mine.collect.data.bean.CollectRsp
-import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationCategoryRsp
+import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationRsp
 import zqx.rj.com.playandroid.main.project.data.bean.ProjectRsp
 import zqx.rj.com.playandroid.main.project.data.bean.ProjectTreeRsp
 import zqx.rj.com.playandroid.main.system.data.bean.TopTreeRsp
@@ -63,7 +63,7 @@ interface ApiService {
     suspend fun getCommonWebAsync(): BaseResponse<List<CommonWebRsp>>
 
     @GET("navi/json")
-    suspend fun getCategoryAsync(): BaseResponse<List<NavigationCategoryRsp>>
+    suspend fun getNavigationAsync(): BaseResponse<List<NavigationRsp>>
 
     @GET("tree/json")
     suspend fun getTreeAsync(): BaseResponse<List<TopTreeRsp>>
@@ -99,7 +99,7 @@ interface ApiService {
     ): BaseResponse<ProjectRsp>
 
     @GET("wxarticle/chapters/json")
-    suspend fun getWeChatNameAsync(): BaseResponse<List<WeChatNameRsp>>
+    suspend fun getWeChatArticleAsync(): BaseResponse<List<WeChatNameRsp>>
 
     @GET("wxarticle/list/{id}/{page}/json")
     suspend fun getWxArticleAsync(

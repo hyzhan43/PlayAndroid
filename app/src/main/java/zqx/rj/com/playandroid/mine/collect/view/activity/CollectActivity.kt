@@ -43,7 +43,7 @@ class CollectActivity : ArticleListActivity<CollectViewModel>() {
 
         // 获取 收藏数据
         viewModel.collectArticleData.observe(this, Observer {
-            buildCollectData(it.datas)
+            addData(it.articleList)
         })
 
         // 取消收藏
@@ -51,12 +51,6 @@ class CollectActivity : ArticleListActivity<CollectViewModel>() {
             // 同步 recyclerView
             mArticleAdapter.remove(current)
         })
-    }
-
-    private fun buildCollectData(articles: List<Article>) {
-        // 全部设置为 已收藏 状态
-        addData(articles.onEach { article -> article.collect = true }
-                .toList())
     }
 
     override fun onRefreshData() {

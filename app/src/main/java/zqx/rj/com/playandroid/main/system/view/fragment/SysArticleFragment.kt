@@ -1,7 +1,6 @@
 package zqx.rj.com.playandroid.main.system.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_system_article.*
@@ -70,14 +69,14 @@ class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListen
         })
     }
 
-    private fun changeTree(it: TreeArticleRsp) {
+    private fun changeTree(treeArticleRsp: TreeArticleRsp) {
         if (flag) {
-            mArticleAdapter.setNewData(it.datas)
+            mArticleAdapter.setNewData(treeArticleRsp.datas)
             flag = false
             return
         }
 
-        addData(it.datas)
+        addData(treeArticleRsp.datas)
     }
 
     override fun onRefreshData() {

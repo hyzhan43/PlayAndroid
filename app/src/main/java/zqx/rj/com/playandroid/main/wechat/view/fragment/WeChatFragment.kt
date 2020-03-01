@@ -1,12 +1,10 @@
 package zqx.rj.com.playandroid.main.wechat.view.fragment
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.zhan.mvvm.mvvm.LifecycleFragment
 import kotlinx.android.synthetic.main.fragment_wechat.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.main.wechat.adapter.WxNameAdapter
-import zqx.rj.com.playandroid.main.wechat.data.bean.WeChatNameRsp
 import zqx.rj.com.playandroid.main.wechat.vm.WeChatViewModel
 
 /**
@@ -33,22 +31,8 @@ class WeChatFragment : LifecycleFragment<WeChatViewModel>() {
 
 
     override fun dataObserver() {
-        viewModel.weChatNameData.observe(this, Observer {
-            initWxArticle(it)
+        viewModel.weChatLiveData.observe(this, Observer {
+            mVpContent.adapter = WxNameAdapter(childFragmentManager, it.titles, it.fragments)
         })
     }
-
-    private fun initWxArticle(dataList: List<WeChatNameRsp>) {
-
-        val titles = arrayListOf<String>()
-        val fragments = arrayListOf<Fragment>()
-
-        dataList.forEach {
-            titles.add(it.name)
-            fragments.add(WxArticleFragment.newInstance(it.id))
-        }
-
-        mVpContent.adapter = WxNameAdapter(childFragmentManager, titles, fragments)
-    }
-
 }

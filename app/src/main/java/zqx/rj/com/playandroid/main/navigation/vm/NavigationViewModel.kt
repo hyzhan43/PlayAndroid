@@ -2,7 +2,9 @@ package zqx.rj.com.playandroid.main.navigation.vm
 
 import androidx.lifecycle.MutableLiveData
 import com.zhan.mvvm.mvvm.BaseViewModel
-import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationCategoryRsp
+import zqx.rj.com.playandroid.main.navigation.data.bean.ArticleData
+import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationData
+import zqx.rj.com.playandroid.main.navigation.data.bean.NavigationRsp
 import zqx.rj.com.playandroid.main.navigation.data.repository.NavigationRepository
 
 /**
@@ -12,12 +14,37 @@ import zqx.rj.com.playandroid.main.navigation.data.repository.NavigationReposito
  */
 class NavigationViewModel : BaseViewModel<NavigationRepository>() {
 
-    val categoryData = MutableLiveData<List<NavigationCategoryRsp>>()
+    val categoryLiveData = MutableLiveData<NavigationData>()
 
     fun getCategory() {
-        launchUI({
-            repository.getCategory().execute({ categoryData.value = it })
-        })
+        quickLaunch<List<NavigationRsp>> {
+            request { repository.getNavigation() }
+
+            onSuccess { it?.let { updateCategoryData(it) } }
+        }
     }
 
+    private fun updateCategoryData(navigationRspList: List<NavigationRsp>) {
+
+        val categories = arrayListOf<String>()
+
+        val articleList = arrayListOf<ArticleData>()
+
+        for (navigationCategoryRsp in navigationRspList) {
+            categories.add(navigationCategoryRsp.name)
+
+
+            val titles = arrayListOf<String>()
+            val links = arrayListOf<String>()
+
+            for (article in navigationCategoryRsp.articles) {
+                titles.add(article.title)
+                links.add(article.link)
+            }
+
+            articleList.add(ArticleData(titles, links))
+        }
+
+        categoryLiveData.value = NavigationData(categories, articleList)
+    }
 }
