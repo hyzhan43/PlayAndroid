@@ -1,5 +1,6 @@
 package zqx.rj.com.playandroid.mine.todo.view.activity
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
@@ -10,7 +11,8 @@ import com.bigkoo.pickerview.view.TimePickerView
 import com.zhan.ktwing.ext.Toasts.toast
 import com.zhan.ktwing.ext.getColorRef
 import com.zhan.ktwing.ext.str
-import com.zhan.mvvm.mvvm.LifecycleActivity
+import com.zhan.mvvm.annotation.BindViewModel
+import com.zhan.mvvm.mvvm.IMvmActivity
 import kotlinx.android.synthetic.main.activity_add_todo.*
 import zqx.rj.com.playandroid.other.context.callback.todo.TodoContext
 import zqx.rj.com.playandroid.R
@@ -28,7 +30,10 @@ import kotlin.collections.ArrayList
  * create：  2019/1/2 11:44
  * desc：    todo添加页面
  */
-class AddTodoActivity : LifecycleActivity<TodoViewModel>() {
+class AddTodoActivity : AppCompatActivity(), IMvmActivity {
+
+    @BindViewModel
+    lateinit var viewModel: TodoViewModel
 
     private lateinit var mTimeView: TimePickerView
     private lateinit var mTypeView: OptionsPickerView<String>

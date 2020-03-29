@@ -1,7 +1,10 @@
 package zqx.rj.com.playandroid.common
 
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.base.BaseActivity
+import com.zhan.mvvm.base.IActivity
 import kotlinx.coroutines.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.main.MainActivity
@@ -11,7 +14,7 @@ import zqx.rj.com.playandroid.main.MainActivity
  * created： 2018/10/16 9:48
  * desc：    闪屏页
  */
-class SplashActivity : BaseActivity() {
+class SplashActivity : AppCompatActivity(), IActivity {
 
     private lateinit var job: Job
 

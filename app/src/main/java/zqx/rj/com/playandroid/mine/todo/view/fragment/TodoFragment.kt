@@ -20,7 +20,8 @@ import com.zhan.ktwing.common.Preference
 import com.zhan.ktwing.ext.Toasts.toast
 import com.zhan.ktwing.ext.getColorRef
 import com.zhan.ktwing.ext.startActivity
-import com.zhan.mvvm.mvvm.LifecycleFragment
+import com.zhan.mvvm.annotation.BindViewModel
+import com.zhan.mvvm.mvvm.IMvmFragment
 import kotlinx.android.synthetic.main.fragment_todo.*
 import zqx.rj.com.playandroid.other.widget.adapter.OnItemSwipeListenerAdapter
 import zqx.rj.com.playandroid.other.context.callback.todo.TodoContext
@@ -39,7 +40,10 @@ import java.util.*
  * create：  2019/1/3 16:13
  * desc：    TODO
  */
-class TodoFragment : LifecycleFragment<TodoViewModel>(), TypeChangeListener {
+class TodoFragment : Fragment(), IMvmFragment, TypeChangeListener {
+
+    @BindViewModel
+    lateinit var viewModel: TodoViewModel
 
     private val mTodoAdapter by lazy { TodoAdapter() }
 

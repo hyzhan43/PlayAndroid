@@ -19,6 +19,6 @@ class BaseApplication : Application() {
         LitePal.initialize(this)
 
         // 初始化 SharedPreference
-        KtArmor.init(applicationContext, RetrofitConfig())
+        KtArmor.initRetrofitConfig(RetrofitConfig())
     }
 }

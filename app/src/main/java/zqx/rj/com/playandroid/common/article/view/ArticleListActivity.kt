@@ -1,31 +1,37 @@
 package zqx.rj.com.playandroid.common.article.view
 
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zhan.ktwing.ext.startActivity
-import com.zhan.mvvm.mvvm.LifecycleActivity
+import com.zhan.mvvm.annotation.BindViewModel
+import com.zhan.mvvm.mvvm.IMvmActivity
 import kotlinx.android.synthetic.main.layout_article_list.*
-import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
-import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.common.article.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 import zqx.rj.com.playandroid.other.constant.Key
+import zqx.rj.com.playandroid.other.context.UserContext
+import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 
 /**
  * author：  HyZhan
  * created： 2018/11/6 14:57
  * desc：    TODO
  */
-abstract class ArticleListActivity<T : ArticleViewModel<*>> : LifecycleActivity<T>(),
-        CollectListener {
+abstract class ArticleListActivity<T : ArticleViewModel<*>> : AppCompatActivity(), IMvmActivity,
+    CollectListener {
 
     // 文章是否 收藏 状态
     private var state: Boolean = false
     // 点击后 当前文章的 位置
     private var current: Int = -1
+
+    @BindViewModel
+    lateinit var viewModel: T
 
     protected val mArticleAdapter by lazy { ArticleAdapter(R.layout.article_item, null) }
 

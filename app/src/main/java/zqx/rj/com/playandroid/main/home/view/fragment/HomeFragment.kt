@@ -5,21 +5,18 @@ import androidx.lifecycle.Observer
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import com.zhan.ktwing.ext.startActivity
+import com.zhan.mvvm.annotation.BindViewModel
 import kotlinx.android.synthetic.main.article_item.view.*
-import kotlinx.android.synthetic.main.home_headview.*
 import kotlinx.android.synthetic.main.home_headview.view.*
 import kotlinx.android.synthetic.main.home_special_item.view.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
 import zqx.rj.com.playandroid.main.home.data.bean.BannerData
-import zqx.rj.com.playandroid.main.home.data.bean.BannerRsp
 import zqx.rj.com.playandroid.main.home.view.activity.CommonWebActivity
 import zqx.rj.com.playandroid.main.home.vm.HomeViewModel
 import zqx.rj.com.playandroid.other.constant.Key
 import zqx.rj.com.playandroid.other.widget.GlideImageLoader
-import java.util.*
-
 
 /**
  * author：  HyZhan
@@ -27,6 +24,9 @@ import java.util.*
  * desc：    首页
  */
 class HomeFragment : ArticleListFragment<HomeViewModel>() {
+
+    @BindViewModel
+    lateinit var viewModel: HomeViewModel
 
     private lateinit var headView: View
 
@@ -38,6 +38,7 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         initHeadView()
         initTitle()
     }
+
 
     private fun initHeadView() {
         headView = View.inflate(activity, R.layout.home_headview, null)

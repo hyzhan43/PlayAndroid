@@ -6,11 +6,14 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.zhan.ktwing.ext.Toasts.toast
+import com.zhan.ktwing.ext.logd
 import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.base.ToolbarActivity
+import com.zhan.mvvm.mvvm.IMvmActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_drawer_header.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
@@ -31,7 +34,7 @@ import zqx.rj.com.playandroid.other.ext.setDoubleClickListener
 import zqx.rj.com.playandroid.other.persistence.Account
 import zqx.rj.com.playandroid.other.widget.adapter.BottomNavigationAdapter
 
-class MainActivity : ToolbarActivity(), LoginSucListener {
+class MainActivity : AppCompatActivity(), IMvmActivity, LoginSucListener {
 
     private lateinit var headView: View
 
@@ -57,7 +60,8 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
 
     private fun initToolBar() {
         // 设置标题
-        toolbarTitle = getString(R.string.app_name)
+        // TODO Toolbar
+        //toolbarTitle = getString(R.string.app_name)
 
         //设置导航图标、按钮有旋转特效
         val toggle =
@@ -71,7 +75,9 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
         /**
          *  双击 toolbar  返回 顶部
          */
-        toolbar.setDoubleClickListener { mHomeFragment.moveToTop() }
+        toolbar.setDoubleClickListener {
+            mHomeFragment.moveToTop()
+        }
 
         mFabAdd.setOnClickListener { UserContext.goTodoActivity(this) }
     }
@@ -99,7 +105,7 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
     }
 
     private fun initHeadView() {
-        // 直接获取报错   error -> mNavMain.mTvName
+        // 直接获取报错 error -> mNavMain.mTvName
         headView = mNavMain.getHeaderView(0)
 
         updateUserInfo()
@@ -157,9 +163,10 @@ class MainActivity : ToolbarActivity(), LoginSucListener {
         }
     }
 
-    // 复用 fragment
+    //复用 fragment
     private fun goTo(titleRes: Int, to: Fragment) {
-        toolbarTitle = getString(titleRes)
+        // TODO Toolbar
+        //toolbarTitle = getString(titleRes)
         if (mCurrentFragment == to) {
             return
         }

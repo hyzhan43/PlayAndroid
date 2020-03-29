@@ -28,7 +28,7 @@ class CollectActivity : ArticleListActivity<CollectViewModel>() {
         mLlContent.addView(headView, 0)
         super.initView()
 
-        toolbarTitle = getString(R.string.mine_collect)
+        //toolbarTitle = getString(R.string.mine_collect)
     }
 
     override fun initData() {

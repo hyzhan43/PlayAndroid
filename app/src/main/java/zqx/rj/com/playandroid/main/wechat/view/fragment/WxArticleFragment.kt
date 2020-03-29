@@ -3,6 +3,7 @@ package zqx.rj.com.playandroid.main.wechat.view.fragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.zhan.mvvm.annotation.BindViewModel
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
 import zqx.rj.com.playandroid.main.wechat.vm.WeChatViewModel
 
@@ -12,6 +13,9 @@ import zqx.rj.com.playandroid.main.wechat.vm.WeChatViewModel
  * desc：    微信公众号 文章
  */
 class WxArticleFragment : ArticleListFragment<WeChatViewModel>() {
+
+    @BindViewModel
+    lateinit var viewModel: WeChatViewModel
 
     private var page: Int = 1
     private val uid by lazy { arguments?.getInt(KEY_ID) ?: -1 }

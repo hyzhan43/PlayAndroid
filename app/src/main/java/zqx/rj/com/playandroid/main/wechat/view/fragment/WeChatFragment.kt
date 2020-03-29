@@ -1,7 +1,9 @@
 package zqx.rj.com.playandroid.main.wechat.view.fragment
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.zhan.mvvm.mvvm.LifecycleFragment
+import com.zhan.mvvm.annotation.BindViewModel
+import com.zhan.mvvm.mvvm.IMvmFragment
 import kotlinx.android.synthetic.main.fragment_wechat.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.main.wechat.adapter.WxNameAdapter
@@ -12,7 +14,10 @@ import zqx.rj.com.playandroid.main.wechat.vm.WeChatViewModel
  * created： 2018/11/2 16:28
  * desc：    微信公众号
  */
-class WeChatFragment : LifecycleFragment<WeChatViewModel>() {
+class WeChatFragment : Fragment(), IMvmFragment {
+
+    @BindViewModel
+    lateinit var viewModel: WeChatViewModel
 
     override fun getLayoutId(): Int = R.layout.fragment_wechat
 

@@ -1,8 +1,12 @@
 package zqx.rj.com.playandroid
 
+import androidx.fragment.app.Fragment
+import com.zhan.ktwing.ext.tryCatch
 import org.junit.Test
 
 import org.junit.Assert.*
+import zqx.rj.com.playandroid.main.home.view.fragment.HomeFragment
+import java.util.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -25,7 +29,9 @@ class ExampleUnitTest {
         //println(result)
     }
 
-    private fun doSomething(){
+    private fun doSomething() {
         println("World")
     }
+
+
 }

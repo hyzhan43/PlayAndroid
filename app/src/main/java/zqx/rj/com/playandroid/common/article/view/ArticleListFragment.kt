@@ -1,8 +1,10 @@
 package zqx.rj.com.playandroid.common.article.view
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.zhan.ktwing.ext.startActivity
-import com.zhan.mvvm.mvvm.LifecycleFragment
+import com.zhan.mvvm.annotation.BindViewModel
+import com.zhan.mvvm.mvvm.IMvmFragment
 import kotlinx.android.synthetic.main.layout_article_list.*
 import zqx.rj.com.playandroid.other.widget.SpeedLayoutManager
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
@@ -22,13 +24,16 @@ import zqx.rj.com.playandroid.other.constant.Key
  * created： 2018/11/2 19:22
  * desc：    文章列表 基类  (封装了 文章列表)
  */
-abstract class ArticleListFragment<T : ArticleViewModel<*>>
-    : LifecycleFragment<T>(), LoginSucListener, CollectListener {
+abstract class ArticleListFragment<T : ArticleViewModel<*>> : Fragment(),
+    IMvmFragment, LoginSucListener, CollectListener {
 
     // 文章是否 收藏 状态
     private var state: Boolean = false
     // 点击后 当前文章的 位置
     private var current: Int = 0
+
+//    @BindViewModel
+//    lateinit var viewModel: ArticleViewModel<*>
 
     protected lateinit var mArticleAdapter: ArticleAdapter
 
@@ -104,14 +109,14 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
 
     override fun dataObserver() {
         // 收藏成功回调
-        viewModel.collectData.observe(this, Observer {
-
-            mArticleAdapter.data[current]?.let {
-                // 更新 RecyclerView  ♥ 型状态
-                it.collect = !state
-                mArticleAdapter.refreshNotifyItemChanged(current)
-            }
-        })
+//        viewModel.collectData.observe(this, Observer {
+//
+//            mArticleAdapter.data[current]?.let {
+//                // 更新 RecyclerView  ♥ 型状态
+//                it.collect = !state
+//                mArticleAdapter.refreshNotifyItemChanged(current)
+//            }
+//        })
     }
 
     // 发起收藏
@@ -125,7 +130,7 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>>
             state = it.collect
 
             // 发起 收藏/取消收藏  请求
-            if (state) viewModel.unCollect(it.id) else viewModel.collect(it.id)
+//            if (state) viewModel.unCollect(it.id) else viewModel.collect(it.id)
         }
     }
 

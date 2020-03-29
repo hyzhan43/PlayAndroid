@@ -2,10 +2,12 @@ package zqx.rj.com.playandroid.main.navigation.view.fragment
 
 import android.view.LayoutInflater
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zhan.ktwing.ext.startActivity
-import com.zhan.mvvm.mvvm.LifecycleFragment
+import com.zhan.mvvm.annotation.BindViewModel
+import com.zhan.mvvm.mvvm.IMvmFragment
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import kotlinx.android.synthetic.main.common_tag.view.*
@@ -23,7 +25,10 @@ import zqx.rj.com.playandroid.other.constant.Key
  * created： 2018/10/13 13:51
  * desc：    TODO
  */
-class NavigationFragment : LifecycleFragment<NavigationViewModel>() {
+class NavigationFragment : Fragment(), IMvmFragment {
+
+    @BindViewModel
+    lateinit var viewModel: NavigationViewModel
 
     private val mCategoryAdapter by lazy { CategoryAdapter() }
 

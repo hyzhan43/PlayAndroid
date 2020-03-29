@@ -1,5 +1,6 @@
 package zqx.rj.com.playandroid.other.api
 
+import com.zhan.mvvm.annotation.BaseUrl
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -29,6 +30,7 @@ import zqx.rj.com.playandroid.main.wechat.data.bean.WxArticleRsp
  * created： 2018/10/10 16:43
  * desc：    Api  (来自 hongyang大神的玩Android Api -> http://www.wanandroid.com/blog/show/2 )
  */
+@BaseUrl(API.BASE_URL)
 interface ApiService {
 
     @POST(API.LOGIN)

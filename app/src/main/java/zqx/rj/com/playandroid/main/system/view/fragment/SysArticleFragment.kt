@@ -3,6 +3,7 @@ package zqx.rj.com.playandroid.main.system.view.fragment
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.google.android.material.tabs.TabLayout
+import com.zhan.mvvm.annotation.BindViewModel
 import kotlinx.android.synthetic.main.fragment_system_article.*
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
@@ -17,6 +18,9 @@ import zqx.rj.com.playandroid.other.constant.Key
  * desc：    体系 文章 fragment
  */
 class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListener {
+
+    @BindViewModel
+    lateinit var viewModel: SystemViewModel
 
     private var page: Int = 0
 

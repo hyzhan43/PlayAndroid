@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zhan.ktwing.ext.startActivity
-import com.zhan.mvvm.mvvm.LifecycleFragment
+import com.zhan.mvvm.mvvm.IMvmFragment
 import kotlinx.android.synthetic.main.fragment_project_tab.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
@@ -19,7 +19,9 @@ import zqx.rj.com.playandroid.other.constant.Key
  * created： 2018/10/27 17:42
  * desc：    项目模块
  */
-class ProjectTabFragment : LifecycleFragment<ProjectViewModel>() {
+class ProjectTabFragment : Fragment(), IMvmFragment {
+
+    lateinit var viewModel: ProjectViewModel
 
     private var page: Int = 1
 
