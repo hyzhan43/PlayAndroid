@@ -6,6 +6,7 @@ import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.mvvm.IMvmFragment
 import kotlinx.android.synthetic.main.fragment_wechat.*
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.main.home.view.fragment.HomeFragment
 import zqx.rj.com.playandroid.main.wechat.adapter.WxNameAdapter
 import zqx.rj.com.playandroid.main.wechat.vm.WeChatViewModel
 

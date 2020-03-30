@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zhan.ktwing.ext.startActivity
+import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.mvvm.IMvmFragment
 import kotlinx.android.synthetic.main.fragment_project_tab.*
 import zqx.rj.com.playandroid.R
@@ -21,6 +22,7 @@ import zqx.rj.com.playandroid.other.constant.Key
  */
 class ProjectTabFragment : Fragment(), IMvmFragment {
 
+    @BindViewModel
     lateinit var viewModel: ProjectViewModel
 
     private var page: Int = 1

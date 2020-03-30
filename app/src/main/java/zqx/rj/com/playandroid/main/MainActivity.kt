@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity(), IMvmActivity, LoginSucListener {
     private fun setDefaultFragment() {
         mCurrentFragment = mHomeFragment
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.mContent, mHomeFragment).commit()
+        transaction.add(R.id.mContent, mCurrentFragment).commit()
     }
 
     private fun switchFragment(position: Int) {

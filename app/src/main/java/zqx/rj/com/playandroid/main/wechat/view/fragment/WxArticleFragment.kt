@@ -3,9 +3,25 @@ package zqx.rj.com.playandroid.main.wechat.view.fragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.zhan.ktwing.ext.logd
+import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.annotation.BindViewModel
+import com.zhan.mvvm.base.IFragment
+import com.zhan.mvvm.mvvm.IMvmFragment
+import com.zhan.mvvm.mvvm.MvmFragment
+import kotlinx.android.synthetic.main.layout_article_list.*
+import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.account.data.bean.UserInfoRsp
+import zqx.rj.com.playandroid.common.WebViewActivity
+import zqx.rj.com.playandroid.common.article.adapter.ArticleAdapter
+import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
+import zqx.rj.com.playandroid.main.home.vm.HomeViewModel
 import zqx.rj.com.playandroid.main.wechat.vm.WeChatViewModel
+import zqx.rj.com.playandroid.other.constant.Key
+import zqx.rj.com.playandroid.other.context.UserContext
+import zqx.rj.com.playandroid.other.context.callback.login.LoginSucState
+import zqx.rj.com.playandroid.other.widget.SpeedLayoutManager
 
 /**
  * author：  HyZhan
