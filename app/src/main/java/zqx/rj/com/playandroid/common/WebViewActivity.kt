@@ -1,10 +1,7 @@
 package zqx.rj.com.playandroid.common
 
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
 import com.just.agentweb.AgentWeb
-import com.zhan.mvvm.base.IActivity
-import com.zhan.mvvm.base.ToolbarActivity
 import kotlinx.android.synthetic.main.activity_webview.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.other.constant.Key
@@ -16,7 +13,7 @@ import zqx.rj.com.playandroid.other.ext.toHtml
  * created： 2018/10/18 14:29
  * desc：    TODO
  */
-class WebViewActivity : AppCompatActivity(), IActivity {
+class WebViewActivity : ToolbarActivity() {
 
     private lateinit var mAgentWeb: AgentWeb
 
@@ -26,7 +23,7 @@ class WebViewActivity : AppCompatActivity(), IActivity {
         super.initView()
 
         // TODO Toolbar
-//        toolbarTitle = intent.getStringExtra(Key.TITLE).toHtml()
+        toolbarTitle = intent.getStringExtra(Key.TITLE).toHtml()
         val link = intent.getStringExtra(Key.LINK)
 
 

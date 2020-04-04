@@ -1,9 +1,9 @@
 package zqx.rj.com.playandroid.mine
 
 import com.zhan.ktwing.ext.startActivity
-import com.zhan.mvvm.base.ToolbarActivity
 import kotlinx.android.synthetic.main.activity_about.*
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.common.ToolbarActivity
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.other.constant.Key
 

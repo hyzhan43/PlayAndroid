@@ -3,7 +3,6 @@ package zqx.rj.com.playandroid.common.article.view
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.zhan.ktwing.ext.startActivity
-import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.mvvm.IMvmFragment
 import kotlinx.android.synthetic.main.layout_article_list.*
 import zqx.rj.com.playandroid.other.widget.SpeedLayoutManager
@@ -24,20 +23,18 @@ import zqx.rj.com.playandroid.other.constant.Key
  * created： 2018/11/2 19:22
  * desc：    文章列表 基类  (封装了 文章列表)
  */
-abstract class ArticleListFragment<T : ArticleViewModel<*>> : Fragment(),
-    IMvmFragment, LoginSucListener, CollectListener {
+abstract class ArticleListFragment : Fragment(), IMvmFragment, LoginSucListener, CollectListener {
 
     // 文章是否 收藏 状态
     private var state: Boolean = false
     // 点击后 当前文章的 位置
     private var current: Int = 0
 
-//    @BindViewModel
-//    lateinit var viewModel: ArticleViewModel<*>
-
-    protected lateinit var mArticleAdapter: ArticleAdapter
+    protected val mArticleAdapter by lazy { ArticleAdapter(R.layout.article_item) }
 
     override fun getLayoutId(): Int = R.layout.layout_article_list
+
+    abstract fun getArticleViewModel(): ArticleViewModel<*>
 
     override fun initView() {
         super.initView()
@@ -47,24 +44,8 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>> : Fragment(),
 
         // 第二个参数 设置滑动速度, 默认是 25.0 太慢所以加快
         mRvArticle.layoutManager = SpeedLayoutManager(context, 10f)
-        mArticleAdapter = ArticleAdapter(R.layout.article_item, null)
         mRvArticle.adapter = mArticleAdapter
-
-        // item 点击
-        mArticleAdapter.setOnItemClickListener { _, _, position ->
-            mArticleAdapter.getItem(position)?.run {
-                startActivity<WebViewActivity>(Key.LINK to link, Key.TITLE to title)
-            }
-        }
-
-        // 收藏 按钮
-        mArticleAdapter.setOnItemChildClickListener { _, _, position ->
-            UserContext.collect(activity, position, this)
-        }
-
         mArticleAdapter.setEnableLoadMore(true)
-        // 上拉加载更多
-        mArticleAdapter.setOnLoadMoreListener({ onLoadMoreData() }, mRvArticle)
 
         // 监听登录成功
         LoginSucState.addListener(this)
@@ -74,6 +55,24 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>> : Fragment(),
         // 设置 下拉刷新 loading 颜色
         mSrlRefresh.setColorSchemeResources(R.color.colorPrimary)
         mSrlRefresh.setOnRefreshListener { onRefreshData() }
+    }
+
+    override fun initListener() {
+        with(mArticleAdapter) {
+            setOnLoadMoreListener({ onLoadMoreData() }, mRvArticle)
+
+            // item 点击
+            setOnItemClickListener { _, _, position ->
+                data[position]?.run {
+                    startActivity<WebViewActivity>(Key.LINK to link, Key.TITLE to title)
+                }
+            }
+
+            // 收藏 按钮
+            setOnItemChildClickListener { _, _, position ->
+                UserContext.collect(activity, position, this@ArticleListFragment)
+            }
+        }
     }
 
     /**
@@ -109,14 +108,14 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>> : Fragment(),
 
     override fun dataObserver() {
         // 收藏成功回调
-//        viewModel.collectData.observe(this, Observer {
-//
-//            mArticleAdapter.data[current]?.let {
-//                // 更新 RecyclerView  ♥ 型状态
-//                it.collect = !state
-//                mArticleAdapter.refreshNotifyItemChanged(current)
-//            }
-//        })
+        getArticleViewModel().collectData.observe(this, Observer {
+
+            mArticleAdapter.data[current]?.let {
+                // 更新 RecyclerView  ♥ 型状态
+                it.collect = !state
+                mArticleAdapter.refreshNotifyItemChanged(current)
+            }
+        })
     }
 
     // 发起收藏
@@ -130,37 +129,33 @@ abstract class ArticleListFragment<T : ArticleViewModel<*>> : Fragment(),
             state = it.collect
 
             // 发起 收藏/取消收藏  请求
-//            if (state) viewModel.unCollect(it.id) else viewModel.collect(it.id)
+            if (state) getArticleViewModel().unCollect(it.id) else getArticleViewModel().collect(it.id)
         }
     }
 
     override fun loginSuccess(userInfoRsp: UserInfoRsp?) {
-
-        userInfoRsp?.collectIds?.let {
-            it.forEach { id ->
-                mArticleAdapter.data.forEach { article ->
-                    // 更新文章收藏状态
-                    if (article.id == id) {
-                        article.collect = true
-                    }
-                }
-            }
-        } ?: let {
-            mArticleAdapter.data.forEach { article ->
-                // 退出登录后  更新文章收藏状态
-                if (article.collect) {
-                    article.collect = false
-                }
-            }
-        }
-
+        userInfoRsp?.collectIds?.forEach(this::updateArticleCollectState) ?: cancelArticleCollectState()
         mArticleAdapter.notifyDataSetChanged()
     }
 
-
-    fun moveToTop() {
-        mRvArticle.smoothScrollToPosition(0)
+    /**
+     * 更新文章收藏状态
+     */
+    private fun updateArticleCollectState(id: Int) {
+        mArticleAdapter.data
+            .filter { article -> article.id == id }
+            .forEach { article -> article.collect = true }
     }
+
+    /**
+     *  退出时, 取消所有文章收藏状态
+     */
+    private fun cancelArticleCollectState() {
+        mArticleAdapter.data
+            .filter { article -> article.collect }
+            .forEach { article -> article.collect = false }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

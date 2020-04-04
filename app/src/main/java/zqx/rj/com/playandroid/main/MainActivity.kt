@@ -10,9 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.zhan.ktwing.ext.Toasts.toast
-import com.zhan.ktwing.ext.logd
 import com.zhan.ktwing.ext.startActivity
-import com.zhan.mvvm.base.ToolbarActivity
 import com.zhan.mvvm.mvvm.IMvmActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_drawer_header.view.*
@@ -75,9 +73,7 @@ class MainActivity : AppCompatActivity(), IMvmActivity, LoginSucListener {
         /**
          *  双击 toolbar  返回 顶部
          */
-        toolbar.setDoubleClickListener {
-            mHomeFragment.moveToTop()
-        }
+        toolbar.setDoubleClickListener { mHomeFragment.moveToTop() }
 
         mFabAdd.setOnClickListener { UserContext.goTodoActivity(this) }
     }
@@ -105,7 +101,6 @@ class MainActivity : AppCompatActivity(), IMvmActivity, LoginSucListener {
     }
 
     private fun initHeadView() {
-        // 直接获取报错 error -> mNavMain.mTvName
         headView = mNavMain.getHeaderView(0)
 
         updateUserInfo()
@@ -125,7 +120,6 @@ class MainActivity : AppCompatActivity(), IMvmActivity, LoginSucListener {
 
             // 设置底部 BottomBar 默认选中 home
             setFirstSelectedPosition(Const.HOME)
-            // 初始化
             initialise()
 
             setTabSelectedListener(object : BottomNavigationAdapter() {
@@ -174,11 +168,7 @@ class MainActivity : AppCompatActivity(), IMvmActivity, LoginSucListener {
         with(supportFragmentManager.beginTransaction()) {
             hide(mCurrentFragment)
 
-            if (to.isAdded) {
-                show(to)
-            } else {
-                add(R.id.mContent, to)
-            }
+            if (to.isAdded) show(to) else add(R.id.mContent, to)
             commit()
             mCurrentFragment = to
         }

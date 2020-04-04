@@ -2,12 +2,14 @@ package zqx.rj.com.playandroid.mine.collect.view.activity
 
 import androidx.lifecycle.Observer
 import android.view.View
+import com.zhan.mvvm.annotation.BindViewModel
 import kotlinx.android.synthetic.main.common_bar.view.*
 import kotlinx.android.synthetic.main.layout_article_list.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.view.ArticleListActivity
+import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 import zqx.rj.com.playandroid.mine.collect.vm.CollectViewModel
 import java.util.stream.Collectors
 
@@ -17,11 +19,16 @@ import java.util.stream.Collectors
  * created： 2018/10/24 19:10
  * desc：    我的收藏界面
  */
-class CollectActivity : ArticleListActivity<CollectViewModel>() {
+class CollectActivity : ArticleListActivity() {
 
     private var current: Int = -1
 
     private var page = 0
+
+    @BindViewModel
+    lateinit var viewModel: CollectViewModel
+
+    override fun getArticleViewModel(): ArticleViewModel<*> = viewModel
 
     override fun initView() {
         val headView = View.inflate(this, R.layout.layout_toolbar, null)

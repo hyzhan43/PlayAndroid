@@ -76,9 +76,6 @@ dependencies {
     // banner
     api "com.youth.banner:banner:$banner_version"
 
-    // Glide
-    api "com.github.bumptech.glide:glide:$glide_version"
-
     // webView 库
     api "com.just.agentweb:agentweb:$agentweb_version"
 
@@ -105,5 +102,5 @@ dependencies {
     api 'com.contrarywind:Android-PickerView:4.1.6'
 
     // KtArmor
-    api 'com.github.hyzhan43:KtArmor-MVVM:1.0.9'
+    api 'com.github.hyzhan43:KtArmor-MVVM:1.0.8'
 }

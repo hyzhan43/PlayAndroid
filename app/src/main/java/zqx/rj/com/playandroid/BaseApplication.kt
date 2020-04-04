@@ -15,10 +15,8 @@ class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // 初始化数据库
         LitePal.initialize(this)
 
-        // 初始化 SharedPreference
         KtArmor.initRetrofitConfig(RetrofitConfig())
     }
 }

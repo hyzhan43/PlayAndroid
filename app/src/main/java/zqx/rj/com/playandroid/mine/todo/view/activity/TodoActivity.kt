@@ -3,10 +3,12 @@ package zqx.rj.com.playandroid.mine.todo.view.activity
 import androidx.fragment.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.zhan.ktwing.common.Preference
 import com.zhan.ktwing.ext.startActivity
+import com.zhan.mvvm.base.IActivity
 import com.zhan.mvvm.base.ToolbarActivity
 import kotlinx.android.synthetic.main.activity_todo.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
@@ -17,7 +19,7 @@ import zqx.rj.com.playandroid.mine.todo.view.fragment.TodoFragment
 import zqx.rj.com.playandroid.other.widget.adapter.BottomNavigationAdapter
 
 
-class TodoActivity : ToolbarActivity() {
+class TodoActivity : AppCompatActivity(), IActivity {
 
     // 当前显示的 fragment
     private lateinit var mCurrentFragment: Fragment
@@ -46,7 +48,7 @@ class TodoActivity : ToolbarActivity() {
     override fun initView() {
         super.initView()
 
-        toolbarTitle = getStringType(type)
+//        toolbarTitle = getStringType(type)
         setDefaultFragment()
         initNavigationBar()
     }
@@ -66,8 +68,7 @@ class TodoActivity : ToolbarActivity() {
      */
     private fun setDefaultFragment() {
         mCurrentFragment = mTodoFragment
-        supportFragmentManager.beginTransaction()
-            .add(R.id.mContent, mTodoFragment).commit()
+        supportFragmentManager.beginTransaction().add(R.id.mContent, mTodoFragment).commit()
     }
 
     override fun initListener() {
@@ -75,21 +76,19 @@ class TodoActivity : ToolbarActivity() {
         mFabAdd.setOnClickListener { startActivity<AddTodoActivity>() }
     }
 
-    private fun initNavigationBar() {
-        with(mNavigationBar) {
-            setMode(BottomNavigationBar.MODE_FIXED)
+    private fun initNavigationBar() = with(mNavigationBar) {
+        setMode(BottomNavigationBar.MODE_FIXED)
 
-            addItem(BottomNavigationItem(R.mipmap.ic_todo, R.string.todo))
-            addItem(BottomNavigationItem(R.mipmap.ic_finish, R.string.finish))
-            // 设置底部 BottomBar 默认选中 plan
-            setFirstSelectedPosition(0)
-            // 初始化
-            initialise()
-            // 设置 button 点击事件
-            setTabSelectedListener(object : BottomNavigationAdapter() {
-                override fun onTabSelected(position: Int) = switchFragment(position)
-            })
-        }
+        addItem(BottomNavigationItem(R.mipmap.ic_todo, R.string.todo))
+        addItem(BottomNavigationItem(R.mipmap.ic_finish, R.string.finish))
+        // 设置底部 BottomBar 默认选中 plan
+        setFirstSelectedPosition(0)
+        // 初始化
+        initialise()
+        // 设置 button 点击事件
+        setTabSelectedListener(object : BottomNavigationAdapter() {
+            override fun onTabSelected(position: Int) = switchFragment(position)
+        })
     }
 
     private fun switchFragment(position: Int) {
@@ -107,11 +106,7 @@ class TodoActivity : ToolbarActivity() {
 
         with(supportFragmentManager.beginTransaction()) {
             hide(mCurrentFragment)
-            if (to.isAdded) {
-                show(to)
-            } else {
-                add(R.id.mContent, to)
-            }
+            if (to.isAdded) show(to) else add(R.id.mContent, to)
             commit()
             mCurrentFragment = to
         }

@@ -56,13 +56,16 @@ class CommonWebActivity : AppCompatActivity(), IMvmActivity {
             override fun getView(parent: FlowLayout?, position: Int, tag: String?): View {
 
                 return LayoutInflater.from(this@CommonWebActivity)
-                        .inflate(R.layout.common_tag, parent, false)
-                        .apply { mTvTag.text = tag }
+                    .inflate(R.layout.common_tag, parent, false)
+                    .apply { mTvTag.text = tag }
             }
         }
 
         mTflCommonWeb.setOnTagClickListener { _, position, _ ->
-            startActivity<WebViewActivity>(Key.LINK to links[position], Key.TITLE to tags[position])
+            startActivity<WebViewActivity>(
+                Key.LINK to links[position],
+                Key.TITLE to tags[position]
+            )
             true
         }
     }

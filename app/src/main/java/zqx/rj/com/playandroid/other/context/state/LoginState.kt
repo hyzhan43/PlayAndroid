@@ -42,7 +42,8 @@ class LoginState : UserState {
     }
 
     private fun clearLoginData(activity: Activity) {
-        UserContext.mState = LogoutState()
+        UserContext.setLogoutState()
+
         // 清除 cookie、登录缓存
         Preference.clear()
 

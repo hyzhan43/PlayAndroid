@@ -3,6 +3,7 @@ package zqx.rj.com.playandroid.other.widget
 import android.content.Context
 import android.util.DisplayMetrics
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 class SpeedLayoutManager(val context: Context?, val speed: Float = 25f) : LinearLayoutManager(context) {
 
     override fun smoothScrollToPosition(recyclerView: RecyclerView?, state: RecyclerView.State?, position: Int) {
-        val smoothScroller = object : androidx.recyclerview.widget.LinearSmoothScroller(context) {
+        val smoothScroller = object : LinearSmoothScroller(context) {
             override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics?): Float {
                 // 返回：滑过1px时经历的时间(ms)。
                 return speed / (displayMetrics?.densityDpi ?: 1)

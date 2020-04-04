@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.fragment_system_article.*
 import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
+import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 import zqx.rj.com.playandroid.main.system.data.bean.TreeArticleRsp
 import zqx.rj.com.playandroid.main.system.vm.SystemViewModel
 import zqx.rj.com.playandroid.other.constant.Key
@@ -17,7 +18,7 @@ import zqx.rj.com.playandroid.other.constant.Key
  * created： 2018/10/22 19:58
  * desc：    体系 文章 fragment
  */
-class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListener {
+class SysArticleFragment : ArticleListFragment(), CollectListener {
 
     @BindViewModel
     lateinit var viewModel: SystemViewModel
@@ -39,6 +40,8 @@ class SysArticleFragment : ArticleListFragment<SystemViewModel>(), CollectListen
     private val ids: ArrayList<Int>? by lazy { arguments?.getIntegerArrayList(Key.IDS) }
 
     override fun getLayoutId(): Int = R.layout.fragment_system_article
+
+    override fun getArticleViewModel(): ArticleViewModel<*>  = viewModel
 
     companion object {
         fun newInstance(ids: ArrayList<Int>, titles: ArrayList<String>) =

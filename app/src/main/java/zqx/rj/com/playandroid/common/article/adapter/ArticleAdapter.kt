@@ -11,7 +11,7 @@ import zqx.rj.com.playandroid.common.article.data.bean.Article
  * created： 2018/10/22 20:39
  * desc：    TODO
  */
-class ArticleAdapter(layoutId: Int, listData: List<Article>?) :
+class ArticleAdapter(layoutId: Int, listData: List<Article>? = null) :
     BaseQuickAdapter<Article, BaseViewHolder>(layoutId, listData) {
 
     override fun convert(viewHolder: BaseViewHolder, article: Article?) {

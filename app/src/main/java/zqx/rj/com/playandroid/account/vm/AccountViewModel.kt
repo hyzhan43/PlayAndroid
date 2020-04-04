@@ -32,9 +32,7 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
 
             request { repository.login(username, password) }
 
-            onSuccess { loginRsp ->
-                loginRsp?.let { getUserScoreInfo(it) }
-            }
+            onSuccess { loginRsp -> loginRsp?.let { getUserScoreInfo(it) } }
         }
     }
 
@@ -56,14 +54,11 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
         }
 
         quickLaunch<LoginRsp> {
-
             onStart { showLoading() }
 
             request { repository.register(username, password, rePassword) }
 
-            onSuccess { loginRsp ->
-                loginRsp?.let { getUserScoreInfo(it) }
-            }
+            onSuccess { loginRsp -> loginRsp?.let { getUserScoreInfo(it) } }
         }
     }
 
@@ -73,9 +68,7 @@ class AccountViewModel : BaseViewModel<AccountRepository>() {
 
             request { repository.getUserInfo() }
 
-            onSuccess { scoreInfoRsp ->
-                scoreInfoRsp?.let { userInfoData.value = UserInfoRsp(loginRsp, it) }
-            }
+            onSuccess { scoreInfoRsp -> scoreInfoRsp?.let { userInfoData.value = UserInfoRsp(loginRsp, it) } }
         }
     }
 }

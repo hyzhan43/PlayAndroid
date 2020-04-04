@@ -21,7 +21,7 @@ object UserContext{
     private var isLogin: Boolean by Preference(Key.LOGIN, false)
 
     // 设置默认状态
-    var mState: UserState = if (isLogin) LoginState() else LogoutState()
+    private var mState: UserState = if (isLogin) LoginState() else LogoutState()
 
     // 收藏
     fun collect(context: Context?, position: Int, listener: CollectListener) {
@@ -58,15 +58,9 @@ object UserContext{
         mState = LogoutState()
     }
 
-
     fun loginSuccess(userInfoRsp: UserInfoRsp) {
-        // 改变 sharedPreferences   isLogin值
-        isLogin = true
-        mState = LoginState()
-
+        setLoginState()
         // 登录成功 回调 -> DrawerLayout -> 个人信息更新状态
         LoginSucState.notifyLoginState(userInfoRsp)
     }
-
-
 }

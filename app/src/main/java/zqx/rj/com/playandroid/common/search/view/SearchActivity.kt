@@ -12,6 +12,7 @@ import com.zhan.ktwing.ext.gone
 import com.zhan.ktwing.ext.hideKeyboard
 import com.zhan.ktwing.ext.str
 import com.zhan.ktwing.ext.visible
+import com.zhan.mvvm.annotation.BindViewModel
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import kotlinx.android.synthetic.main.activity_search.*
@@ -24,6 +25,7 @@ import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.search.adapter.HistoryAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
 import zqx.rj.com.playandroid.common.article.view.ArticleListActivity
+import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 import zqx.rj.com.playandroid.common.search.data.bean.HotKeyRsp
 import zqx.rj.com.playandroid.common.search.vm.SearchViewModel
 
@@ -33,7 +35,7 @@ import zqx.rj.com.playandroid.common.search.vm.SearchViewModel
  * created： 2018/10/18 13:54
  * desc：    搜索页面
  */
-class SearchActivity : ArticleListActivity<SearchViewModel>() {
+class SearchActivity : ArticleListActivity() {
 
     // 搜索结果 页码
     private var page = 0
@@ -47,6 +49,12 @@ class SearchActivity : ArticleListActivity<SearchViewModel>() {
     private var recordIndex = 0
 
     private lateinit var mFootView: View
+
+    @BindViewModel
+    lateinit var viewModel: SearchViewModel
+
+    override fun getArticleViewModel(): ArticleViewModel<*> = viewModel
+
     private val mHistoryAdapter by lazy { HistoryAdapter() }
 
     override fun getLayoutId(): Int = R.layout.activity_search

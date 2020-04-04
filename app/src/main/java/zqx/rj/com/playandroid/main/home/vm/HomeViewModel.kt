@@ -1,6 +1,7 @@
 package zqx.rj.com.playandroid.main.home.vm
 
 import androidx.lifecycle.MutableLiveData
+import com.zhan.mvvm.mvvm.livedata.CommonLiveData
 import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 import zqx.rj.com.playandroid.main.home.data.bean.*
 import zqx.rj.com.playandroid.main.home.data.repository.HomeRepository
@@ -13,7 +14,7 @@ import zqx.rj.com.playandroid.main.home.data.repository.HomeRepository
 class HomeViewModel : ArticleViewModel<HomeRepository>() {
 
     val bannerLiveData = MutableLiveData<BannerData>()
-    val homeArticleData = MutableLiveData<HomeArticleRsp>()
+    val homeArticleData = CommonLiveData<HomeArticleRsp>()
 
     val commonWebLiveData = MutableLiveData<CommonWebData>()
 
@@ -44,11 +45,7 @@ class HomeViewModel : ArticleViewModel<HomeRepository>() {
     }
 
     fun getArticle(page: Int) {
-        quickLaunch<HomeArticleRsp> {
-            request { repository.getArticle(page) }
-
-            onSuccess { homeArticleData.value = it }
-        }
+        superLaunchRequest(homeArticleData) { repository.getArticle(page) }
     }
 
     fun getCommonWeb() {

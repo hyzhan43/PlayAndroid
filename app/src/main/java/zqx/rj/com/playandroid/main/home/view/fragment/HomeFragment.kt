@@ -9,9 +9,11 @@ import com.zhan.mvvm.annotation.BindViewModel
 import kotlinx.android.synthetic.main.article_item.view.*
 import kotlinx.android.synthetic.main.home_headview.view.*
 import kotlinx.android.synthetic.main.home_special_item.view.*
+import kotlinx.android.synthetic.main.layout_article_list.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.common.article.view.ArticleListFragment
+import zqx.rj.com.playandroid.common.article.vm.ArticleViewModel
 import zqx.rj.com.playandroid.main.home.data.bean.BannerData
 import zqx.rj.com.playandroid.main.home.view.activity.CommonWebActivity
 import zqx.rj.com.playandroid.main.home.vm.HomeViewModel
@@ -23,7 +25,7 @@ import zqx.rj.com.playandroid.other.widget.GlideImageLoader
  * created： 2018/10/13 13:51
  * desc：    首页
  */
-class HomeFragment : ArticleListFragment<HomeViewModel>() {
+class HomeFragment : ArticleListFragment() {
 
     @BindViewModel
     lateinit var viewModel: HomeViewModel
@@ -31,6 +33,8 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
     private lateinit var headView: View
 
     private var page = 0
+
+    override fun getArticleViewModel(): ArticleViewModel<*> = viewModel
 
     override fun initView() {
         super.initView()
@@ -46,15 +50,11 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         mArticleAdapter.addHeaderView(headView)
     }
 
-
     private fun initTitle() {
         headView.run {
             mIcCommonTitle.mTvTitle.text = getString(R.string.common_title)
             mIcNewsArticle.mTvTitle.text = getString(R.string.news_article)
-            mBtnTools.setOnClickListener {
-                // TODO 常用专区
-                showToast(R.string.developing)
-            }
+            mBtnTools.setOnClickListener { showToast(R.string.developing) }
             mBtnWebsites.setOnClickListener { startActivity<CommonWebActivity>() }
         }
     }
@@ -74,13 +74,9 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         // 调用父类 dataObserver
         super.dataObserver()
 
-        viewModel.bannerLiveData.observe(this, Observer {
-            initBanner(it)
-        })
+        viewModel.bannerLiveData.observe(this, Observer { initBanner(it) })
 
-        viewModel.homeArticleData.observe(this, Observer {
-            addData(it.datas)
-        })
+        viewModel.homeArticleData.observe(this, Observer { addData(it.datas) })
     }
 
     override fun onRefreshData() {
@@ -96,25 +92,25 @@ class HomeFragment : ArticleListFragment<HomeViewModel>() {
         viewModel.getArticle(++page)
     }
 
+    fun moveToTop() {
+        mRvArticle.smoothScrollToPosition(0)
+    }
 
-    private fun initBanner(bannerData: BannerData) {
-
-        headView.mBanner.run {
-            setOnBannerListener { position ->
-                startActivity<WebViewActivity>(
-                    Key.LINK to bannerData.urls[position],
-                    Key.TITLE to bannerData.titles[position]
-                )
-            }
-
-            setImageLoader(GlideImageLoader())
-            setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
-            setDelayTime(3000)
-            setBannerAnimation(Transformer.DepthPage)
-
-            setImages(bannerData.images)
-            setBannerTitles(bannerData.titles)
-            start()
+    private fun initBanner(bannerData: BannerData) = with(headView.mBanner) {
+        setOnBannerListener { position ->
+            startActivity<WebViewActivity>(
+                Key.LINK to bannerData.urls[position],
+                Key.TITLE to bannerData.titles[position]
+            )
         }
+
+        setImageLoader(GlideImageLoader())
+        setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
+        setDelayTime(3000)
+        setBannerAnimation(Transformer.DepthPage)
+
+        setImages(bannerData.images)
+        setBannerTitles(bannerData.titles)
+        start()
     }
 }

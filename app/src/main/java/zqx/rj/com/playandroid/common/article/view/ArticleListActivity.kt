@@ -22,18 +22,16 @@ import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
  * created： 2018/11/6 14:57
  * desc：    TODO
  */
-abstract class ArticleListActivity<T : ArticleViewModel<*>> : AppCompatActivity(), IMvmActivity,
-    CollectListener {
+abstract class ArticleListActivity : AppCompatActivity(), IMvmActivity, CollectListener {
 
     // 文章是否 收藏 状态
     private var state: Boolean = false
     // 点击后 当前文章的 位置
     private var current: Int = -1
 
-    @BindViewModel
-    lateinit var viewModel: T
+    abstract fun getArticleViewModel(): ArticleViewModel<*>
 
-    protected val mArticleAdapter by lazy { ArticleAdapter(R.layout.article_item, null) }
+    protected val mArticleAdapter by lazy { ArticleAdapter(R.layout.article_item) }
 
     override fun getLayoutId(): Int = R.layout.layout_article_list
 
@@ -62,21 +60,22 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>> : AppCompatActivity(
     override fun initListener() {
         super.initListener()
 
-        // item 点击
-        mArticleAdapter.setOnItemClickListener { _, _, position ->
-            mArticleAdapter.data[position]?.let {
-                startActivity<WebViewActivity>(Key.LINK to it.link, Key.TITLE to it.title)
+        with(mArticleAdapter) {
+            // item 点击
+            setOnItemClickListener { _, _, position ->
+                data[position]?.let {
+                    startActivity<WebViewActivity>(Key.LINK to it.link, Key.TITLE to it.title)
+                }
             }
+
+            // 收藏 按钮
+            setOnItemChildClickListener { _, _, position ->
+                UserContext.collect(this@ArticleListActivity, position, this@ArticleListActivity)
+            }
+
+            // 上拉加载更多
+            setOnLoadMoreListener({ onLoadMoreData() }, mRvArticle)
         }
-
-        // 收藏 按钮
-        mArticleAdapter.setOnItemChildClickListener { _, _, position ->
-            UserContext.collect(this, position, this)
-        }
-
-
-        // 上拉加载更多
-        mArticleAdapter.setOnLoadMoreListener({ onLoadMoreData() }, mRvArticle)
     }
 
     /**
@@ -116,8 +115,7 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>> : AppCompatActivity(
     override fun dataObserver() {
 
         // 收藏成功回调
-        viewModel.collectData.observe(this, Observer {
-
+        getArticleViewModel().collectData.observe(this, Observer {
             mArticleAdapter.data[current]?.let {
                 // 更新 RecyclerView  ♥ 型状态
                 it.collect = !state
@@ -138,7 +136,7 @@ abstract class ArticleListActivity<T : ArticleViewModel<*>> : AppCompatActivity(
             state = it.collect
 
             // 发起 收藏/取消收藏  请求
-            if (state) viewModel.unCollect(it.id) else viewModel.collect(it.id)
+            if (state) getArticleViewModel().unCollect(it.id) else getArticleViewModel().collect(it.id)
         }
     }
 }
