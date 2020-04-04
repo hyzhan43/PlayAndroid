@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.zhan.ktwing.ext.Toasts.toast
@@ -19,6 +20,7 @@ import zqx.rj.com.playandroid.other.context.callback.login.LoginSucListener
 import zqx.rj.com.playandroid.other.context.callback.login.LoginSucState
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.account.data.bean.UserInfoRsp
+import zqx.rj.com.playandroid.common.ToolbarActivity
 import zqx.rj.com.playandroid.other.context.UserContext
 import zqx.rj.com.playandroid.common.search.view.SearchActivity
 import zqx.rj.com.playandroid.main.home.view.fragment.HomeFragment
@@ -32,7 +34,7 @@ import zqx.rj.com.playandroid.other.ext.setDoubleClickListener
 import zqx.rj.com.playandroid.other.persistence.Account
 import zqx.rj.com.playandroid.other.widget.adapter.BottomNavigationAdapter
 
-class MainActivity : AppCompatActivity(), IMvmActivity, LoginSucListener {
+class MainActivity : ToolbarActivity(), IMvmActivity, LoginSucListener {
 
     private lateinit var headView: View
 
@@ -58,14 +60,19 @@ class MainActivity : AppCompatActivity(), IMvmActivity, LoginSucListener {
 
     private fun initToolBar() {
         // 设置标题
-        // TODO Toolbar
-        //toolbarTitle = getString(R.string.app_name)
+        setToolbarTitle(getString(R.string.app_name))
 
         //设置导航图标、按钮有旋转特效
-        val toggle =
-            ActionBarDrawerToggle(this, mDrawerMain, toolbar, R.string.app_name, R.string.app_name)
-        mDrawerMain.addDrawerListener(toggle)
-        toggle.syncState()
+        ActionBarDrawerToggle(
+            this,
+            mDrawerMain,
+            toolbar,
+            R.string.app_name,
+            R.string.app_name
+        ).apply {
+            mDrawerMain.addDrawerListener(this)
+            syncState()
+        }
     }
 
     override fun initListener() {
@@ -73,7 +80,7 @@ class MainActivity : AppCompatActivity(), IMvmActivity, LoginSucListener {
         /**
          *  双击 toolbar  返回 顶部
          */
-        toolbar.setDoubleClickListener { mHomeFragment.moveToTop() }
+        toolbar?.setDoubleClickListener { mHomeFragment.moveToTop() }
 
         mFabAdd.setOnClickListener { UserContext.goTodoActivity(this) }
     }
@@ -159,8 +166,8 @@ class MainActivity : AppCompatActivity(), IMvmActivity, LoginSucListener {
 
     //复用 fragment
     private fun goTo(titleRes: Int, to: Fragment) {
-        // TODO Toolbar
-        //toolbarTitle = getString(titleRes)
+        toolbar?.title = getString(titleRes)
+
         if (mCurrentFragment == to) {
             return
         }

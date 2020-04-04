@@ -115,7 +115,7 @@ interface ApiService {
         @Query("status") status: Int,
         @Query("type") type: Int,
         @Query("priority") priority: Int,
-        @Query("orderby") orderby: Int
+        @Query("orderby") orderBy: Int
     ): BaseResponse<PageRsp<TodoRsp>>
 
     @POST("lg/todo/done/{id}/json")

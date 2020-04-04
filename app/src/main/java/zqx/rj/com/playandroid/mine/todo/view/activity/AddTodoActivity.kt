@@ -1,5 +1,6 @@
 package zqx.rj.com.playandroid.mine.todo.view.activity
 
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
@@ -16,6 +17,7 @@ import com.zhan.mvvm.mvvm.IMvmActivity
 import kotlinx.android.synthetic.main.activity_add_todo.*
 import zqx.rj.com.playandroid.other.context.callback.todo.TodoContext
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.common.ToolbarActivity
 import zqx.rj.com.playandroid.mine.todo.data.bean.TodoRsp
 import zqx.rj.com.playandroid.other.constant.Const
 import zqx.rj.com.playandroid.other.ext.format
@@ -30,7 +32,7 @@ import kotlin.collections.ArrayList
  * create：  2019/1/2 11:44
  * desc：    todo添加页面
  */
-class AddTodoActivity : AppCompatActivity(), IMvmActivity {
+class AddTodoActivity : ToolbarActivity(), IMvmActivity {
 
     @BindViewModel
     lateinit var viewModel: TodoViewModel
@@ -52,7 +54,7 @@ class AddTodoActivity : AppCompatActivity(), IMvmActivity {
     override fun getLayoutId(): Int = R.layout.activity_add_todo
 
     override fun initView() {
-        super.initView()
+        setToolbarTitle(getString(R.string.todo))
 
         initTimePick()
         initTypePick()

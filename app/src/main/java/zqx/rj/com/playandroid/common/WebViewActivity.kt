@@ -2,6 +2,7 @@ package zqx.rj.com.playandroid.common
 
 import android.widget.LinearLayout
 import com.just.agentweb.AgentWeb
+import com.zhan.mvvm.base.IActivity
 import kotlinx.android.synthetic.main.activity_webview.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.other.constant.Key
@@ -13,7 +14,7 @@ import zqx.rj.com.playandroid.other.ext.toHtml
  * created： 2018/10/18 14:29
  * desc：    TODO
  */
-class WebViewActivity : ToolbarActivity() {
+class WebViewActivity : ToolbarActivity(), IActivity {
 
     private lateinit var mAgentWeb: AgentWeb
 
@@ -22,10 +23,9 @@ class WebViewActivity : ToolbarActivity() {
     override fun initView() {
         super.initView()
 
-        // TODO Toolbar
-        toolbarTitle = intent.getStringExtra(Key.TITLE).toHtml()
-        val link = intent.getStringExtra(Key.LINK)
+        setToolbarTitle(intent.getStringExtra(Key.TITLE).toHtml())
 
+        val link = intent.getStringExtra(Key.LINK)
 
         mAgentWeb = AgentWeb.with(this)
                 // 传入 AgentWeb 父容器  mLlContent,  第二个参数是对应的 LinearLayout

@@ -14,24 +14,24 @@ import zqx.rj.com.playandroid.mine.todo.data.bean.TodoRsp
  */
 class TodoRepository : BaseRepository() {
 
-    suspend fun getTodoList(page: Int, status: Int, type: Int, priority: Int, orderby: Int): BaseResponse<PageRsp<TodoRsp>> {
-        return launchIO { apiService.getTodoListAsync(page, status, type, priority, orderby) }
+    suspend fun getTodoList(page: Int, status: Int, type: Int, priority: Int, orderBy: Int): BaseResponse<PageRsp<TodoRsp>> {
+        return apiService.getTodoListAsync(page, status, type, priority, orderBy)
     }
 
     suspend fun updateTodo(id: Int, title: String, time: String, status: Int, type: Int,
                            content: String, priority: Int): BaseResponse<EmptyRsp> {
-        return launchIO { apiService.updateTodoAsync(id, title, time, status, type, content, priority) }
+        return apiService.updateTodoAsync(id, title, time, status, type, content, priority)
     }
 
     suspend fun finishTodo(id: Int, status: Int): BaseResponse<EmptyRsp> {
-        return launchIO { apiService.finishTodoAsync(id, status) }
+        return  apiService.finishTodoAsync(id, status)
     }
 
     suspend fun deleteTodo(id: Int): BaseResponse<EmptyRsp> {
-        return launchIO { apiService.deleteTodoAsync(id) }
+        return apiService.deleteTodoAsync(id)
     }
 
     suspend fun saveTodo(title: String, time: String, type: Int, content: String): BaseResponse<EmptyRsp> {
-        return launchIO { apiService.saveTodoAsync(title, time, type, content) }
+        return apiService.saveTodoAsync(title, time, type, content)
     }
 }

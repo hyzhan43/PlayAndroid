@@ -1,14 +1,12 @@
 package zqx.rj.com.playandroid.common.article.view
 
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zhan.ktwing.ext.startActivity
-import com.zhan.mvvm.annotation.BindViewModel
 import com.zhan.mvvm.mvvm.IMvmActivity
 import kotlinx.android.synthetic.main.layout_article_list.*
 import zqx.rj.com.playandroid.R
+import zqx.rj.com.playandroid.common.ToolbarActivity
 import zqx.rj.com.playandroid.common.WebViewActivity
 import zqx.rj.com.playandroid.common.article.adapter.ArticleAdapter
 import zqx.rj.com.playandroid.common.article.data.bean.Article
@@ -22,7 +20,7 @@ import zqx.rj.com.playandroid.other.context.callback.collect.CollectListener
  * created： 2018/11/6 14:57
  * desc：    TODO
  */
-abstract class ArticleListActivity : AppCompatActivity(), IMvmActivity, CollectListener {
+abstract class ArticleListActivity : ToolbarActivity(), IMvmActivity, CollectListener {
 
     // 文章是否 收藏 状态
     private var state: Boolean = false

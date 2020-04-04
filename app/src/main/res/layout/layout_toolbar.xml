@@ -9,9 +9,5 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     app:titleTextColor="@color/white">
 
-    <!--这两句显示左边的三条杠，如果要变为白色在toolbar的布局文件里添加这两句：-->
-    <!--android:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-    <!--app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-
 
 </androidx.appcompat.widget.Toolbar>

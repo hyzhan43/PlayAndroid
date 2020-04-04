@@ -5,6 +5,7 @@ import android.view.View
 import com.zhan.mvvm.annotation.BindViewModel
 import kotlinx.android.synthetic.main.common_bar.view.*
 import kotlinx.android.synthetic.main.layout_article_list.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.article.data.bean.Article
@@ -35,7 +36,7 @@ class CollectActivity : ArticleListActivity() {
         mLlContent.addView(headView, 0)
         super.initView()
 
-        //toolbarTitle = getString(R.string.mine_collect)
+        setToolbarTitle(getString(R.string.mine_collect))
     }
 
     override fun initData() {

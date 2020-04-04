@@ -1,25 +1,24 @@
 package zqx.rj.com.playandroid.mine.todo.view.activity
 
-import androidx.fragment.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.zhan.ktwing.common.Preference
 import com.zhan.ktwing.ext.startActivity
 import com.zhan.mvvm.base.IActivity
-import com.zhan.mvvm.base.ToolbarActivity
 import kotlinx.android.synthetic.main.activity_todo.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
-import zqx.rj.com.playandroid.other.context.callback.todo.TodoContext
 import zqx.rj.com.playandroid.R
-import zqx.rj.com.playandroid.other.constant.Const
+import zqx.rj.com.playandroid.common.ToolbarActivity
 import zqx.rj.com.playandroid.mine.todo.view.fragment.TodoFragment
+import zqx.rj.com.playandroid.other.constant.Const
+import zqx.rj.com.playandroid.other.context.callback.todo.TodoContext
 import zqx.rj.com.playandroid.other.widget.adapter.BottomNavigationAdapter
 
 
-class TodoActivity : AppCompatActivity(), IActivity {
+class TodoActivity : ToolbarActivity(), IActivity {
 
     // 当前显示的 fragment
     private lateinit var mCurrentFragment: Fragment
@@ -48,7 +47,7 @@ class TodoActivity : AppCompatActivity(), IActivity {
     override fun initView() {
         super.initView()
 
-//        toolbarTitle = getStringType(type)
+        setToolbarTitle(getStringType(type))
         setDefaultFragment()
         initNavigationBar()
     }

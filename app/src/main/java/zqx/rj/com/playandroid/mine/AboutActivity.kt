@@ -1,6 +1,7 @@
 package zqx.rj.com.playandroid.mine
 
 import com.zhan.ktwing.ext.startActivity
+import com.zhan.mvvm.base.IActivity
 import kotlinx.android.synthetic.main.activity_about.*
 import zqx.rj.com.playandroid.R
 import zqx.rj.com.playandroid.common.ToolbarActivity
@@ -12,7 +13,7 @@ import zqx.rj.com.playandroid.other.constant.Key
  * created： 2018/10/29 18:48
  * desc：    关于我
  */
-class AboutActivity: ToolbarActivity() {
+class AboutActivity: ToolbarActivity(), IActivity {
 
     private val github = "https://github.com/hyzhan43"
     private val csdn = "https://blog.csdn.net/weixin_40595516"
@@ -25,7 +26,7 @@ class AboutActivity: ToolbarActivity() {
     override fun initView() {
         super.initView()
 
-        toolbarTitle = getString(R.string.mine_about)
+        setToolbarTitle(getString(R.string.mine_about))
 
         mTvGithub.setOnClickListener {
             startActivity<WebViewActivity>(Key.LINK to github, Key.TITLE to author)

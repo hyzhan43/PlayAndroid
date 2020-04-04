@@ -3,7 +3,6 @@ package zqx.rj.com.playandroid.common
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.zhan.mvvm.base.IActivity
 import zqx.rj.com.playandroid.R
 
 /**
@@ -11,29 +10,25 @@ import zqx.rj.com.playandroid.R
  *  date:   2020/4/4
  *  desc:   需要为 Toolbar 控件设置id 为 toolbar
  */
-abstract class ToolbarActivity : AppCompatActivity(), IActivity {
+abstract class ToolbarActivity : AppCompatActivity() {
 
-    var toolbarTitle: String = ""
-        set(value) {
-            field = value
-            supportActionBar?.title = value
-        }
+    private var isInitToolbar = false
 
-    override fun initView() {
-        super.initView()
-        initToolbar()
+    fun setToolbarTitle(title: String) {
+        if (!isInitToolbar) initToolbar()
+
+        supportActionBar?.title = title
     }
 
-    /**
-     *  Toolbar id must be toolbar
-     */
     private fun initToolbar() {
-        findViewById<Toolbar>(R.id.toolbar)?.let { toolbar ->
-            setSupportActionBar(toolbar)
-            supportActionBar?.let {
-                it.setDisplayHomeAsUpEnabled(true)
-                it.setDisplayShowHomeEnabled(true)
-            }
+
+        if (isInitToolbar) return
+
+        isInitToolbar = true
+        findViewById<Toolbar>(R.id.toolbar)?.apply { setSupportActionBar(this) }
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
         }
     }
 
